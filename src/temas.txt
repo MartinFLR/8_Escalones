@@ -1,0 +1,8 @@
+1,Geografia
+2,Historia
+3,Ciencia
+4,Arte y Cultura
+5,Biologia
+6,Economia
+7,Idiomas
+8,Literatura
