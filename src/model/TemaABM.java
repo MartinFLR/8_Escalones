@@ -22,7 +22,7 @@ public class TemaABM {
             writer.newLine();
             System.out.println("Tema agregado con éxito.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error al agregar tema: " + e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class TemaABM {
                 temas.add(Tema.fromFileString(line));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error al listar temas: " + e.getMessage());
         }
         return temas;
     }
