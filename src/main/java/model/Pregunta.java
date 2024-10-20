@@ -12,9 +12,8 @@ public class Pregunta {
     private String respuestaCorrecta;
     private int id_tema;
 
-    public Pregunta(int id, String pregunta, String opcion_a, String opcion_b,
+    public Pregunta( String pregunta, String opcion_a, String opcion_b,
                     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema) {
-        this.id = id;
         this.pregunta = pregunta;
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
@@ -39,7 +38,7 @@ public class Pregunta {
         String opcion_d = parts[5];
         String respuestaCorrecta = parts[6];
         int id_tema = Integer.parseInt(parts[7]);
-        return new Pregunta(id, pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuestaCorrecta, id_tema);
+        return new Pregunta(pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuestaCorrecta, id_tema);
     }
 
     public int getId() {
