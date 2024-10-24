@@ -25,10 +25,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
-			new ControladorOpciones();
+			new ControladorMenupausa();
 		}
 		if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
-			
 			getVista().getPanelPreguntas().setVisible(true);
 		}
 	}

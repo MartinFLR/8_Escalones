@@ -10,7 +10,6 @@ public class Main {
 			public void run() {
 				try {
 					ControladorPrincipal c = new ControladorPrincipal();
-					c.getVista().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

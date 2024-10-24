@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import vista.VistaOpciones;
 
 public class ControladorOpciones implements ActionListener{
+	
 	private VistaOpciones vista;
 	
 	public ControladorOpciones() {
@@ -15,7 +16,6 @@ public class ControladorOpciones implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	

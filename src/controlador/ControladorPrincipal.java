@@ -12,6 +12,7 @@ public class ControladorPrincipal implements ActionListener{
 	
 	public ControladorPrincipal() {
 		this.vista = new VistaPrincipal(this);
+		vista.setVisible(true);
 	}
 
 	@Override

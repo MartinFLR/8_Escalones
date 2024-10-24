@@ -39,6 +39,7 @@ public class VistaJuego extends JFrame {
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
 		setTitle("8 ESCALONES");
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 819, 469);
 		contentPane = new JPanel();
