@@ -49,7 +49,22 @@ public class VistaJuego extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		//
+		// panel columnas
+		//
+		
+		
+		
+		//
+		// panel participantes
+		//
+		
+		
+		//---------------------Panel Principal----------------------------------
+		//
 		// panel aproximacion
+		//
+		
 		panel_aproximacion = new JPanel();
 		panel_aproximacion.setBounds(0, 260, 803, 170);
 		panel_aproximacion.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -82,7 +97,10 @@ public class VistaJuego extends JFrame {
 		panel_aproximacion.addKeyListener(c);
 		
 		
-		// panel de preguntas
+		//
+		// panel preguntas
+		//
+		
 		panelPreguntas = new JPanel();
 		panelPreguntas.setBounds(0, 260, 803, 170);
 		panelPreguntas.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -124,14 +142,11 @@ public class VistaJuego extends JFrame {
 		lblNewLabel = new JLabel("Preguntas...");
 		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 		panelPreguntas.add(panel_1);
-		
 		panelPreguntas.setVisible(false);
 		panelPreguntas.addKeyListener(c);
 		
+		//-------------Panel informativo nombre y juez---------------------
 		
-		//-------------------------------------------------------------
-		JPanel panel_informativo = new JPanel();
-		//-------------------------------------------------------------
 		
 		addKeyListener(c);
 		setFocusable(true);

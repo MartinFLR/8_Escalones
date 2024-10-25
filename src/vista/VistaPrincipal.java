@@ -18,6 +18,8 @@ import java.awt.Font;
 import java.awt.Image;
 import javax.swing.SpringLayout;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VistaPrincipal extends JFrame {
 
@@ -27,6 +29,8 @@ public class VistaPrincipal extends JFrame {
 	private JButton btnOpciones;
 	private JButton BtnSalir;
 	private ControladorPrincipal controlador;
+	private JButton btnCreditos;
+	private JButton btnModificar;
 	
 	public VistaPrincipal(ControladorPrincipal controlador) {
 		this.setControlador(controlador);
@@ -52,26 +56,43 @@ public class VistaPrincipal extends JFrame {
 		panel.add(lblNewLabel);
 		
 		btnJugar = new JButton("JUGAR");
-		btnJugar.setBounds(295, 125, 195, 76);
+		btnJugar.setBounds(598, 120, 195, 76);
 		btnJugar.setBackground(Color.CYAN);
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
 		
 		btnOpciones = new JButton("OPCIONES");
-		btnOpciones.setBounds(295, 207, 195, 76);
+		btnOpciones.setBounds(598, 207, 195, 76);
 		btnOpciones.setBackground(Color.CYAN);
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
 		
-		
 		BtnSalir = new JButton("SALIR");
-		BtnSalir.setBounds(295, 294, 195, 76);
+		BtnSalir.setBounds(598, 294, 195, 76);
 		BtnSalir.setBackground(Color.CYAN);
 		contentPane.add(BtnSalir);
 		BtnSalir.addActionListener(controlador);
-
+		
+		btnCreditos = new JButton("New button");
+		btnCreditos.setBounds(709, 396, 89, 23);
+		btnCreditos.addActionListener(controlador);
+		contentPane.add(btnCreditos);
+		
+		btnModificar = new JButton("New button");
+		btnModificar.setBounds(610, 396, 89, 23);
+		contentPane.add(btnModificar);
+		btnModificar.addActionListener(controlador);
+		
 	}
-
+	
+	public JButton getModificar() {
+		return btnModificar;
+	}
+	
+	public JButton getCreditos() {
+		return btnCreditos;
+	}
+	
 	public ControladorPrincipal getControlador() {
 		return controlador;
 	}

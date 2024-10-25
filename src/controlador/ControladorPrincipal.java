@@ -23,9 +23,12 @@ public class ControladorPrincipal implements ActionListener{
 		} else if(e.getSource().equals(getVista().getBtnOpciones())) {
 			new ControladorOpciones();
 		} else if (e.getSource().equals(getVista().getBtnSalir())) {
-			this.vista.setVisible(false);
+			System.exit(0);
+		} else if (e.getSource().equals(getVista().getCreditos())) {
+			new ControladorCreditos();
+		} else if (e.getSource().equals(getVista().getModificar())){
+			new ControladorMod();
 		}
-		
 	}
 
 	public VistaPrincipal getVista() {
