@@ -18,7 +18,7 @@ public class TemasABM implements DAO<Tema>{
     public void insertar(Tema tema) {
         String sql = "INSERT INTO tema (id, nombre) VALUES (?, ?)";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, tema.getId());
@@ -34,7 +34,7 @@ public class TemasABM implements DAO<Tema>{
         List<Tema> temas = new ArrayList<>();
         String query = "SELECT * FROM tema";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -47,14 +47,16 @@ public class TemasABM implements DAO<Tema>{
             }
         } catch (SQLException e) {
             System.err.println("Error al listar temas: " + e.getMessage());
+
         }
+
         return temas;
     }
 
     public void eliminar(int id) {
         String sql = "DELETE FROM tema WHERE id = ?";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
@@ -72,7 +74,7 @@ public class TemasABM implements DAO<Tema>{
     public void modificar(int id, Tema nuevoTema) {
         String sql = "UPDATE tema SET nombre = ? WHERE id = ?";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevoTema.getNombre());

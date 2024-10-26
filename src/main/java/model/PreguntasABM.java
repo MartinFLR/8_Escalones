@@ -20,7 +20,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     public void insertar(Pregunta pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             // Estableciendo los parámetros de la consulta
@@ -47,7 +47,7 @@ public class PreguntasABM implements DAO <Pregunta>{
         List<Pregunta> preguntas = new ArrayList<>();
         String query = "SELECT * FROM preguntas";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -73,7 +73,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id = ?";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             int rowsAffected = statement.executeUpdate();
@@ -93,7 +93,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     public void modificar(int id, Pregunta nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, respuesta_correcta = ?, id_tema = ? WHERE id = ?";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, nuevaPregunta.getPregunta());
