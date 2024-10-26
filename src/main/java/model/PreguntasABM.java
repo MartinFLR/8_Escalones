@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntasABM implements DAO{
+public class PreguntasABM implements DAO <Pregunta>{
 
     // Singleton
     private static PreguntasABM instance;
@@ -17,7 +17,7 @@ public class PreguntasABM implements DAO{
     }
 
     // Método para agregar una pregunta a la base de datos
-    public void agregar(Pregunta pregunta) {
+    public void insertar(Pregunta pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
@@ -42,7 +42,8 @@ public class PreguntasABM implements DAO{
     }
 
     // Método para listar todas las preguntas de la base de datos
-    public List<Pregunta> listarPreguntas() {
+    
+    public List<Pregunta> buscarTodos() {
         List<Pregunta> preguntas = new ArrayList<>();
         String query = "SELECT * FROM preguntas";
 
@@ -69,7 +70,7 @@ public class PreguntasABM implements DAO{
     }
 
     // Método para eliminar una pregunta de la base de datos
-    public void eliminarPregunta(int id) {
+    public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id = ?";
 
         try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
@@ -87,7 +88,9 @@ public class PreguntasABM implements DAO{
     }
 
     // Método para modificar una pregunta existente en la base de datos
-    public void modificarPregunta(int id, Pregunta nuevaPregunta) {
+    
+    
+    public void modificar(int id, Pregunta nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, respuesta_correcta = ?, id_tema = ? WHERE id = ?";
 
         try (Connection connection = Database.getConnection(); // Usa el método de la clase Database

@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemasABM {
+public class TemasABM implements DAO<Tema>{
     // Singleton
     private static TemasABM instance;
 
@@ -15,7 +15,7 @@ public class TemasABM {
         return instance;
     }
 
-    public void agregarTema(Tema tema) {
+    public void insertar(Tema tema) {
         String sql = "INSERT INTO tema (id, nombre) VALUES (?, ?)";
 
         try (Connection connection = Database.getConnection();
@@ -30,7 +30,7 @@ public class TemasABM {
         }
     }
 
-    public List<Tema> listarTemas() {
+    public List<Tema> buscarTodos() {
         List<Tema> temas = new ArrayList<>();
         String query = "SELECT * FROM tema";
 
@@ -51,7 +51,7 @@ public class TemasABM {
         return temas;
     }
 
-    public void eliminarTema(int id) {
+    public void eliminar(int id) {
         String sql = "DELETE FROM tema WHERE id = ?";
 
         try (Connection connection = Database.getConnection();
@@ -69,7 +69,7 @@ public class TemasABM {
         }
     }
 
-    public void modificarTema(int id, Tema nuevoTema) {
+    public void modificar(int id, Tema nuevoTema) {
         String sql = "UPDATE tema SET nombre = ? WHERE id = ?";
 
         try (Connection connection = Database.getConnection();
