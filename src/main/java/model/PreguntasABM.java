@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntasABM {
+public class PreguntasABM implements DAO{
 
     // Singleton
     private static PreguntasABM instance;
@@ -17,7 +17,7 @@ public class PreguntasABM {
     }
 
     // Método para agregar una pregunta a la base de datos
-    public void agregarPregunta(Pregunta pregunta) {
+    public void agregar(Pregunta pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = Database.getConnection(); // Usa el método de la clase Database

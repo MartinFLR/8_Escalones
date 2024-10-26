@@ -14,7 +14,7 @@ public class ParticipantesABM {
         return instance;
     }
 
-    public void agregarParticipante(Participante participante) {
+    public void agregarPregunta(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
