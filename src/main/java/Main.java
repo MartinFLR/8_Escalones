@@ -10,9 +10,10 @@ public class Main {
     TemasABM abmTemas = TemasABM.getInstance();
     ParticipantesABM abmPart = ParticipantesABM.getInstance();
 
-    List<Participante> listaParticipantes = abmPart.listarParticipantes();
-    List<Pregunta> listaPreguntas = abmPreg.listarPreguntas();
-    List<Tema> listaTemas = abmTemas.listarTemas();
+    List<Participante> listaParticipantes = abmPart.buscarTodos();
+    List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
+    List<Tema> listaTemas = abmTemas.buscarTodos();
+
 
     System.out.println("Lista de Participantes:");
     for (Participante participante : listaParticipantes) {
@@ -21,7 +22,8 @@ public class Main {
 
     System.out.println("Lista de Preguntas:");
     for (Pregunta pregunta : listaPreguntas) {
-      System.out.println(pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+
+      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
 
 

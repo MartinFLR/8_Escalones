@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntasABM {
+public class PreguntasABM implements DAO <Pregunta>{
 
     // Singleton
     private static PreguntasABM instance;
@@ -16,14 +16,12 @@ public class PreguntasABM {
         return instance;
     }
 
-    // Método para agregar una pregunta a la base de datos
-    public void agregarPregunta(Pregunta pregunta) {
+    public void insertar(Pregunta pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-            // Estableciendo los parámetros de la consulta
             pstmt.setString(1, pregunta.getPregunta());
             pstmt.setString(2, pregunta.getOpcionA());
             pstmt.setString(3, pregunta.getOpcionB());
@@ -32,7 +30,6 @@ public class PreguntasABM {
             pstmt.setString(6, pregunta.getRespuestaCorrecta());
             pstmt.setInt(7, pregunta.getIdTema());
 
-            // Ejecutar la inserción
             pstmt.executeUpdate();
             System.out.println("Pregunta agregada exitosamente.");
 
@@ -42,16 +39,17 @@ public class PreguntasABM {
     }
 
     // Método para listar todas las preguntas de la base de datos
-    public List<Pregunta> listarPreguntas() {
+    public List<Pregunta> buscarTodos() {
         List<Pregunta> preguntas = new ArrayList<>();
         String query = "SELECT * FROM preguntas";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Pregunta pregunta = new Pregunta(
+                        resultSet.getInt("id"),
                         resultSet.getString("pregunta"),
                         resultSet.getString("opcion_a"),
                         resultSet.getString("opcion_b"),
@@ -68,11 +66,10 @@ public class PreguntasABM {
         return preguntas;
     }
 
-    // Método para eliminar una pregunta de la base de datos
-    public void eliminarPregunta(int id) {
+    public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id = ?";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             int rowsAffected = statement.executeUpdate();
@@ -86,11 +83,12 @@ public class PreguntasABM {
         }
     }
 
-    // Método para modificar una pregunta existente en la base de datos
-    public void modificarPregunta(int id, Pregunta nuevaPregunta) {
+    
+    
+    public void modificar(int id, Pregunta nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, respuesta_correcta = ?, id_tema = ? WHERE id = ?";
 
-        try (Connection connection = Database.getConnection(); // Usa el método de la clase Database
+        try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, nuevaPregunta.getPregunta());

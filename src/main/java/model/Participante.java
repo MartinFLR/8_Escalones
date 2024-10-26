@@ -42,14 +42,4 @@ public class Participante {
         this.edad = edad;
     }
 
-
-    public String toFileString() {
-        return this.id + "," + this.nombre + "," + this.edad + ",";
-    }
-
-    // Método estático para convertir una línea de texto a un Participante
-    public static Participante fromFileString(String line) {
-        String[] parts = line.split(",");
-        return new Participante(Integer.parseInt(parts[0]), parts[1], Integer.parseInt(parts[2]));
-    }
 }

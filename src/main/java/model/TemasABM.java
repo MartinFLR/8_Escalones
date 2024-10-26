@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemasABM {
+public class TemasABM implements DAO<Tema>{
     // Singleton
     private static TemasABM instance;
 
@@ -15,10 +15,10 @@ public class TemasABM {
         return instance;
     }
 
-    public void agregarTema(Tema tema) {
+    public void insertar(Tema tema) {
         String sql = "INSERT INTO tema (id, nombre) VALUES (?, ?)";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, tema.getId());
@@ -30,11 +30,11 @@ public class TemasABM {
         }
     }
 
-    public List<Tema> listarTemas() {
+    public List<Tema> buscarTodos() {
         List<Tema> temas = new ArrayList<>();
         String query = "SELECT * FROM tema";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -47,14 +47,16 @@ public class TemasABM {
             }
         } catch (SQLException e) {
             System.err.println("Error al listar temas: " + e.getMessage());
+
         }
+
         return temas;
     }
 
-    public void eliminarTema(int id) {
+    public void eliminar(int id) {
         String sql = "DELETE FROM tema WHERE id = ?";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
@@ -69,10 +71,10 @@ public class TemasABM {
         }
     }
 
-    public void modificarTema(int id, Tema nuevoTema) {
+    public void modificar(int id, Tema nuevoTema) {
         String sql = "UPDATE tema SET nombre = ? WHERE id = ?";
 
-        try (Connection connection = Database.getConnection();
+        try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevoTema.getNombre());
