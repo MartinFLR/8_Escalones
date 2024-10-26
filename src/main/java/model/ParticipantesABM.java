@@ -17,8 +17,8 @@ public class ParticipantesABM implements DAO <Participante>{
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
         try (Connection conn = Database.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
             pstmt.setInt(2, participante.getEdad());
             pstmt.executeUpdate();
@@ -33,13 +33,13 @@ public class ParticipantesABM implements DAO <Participante>{
         String sql = "SELECT * FROM participantes";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             ResultSet resultSet = pstmt.executeQuery()) {
 
-            while (rs.next()) {
-                int id = rs.getInt("id"); // Obtener el id
-                String nombre = rs.getString("nombre");
-                int edad = rs.getInt("edad");
-                participantes.add(new Participante(id, nombre, edad)); // Asegúrate de que el constructor acepte id
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id"); // Obtener el id
+                String nombre = resultSet.getString("nombre");
+                int edad = resultSet.getInt("edad");
+                participantes.add(new Participante(id, nombre, edad));
             }
         } catch (SQLException e) {
             System.err.println("Error al listar participantes: " + e.getMessage());

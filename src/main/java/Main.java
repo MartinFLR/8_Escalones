@@ -14,6 +14,7 @@ public class Main {
     List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
 
+
     System.out.println("Lista de Participantes:");
     for (Participante participante : listaParticipantes) {
       System.out.println(participante.getNombre()+", "+participante.getEdad());
@@ -21,7 +22,8 @@ public class Main {
 
     System.out.println("Lista de Preguntas:");
     for (Pregunta pregunta : listaPreguntas) {
-      System.out.println(pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+
+      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
 
 
