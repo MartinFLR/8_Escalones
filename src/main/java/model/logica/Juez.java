@@ -2,7 +2,7 @@ package model.logica;
 
 public class Juez {
     private String nombre;
-    private String url_imagen; // Borrable
+    private String url_imagen; // Borrable,es para la vista
 
     public Juez(String nombre, String url_imagen) {
         this.nombre = nombre;

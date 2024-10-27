@@ -8,11 +8,15 @@ public class Escalon implements Observable {
     private String pregunta;
     private String resCorrecta;
     private Tema tema;
+    private int escalon=0;
+
     private final List<Participante> participantes = new ArrayList<>();
 
     public Escalon(String pregunta, String resCorrecta) {
         this.pregunta = pregunta;
         this. resCorrecta = resCorrecta;
+        this.escalon++;
+
     }
 
     public void setTema(Tema tema) {
@@ -22,18 +26,31 @@ public class Escalon implements Observable {
     }
     
     public void repartirPreguntas(){
-        //
         for (Participante participante : participantes) {
-            participante.setPreguntas();
-        }
+            for (int i = 0; i <2; i++) {
+            participante.setPreguntasParticipante(tema.sacarPregunta());
+        }}
     }
     
+    public void filtrarParticipantes(){
+        for (Participante participante : participantes) {
+            if (participante.verificoCantIntentos()){   
+                this.participantes.remove(participante);
+            }
+        }
+    }
+
+    public void Ronda(){
+        
+    }
+
     @Override
     public void notificaParticipantes(List<model.Pregunta> preguntas) {
-        // Aca hay que sacar dos preguntas del List y pasarlas al update 
+        
         for (Participante participante : participantes) {
+
             participante.update();
-            //Actualizar el parametro que recibe update para recibir dos preguntas
+            //Actualizar el parametro que recibe update 
         }
     }
 
