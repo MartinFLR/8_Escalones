@@ -1,8 +1,9 @@
-package vista;
+package view;
+
+import controller.ControladorRanking;
 
 import javax.swing.JFrame;
 
-import controlador.ControladorRanking;
 
 public class VistaRanking extends JFrame{
 

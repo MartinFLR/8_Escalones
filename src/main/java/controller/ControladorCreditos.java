@@ -1,6 +1,7 @@
-package controlador;
+package controller;
 
-import vista.VistaCreditos;
+
+import view.VistaCreditos;
 
 public class ControladorCreditos {
 

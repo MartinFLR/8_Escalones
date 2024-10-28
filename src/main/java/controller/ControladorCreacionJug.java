@@ -1,6 +1,7 @@
-package controlador;
+package controller;
 
-import vista.VistaCreacionJug;
+
+import view.VistaCreacionJug;
 
 public class ControladorCreacionJug {
 

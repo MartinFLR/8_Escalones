@@ -1,9 +1,10 @@
-package controlador;
+package controller;
+
+import view.VistaOpciones;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import vista.VistaOpciones;
 
 public class ControladorOpciones implements ActionListener{
 	

@@ -1,6 +1,7 @@
-package controlador;
+package controller;
 
-import vista.VistaMod;
+
+import view.VistaMod;
 
 public class ControladorMod {
 

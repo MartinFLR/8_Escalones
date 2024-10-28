@@ -1,6 +1,6 @@
-package vista;
+package view;
 
-import java.awt.EventQueue;
+import controller.ControladorJuego;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,14 +8,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import controlador.ControladorJuego;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyAdapter;
-import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 public class VistaJuego extends JFrame {

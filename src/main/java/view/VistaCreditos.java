@@ -1,17 +1,18 @@
-package vista;
+package view;
+
+import controller.ControladorCreditos;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.ControladorMod;
 
-public class VistaMod extends JFrame{
+public class VistaCreditos extends JFrame{
 
-	private ControladorMod c;
+	private ControladorCreditos c;
 	private JPanel contentPane;
 	
-	public VistaMod (ControladorMod c) {
+	public VistaCreditos(ControladorCreditos c) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

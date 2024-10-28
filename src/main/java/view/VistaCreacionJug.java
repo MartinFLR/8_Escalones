@@ -1,8 +1,9 @@
-package vista;
+package view;
+
+import controller.ControladorCreacionJug;
 
 import javax.swing.JFrame;
 
-import controlador.ControladorCreacionJug;
 
 public class VistaCreacionJug extends JFrame{
 

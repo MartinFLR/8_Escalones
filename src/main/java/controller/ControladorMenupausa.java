@@ -1,9 +1,10 @@
-package controlador;
+package controller;
+
+import view.VistaMenupausa;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import vista.VistaMenupausa;
 
 public class ControladorMenupausa implements ActionListener {
 

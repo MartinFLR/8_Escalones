@@ -1,6 +1,6 @@
-package controlador;
+package controller;
 
-import vista.VistaRanking;
+import view.VistaRanking;
 
 public class ControladorRanking {
 

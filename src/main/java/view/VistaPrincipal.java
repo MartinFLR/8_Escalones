@@ -1,25 +1,16 @@
-package vista;
+package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import controller.ControladorPrincipal;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.ControladorPrincipal;
-
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Image;
-import javax.swing.SpringLayout;
-import java.awt.Component;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VistaPrincipal extends JFrame {
 

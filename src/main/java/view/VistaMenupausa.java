@@ -1,16 +1,13 @@
-package vista;
+package view;
 
-import java.awt.EventQueue;
+import controller.ControladorMenupausa;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.ControladorMenupausa;
-import java.awt.GridLayout;
+
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VistaMenupausa extends JFrame {
 

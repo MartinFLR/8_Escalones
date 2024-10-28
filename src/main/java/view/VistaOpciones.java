@@ -1,12 +1,11 @@
-package vista;
+package view;
 
-import java.awt.EventQueue;
+import controller.ControladorOpciones;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.ControladorOpciones;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSlider;
