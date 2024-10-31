@@ -8,4 +8,5 @@ public interface DAO<T> {
     void eliminar(int id);
     //T buscarPorId(int id);
     List<T> buscarTodos();
+    List<T> buscarObjeto(String nombreColumna, Object tipo);
 }

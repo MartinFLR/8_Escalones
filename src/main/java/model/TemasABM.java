@@ -30,6 +30,29 @@ public class TemasABM implements DAO<Tema>{
         }
     }
 
+    public List<Tema> buscarObjeto(Integer numero) {
+        List<Tema> temas = new ArrayList<>();
+        String query = "SELECT * FROM tema WHERE id_tema=numero";
+
+        try (Connection connection = Database.getInstance().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Tema tema = new Tema(
+                        resultSet.getInt("id_tema"),
+                        resultSet.getString("nombre_tema")
+                );
+                temas.add(tema);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al listar temas: " + e.getMessage());
+
+        }
+
+        return temas;
+    }
+
     public List<Tema> buscarTodos() {
         List<Tema> temas = new ArrayList<>();
         String query = "SELECT * FROM tema";

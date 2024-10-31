@@ -38,7 +38,35 @@ public class PreguntasABM implements DAO <Pregunta>{
         }
     }
 
-    // Método para listar todas las preguntas de la base de datos
+
+    public List<Pregunta> buscarObjeto(Integer numero) {
+        List<Pregunta> preguntas = new ArrayList<>();
+        String query = "SELECT * FROM pregunta WHERE id_tema=numero";
+
+        try (Connection connection = Database.getInstance().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Pregunta pregunta = new Pregunta(
+                        resultSet.getInt("id_pregunta"),
+                        resultSet.getString("pregunta"),
+                        resultSet.getString("opcion_a"),
+                        resultSet.getString("opcion_b"),
+                        resultSet.getString("opcion_c"),
+                        resultSet.getString("opcion_d"),
+                        resultSet.getString("resp_correcta"),
+                        resultSet.getInt("id_tema")
+                );
+                preguntas.add(pregunta);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al listar las preguntas: " + e.getMessage());
+        }
+        return preguntas;
+    }
+
+    // Método para listar todas las preguntas de la base de datos// falta buscar por id_tema
     public List<Pregunta> buscarTodos() {
         List<Pregunta> preguntas = new ArrayList<>();
         String query = "SELECT * FROM pregunta";
