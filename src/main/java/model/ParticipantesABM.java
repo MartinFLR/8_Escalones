@@ -15,7 +15,7 @@ public class ParticipantesABM implements DAO <Participante>{
     }
 
     public void insertar(Participante participante) {
-        String sql = "INSERT INTO participante (nombre_participante, edad_participante) VALUES (?, ?)";
+        String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
         try (Connection conn = Database.getInstance().getConnection();
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -30,15 +30,15 @@ public class ParticipantesABM implements DAO <Participante>{
 
     public List<Participante> buscarTodos() {
         List<Participante> participantes = new ArrayList<>();
-        String sql = "SELECT * FROM participante";
+        String sql = "SELECT * FROM participantes";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet resultSet = pstmt.executeQuery()) {
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id_participante"); // Obtener el id
-                String nombre = resultSet.getString("nombre_participante");
-                int edad = resultSet.getInt("edad_participante");
+                int id = resultSet.getInt("id"); // Obtener el id
+                String nombre = resultSet.getString("nombre");
+                int edad = resultSet.getInt("edad");
                 participantes.add(new Participante(id, nombre, edad));
             }
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class ParticipantesABM implements DAO <Participante>{
     }
 
     public void eliminar(int id) {
-        String sql = "DELETE FROM participante WHERE id_participante = ?";
+        String sql = "DELETE FROM participantes WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -65,7 +65,7 @@ public class ParticipantesABM implements DAO <Participante>{
     }
 
     public void modificar(int id, Participante nuevoParticipante) {
-        String sql = "UPDATE participante SET nombre_participante = ?, edad_participante = ? WHERE id_participante = ?";
+        String sql = "UPDATE participantes SET nombre = ?, edad = ? WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 

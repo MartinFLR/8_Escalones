@@ -1,45 +1,45 @@
 package model;
 
 public class Participante {
-    private int id_participante;
-    private String nombre_participante;
-    private int edad_participante;
+    private int id;
+    private String nombre;
+    private int edad;
 
     public Participante(int id, String nombre, int edad) {
-        this.id_participante = id;
-        this.nombre_participante = nombre;
-        this.edad_participante = edad;
+        this.id = id;
+        this.nombre = nombre;
+        this.edad = edad;
     }
 
     // Constructor sin id para agregar participantes
     public Participante(String nombre, int edad) {
-        this.nombre_participante = nombre;
-        this.edad_participante= edad;
+        this.nombre = nombre;
+        this.edad = edad;
     }
 
     // Getters y Setters
     public int getId() {
-        return id_participante;
+        return id;
     }
 
     public void setId(int id) {
-        this.id_participante = id;
+        this.id = id;
     }
 
     public String getNombre() {
-        return nombre_participante;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre_participante = nombre;
+        this.nombre = nombre;
     }
 
     public int getEdad() {
-        return edad_participante;
+        return edad;
     }
 
     public void setEdad(int edad) {
-        this.edad_participante = edad;
+        this.edad = edad;
     }
 
 }

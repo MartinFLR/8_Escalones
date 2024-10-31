@@ -3,13 +3,13 @@ package model;
 public class Pregunta {
     //Tema: 1 
 
-    private int id_pregunta;
+    private int id;
     private String pregunta;
     private String opcion_a;
     private String opcion_b;
     private String opcion_c;
     private String opcion_d;
-    private String resp_correcta;
+    private String respuestaCorrecta;
     private int id_tema;
 
     //Este constructor se utiliza cuando quiero crear una pregunta, el id en la base de datos es autoincremental
@@ -20,30 +20,30 @@ public class Pregunta {
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
         this.opcion_d = opcion_d;
-        this.resp_correcta = respuestaCorrecta;
+        this.respuestaCorrecta = respuestaCorrecta;
         this.id_tema = id_tema;
     }
 
     //Este constructor se utiliza cuando quiero recuperar la pregunta
     public Pregunta(int id , String pregunta, String opcion_a, String opcion_b,
                     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
-        this.id_pregunta = id;
+        this.id = id;
         this.pregunta = pregunta;
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
         this.opcion_d = opcion_d;
-        this.resp_correcta = respuestaCorrecta;
+        this.respuestaCorrecta = respuestaCorrecta;
         this.id_tema = id_tema;
     }
 
 
     public int getId() {
-        return id_pregunta;
+        return id;
     }
 
     public void setId(int id) {
-        this.id_pregunta = id;
+        this.id = id;
     }
 
     public String getPregunta() {
@@ -87,11 +87,11 @@ public class Pregunta {
     }
 
     public String getRespuestaCorrecta() {
-        return resp_correcta;
+        return respuestaCorrecta;
     }
 
     public void setRespuestaCorrecta(String respuestaCorrecta) {
-        this.resp_correcta = respuestaCorrecta;
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 
     public int getIdTema() {

@@ -16,7 +16,7 @@ public class TemasABM implements DAO<Tema>{
     }
 
     public void insertar(Tema tema) {
-        String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
+        String sql = "INSERT INTO tema (id, nombre) VALUES (?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -40,8 +40,8 @@ public class TemasABM implements DAO<Tema>{
 
             while (resultSet.next()) {
                 Tema tema = new Tema(
-                        resultSet.getInt("id_tema"),
-                        resultSet.getString("nombre_tema")
+                        resultSet.getInt("id"),
+                        resultSet.getString("nombre")
                 );
                 temas.add(tema);
             }
@@ -54,7 +54,7 @@ public class TemasABM implements DAO<Tema>{
     }
 
     public void eliminar(int id) {
-        String sql = "DELETE FROM tema WHERE id_tema = ?";
+        String sql = "DELETE FROM tema WHERE id = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -72,7 +72,7 @@ public class TemasABM implements DAO<Tema>{
     }
 
     public void modificar(int id, Tema nuevoTema) {
-        String sql = "UPDATE tema SET nombre_tema = ? WHERE id_tema = ?";
+        String sql = "UPDATE tema SET nombre = ? WHERE id = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
