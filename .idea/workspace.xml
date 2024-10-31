@@ -5,24 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9e0e7d9-e1a0-4eb0-bc00-759bbf499a05" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorCreacionJug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorCreacionJug.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorCreditos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorCreditos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorJuego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorJuego.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorMenupausa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorMenupausa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorMod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorOpciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorOpciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/ControladorRanking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorRanking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaCreacionJug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaCreacionJug.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaCreditos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaCreditos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaJuego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaJuego.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaMenupausa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaMenupausa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaMod.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaMod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaOpciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaOpciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vista/VistaRanking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaRanking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Database.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,21 +16,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MartinFLR"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MartinFLR&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MartinFLR/8_Escalones.git",
-    "accountId": "da8a4878-3efc-46d5-a9a4-f2d9b6dbb3e8"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MartinFLR/8_Escalones.git&quot;,
+    &quot;accountId&quot;: &quot;da8a4878-3efc-46d5-a9a4-f2d9b6dbb3e8&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2o2mps9YuowzLHeTh01woAFvO3u" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -59,7 +43,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "martin",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
