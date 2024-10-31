@@ -17,7 +17,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     }
 
     public void insertar(Pregunta pregunta) {
-        String sql = "INSERT INTO preguntas (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pregunta (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, resp_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -41,7 +41,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     // Método para listar todas las preguntas de la base de datos
     public List<Pregunta> buscarTodos() {
         List<Pregunta> preguntas = new ArrayList<>();
-        String query = "SELECT * FROM preguntas";
+        String query = "SELECT * FROM pregunta";
 
         try (Connection connection = Database.getInstance().getConnection();
              Statement statement = connection.createStatement();
@@ -49,13 +49,13 @@ public class PreguntasABM implements DAO <Pregunta>{
 
             while (resultSet.next()) {
                 Pregunta pregunta = new Pregunta(
-                        resultSet.getInt("id"),
+                        resultSet.getInt("id_pregunta"),
                         resultSet.getString("pregunta"),
                         resultSet.getString("opcion_a"),
                         resultSet.getString("opcion_b"),
                         resultSet.getString("opcion_c"),
                         resultSet.getString("opcion_d"),
-                        resultSet.getString("respuesta_correcta"),
+                        resultSet.getString("resp_correcta"),
                         resultSet.getInt("id_tema")
                 );
                 preguntas.add(pregunta);
@@ -67,7 +67,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     }
 
     public void eliminar(int id) {
-        String query = "DELETE FROM preguntas WHERE id = ?";
+        String query = "DELETE FROM pregunta WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -86,7 +86,7 @@ public class PreguntasABM implements DAO <Pregunta>{
     
     
     public void modificar(int id, Pregunta nuevaPregunta) {
-        String query = "UPDATE preguntas SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, respuesta_correcta = ?, id_tema = ? WHERE id = ?";
+        String query = "UPDATE pregunta SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, resp_correcta = ?, id_tema = ? WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
              PreparedStatement statement = connection.prepareStatement(query)) {
