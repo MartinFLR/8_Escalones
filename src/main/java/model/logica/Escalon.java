@@ -15,11 +15,18 @@ public class Escalon {
     }
 
     //A cada participante le reparte dos preguntas
+    
     public void repartirPreguntas(){
         for (Participante participante : participantes) {
             for (int i = 0; i <2; i++) {
             participante.setPreguntasParticipante(tema.sacarPregunta());
         }}
+    }
+    public void repartirPreguntasAprox(List<Participante> participantesAEliminar){ //Reparte la pregunta de aproximacion a los participantes correspondientes
+        for (model.logica.Participante par: participantesAEliminar){
+            par.setPregEmpate(tema.sacarPreguntaAprox());
+            
+        }
     }
     public void subeEscalon(){
         this.escalon++;
@@ -57,8 +64,11 @@ public class Escalon {
         List<Participante> participantesAEliminar = getParticipantesAEliminar();
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
-            //Hay que ver como pasarle la lista de participantes a eliminar
-            this.estadoDeRonda.setRondaDeEmpate();
+            // les envia la pregunta de aproximacion a todos los participantes empatados.
+            this.repartirPreguntasAprox(participantesAEliminar);
+            //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
+            this.estadoDeRonda.setRondaDeEmpate(participantesAEliminar);
+            
         }else{
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   

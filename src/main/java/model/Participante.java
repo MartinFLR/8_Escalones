@@ -5,6 +5,7 @@ public class Participante {
     private String nombre;
     private int edad;
 
+    
     public Participante(int id, String nombre, int edad) {
         this.id = id;
         this.nombre = nombre;
@@ -41,5 +42,7 @@ public class Participante {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+
+   
 
 }
