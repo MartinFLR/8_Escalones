@@ -3,65 +3,78 @@ package model.logica;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Escalon implements Observable {
-    @SuppressWarnings("unused")
-    private String pregunta;
-    private String resCorrecta;
+public class Escalon {
+    private final Ronda estadoDeRonda; 
     private Tema tema;
-    private int escalon=0;
-
+    private int escalon=1;
     private final List<Participante> participantes = new ArrayList<>();
 
-    public Escalon(String pregunta, String resCorrecta) {
-        this.pregunta = pregunta;
-        this. resCorrecta = resCorrecta;
-        this.escalon++;
-
+    public Escalon() {
+        //Crea la instancia de la ronda y setea por defecto ronda normal
+        this.estadoDeRonda = new Ronda();
     }
 
-    public void setTema(Tema tema) {
-        //Aca puede sacar info de la base de datos para setear
-        this.tema = tema;
-        this.notificaParticipantes(tema.getPreguntas());
-    }
-    
+    //A cada participante le reparte dos preguntas
     public void repartirPreguntas(){
         for (Participante participante : participantes) {
             for (int i = 0; i <2; i++) {
             participante.setPreguntasParticipante(tema.sacarPregunta());
         }}
     }
-    
-    public void filtrarParticipantes(){
+    public void subeEscalon(){
+        this.escalon++;
+        if (this.escalon==8){
+            this.estadoDeRonda.setRondaFinal();
+        }
+    }
+    private List<Participante> getParticipantesAEliminar() {
+        //Tiene que checkear que haya solo 1, si hay mas de 1 setea el estado en RondaEmpate
+        List<Participante> participantesAEliminar = new ArrayList<>();
         for (Participante participante : participantes) {
-            if (participante.verificoCantIntentos()){   
-                this.participantes.remove(participante);
+            int errParticipante = participante.getCantErrores();
+            if (errParticipante>0){
+                //Si la lista no esta vacia, compara con el maximo de errores
+                if(!participantesAEliminar.isEmpty()){
+                    //Si el participante tiene mas errores que el maximo de errores,
+                    //se limpia la lista y se agrega el participante
+                    if(errParticipante>participantesAEliminar.get(0).getCantErrores()){
+                        participantesAEliminar.clear();
+                        participantesAEliminar.add(participante);
+                    }else if(errParticipante==participantesAEliminar.get(0).getCantErrores()){
+                        //Si el participante tiene la misma cantidad de errores que el maximo de errores,
+                        //se agrega el participante
+                        participantesAEliminar.add(participante);
+                    }
+                }else{
+                    //Si la lista esta vacia, se agrega el participante
+                    participantesAEliminar.add(participante);                
+                }
             }
         }
+        return participantesAEliminar;
     }
-
-    public void Ronda(){
-        
-    }
-
-    @Override
-    public void notificaParticipantes(List<model.Pregunta> preguntas) {
-        
-        for (Participante participante : participantes) {
-
-            participante.update();
-            //Actualizar el parametro que recibe update 
+    public void filtrarParticipantes(){
+        List<Participante> participantesAEliminar = getParticipantesAEliminar();
+        //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
+        if (participantesAEliminar.size()>1){
+            //Hay que ver como pasarle la lista de participantes a eliminar
+            this.estadoDeRonda.setRondaDeEmpate();
+        }else{
+            //Si solo hay uno, se elimina
+            //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
+            this.participantes.remove(participantesAEliminar.get(0));
         }
     }
 
-    @Override
     public void agregaParticipante(model.logica.Participante participante) {
         this.participantes.add(participante);
         
     }
-
-    @Override
     public void eliminaParticipante(model.logica.Participante participante) {
         this.participantes.remove(participante);
+    }
+    //Getters y setters
+    public void setTema(Tema tema) {
+        this.tema = tema;
     }
 }

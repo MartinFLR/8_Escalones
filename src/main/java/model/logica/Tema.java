@@ -8,6 +8,7 @@ public class Tema {
     private String tema;
     private List<model.Pregunta> preguntas;
     private List<model.logica.PregAproximacion> pregsAproximacion;
+    @SuppressWarnings({"unused", "FieldMayBeFinal"})
     private Juez juez;
 
     public Tema(Juez juez, List<PregAproximacion> pregsAproximacion, List<Pregunta> preguntas, String tema) {
