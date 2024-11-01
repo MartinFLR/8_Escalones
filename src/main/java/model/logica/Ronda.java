@@ -14,14 +14,23 @@ public class Ronda {
         this.estadoRonda.rondaDePreguntas(this,participantes);
     }
     public void setRondaNormal(){
+        System.out.println("Estado: Ronda normal");
         this.estadoRonda = new RondaNormal();
     }
     public void setRondaDeEmpate(List<Participante> participantes){
         //recibe como parametro la lista de participantes empatados en errores.
         //El que gane no sera eliminado
+        System.out.println("Estado: Ronda de empate");
+        System.out.println("Empate entre los participantes:");
+        for (Participante participante : participantes) {
+            System.out.println(participante.getNombre());
+            System.out.println("Errores: "+participante.getCantErrores() + "\n");
+        }
+        
         this.estadoRonda = new RondaEmpate();
     }
     public void setRondaFinal(){
+        System.out.println("Estado: Ronda final");
         this.estadoRonda = new RondaFinal();
     }
 }

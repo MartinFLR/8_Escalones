@@ -14,7 +14,6 @@ public class Escalon {
         this.estadoDeRonda = new Ronda();
     }
 
-    //A cada participante le reparte dos preguntas
     
     public void repartirPreguntas(){
         for (Participante participante : participantes) {
@@ -95,5 +94,11 @@ public class Escalon {
     //Getters y setters
     public void setTema(Tema tema) {
         this.tema = tema;
+    }
+    public int getEscalon() {
+        return this.escalon;
+    }
+    public List<Participante> getParticipantes() {
+        return this.participantes;
     }
 }
