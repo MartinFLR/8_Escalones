@@ -9,12 +9,12 @@ public class Pregunta {
     private String opcion_b;
     private String opcion_c;
     private String opcion_d;
-    private String respuestaCorrecta;
+    private char respuestaCorrecta;
     private int id_tema;
 
     //Este constructor se utiliza cuando quiero crear una pregunta, el id en la base de datos es autoincremental
     public Pregunta( String pregunta, String opcion_a, String opcion_b,
-                    String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema) {
+                    String opcion_c, String opcion_d, char respuestaCorrecta, int id_tema) {
         this.pregunta = pregunta;
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
@@ -26,7 +26,7 @@ public class Pregunta {
 
     //Este constructor se utiliza cuando quiero recuperar la pregunta
     public Pregunta(int id , String pregunta, String opcion_a, String opcion_b,
-                    String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
+                    String opcion_c, String opcion_d, char respuestaCorrecta, int id_tema){
         this.id = id;
         this.pregunta = pregunta;
         this.opcion_a = opcion_a;
@@ -86,11 +86,11 @@ public class Pregunta {
         this.opcion_d = opcion_d;
     }
 
-    public String getRespuestaCorrecta() {
+    public char getRespuestaCorrecta() {
         return respuestaCorrecta;
     }
 
-    public void setRespuestaCorrecta(String respuestaCorrecta) {
+    public void setRespuestaCorrecta(char respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
 

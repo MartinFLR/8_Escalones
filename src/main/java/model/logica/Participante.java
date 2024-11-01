@@ -9,7 +9,9 @@ public class Participante {
     private final String nombre;
     @SuppressWarnings("FieldMayBeFinal")
     private List<Pregunta> preguntas = new ArrayList<>();
-    private Integer respuestaParticipante;
+    private char respuestaParticipante;
+    private double respuestaParticipanteEmpate;
+    private PregAproximacion pregEmpate;
     private int cantErrores=0;
     private int cantAciertos = 0;//Puede ser util para la ronda final
     private int numEscalon=1;
@@ -22,10 +24,10 @@ public class Participante {
     public String getNombre() {
         return nombre;
     }
-    public Integer getRespuestaParticipante() {
+    public char getRespuestaParticipante() {
         return respuestaParticipante;
     }
-    public void setRespuestaParticipante(Integer respuestaParticipante) {
+    public void setRespuestaParticipante(char respuestaParticipante) {
         this.respuestaParticipante = respuestaParticipante;
     }
     public List<Pregunta> getPreguntasParticipante(){
@@ -37,14 +39,14 @@ public class Participante {
     public int getCantErrores(){
         return this.cantErrores;
     }
-    public void setCantErrores(int cantErrores){
-        this.cantErrores = cantErrores;
+    public void setCantErrores(int cantErrores){ //le agrega errores a los ya existentes
+        this.cantErrores += cantErrores;
     }
     public int getCantAciertos(){
         return this.cantAciertos;
     }
-    public void setCantAciertos(int cantAciertos){
-        this.cantAciertos = cantAciertos;
+    public void setCantAciertos(int cantAciertos){//le agrega aciertos a los ya existentes
+        this.cantAciertos += cantAciertos;
     }
     public void sumaAcierto(){
         this.cantAciertos++;
@@ -54,6 +56,22 @@ public class Participante {
     }
     public void subeEscalon(){
         this.numEscalon++;
+    }
+
+    public double getRespuestaParticipanteEmpate() {
+        return respuestaParticipanteEmpate;
+    }
+
+    public void setRespuestaParticipanteEmpate(double respuestaParticipanteEmpate) {
+        this.respuestaParticipanteEmpate = respuestaParticipanteEmpate;
+    }
+
+    public PregAproximacion getPregEmpate() {
+        return pregEmpate;
+    }
+
+    public void setPregEmpate(PregAproximacion pregEmpate) {
+        this.pregEmpate = pregEmpate;
     }
 }
 
