@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemasABM implements DAO<Tema>{
+public class TemasABM implements DAO<Tema> {
     // Singleton
     private static TemasABM instance;
 
@@ -19,7 +19,7 @@ public class TemasABM implements DAO<Tema>{
         String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, tema.getId());
             pstmt.setString(2, tema.getNombre());
@@ -30,24 +30,48 @@ public class TemasABM implements DAO<Tema>{
         }
     }
 
-    public List<Tema> buscarObjeto(Integer numero) {
+    public List<Tema> buscarObjeto(String nombreColumna, Object tipo) {
         List<Tema> temas = new ArrayList<>();
-        String query = "SELECT * FROM tema WHERE id_tema=numero";
+        String query = "SELECT * FROM tema WHERE " + nombreColumna + "  ";
 
-        try (Connection connection = Database.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            while (resultSet.next()) {
-                Tema tema = new Tema(
-                        resultSet.getInt("id_tema"),
-                        resultSet.getString("nombre_tema")
-                );
-                temas.add(tema);
+        String operador;
+        if (tipo instanceof String) {
+            operador = "LIKE ?";
+        } else if (tipo instanceof Integer) {
+            operador = "= ?";
+        } else {
+            throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
+        }
+    
+        // Concatenar el operador a la consulta
+        query += operador;
+        try (Connection conn = Database.getInstance().getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+            if (tipo instanceof String) {
+                pstmt.setString(1, "%" +  tipo + "%");
+            } else if (tipo instanceof Integer) {
+                pstmt.setInt(1, (Integer) tipo);
+            } else {
+                throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
             }
+
+
+            System.out.println("Consulta ejecutada: " + query);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+
+                while (resultSet.next()) {
+                    Tema tema = new Tema(
+                            resultSet.getInt("id_tema"),
+                            resultSet.getString("nombre_tema"));
+                    temas.add(tema);
+                }
+            }
+
         } catch (SQLException e) {
             System.err.println("Error al listar temas: " + e.getMessage());
 
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
         return temas;
@@ -58,14 +82,13 @@ public class TemasABM implements DAO<Tema>{
         String query = "SELECT * FROM tema";
 
         try (Connection connection = Database.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Tema tema = new Tema(
                         resultSet.getInt("id_tema"),
-                        resultSet.getString("nombre_tema")
-                );
+                        resultSet.getString("nombre_tema"));
                 temas.add(tema);
             }
         } catch (SQLException e) {
@@ -80,7 +103,7 @@ public class TemasABM implements DAO<Tema>{
         String sql = "DELETE FROM tema WHERE id_tema = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             int rowsAffected = pstmt.executeUpdate();
@@ -98,7 +121,7 @@ public class TemasABM implements DAO<Tema>{
         String sql = "UPDATE tema SET nombre_tema = ? WHERE id_tema = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevoTema.getNombre());
             pstmt.setInt(2, id);

@@ -30,16 +30,30 @@ public class ParticipantesABM implements DAO<Participante> {
 
     public List<Participante> buscarObjeto(String nombreColumna, Object tipo) {
         List<Participante> participantes = new ArrayList<>();
-        String sql = "SELECT * FROM participante WHERE " + nombreColumna + " LIKE ? ";
+        String sql = "SELECT * FROM participante WHERE " + nombreColumna + " = ? ";
+        String operador;
+
+        if (tipo instanceof String) {
+            operador = "LIKE ?";
+        } else if (tipo instanceof Integer) {
+            operador = "= ?";
+        } else {
+            throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
+        }
+    
+        // Concatenar el operador a la consulta
+        sql += operador;
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             if (tipo instanceof String) {
-                pstmt.setString(1, "%" + tipo + "%");
+                pstmt.setString(1, "%" +  tipo + "%");
             } else if (tipo instanceof Integer) {
                 pstmt.setInt(1, (Integer) tipo);
             } else {
                 throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
             }
+
+            System.out.println("Consulta ejecutada: " + sql);
             try (ResultSet resultSet = pstmt.executeQuery()) {
 
                 while (resultSet.next()) {

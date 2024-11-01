@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntasABM implements DAO <Pregunta>{
+public class PreguntasABM implements DAO<Pregunta> {
 
     // Singleton
     private static PreguntasABM instance;
@@ -20,7 +20,7 @@ public class PreguntasABM implements DAO <Pregunta>{
         String sql = "INSERT INTO pregunta (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, resp_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, pregunta.getPregunta());
             pstmt.setString(2, pregunta.getOpcionA());
@@ -38,42 +38,65 @@ public class PreguntasABM implements DAO <Pregunta>{
         }
     }
 
-
-    public List<Pregunta> buscarObjeto(Integer numero) {
+    public List<Pregunta> buscarObjeto(String nombreColumna, Object tipo) {
         List<Pregunta> preguntas = new ArrayList<>();
-        String query = "SELECT * FROM pregunta WHERE id_tema=numero";
+        String query = "SELECT * FROM pregunta WHERE " + nombreColumna + " ";
+        String operador;
+        if (tipo instanceof String) {
+            operador = "LIKE ?";
+        } else if (tipo instanceof Integer) {
+            operador = "= ?";
+        } else {
+            throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
+        }
+    
+        // Concatenar el operador a la consulta
+        query += operador;
+        try (Connection conn = Database.getInstance().getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+            if (tipo instanceof String) {
+                pstmt.setString(1, "%" +  tipo + "%");
+            } else if (tipo instanceof Integer) {
+                pstmt.setInt(1, (Integer) tipo);
+            } else {
+                throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
+            }
 
-        try (Connection connection = Database.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
 
-            while (resultSet.next()) {
-                Pregunta pregunta = new Pregunta(
-                        resultSet.getInt("id_pregunta"),
-                        resultSet.getString("pregunta"),
-                        resultSet.getString("opcion_a"),
-                        resultSet.getString("opcion_b"),
-                        resultSet.getString("opcion_c"),
-                        resultSet.getString("opcion_d"),
-                        resultSet.getString("resp_correcta"),
-                        resultSet.getInt("id_tema")
-                );
-                preguntas.add(pregunta);
+            System.out.println("Consulta ejecutada: " + query);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+
+                while (resultSet.next()) {
+                    Pregunta pregunta = new Pregunta(
+                            resultSet.getInt("id_pregunta"),
+                            resultSet.getString("pregunta"),
+                            resultSet.getString("opcion_a"),
+                            resultSet.getString("opcion_b"),
+                            resultSet.getString("opcion_c"),
+                            resultSet.getString("opcion_d"),
+                            resultSet.getString("resp_correcta"),
+                            resultSet.getInt("id_tema"));
+                    preguntas.add(pregunta);
+                }
+
             }
         } catch (SQLException e) {
             System.err.println("Error al listar las preguntas: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
         return preguntas;
     }
 
-    // Método para listar todas las preguntas de la base de datos// falta buscar por id_tema
+    // Método para listar todas las preguntas de la base de datos// falta buscar por
+    // id_tema
     public List<Pregunta> buscarTodos() {
         List<Pregunta> preguntas = new ArrayList<>();
         String query = "SELECT * FROM pregunta";
 
         try (Connection connection = Database.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Pregunta pregunta = new Pregunta(
@@ -84,8 +107,7 @@ public class PreguntasABM implements DAO <Pregunta>{
                         resultSet.getString("opcion_c"),
                         resultSet.getString("opcion_d"),
                         resultSet.getString("resp_correcta"),
-                        resultSet.getInt("id_tema")
-                );
+                        resultSet.getInt("id_tema"));
                 preguntas.add(pregunta);
             }
         } catch (SQLException e) {
@@ -98,7 +120,7 @@ public class PreguntasABM implements DAO <Pregunta>{
         String query = "DELETE FROM pregunta WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -111,13 +133,11 @@ public class PreguntasABM implements DAO <Pregunta>{
         }
     }
 
-    
-    
     public void modificar(int id, Pregunta nuevaPregunta) {
         String query = "UPDATE pregunta SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, resp_correcta = ?, id_tema = ? WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, nuevaPregunta.getPregunta());
             statement.setString(2, nuevaPregunta.getOpcionA());
