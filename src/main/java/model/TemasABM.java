@@ -15,6 +15,8 @@ public class TemasABM implements DAO<Tema> {
         return instance;
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void insertar(Tema tema) {
         String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
 
@@ -30,21 +32,12 @@ public class TemasABM implements DAO<Tema> {
         }
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public List<Tema> buscarObjeto(String nombreColumna, Object tipo) {
         List<Tema> temas = new ArrayList<>();
-        String query = "SELECT * FROM tema WHERE " + nombreColumna + "  ";
+        String query = DAO.setQuery(nombreColumna, tipo);
 
-        String operador;
-        if (tipo instanceof String) {
-            operador = "LIKE ?";
-        } else if (tipo instanceof Integer) {
-            operador = "= ?";
-        } else {
-            throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
-        }
-    
-        // Concatenar el operador a la consulta
-        query += operador;
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
             if (tipo instanceof String) {
@@ -54,7 +47,6 @@ public class TemasABM implements DAO<Tema> {
             } else {
                 throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
             }
-
 
             System.out.println("Consulta ejecutada: " + query);
             try (ResultSet resultSet = pstmt.executeQuery()) {
@@ -76,6 +68,8 @@ public class TemasABM implements DAO<Tema> {
 
         return temas;
     }
+
+    //-----------------------------------------------------------------------------------------
 
     public List<Tema> buscarTodos() {
         List<Tema> temas = new ArrayList<>();
@@ -99,6 +93,8 @@ public class TemasABM implements DAO<Tema> {
         return temas;
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void eliminar(int id) {
         String sql = "DELETE FROM tema WHERE id_tema = ?";
 
@@ -116,6 +112,8 @@ public class TemasABM implements DAO<Tema> {
             System.err.println("Error al eliminar tema: " + e.getMessage());
         }
     }
+
+    //-----------------------------------------------------------------------------------------
 
     public void modificar(int id, Tema nuevoTema) {
         String sql = "UPDATE tema SET nombre_tema = ? WHERE id_tema = ?";

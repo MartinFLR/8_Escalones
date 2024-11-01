@@ -14,7 +14,7 @@ public class Main {
     List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
 
-    listaTemas = abmTemas.buscarObjeto("nombre_tema", "Histori");
+    listaTemas = abmTemas.buscarObjeto("nombre_tema", "Historia");
 
     //System.out.println("Lista de Participantes:");
    // for (Participante participante : listaParticipantes) {

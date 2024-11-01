@@ -14,6 +14,8 @@ public class ParticipantesABM implements DAO<Participante> {
         return instance;
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participante (nombre_participante, edad_participante) VALUES (?, ?)";
         try (Connection conn = Database.getInstance().getConnection();
@@ -28,21 +30,13 @@ public class ParticipantesABM implements DAO<Participante> {
         }
     }
 
-    public List<Participante> buscarObjeto(String nombreColumna, Object tipo) {
-        List<Participante> participantes = new ArrayList<>();
-        String sql = "SELECT * FROM participante WHERE " + nombreColumna + " = ? ";
-        String operador;
+     //-----------------------------------------------------------------------------------------
 
-        if (tipo instanceof String) {
-            operador = "LIKE ?";
-        } else if (tipo instanceof Integer) {
-            operador = "= ?";
-        } else {
-            throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
-        }
-    
-        // Concatenar el operador a la consulta
-        sql += operador;
+    public List<Participante> buscarObjeto(String nombreColumna, Object tipo) {
+
+        List<Participante> participantes = new ArrayList<>();
+        String sql = DAO.setQuery(nombreColumna, tipo);
+
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
             if (tipo instanceof String) {
@@ -69,12 +63,17 @@ public class ParticipantesABM implements DAO<Participante> {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+
         return participantes;
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public List<Participante> buscarTodos() {
+
         List<Participante> participantes = new ArrayList<>();
         String sql = "SELECT * FROM participante";
+
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ResultSet resultSet = pstmt.executeQuery()) {
@@ -85,14 +84,21 @@ public class ParticipantesABM implements DAO<Participante> {
                 int edad = resultSet.getInt("edad_participante");
                 participantes.add(new Participante(id, nombre, edad));
             }
+
         } catch (SQLException e) {
             System.err.println("Error al listar participantes: " + e.getMessage());
         }
+
         return participantes;
+
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void eliminar(int id) {
+
         String sql = "DELETE FROM participante WHERE id_participante = ?";
+
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -103,13 +109,19 @@ public class ParticipantesABM implements DAO<Participante> {
             } else {
                 System.out.println("No se encontró el participante con ID: " + id);
             }
+
         } catch (SQLException e) {
             System.err.println("Error al eliminar participante: " + e.getMessage());
         }
+
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void modificar(int id, Participante nuevoParticipante) {
+
         String sql = "UPDATE participante SET nombre_participante = ?, edad_participante = ? WHERE id_participante = ?";
+
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -122,8 +134,11 @@ public class ParticipantesABM implements DAO<Participante> {
             } else {
                 System.out.println("No se encontró el participante con ID: " + id);
             }
+
         } catch (SQLException e) {
             System.err.println("Error al modificar participante: " + e.getMessage());
         }
+
     }
+
 }

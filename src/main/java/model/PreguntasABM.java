@@ -16,6 +16,8 @@ public class PreguntasABM implements DAO<Pregunta> {
         return instance;
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void insertar(Pregunta pregunta) {
         String sql = "INSERT INTO pregunta (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, resp_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -37,21 +39,13 @@ public class PreguntasABM implements DAO<Pregunta> {
             System.out.println("Error al agregar la pregunta: " + e.getMessage());
         }
     }
+    //-----------------------------------------------------------------------------------------
 
     public List<Pregunta> buscarObjeto(String nombreColumna, Object tipo) {
+
         List<Pregunta> preguntas = new ArrayList<>();
-        String query = "SELECT * FROM pregunta WHERE " + nombreColumna + " ";
-        String operador;
-        if (tipo instanceof String) {
-            operador = "LIKE ?";
-        } else if (tipo instanceof Integer) {
-            operador = "= ?";
-        } else {
-            throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
-        }
-    
-        // Concatenar el operador a la consulta
-        query += operador;
+        String query = DAO.setQuery(nombreColumna, tipo);
+  
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
             if (tipo instanceof String) {
@@ -61,7 +55,6 @@ public class PreguntasABM implements DAO<Pregunta> {
             } else {
                 throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
             }
-
 
             System.out.println("Consulta ejecutada: " + query);
             try (ResultSet resultSet = pstmt.executeQuery()) {
@@ -80,17 +73,20 @@ public class PreguntasABM implements DAO<Pregunta> {
                 }
 
             }
+
         } catch (SQLException e) {
             System.err.println("Error al listar las preguntas: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+
         return preguntas;
     }
 
-    // Método para listar todas las preguntas de la base de datos// falta buscar por
-    // id_tema
+    //-----------------------------------------------------------------------------------------
+
     public List<Pregunta> buscarTodos() {
+
         List<Pregunta> preguntas = new ArrayList<>();
         String query = "SELECT * FROM pregunta";
 
@@ -110,13 +106,18 @@ public class PreguntasABM implements DAO<Pregunta> {
                         resultSet.getInt("id_tema"));
                 preguntas.add(pregunta);
             }
+
         } catch (SQLException e) {
             System.err.println("Error al listar las preguntas: " + e.getMessage());
         }
+
         return preguntas;
     }
 
+    //-----------------------------------------------------------------------------------------
+
     public void eliminar(int id) {
+
         String query = "DELETE FROM pregunta WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
@@ -128,12 +129,15 @@ public class PreguntasABM implements DAO<Pregunta> {
             } else {
                 System.out.println("Pregunta no encontrada.");
             }
+
         } catch (SQLException e) {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
+
     }
 
     public void modificar(int id, Pregunta nuevaPregunta) {
+
         String query = "UPDATE pregunta SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, resp_correcta = ?, id_tema = ? WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database
@@ -154,8 +158,10 @@ public class PreguntasABM implements DAO<Pregunta> {
             } else {
                 System.out.println("Pregunta no encontrada para modificar.");
             }
+
         } catch (SQLException e) {
             System.err.println("Error al modificar la pregunta: " + e.getMessage());
         }
+
     }
 }
