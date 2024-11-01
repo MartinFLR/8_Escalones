@@ -60,6 +60,7 @@ public class Escalon {
         }
         return participantesAEliminar;
     }
+
     public void filtrarParticipantes(){
         List<Participante> participantesAEliminar = getParticipantesAEliminar();
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
@@ -73,6 +74,14 @@ public class Escalon {
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
             this.participantes.remove(participantesAEliminar.get(0));
+        }
+    }
+
+    public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
+        //Saca los participantes que perdieron de la lista de participantes que siguen en juego
+        for (Participante par: participantesAEliminar){
+            participantes.remove(par);
+        
         }
     }
 
