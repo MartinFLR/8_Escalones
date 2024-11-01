@@ -8,16 +8,14 @@ public class Tema {
     private String tema;
     private List<model.Pregunta> preguntas;
     private List<model.logica.PregAproximacion> pregsAproximacion;
-    @SuppressWarnings({"unused", "FieldMayBeFinal"})
-    private Juez juez;
 
-    public Tema(Juez juez, List<PregAproximacion> pregsAproximacion, List<Pregunta> preguntas, String tema) {
-        this.juez = juez;
+    public Tema( List<PregAproximacion> pregsAproximacion, List<Pregunta> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntas = preguntas;
         this.tema = tema;
     }
 
+    //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
     public model.Pregunta sacarPregunta(){
         return this.preguntas.remove(0);
     }
