@@ -22,7 +22,7 @@ public class TemasABM implements DAO<Tema>{
     }
 
     public void insertar(Tema tema) {
-        String sql = "INSERT INTO tema (id, nombre) VALUES (?, ?)";
+        String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -46,8 +46,8 @@ public class TemasABM implements DAO<Tema>{
 
             while (resultSet.next()) {
                 Tema tema = new Tema(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nombre")
+                        resultSet.getInt("id_tema"),
+                        resultSet.getString("nombre_tema")
                 );
                 temas.add(tema);
             }

@@ -10,14 +10,15 @@ import model.Tema;
 
 public class Main {
   public static void main(String[] args) {
-    PreguntasABM abmPreg = PreguntasABM.getInstance();
+    PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
+    PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
     TemasABM abmTemas = TemasABM.getInstance();
     ParticipantesABM abmPart = ParticipantesABM.getInstance();
 
     List<Participante> listaParticipantes = abmPart.buscarTodos();
     List<PreguntaOpciones> listaPreguntas = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
-
+    List<PreguntaAproximacion> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
 
     System.out.println("Lista de Participantes:");
     for (Participante participante : listaParticipantes) {
@@ -29,6 +30,7 @@ public class Main {
 
       System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
+  
 
 
     System.out.println("Lista de Temas:");
