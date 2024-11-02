@@ -9,13 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Tema;
-<<<<<<<< HEAD:src/main/java/model/ABM/TemasABM.java
-
-public class TemasABM implements DAO<Tema>{
-    // Singleton
-    private static TemasABM instance;
-========
->>>>>>>> main:src/main/java/model/ABM/TemasDAO.java
 
 public class TemasDAO implements DAO<Tema>{
     // Singleton

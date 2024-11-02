@@ -8,12 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Participante;
-<<<<<<<< HEAD:src/main/java/model/ABM/ParticipantesABM.java
 
-public class ParticipantesABM implements DAO <Participante>{
-    private static ParticipantesABM instance;
-========
->>>>>>>> main:src/main/java/model/ABM/ParticipantesDAO.java
 
 public class ParticipantesDAO implements DAO <Participante>{
     private static ParticipantesDAO instance;

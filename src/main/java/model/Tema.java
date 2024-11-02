@@ -5,17 +5,10 @@ import java.util.List;
 public class Tema {
     private int id;
     private String nombre;
-<<<<<<< HEAD
-    private List<model.PreguntaOpciones> preguntas;
-    private List<model.PregAproximacion> pregsAproximacion;
-
-    public Tema( List<PregAproximacion> pregsAproximacion, List<PreguntaOpciones> preguntas, String tema) {
-=======
     private List<model.PreguntaOpcion> preguntas;
     private List<model.PreguntaAproximacion> pregsAproximacion;
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
->>>>>>> main
         this.pregsAproximacion = pregsAproximacion;
         this.preguntas = preguntas;
         this.nombre = tema;
@@ -25,19 +18,13 @@ public class Tema {
         this.nombre = nombre;
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
-<<<<<<< HEAD
-    public model.PreguntaOpciones sacarPregunta(){
-        return this.preguntas.remove(0);
-    }
-    
-    public model.PregAproximacion sacarPreguntaAprox(){
-=======
+
     public model.PreguntaOpcion sacarPregunta(){
         return this.preguntas.remove(0);
     }
     
     public model.PreguntaAproximacion sacarPreguntaAprox(){
->>>>>>> main
+
         return this.pregsAproximacion.remove(0);
     }
 
@@ -58,18 +45,7 @@ public class Tema {
     public void setNombre(String nombreTema) {
         this.nombre = nombreTema;
     }
-<<<<<<< HEAD
-    public List<PreguntaOpciones> getPreguntas() {
-        return preguntas;
-    }
-    public void setPreguntas(List<PreguntaOpciones> preguntas) {
-        this.preguntas = preguntas;
-    }
-    public List<PregAproximacion> getPregsAproximacion() {
-        return pregsAproximacion;
-    }
-    public void setPregsAproximacion(List<PregAproximacion> pregsAproximacion) {
-=======
+
     public List<PreguntaOpcion> getPreguntas() {
         return preguntas;
     }
@@ -80,7 +56,6 @@ public class Tema {
         return pregsAproximacion;
     }
     public void setPregsAproximacion(List<PreguntaAproximacion> pregsAproximacion) {
->>>>>>> main
         this.pregsAproximacion = pregsAproximacion;
     }
     public int getId() {
