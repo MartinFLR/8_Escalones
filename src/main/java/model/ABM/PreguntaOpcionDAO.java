@@ -1,15 +1,15 @@
 package model.ABM;
-import model.PreguntaOpcion;
-
-import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import model.PreguntaOpcion;
 
 
 public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
@@ -22,7 +22,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
         return instance;
     }
-
+    @Override
     public void insertar(PreguntaOpcion pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
 
@@ -51,7 +51,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
         
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idPregunta);
             pstmt.setString(2, pregunta.getOpcionA());
@@ -64,7 +64,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             System.out.println("Error al agregar opciones: " + e.getMessage());
         }
     }
-
+    @Override
     public List<PreguntaOpcion> buscarTodos() {
         List<PreguntaOpcion> preguntas = new ArrayList<>();
         String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
@@ -110,7 +110,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
     
     
     
-    
+    @Override
     public void eliminar(int id) {
         String query = "DELETE FROM respuestas WHERE id_pregunta = ?; DELETE FROM preguntas WHERE id_pregunta = ?";
 
@@ -128,7 +128,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
     }
-
+    @Override
     public void modificar(int id, PreguntaOpcion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
 
