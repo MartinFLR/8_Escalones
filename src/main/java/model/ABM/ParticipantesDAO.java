@@ -9,12 +9,12 @@ import java.util.List;
 
 import model.Participante;
 
-public class ParticipantesABM implements DAO <Participante>{
-    private static ParticipantesABM instance;
+public class ParticipantesDAO implements DAO <Participante>{
+    private static ParticipantesDAO instance;
 
-    public static synchronized ParticipantesABM getInstance() {
+    public static synchronized ParticipantesDAO getInstance() {
         if (instance == null) {
-            instance = new ParticipantesABM();
+            instance = new ParticipantesDAO();
         }
         return instance;
     }
@@ -25,7 +25,7 @@ public class ParticipantesABM implements DAO <Participante>{
 
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
-            pstmt.setInt(2, participante.getEdad());
+
             pstmt.executeUpdate();
             System.out.println("Participante agregado con éxito.");
         } catch (SQLException e) {

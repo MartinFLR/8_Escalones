@@ -7,9 +7,9 @@ public class Participante {
     private int id;
     private final String nombre;
     @SuppressWarnings("FieldMayBeFinal")
-    private List<PreguntaOpciones> preguntas = new ArrayList<>();
-    private char respuestaParticipante;
-    private PregAproximacion pregEmpate;
+    private List<PreguntaOpcion> preguntas = new ArrayList<>();
+    private String respuestaParticipante;
+    private PreguntaAproximacion pregEmpate;
     private double respuestaParticipanteEmpate;
     private int cantErrores=0;
     private int cantAciertos = 0;//Puede ser util para la ronda final
@@ -29,16 +29,16 @@ public class Participante {
     public String getNombre() {
         return nombre;
     }
-    public char getRespuestaParticipante() {
+    public String getRespuestaParticipante() {
         return respuestaParticipante;
     }
-    public void setRespuestaParticipante(char respuestaParticipante) {
+    public void setRespuestaParticipante(String respuestaParticipante) {
         this.respuestaParticipante = respuestaParticipante;
     }
-    public List<PreguntaOpciones> getPreguntasParticipante(){
+    public List<PreguntaOpcion> getPreguntasParticipante(){
         return this.preguntas;
     } 
-    public void setPreguntasParticipante(PreguntaOpciones preg){
+    public void setPreguntasParticipante(PreguntaOpcion preg){
         this.preguntas.add(preg);
     }
     public int getCantErrores(){
@@ -71,11 +71,11 @@ public class Participante {
         this.respuestaParticipanteEmpate = respuestaParticipanteEmpate;
     }
 
-    public PregAproximacion getPregEmpate() {
+    public PreguntaAproximacion getPregEmpate() {
         return pregEmpate;
     }
 
-    public void setPregEmpate(PregAproximacion pregEmpate) {
+    public void setPregEmpate(PreguntaAproximacion pregEmpate) {
         this.pregEmpate = pregEmpate;
     }
 
