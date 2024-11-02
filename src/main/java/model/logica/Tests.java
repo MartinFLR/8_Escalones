@@ -2,21 +2,36 @@ package model.logica;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import model.ABM.ParticipantesABM;
 import model.ABM.PreguntasABM;
 import model.ABM.TemasABM;
 import model.Participante;
 import model.PreguntaOpciones;
 import model.Tema;
+=======
+import model.*;
+import model.ABM.ParticipantesDAO;
+import model.ABM.PreguntaOpcionDAO;
+import model.ABM.TemasDAO;
+>>>>>>> main
 
 public class Tests {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
+<<<<<<< HEAD
         PreguntasABM abmPreg = PreguntasABM.getInstance();
         TemasABM abmTemas = TemasABM.getInstance();
         ParticipantesABM abmPart = ParticipantesABM.getInstance();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
         List<PreguntaOpciones> listaPreguntas = abmPreg.buscarTodos();
+=======
+        PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
+        TemasDAO abmTemas = TemasDAO.getInstance();
+        ParticipantesDAO abmPart = ParticipantesDAO.getInstance();
+        List<Participante> listaParticipantes = abmPart.buscarTodos();
+        List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
+>>>>>>> main
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
         
         model.Tema tema = new model.Tema (null, listaPreguntas, "Tema 1");
@@ -34,12 +49,21 @@ public class Tests {
         //Prueba si se eliminaron las preguntas y las devuelve en las variables pregunta y pregunta2
         //Hay que filtrar las preguntas por el id del tema y crear cada tema con sus preguntas
         System.out.println("\nProbando sacar 2 preguntas\n");
+<<<<<<< HEAD
         PreguntaOpciones pregunta = tema.sacarPregunta();
         PreguntaOpciones pregunta2 = tema.sacarPregunta();
         imprimirPregunta(pregunta);
         imprimirPregunta(pregunta2);
         System.out.println("\nPrueba si se eliminaron las preguntas de la lista general\n");
         for(model.PreguntaOpciones preg : tema.getPreguntas()){
+=======
+        PreguntaOpcion pregunta = tema.sacarPregunta();
+        PreguntaOpcion pregunta2 = tema.sacarPregunta();
+        imprimirPregunta(pregunta);
+        imprimirPregunta(pregunta2);
+        System.out.println("\nPrueba si se eliminaron las preguntas de la lista general\n");
+        for(model.PreguntaOpcion preg : tema.getPreguntas()){
+>>>>>>> main
             imprimirPregunta(preg);
         }
     }
@@ -91,7 +115,11 @@ public class Tests {
     }
     
     //Metodos para imprimir datos y probar los metodos
+<<<<<<< HEAD
     public static void imprimirPregunta(PreguntaOpciones pregunta){
+=======
+    public static void imprimirPregunta(PreguntaOpcion pregunta){
+>>>>>>> main
         System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     } 
     public static void imprimirDatosEscalon(Escalon escalon){
