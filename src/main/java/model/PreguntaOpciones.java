@@ -1,49 +1,50 @@
 package model;
 
-public class Pregunta {
+public class PreguntaOpciones extends Preguntas{
     //Tema: 1 
-
-    private int id_pregunta;
+    private int id;
+    private int id_tema;
     private String pregunta;
     private String opcion_a;
     private String opcion_b;
     private String opcion_c;
     private String opcion_d;
-    private String resp_correcta;
-    private int id_tema;
+    private char respuestaCorrecta;
 
     //Este constructor se utiliza cuando quiero crear una pregunta, el id en la base de datos es autoincremental
-    public Pregunta( String pregunta, String opcion_a, String opcion_b,
-                    String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema) {
+    public PreguntaOpciones( String pregunta, String opcion_a, String opcion_b,
+                    String opcion_c, String opcion_d, char respuestaCorrecta, int id_tema, int id_preg, String tipo_preg) {
+        super(tipo_preg,id_preg, id_tema);
         this.pregunta = pregunta;
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
         this.opcion_d = opcion_d;
-        this.resp_correcta = respuestaCorrecta;
+        this.respuestaCorrecta = respuestaCorrecta;
         this.id_tema = id_tema;
     }
 
     //Este constructor se utiliza cuando quiero recuperar la pregunta
-    public Pregunta(int id , String pregunta, String opcion_a, String opcion_b,
-                    String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
-        this.id_pregunta = id;
+    public PreguntaOpciones(int id , String pregunta, String opcion_a, String opcion_b,
+                    String opcion_c, String opcion_d, char respuestaCorrecta, int id_tema, int id_preg, String tipo_preg){
+        super(tipo_preg, id_preg, id_tema);
+        this.id = id;
         this.pregunta = pregunta;
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
         this.opcion_d = opcion_d;
-        this.resp_correcta = respuestaCorrecta;
+        this.respuestaCorrecta = respuestaCorrecta;
         this.id_tema = id_tema;
     }
 
 
     public int getId() {
-        return id_pregunta;
+        return id;
     }
 
     public void setId(int id) {
-        this.id_pregunta = id;
+        this.id = id;
     }
 
     public String getPregunta() {
@@ -86,12 +87,12 @@ public class Pregunta {
         this.opcion_d = opcion_d;
     }
 
-    public String getRespuestaCorrecta() {
-        return resp_correcta;
+    public char getRespuestaCorrecta() {
+        return respuestaCorrecta;
     }
 
-    public void setRespuestaCorrecta(String respuestaCorrecta) {
-        this.resp_correcta = respuestaCorrecta;
+    public void setRespuestaCorrecta(char respuestaCorrecta) {
+        this.respuestaCorrecta = respuestaCorrecta;
     }
 
     public int getIdTema() {

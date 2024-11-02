@@ -1,7 +1,11 @@
-import java.util.ArrayList;
 import java.util.List;
 
-import model.*;
+import model.ABM.ParticipantesABM;
+import model.ABM.PreguntasABM;
+import model.ABM.TemasABM;
+import model.Participante;
+import model.PreguntaOpciones;
+import model.Tema;
 
 
 public class Main {
@@ -11,21 +15,20 @@ public class Main {
     ParticipantesABM abmPart = ParticipantesABM.getInstance();
 
     List<Participante> listaParticipantes = abmPart.buscarTodos();
-    List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
+    List<PreguntaOpciones> listaPreguntas = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
 
-    listaTemas = abmTemas.buscarObjeto("nombre_tema", "Historia");
 
-    //System.out.println("Lista de Participantes:");
-   // for (Participante participante : listaParticipantes) {
-    //  System.out.println(participante.getNombre()+", "+participante.getEdad());
-   // }
+    System.out.println("Lista de Participantes:");
+    for (Participante participante : listaParticipantes) {
+      System.out.println(participante.getNombre()+", "+participante.getEdad());
+    }
 
-   // System.out.println("Lista de Preguntas:");
-   // for (Pregunta pregunta : listaPreguntas) {
+    System.out.println("Lista de Preguntas:");
+    for (PreguntaOpciones pregunta : listaPreguntas) {
 
-    //  System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
-   // }
+      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+    }
 
 
     System.out.println("Lista de Temas:");

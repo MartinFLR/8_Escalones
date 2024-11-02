@@ -3,6 +3,9 @@ package model.logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Participante;
+import model.Tema;
+
 public class Escalon {
     private final Ronda estadoDeRonda; 
     private Tema tema;
@@ -13,13 +16,18 @@ public class Escalon {
         //Crea la instancia de la ronda y setea por defecto ronda normal
         this.estadoDeRonda = new Ronda();
     }
-
-    //A cada participante le reparte dos preguntas
+    
     public void repartirPreguntas(){
         for (Participante participante : participantes) {
             for (int i = 0; i <2; i++) {
             participante.setPreguntasParticipante(tema.sacarPregunta());
         }}
+    }
+    public void repartirPreguntasAprox(List<Participante> participantesAEliminar){ //Reparte la pregunta de aproximacion a los participantes correspondientes
+        for (model.Participante par: participantesAEliminar){
+            par.setPregEmpate(tema.sacarPreguntaAprox());
+            
+        }
     }
     public void subeEscalon(){
         this.escalon++;
@@ -53,12 +61,16 @@ public class Escalon {
         }
         return participantesAEliminar;
     }
+
     public void filtrarParticipantes(){
         List<Participante> participantesAEliminar = getParticipantesAEliminar();
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
-            //Hay que ver como pasarle la lista de participantes a eliminar
-            this.estadoDeRonda.setRondaDeEmpate();
+            // les envia la pregunta de aproximacion a todos los participantes empatados.
+            this.repartirPreguntasAprox(participantesAEliminar);
+            //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
+            this.estadoDeRonda.setRondaDeEmpate(participantesAEliminar);
+            
         }else{
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
@@ -66,15 +78,29 @@ public class Escalon {
         }
     }
 
-    public void agregaParticipante(model.logica.Participante participante) {
+    public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
+        //Saca los participantes que perdieron de la lista de participantes que siguen en juego
+        for (Participante par: participantesAEliminar){
+            participantes.remove(par);
+        
+        }
+    }
+
+    public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
     }
-    public void eliminaParticipante(model.logica.Participante participante) {
+    public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
     //Getters y setters
     public void setTema(Tema tema) {
         this.tema = tema;
+    }
+    public int getEscalon() {
+        return this.escalon;
+    }
+    public List<Participante> getParticipantes() {
+        return this.participantes;
     }
 }
