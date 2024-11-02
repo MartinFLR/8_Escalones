@@ -1,48 +1,93 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Participante {
     private int id;
-    private String nombre;
-    private int edad;
+    private final String nombre;
+    @SuppressWarnings("FieldMayBeFinal")
+    private List<Pregunta> preguntas = new ArrayList<>();
+    private char respuestaParticipante;
+    private PregAproximacion pregEmpate;
+    private double respuestaParticipanteEmpate;
+    private int cantErrores=0;
+    private int cantAciertos = 0;//Puede ser util para la ronda final
+    private int numEscalon=1;
 
-    
     public Participante(int id, String nombre, int edad) {
         this.id = id;
         this.nombre = nombre;
-        this.edad = edad;
     }
 
     // Constructor sin id para agregar participantes
-    public Participante(String nombre, int edad) {
+    public Participante(String nombre) {
         this.nombre = nombre;
-        this.edad = edad;
     }
 
-    // Getters y Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    //Getters y Setters
     public String getNombre() {
         return nombre;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public char getRespuestaParticipante() {
+        return respuestaParticipante;
+    }
+    public void setRespuestaParticipante(char respuestaParticipante) {
+        this.respuestaParticipante = respuestaParticipante;
+    }
+    public List<Pregunta> getPreguntasParticipante(){
+        return this.preguntas;
+    } 
+    public void setPreguntasParticipante(Pregunta preg){
+        this.preguntas.add(preg);
+    }
+    public int getCantErrores(){
+        return this.cantErrores;
+    }
+    public void setCantErrores(int cantErrores){ //le agrega errores a los ya existentes
+        this.cantErrores += cantErrores;
+    }
+    public int getCantAciertos(){
+        return this.cantAciertos;
+    }
+    public void setCantAciertos(int cantAciertos){//le agrega aciertos a los ya existentes
+        this.cantAciertos += cantAciertos;
+    }
+    public void sumaAcierto(){
+        this.cantAciertos++;
+    }
+    public void sumaError(){
+        this.cantErrores++;
+    }
+    public void subeEscalon(){
+        this.numEscalon++;
     }
 
-    public int getEdad() {
-        return edad;
+    public double getRespuestaParticipanteEmpate() {
+        return respuestaParticipanteEmpate;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setRespuestaParticipanteEmpate(double respuestaParticipanteEmpate) {
+        this.respuestaParticipanteEmpate = respuestaParticipanteEmpate;
     }
 
-   
+    public PregAproximacion getPregEmpate() {
+        return pregEmpate;
+    }
 
+    public void setPregEmpate(PregAproximacion pregEmpate) {
+        this.pregEmpate = pregEmpate;
+    }
+
+    public int getNumEscalon() {
+        return numEscalon;
+    }
+
+    public int getId() {
+        return id;
+    }
+        public void setId(int id) {
+        this.id = id;
+    }
 }
+

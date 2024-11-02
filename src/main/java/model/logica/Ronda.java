@@ -2,6 +2,8 @@ package model.logica;
 
 import java.util.List;
 
+import model.Participante;
+
 public class Ronda {
     private EstadoRonda estadoRonda;
     //Esta clase deriva la ronda de preguntas al estado (RondaNormal, RondaEmpate o RondaFinal)
@@ -11,7 +13,7 @@ public class Ronda {
         this.estadoRonda = new RondaNormal();
     }
     public void rondaDePreguntas(List<Participante> participantes){
-        this.estadoRonda.rondaDePreguntas(this,participantes);
+        this.estadoRonda.rondaDePreguntas(this, participantes);
     }
     public void setRondaNormal(){
         System.out.println("Estado: Ronda normal");

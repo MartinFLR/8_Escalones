@@ -2,6 +2,7 @@ package model.logica;
 
 import java.util.List;
 
+import model.Participante;
 import model.Pregunta;
 
 public class RondaNormal implements EstadoRonda {

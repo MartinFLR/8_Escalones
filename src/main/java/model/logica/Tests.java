@@ -2,10 +2,12 @@ package model.logica;
 
 import java.util.List;
 
-import model.ParticipantesABM;
+import model.ABM.ParticipantesABM;
+import model.ABM.PreguntasABM;
+import model.ABM.TemasABM;
+import model.Participante;
 import model.Pregunta;
-import model.PreguntasABM;
-import model.TemasABM;
+import model.Tema;
 
 public class Tests {
     @SuppressWarnings("unused")
@@ -13,11 +15,11 @@ public class Tests {
         PreguntasABM abmPreg = PreguntasABM.getInstance();
         TemasABM abmTemas = TemasABM.getInstance();
         ParticipantesABM abmPart = ParticipantesABM.getInstance();
-        List<model.Participante> listaParticipantes = abmPart.buscarTodos();
+        List<Participante> listaParticipantes = abmPart.buscarTodos();
         List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
         
-        model.logica.Tema tema = new model.logica.Tema (null, listaPreguntas, "Tema 1");
+        model.Tema tema = new model.Tema (null, listaPreguntas, "Tema 1");
         Escalon escalon = new Escalon();
         // Para que funcionen los tests tenemos que pasar la respuesta de String a char donde la usemos y en el ABM
         // testClaseTema(tema);
@@ -41,14 +43,12 @@ public class Tests {
             imprimirPregunta(preg);
         }
     }
-    public static void testClaseEscalon(Tema tema,List<model.Participante> listaParticipantes,Escalon escalon){
+    public static void testClaseEscalon(Tema tema,List<Participante> listaParticipantes,Escalon escalon){
         System.out.println("\nProbando clase Escalon\n");
         //Prueba repartir preguntas, suma errores a un participante y prubea la funcion de filtrar participantes
         escalon.setTema(tema);
-        //Hay que unir las dos clases participante que tenemos para ahorrarnos esto
-        for (model.Participante participante : listaParticipantes) {
-            model.logica.Participante participanteEscalon = new model.logica.Participante(participante.getNombre());
-            escalon.agregaParticipante(participanteEscalon);
+        for (Participante participante : listaParticipantes) {
+            escalon.agregaParticipante(new Participante(participante.getNombre()));
         }
 
         System.out.println("---------Datos originales---------");
@@ -96,11 +96,11 @@ public class Tests {
     } 
     public static void imprimirDatosEscalon(Escalon escalon){
         System.out.println("Escalon: "+escalon.getEscalon());
-        for (model.logica.Participante participante : escalon.getParticipantes()) {
+        for (Participante participante : escalon.getParticipantes()) {
             imprimirDatosParticipante(participante);
         }
     }
-    public static void imprimirDatosParticipante(model.logica.Participante participante){
+    public static void imprimirDatosParticipante(Participante participante){
         System.out.println("Participante: "+participante.getNombre());
         System.out.println("Cantidad de preguntas asignadas:" + participante.getPreguntasParticipante().size());
         System.out.println("Cantidad de errores: "+participante.getCantErrores());

@@ -2,6 +2,8 @@ package model.logica;
 
 import java.util.List;
 
+import model.Participante;
+
 public class RondaFinal implements EstadoRonda {
     @Override
     public void rondaDePreguntas(Ronda ronda,List<Participante> participantes) {

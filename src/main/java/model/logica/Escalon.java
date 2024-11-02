@@ -3,6 +3,9 @@ package model.logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Participante;
+import model.Tema;
+
 public class Escalon {
     private final Ronda estadoDeRonda; 
     private Tema tema;
@@ -13,7 +16,6 @@ public class Escalon {
         //Crea la instancia de la ronda y setea por defecto ronda normal
         this.estadoDeRonda = new Ronda();
     }
-
     
     public void repartirPreguntas(){
         for (Participante participante : participantes) {
@@ -22,7 +24,7 @@ public class Escalon {
         }}
     }
     public void repartirPreguntasAprox(List<Participante> participantesAEliminar){ //Reparte la pregunta de aproximacion a los participantes correspondientes
-        for (model.logica.Participante par: participantesAEliminar){
+        for (model.Participante par: participantesAEliminar){
             par.setPregEmpate(tema.sacarPreguntaAprox());
             
         }
@@ -84,11 +86,11 @@ public class Escalon {
         }
     }
 
-    public void agregaParticipante(model.logica.Participante participante) {
+    public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
     }
-    public void eliminaParticipante(model.logica.Participante participante) {
+    public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
     //Getters y setters

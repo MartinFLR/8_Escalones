@@ -1,8 +1,10 @@
-package model;
+package model.ABM;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Pregunta;
 
 public class PreguntasABM implements DAO <Pregunta>{
 

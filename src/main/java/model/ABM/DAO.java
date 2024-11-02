@@ -1,4 +1,4 @@
-package model;
+package model.ABM;
 import java.util.List;
 
 
