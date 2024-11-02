@@ -4,7 +4,7 @@ import model.ABM.ParticipantesABM;
 import model.ABM.PreguntasABM;
 import model.ABM.TemasABM;
 import model.Participante;
-import model.Pregunta;
+import model.PreguntaOpciones;
 import model.Tema;
 
 
@@ -15,7 +15,7 @@ public class Main {
     ParticipantesABM abmPart = ParticipantesABM.getInstance();
 
     List<Participante> listaParticipantes = abmPart.buscarTodos();
-    List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
+    List<PreguntaOpciones> listaPreguntas = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
 
 
@@ -25,7 +25,7 @@ public class Main {
     }
 
     System.out.println("Lista de Preguntas:");
-    for (Pregunta pregunta : listaPreguntas) {
+    for (PreguntaOpciones pregunta : listaPreguntas) {
 
       System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }

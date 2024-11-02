@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Pregunta;
+import model.PreguntaOpciones;
 
-public class PreguntasABM implements DAO <Pregunta>{
+public class PreguntasABM implements DAO <PreguntaOpciones>{
 
     // Singleton
     private static PreguntasABM instance;
@@ -18,7 +18,7 @@ public class PreguntasABM implements DAO <Pregunta>{
         return instance;
     }
 
-    public void insertar(Pregunta pregunta) {
+    public void insertar(PreguntaOpciones pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_tema) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
@@ -41,8 +41,8 @@ public class PreguntasABM implements DAO <Pregunta>{
     }
 
     // Método para listar todas las preguntas de la base de datos
-    public List<Pregunta> buscarTodos() {
-        List<Pregunta> preguntas = new ArrayList<>();
+    public List<PreguntaOpciones> buscarTodos() {
+        List<PreguntaOpciones> preguntas = new ArrayList<>();
         String query = "SELECT * FROM preguntas";
 
         try (Connection connection = Database.getInstance().getConnection();
@@ -50,7 +50,7 @@ public class PreguntasABM implements DAO <Pregunta>{
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                Pregunta pregunta = new Pregunta(
+                PreguntaOpciones pregunta = new PreguntaOpciones(
                         resultSet.getInt("id"),
                         resultSet.getString("pregunta"),
                         resultSet.getString("opcion_a"),
@@ -87,7 +87,7 @@ public class PreguntasABM implements DAO <Pregunta>{
 
     
     
-    public void modificar(int id, Pregunta nuevaPregunta) {
+    public void modificar(int id, PreguntaOpciones nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, opcion_a = ?, opcion_b = ?, opcion_c = ?, opcion_d = ?, respuesta_correcta = ?, id_tema = ? WHERE id = ?";
 
         try (Connection connection = Database.getInstance().getConnection(); // Usa el método de la clase Database

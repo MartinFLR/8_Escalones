@@ -7,7 +7,7 @@ public class Participante {
     private int id;
     private final String nombre;
     @SuppressWarnings("FieldMayBeFinal")
-    private List<Pregunta> preguntas = new ArrayList<>();
+    private List<PreguntaOpciones> preguntas = new ArrayList<>();
     private char respuestaParticipante;
     private PregAproximacion pregEmpate;
     private double respuestaParticipanteEmpate;
@@ -35,10 +35,10 @@ public class Participante {
     public void setRespuestaParticipante(char respuestaParticipante) {
         this.respuestaParticipante = respuestaParticipante;
     }
-    public List<Pregunta> getPreguntasParticipante(){
+    public List<PreguntaOpciones> getPreguntasParticipante(){
         return this.preguntas;
     } 
-    public void setPreguntasParticipante(Pregunta preg){
+    public void setPreguntasParticipante(PreguntaOpciones preg){
         this.preguntas.add(preg);
     }
     public int getCantErrores(){

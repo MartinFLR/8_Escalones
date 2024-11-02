@@ -1,6 +1,6 @@
 package model;
 
-public class Pregunta extends Preguntas{
+public class PreguntaOpciones extends Preguntas{
     //Tema: 1 
     private int id;
     private int id_tema;
@@ -12,7 +12,7 @@ public class Pregunta extends Preguntas{
     private char respuestaCorrecta;
 
     //Este constructor se utiliza cuando quiero crear una pregunta, el id en la base de datos es autoincremental
-    public Pregunta( String pregunta, String opcion_a, String opcion_b,
+    public PreguntaOpciones( String pregunta, String opcion_a, String opcion_b,
                     String opcion_c, String opcion_d, char respuestaCorrecta, int id_tema, int id_preg, String tipo_preg) {
         super(tipo_preg,id_preg, id_tema);
         this.pregunta = pregunta;
@@ -25,7 +25,7 @@ public class Pregunta extends Preguntas{
     }
 
     //Este constructor se utiliza cuando quiero recuperar la pregunta
-    public Pregunta(int id , String pregunta, String opcion_a, String opcion_b,
+    public PreguntaOpciones(int id , String pregunta, String opcion_a, String opcion_b,
                     String opcion_c, String opcion_d, char respuestaCorrecta, int id_tema, int id_preg, String tipo_preg){
         super(tipo_preg, id_preg, id_tema);
         this.id = id;

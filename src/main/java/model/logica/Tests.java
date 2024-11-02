@@ -6,7 +6,7 @@ import model.ABM.ParticipantesABM;
 import model.ABM.PreguntasABM;
 import model.ABM.TemasABM;
 import model.Participante;
-import model.Pregunta;
+import model.PreguntaOpciones;
 import model.Tema;
 
 public class Tests {
@@ -16,7 +16,7 @@ public class Tests {
         TemasABM abmTemas = TemasABM.getInstance();
         ParticipantesABM abmPart = ParticipantesABM.getInstance();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
-        List<Pregunta> listaPreguntas = abmPreg.buscarTodos();
+        List<PreguntaOpciones> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
         
         model.Tema tema = new model.Tema (null, listaPreguntas, "Tema 1");
@@ -34,12 +34,12 @@ public class Tests {
         //Prueba si se eliminaron las preguntas y las devuelve en las variables pregunta y pregunta2
         //Hay que filtrar las preguntas por el id del tema y crear cada tema con sus preguntas
         System.out.println("\nProbando sacar 2 preguntas\n");
-        Pregunta pregunta = tema.sacarPregunta();
-        Pregunta pregunta2 = tema.sacarPregunta();
+        PreguntaOpciones pregunta = tema.sacarPregunta();
+        PreguntaOpciones pregunta2 = tema.sacarPregunta();
         imprimirPregunta(pregunta);
         imprimirPregunta(pregunta2);
         System.out.println("\nPrueba si se eliminaron las preguntas de la lista general\n");
-        for(model.Pregunta preg : tema.getPreguntas()){
+        for(model.PreguntaOpciones preg : tema.getPreguntas()){
             imprimirPregunta(preg);
         }
     }
@@ -91,7 +91,7 @@ public class Tests {
     }
     
     //Metodos para imprimir datos y probar los metodos
-    public static void imprimirPregunta(Pregunta pregunta){
+    public static void imprimirPregunta(PreguntaOpciones pregunta){
         System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     } 
     public static void imprimirDatosEscalon(Escalon escalon){
