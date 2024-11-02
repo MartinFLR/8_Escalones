@@ -96,4 +96,42 @@ public class TemasDAO implements DAO<Tema>{
             System.err.println("Error al modificar tema: " + e.getMessage());
         }
     }
-}
+
+    @Override
+    public List<Tema> buscarObjeto(String nombreColumna, Object tipo) {
+         // public List<Tema> buscarObjeto(String nombreColumna, Object tipo) {
+         List<Tema> temas = new ArrayList<>();
+         String query = DAO.setQuery(nombreColumna, tipo, "tema");
+
+         try (Connection conn = Database.getInstance().getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
+             if (tipo instanceof String) {
+                 pstmt.setString(1, "%" +  tipo + "%");
+             } else if (tipo instanceof Integer) {
+                 pstmt.setInt(1, (Integer) tipo);
+             } else {
+                 throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
+             }
+
+            System.out.println("Consulta ejecutada: " + query);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+
+                 while (resultSet.next()) {
+                     Tema tema = new Tema(
+                             resultSet.getInt("id_tema"),
+                             resultSet.getString("nombre_tema"));
+                    temas.add(tema);
+                }
+             }
+
+         } catch (SQLException e) {
+             System.err.println("Error al listar temas: " + e.getMessage());
+
+         } catch (IllegalArgumentException e) {
+             System.out.println(e.getMessage());
+         }
+
+        return temas;
+     }
+    }
+

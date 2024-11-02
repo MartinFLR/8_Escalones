@@ -4,18 +4,18 @@ import java.util.List;
 
 public class Tema {
     private int id;
-    private String nombre;
+    private String nombre_tema;
     private List<model.PreguntaOpcion> preguntas;
     private List<model.PreguntaAproximacion> pregsAproximacion;
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntas = preguntas;
-        this.nombre = tema;
+        this.nombre_tema = tema;
     }
     public Tema(int id, String nombre) {
         this.id = id;
-        this.nombre = nombre;
+        this.nombre_tema = nombre;
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
 
@@ -40,10 +40,10 @@ public class Tema {
     
     //Getters y Setters
     public String getTema() {
-        return this.nombre;
+        return this.nombre_tema;
     }
     public void setNombre(String nombreTema) {
-        this.nombre = nombreTema;
+        this.nombre_tema = nombreTema;
     }
 
     public List<PreguntaOpcion> getPreguntas() {
@@ -62,6 +62,6 @@ public class Tema {
         return id;
     }
     public String getNombre() {
-        return nombre;
+        return nombre_tema;
     }
 }

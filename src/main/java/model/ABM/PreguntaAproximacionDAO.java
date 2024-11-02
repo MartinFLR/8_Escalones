@@ -126,5 +126,11 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             System.err.println("Error al modificar la pregunta de aproximación: " + e.getMessage());
         }
     }
+
+    @Override
+    public List<PreguntaAproximacion> buscarObjeto(String nombreColumna, Object tipo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarObjeto'");
+    }
 }
 

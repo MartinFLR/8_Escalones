@@ -149,4 +149,9 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             System.err.println("Error al modificar la pregunta: " + e.getMessage());
         }
     }
+    @Override
+    public List<PreguntaOpcion> buscarObjeto(String nombreColumna, Object tipo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarObjeto'");
+    }
 }

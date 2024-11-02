@@ -10,6 +10,7 @@ import java.util.List;
 import model.Participante;
 
 public class ParticipantesDAO implements DAO <Participante>{
+    
     private static ParticipantesDAO instance;
 
     public static synchronized ParticipantesDAO getInstance() {
@@ -85,5 +86,10 @@ public class ParticipantesDAO implements DAO <Participante>{
         } catch (SQLException e) {
             System.err.println("Error al modificar participante: " + e.getMessage());
         }
+    }
+    @Override
+    public List<Participante> buscarObjeto(String nombreColumna, Object tipo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarObjeto'");
     }
 }

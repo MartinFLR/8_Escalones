@@ -9,13 +9,13 @@ public interface DAO<T> {
     //T buscarPorId(int id);
     List<T> buscarTodos();
     List<T> buscarObjeto(String nombreColumna, Object tipo);
-    
-    static String setQuery(String nombreColumna, Object tipo){
+
+    static String setQuery(String nombreColumna, Object tipo, String entidad){
 
         if (tipo instanceof String) {
-            return "SELECT * FROM tema WHERE " + nombreColumna + " LIKE ?";
+            return "SELECT * FROM " + entidad + " WHERE " + nombreColumna + " LIKE ?";
         } else if (tipo instanceof Integer) {
-            return "SELECT * FROM tema WHERE " + nombreColumna + " = ? ";
+            return "SELECT * FROM " + entidad + " WHERE " + nombreColumna + " = ? ";
         } else {
             throw new IllegalArgumentException("Tipo de dato no soportado: " + tipo.getClass());
         }

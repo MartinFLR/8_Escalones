@@ -3,11 +3,7 @@ package model.logica;
 import java.util.List;
 
 import model.Participante;
-<<<<<<< HEAD
-import model.PregAproximacion;
-=======
 import model.PreguntaAproximacion;
->>>>>>> main
 
 
 public class RondaEmpate implements EstadoRonda {
@@ -15,21 +11,13 @@ public class RondaEmpate implements EstadoRonda {
         //deja al peor jugador en la lista AEliminar,dejando a los otros en juego.
         public void rondaDePreguntas(Ronda ronda,List<Participante> participantes) {
             /*Aca va la logica para las preguntas por aproximacion*/
-<<<<<<< HEAD
-            PregAproximacion preg;
-=======
             PreguntaAproximacion preg;
->>>>>>> main
             double respMasLejana=Double.MAX_VALUE;//el valor max
             double diferencia=0.0;
             Participante peorParticipante = null;
                 for (model.Participante par: participantes){
                     preg=par.getPregEmpate();
-<<<<<<< HEAD
-                    diferencia=this.compara(preg.getRespuestaCorrecta(),par.getRespuestaParticipanteEmpate());
-=======
                     diferencia=this.compara(Double.parseDouble(preg.getRespuestaCorrecta()) ,par.getRespuestaParticipanteEmpate());
->>>>>>> main
                     if (diferencia>respMasLejana){//si la dif es mayor a la resp Lejana , esta pasa a ser la resp Lejana! (mas Lejana a la correcta)
                         respMasLejana=diferencia;
                         peorParticipante=par;
