@@ -58,8 +58,9 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
     public List<PreguntaAproximacion> buscarTodos() {
         List<PreguntaAproximacion> preguntas = new ArrayList<>();
-        String query = "SELECT p.id_pregunta, p.pregunta, r.respuesta AS respuesta_correcta, t.id_tema AS tema_id "
+        String query = "SELECT p.id_pregunta, p.pregunta,tp.tipo_pregunta AS tipoPregunta, r.respuesta AS respuesta_correcta, t.id_tema AS tema_id "
                      + "FROM preguntas p "
+                     + "JOIN tipo_pregunta as tp ON tp.id_tipo = p.id_tipopregunta "
                      + "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta AND r.respuesta_correcta = TRUE "
                      + "LEFT JOIN tema t ON p.id_tema = t.id_tema "
                      + "WHERE p.id_tipopregunta = 2";

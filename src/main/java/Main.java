@@ -30,6 +30,11 @@ public class Main {
       System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
   
+    System.out.println("Lista de Preguntas de aproximacion:");
+    for (PreguntaAproximacion pregunta : listaPreguntasAproximacion) {
+
+      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+    }
 
 
     System.out.println("Lista de Temas:");
