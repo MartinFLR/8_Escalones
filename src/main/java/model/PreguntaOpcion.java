@@ -28,6 +28,16 @@ public class PreguntaOpcion extends Preguntas {
         this.respuesta_correcta = respuestaCorrecta;
     }
 
+    public PreguntaOpcion(int idPregunta, String preguntaTexto, String tipoPregunta, String opcion_a2, String opcion_b2,
+            String opcion_c2, String opcion_d2, int idTema) {
+        super(idPregunta, preguntaTexto, tipoPregunta, idTema);
+        this.opcion_a = opcion_a2;
+        this.opcion_b = opcion_b2;
+        this.opcion_c = opcion_c2;
+        this.opcion_d = opcion_d2;
+        
+    }
+
     public String getOpcionA(){
         return this.opcion_a;
     }

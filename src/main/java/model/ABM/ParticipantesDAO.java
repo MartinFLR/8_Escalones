@@ -18,7 +18,7 @@ public class ParticipantesDAO implements DAO <Participante>{
         }
         return instance;
     }
-
+    @Override
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
         try (Connection conn = Database.getInstance().getConnection();
@@ -32,7 +32,7 @@ public class ParticipantesDAO implements DAO <Participante>{
             System.err.println("Error al agregar participante: " + e.getMessage());
         }
     }
-
+    @Override
     public List<Participante> buscarTodos() {
         List<Participante> participantes = new ArrayList<>();
         String sql = "SELECT * FROM participantes";
@@ -51,7 +51,7 @@ public class ParticipantesDAO implements DAO <Participante>{
         }
         return participantes;
     }
-
+    @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM participantes WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
@@ -68,14 +68,13 @@ public class ParticipantesDAO implements DAO <Participante>{
             System.err.println("Error al eliminar participante: " + e.getMessage());
         }
     }
-
+    @Override
     public void modificar(int id, Participante nuevoParticipante) {
         String sql = "UPDATE participantes SET nombre = ?, edad = ? WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevoParticipante.getNombre());
-            pstmt.setInt(2, nuevoParticipante.getEdad());
             pstmt.setInt(3, id);
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
