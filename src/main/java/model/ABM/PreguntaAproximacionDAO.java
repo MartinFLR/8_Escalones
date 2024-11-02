@@ -1,4 +1,6 @@
-package model;
+package model.ABM;
+
+import model.PreguntaAproximacion;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -69,10 +71,11 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             while (rs.next()) {
                 int idPregunta = rs.getInt("id_pregunta");
                 String pregunta = rs.getString("pregunta");
+                String tipoPregunta = rs.getString("tipoPregunta");
                 String respuestaCorrecta = rs.getString("respuesta_correcta");
                 int temaId = rs.getInt("tema_id");  // Aquí aseguramos que tema_id sea int
     
-                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta, respuestaCorrecta, temaId);
+                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta,tipoPregunta, respuestaCorrecta, temaId);
                 preguntas.add(preguntaAprox);
             }
         } catch (SQLException e) {

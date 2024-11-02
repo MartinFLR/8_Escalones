@@ -5,10 +5,10 @@ import java.util.List;
 public class Tema {
     private int id;
     private String nombre;
-    private List<model.PreguntaOpciones> preguntas;
-    private List<model.PregAproximacion> pregsAproximacion;
+    private List<model.PreguntaOpcion> preguntas;
+    private List<model.PreguntaAproximacion> pregsAproximacion;
 
-    public Tema( List<PregAproximacion> pregsAproximacion, List<PreguntaOpciones> preguntas, String tema) {
+    public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntas = preguntas;
         this.nombre = tema;
@@ -18,11 +18,11 @@ public class Tema {
         this.nombre = nombre;
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
-    public model.PreguntaOpciones sacarPregunta(){
+    public model.PreguntaOpcion sacarPregunta(){
         return this.preguntas.remove(0);
     }
     
-    public model.PregAproximacion sacarPreguntaAprox(){
+    public model.PreguntaAproximacion sacarPreguntaAprox(){
         return this.pregsAproximacion.remove(0);
     }
 
@@ -43,16 +43,16 @@ public class Tema {
     public void setNombre(String nombreTema) {
         this.nombre = nombreTema;
     }
-    public List<PreguntaOpciones> getPreguntas() {
+    public List<PreguntaOpcion> getPreguntas() {
         return preguntas;
     }
-    public void setPreguntas(List<PreguntaOpciones> preguntas) {
+    public void setPreguntas(List<PreguntaOpcion> preguntas) {
         this.preguntas = preguntas;
     }
-    public List<PregAproximacion> getPregsAproximacion() {
+    public List<PreguntaAproximacion> getPregsAproximacion() {
         return pregsAproximacion;
     }
-    public void setPregsAproximacion(List<PregAproximacion> pregsAproximacion) {
+    public void setPregsAproximacion(List<PreguntaAproximacion> pregsAproximacion) {
         this.pregsAproximacion = pregsAproximacion;
     }
     public int getId() {

@@ -1,4 +1,6 @@
-package model;
+package model.ABM;
+import model.PreguntaOpcion;
+
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

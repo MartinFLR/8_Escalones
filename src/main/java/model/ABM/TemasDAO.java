@@ -10,13 +10,13 @@ import java.util.List;
 
 import model.Tema;
 
-public class TemasABM implements DAO<Tema>{
+public class TemasDAO implements DAO<Tema>{
     // Singleton
-    private static TemasABM instance;
+    private static TemasDAO instance;
 
-    public static synchronized TemasABM getInstance() {
+    public static synchronized TemasDAO getInstance() {
         if (instance == null) {
-            instance = new TemasABM();
+            instance = new TemasDAO();
         }
         return instance;
     }
