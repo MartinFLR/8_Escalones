@@ -19,6 +19,7 @@ public class Tema {
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
     public model.PreguntaOpcion sacarPregunta(){
+
         return this.preguntas.remove(0);
     }
     

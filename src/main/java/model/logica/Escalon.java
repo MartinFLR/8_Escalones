@@ -19,10 +19,19 @@ public class Escalon {
     
     public void repartirPreguntas(){
         for (Participante participante : participantes) {
-            for (int i = 0; i <2; i++) {
+            for (int i = 0; i < 2; i++) {
             participante.setPreguntasParticipante(tema.sacarPregunta());
         }}
     }
+
+    public void repartirPreguntasFinal(){
+        //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
+        for (Participante participante : participantes) {
+            for (int i = 0; i < 10; i++) {
+            participante.setPreguntasParticipante(tema.sacarPregunta());
+        }}
+    }
+
     public void repartirPreguntasAprox(List<Participante> participantesAEliminar){ //Reparte la pregunta de aproximacion a los participantes correspondientes
         for (model.Participante par: participantesAEliminar){
             par.setPregEmpate(tema.sacarPreguntaAprox());
