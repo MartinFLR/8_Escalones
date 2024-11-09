@@ -2,10 +2,12 @@ package model.logica;
 
 import java.util.List;
 
-import model.*;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
+import model.Participante;
+import model.PreguntaOpcion;
+import model.Tema;
 
 public class Tests {
     @SuppressWarnings("unused")
