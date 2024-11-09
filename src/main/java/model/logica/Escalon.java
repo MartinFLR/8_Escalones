@@ -79,7 +79,8 @@ public class Escalon {
             this.repartirPreguntasAprox(participantesAEliminar);
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             this.estadoDeRonda.setRondaDeEmpate(participantesAEliminar);
-            
+            //Despues de la ronda de empate tendriamos solo uno y podriamos eliminarlo
+            // this.participantes.remove(participantesAEliminar.get(0));
         }else{
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   

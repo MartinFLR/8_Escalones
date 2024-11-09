@@ -12,14 +12,15 @@ public class RondaNormal implements EstadoRonda {
         //Le asigna Aciertos y/o Errores al participante segun corresponda.
         PreguntaOpcion preg;
         String resp;
-        for (Participante par:participantes){
+        for (Participante participante:participantes){
             for (int i = 0; i <2; i++) {
-            preg=par.getPreguntasParticipante().getFirst();
-            resp=par.getRespuestaParticipante();
-            if (preg.getRespuestaCorrecta()==resp){
-                par.setCantAciertos(1);
+            preg=participante.getPreguntasParticipante().getFirst();
+            resp=participante.getRespuestaParticipante();
+            
+            if (preg.getRespuestaCorrecta().equals(resp)){
+                participante.sumaAcierto();
             }else {
-                par.setCantErrores(1);
+                participante.sumaError();
                 }
             }
         }
@@ -27,4 +28,4 @@ public class RondaNormal implements EstadoRonda {
 
     }
 
-}//classbody
+}

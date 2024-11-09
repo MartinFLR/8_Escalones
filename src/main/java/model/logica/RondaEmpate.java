@@ -8,34 +8,33 @@ import model.PreguntaAproximacion;
 
 public class RondaEmpate implements EstadoRonda {
     @Override
-        //deja al peor jugador en la lista AEliminar,dejando a los otros en juego.
-        public void rondaDePreguntas(Ronda ronda,List<Participante> participantes) {
-            /*Aca va la logica para las preguntas por aproximacion*/
-            PreguntaAproximacion preg;
-            double respMasLejana=Double.MAX_VALUE;//el valor max
-            double diferencia=0.0;
-            Participante peorParticipante = null;
-                for (model.Participante par: participantes){
-                    preg=par.getPregEmpate();
-                    diferencia=this.compara(Double.parseDouble(preg.getRespuestaCorrecta()) ,par.getRespuestaParticipanteEmpate());
-                    if (diferencia>respMasLejana){//si la dif es mayor a la resp Lejana , esta pasa a ser la resp Lejana! (mas Lejana a la correcta)
-                        respMasLejana=diferencia;
-                        peorParticipante=par;
-                    }
-                    }
-                    participantes.clear(); // vacia la lista.
-                    if (peorParticipante != null) {
-                        participantes.add(peorParticipante); 
-                        // Agrega al peor participante para poder eliminarlo de la lista de aprticipantes en juegodsps.
-                    }
+    //deja al peor jugador en la lista AEliminar,dejando a los otros en juego.
+    public void rondaDePreguntas(Ronda ronda,List<Participante> participantes) {
+        PreguntaAproximacion preg;
+        double respMasLejana =0;
+        double diferencia;
+        Participante peorParticipante = null;
+
+        //recorre la lista de participantes y compara las respuestas de los participantes con la respuesta correcta
+        for (model.Participante participante: participantes){
+            preg = participante.getPregEmpate();
+            Double respuestaCorrecta = Double.valueOf(preg.getRespuestaCorrecta());
+            Double respuestaParticipante = participante.getRespuestaParticipanteEmpate();
+            //Calcula la diferencia entre la respuesta correcta y la respuesta del participante
+            diferencia = Math.abs(respuestaCorrecta-respuestaParticipante);
+
+            //Si la diferencia es mayor a la respuesta mas lejana, se guarda la diferencia y el participante
+            if (diferencia>respMasLejana){
+                respMasLejana = diferencia;
+                peorParticipante = participante;
             }
+        }
 
-    public double compara(double respCorrecta, double respParticipante){
-        //devuelve la diferencia entre la respuesta dada y la respuesta correcta
-        return Math.abs(respCorrecta-respParticipante);
+        participantes.clear(); // vacia la lista.
+        if (peorParticipante != null) {
+            participantes.add(peorParticipante); 
+            // Agrega al peor participante para poder eliminarlo de la lista de aprticipantes en juego dsps.
+        }
+        //Hay que contemplar el caso de que haya empate entre los participantes nuevamente
     }
-
-
-    
-            
 }

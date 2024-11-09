@@ -6,13 +6,12 @@ import java.util.List;
 public class Participante {
     private int id;
     private final String nombre;
-    @SuppressWarnings("FieldMayBeFinal")
-    private List<PreguntaOpcion> preguntas = new ArrayList<>();
+    private final List<PreguntaOpcion> preguntas = new ArrayList<>();
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
     private double respuestaParticipanteEmpate;
     private int cantErrores=0;
-    private int cantAciertos = 0;//Puede ser util para la ronda final
+    private int cantAciertos = 0;
     private int numEscalon=1;
 
     public Participante(int id, String nombre, int edad) {
@@ -44,14 +43,8 @@ public class Participante {
     public int getCantErrores(){
         return this.cantErrores;
     }
-    public void setCantErrores(int cantErrores){ //le agrega errores a los ya existentes
-        this.cantErrores += cantErrores;
-    }
     public int getCantAciertos(){
         return this.cantAciertos;
-    }
-    public void setCantAciertos(int cantAciertos){//le agrega aciertos a los ya existentes
-        this.cantAciertos += cantAciertos;
     }
     public void sumaAcierto(){
         this.cantAciertos++;
@@ -86,7 +79,7 @@ public class Participante {
     public int getId() {
         return id;
     }
-        public void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 }
