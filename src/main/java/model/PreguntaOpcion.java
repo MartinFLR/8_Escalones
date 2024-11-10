@@ -1,0 +1,78 @@
+package model;
+
+@SuppressWarnings("FieldMayBeFinal")
+public class PreguntaOpcion extends Preguntas {
+    private String opcion_a;
+    private String opcion_b;
+    private String opcion_c;
+    private String opcion_d;
+    private String respuesta_correcta;
+
+    //Constructores
+    public PreguntaOpcion(String pregunta,int id_tema ,String tipoPregunta,String opcion_a, String opcion_b,
+    String opcion_c, String opcion_d, String respuestaCorrecta){
+        super(pregunta,tipoPregunta,id_tema);
+        this.opcion_a = opcion_a;
+        this.opcion_b = opcion_b;
+        this.opcion_c = opcion_c;
+        this.opcion_d = opcion_d;
+        this.respuesta_correcta = respuestaCorrecta;
+    }
+
+    public PreguntaOpcion(int id,String pregunta, String tipoPregunta ,String opcion_a, String opcion_b,
+    String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
+        super(pregunta,tipoPregunta,id_tema);
+        this.opcion_a = opcion_a;
+        this.opcion_b = opcion_b;
+        this.opcion_c = opcion_c;
+        this.opcion_d = opcion_d;
+        this.respuesta_correcta = respuestaCorrecta;
+    }
+
+    public PreguntaOpcion(int idPregunta, String preguntaTexto, String tipoPregunta, String opcion_a2, String opcion_b2,
+            String opcion_c2, String opcion_d2, int idTema) {
+        super(idPregunta, preguntaTexto, tipoPregunta, idTema);
+        this.opcion_a = opcion_a2;
+        this.opcion_b = opcion_b2;
+        this.opcion_c = opcion_c2;
+        this.opcion_d = opcion_d2;
+        
+    }
+
+    //Metodos
+    @Override
+    public void imprimirPregunta(){
+        System.out.println("\tId: "+this.getId());
+        System.out.println("\tPregunta: "+this.getPregunta());
+        System.out.println("\tOpcion A: "+this.opcion_a);
+        System.out.println("\tOpcion B: "+this.opcion_b);
+        System.out.println("\tOpcion C: "+this.opcion_c);
+        System.out.println("\tOpcion D: "+this.opcion_d);
+        System.out.println("\tRespuesta correcta: "+this.respuesta_correcta);
+    }
+    //Getters y Setters
+    public String getOpcionA(){
+        return this.opcion_a;
+    }
+
+    public String getOpcionB(){
+        return this.opcion_b;
+    }
+
+    public String getOpcionC(){
+        return this.opcion_c;
+    }
+
+    public String getOpcionD(){
+        return this.opcion_d;
+    }
+
+    public String getRespuestaCorrecta(){
+        return this.respuesta_correcta;
+    }
+
+    public void setRespuestaCorrecta(String respuestaCorrecta){
+        this.respuesta_correcta = respuestaCorrecta;
+    }
+
+}
