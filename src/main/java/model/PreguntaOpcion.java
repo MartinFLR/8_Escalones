@@ -1,13 +1,14 @@
 package model;
 
+@SuppressWarnings("FieldMayBeFinal")
 public class PreguntaOpcion extends Preguntas {
-    
     private String opcion_a;
     private String opcion_b;
     private String opcion_c;
     private String opcion_d;
     private String respuesta_correcta;
 
+    //Constructores
     public PreguntaOpcion(String pregunta,int id_tema ,String tipoPregunta,String opcion_a, String opcion_b,
     String opcion_c, String opcion_d, String respuestaCorrecta){
         super(pregunta,tipoPregunta,id_tema);
@@ -38,6 +39,18 @@ public class PreguntaOpcion extends Preguntas {
         
     }
 
+    //Metodos
+    @Override
+    public void imprimirPregunta(){
+        System.out.println("\tId: "+this.getId());
+        System.out.println("\tPregunta: "+this.getPregunta());
+        System.out.println("\tOpcion A: "+this.opcion_a);
+        System.out.println("\tOpcion B: "+this.opcion_b);
+        System.out.println("\tOpcion C: "+this.opcion_c);
+        System.out.println("\tOpcion D: "+this.opcion_d);
+        System.out.println("\tRespuesta correcta: "+this.respuesta_correcta);
+    }
+    //Getters y Setters
     public String getOpcionA(){
         return this.opcion_a;
     }
