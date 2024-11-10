@@ -10,7 +10,7 @@ public class VistaRanking extends JFrame{
 	private ControladorRanking c;
 	
 	public VistaRanking (ControladorRanking c) {
-		
+		System.out.println(3);
 	}
 	
 }
