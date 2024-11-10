@@ -42,6 +42,8 @@ public class Main {
       System.out.println(tema.getNombre()+", Id: "+ tema.getId());
     }
 
+
+    //ASI SE ELIMINAN LAS PREGUNTAS
     abmPreg.eliminar(4);
   }
 }
