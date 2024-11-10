@@ -42,7 +42,8 @@ public class Main {
       System.out.println(tema.getNombre()+", Id: "+ tema.getId());
     }
 
-
-  }}
+    abmPreg.eliminar(4);
+  }
+}
 
 

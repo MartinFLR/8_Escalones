@@ -90,22 +90,22 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
     
     
     public void eliminar(int id) {
-        String query = "DELETE FROM respuestas WHERE id_pregunta = ?; DELETE FROM preguntas WHERE id_pregunta = ?";
-
+        String query = "DELETE FROM preguntas WHERE id_pregunta = ?";
+    
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
-            statement.setInt(2, id);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Pregunta de aproximación eliminada con éxito.");
+                System.out.println("Pregunta eliminada con éxito.");
             } else {
                 System.out.println("Pregunta no encontrada.");
             }
         } catch (SQLException e) {
-            System.err.println("Error al eliminar la pregunta de aproximación: " + e.getMessage());
+            System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
     }
+    
 
     public void modificar(int id, PreguntaAproximacion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";

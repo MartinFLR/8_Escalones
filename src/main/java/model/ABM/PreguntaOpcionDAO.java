@@ -34,12 +34,8 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             pstmt.setInt(3, 1); // Suponiendo que el id_tipopregunta es 1 para preguntas de opción, ajusta esto según sea necesario
 
             pstmt.executeUpdate();
-            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int idPregunta = generatedKeys.getInt(1);
-                // Aquí puedes guardar las opciones en la tabla de respuestas si es necesario
-                insertarOpciones(idPregunta, pregunta);
-            }
+            
+            
             System.out.println("Pregunta agregada exitosamente.");
 
         } catch (SQLException e) {
@@ -47,31 +43,43 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-    private void insertarOpciones(int idPregunta, PreguntaOpcion pregunta) {
-        String sql = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
-        
+    public void insertarRespuestas(int idPregunta, String opcionA, String opcionB, String opcionC, String opcionD, String respuestaCorrecta) {
+        String query = "INSERT INTO respuestas (respuesta, id_pregunta, respuesta_correcta) VALUES (?, ?, ?)";
+    
         try (Connection connection = Database.getInstance().getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setInt(1, idPregunta);
-            pstmt.setString(2, pregunta.getOpcionA());
-            pstmt.setBoolean(3, pregunta.getRespuestaCorrecta().equals(pregunta.getOpcionA())); // Ajusta esto según sea necesario
-
-            pstmt.executeUpdate();
-            // Repite para las otras opciones B, C y D
-            // Aquí también puedes marcar la respuesta correcta, dependiendo de cómo quieras almacenar esta información.
+             PreparedStatement statement = connection.prepareStatement(query)) {
+    
+            // Insertar cada opción de respuesta
+            insertarOpcion(statement, opcionA, idPregunta, opcionA.equals(respuestaCorrecta));
+            insertarOpcion(statement, opcionB, idPregunta, opcionB.equals(respuestaCorrecta));
+            insertarOpcion(statement, opcionC, idPregunta, opcionC.equals(respuestaCorrecta));
+            insertarOpcion(statement, opcionD, idPregunta, opcionD.equals(respuestaCorrecta));
+    
+            System.out.println("Opciones de respuesta insertadas correctamente.");
+    
         } catch (SQLException e) {
-            System.out.println("Error al agregar opciones: " + e.getMessage());
+            System.err.println("Error al insertar las respuestas: " + e.getMessage());
         }
     }
+    
+    // Método auxiliar para insertar una opción de respuesta
+    private void insertarOpcion(PreparedStatement statement, String opcion, int idPregunta, boolean esCorrecta) throws SQLException {
+        statement.setString(1, opcion);
+        statement.setInt(2, idPregunta);
+        statement.setBoolean(3, esCorrecta);
+        statement.executeUpdate();
+    }
+    
+
     @Override
     public List<PreguntaOpcion> buscarTodos() {
         List<PreguntaOpcion> preguntas = new ArrayList<>();
         String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
                        "FROM preguntas p " +
-                       "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta "+
-                       "WHERE p.id_tipopregunta = 1";
-    
+                       "JOIN respuestas r ON p.id_pregunta = r.id_pregunta " +
+                       "WHERE p.id_tipopregunta = 1 " +
+                       "ORDER BY p.id_pregunta, r.id_respuesta";  // Ordenamos por pregunta y respuesta para agrupar correctamente
+        
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet resultSet = pstmt.executeQuery()) {
@@ -82,42 +90,55 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                 int idPregunta = resultSet.getInt("id_pregunta");
                 String preguntaTexto = resultSet.getString("pregunta");
                 int idTema = resultSet.getInt("id_tema");
-    
-                // Crear o recuperar la pregunta del mapa
-                PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta, new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "", "", idTema));
-    
-                // Obtener la respuesta y ver si es la correcta
                 String respuesta = resultSet.getString("respuesta");
-                boolean respuestaCorrecta = resultSet.getBoolean("respuesta_correcta");
+                boolean esCorrecta = resultSet.getBoolean("respuesta_correcta");
     
-                // Si la respuesta es correcta, la agregamos a la pregunta
-                if (respuestaCorrecta) {
-                    // Almacenamos la respuesta correcta en la pregunta
-                    pregunta.setRespuestaCorrecta(respuesta); // Implementa este método en la clase PreguntaOpcion
+                // Obtener o crear la pregunta en el mapa
+                PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta, 
+                    new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "","", null, idTema));
+    
+                // Asignar cada respuesta a una de las opciones A, B, C o D
+                if (pregunta.getOpcionA().isEmpty()) {
+                    pregunta.setOpcionA(respuesta);
+                } else if (pregunta.getOpcionB().isEmpty()) {
+                    pregunta.setOpcionB(respuesta);
+                } else if (pregunta.getOpcionC().isEmpty()) {
+                    pregunta.setOpcionC(respuesta);
+                } else if (pregunta.getOpcionD().isEmpty()) {
+                    pregunta.setOpcionD(respuesta);
                 }
     
-                // Almacenar la pregunta en el mapa
+                // Si es la respuesta correcta, almacenarla
+                if (esCorrecta) {
+                    pregunta.setRespuestaCorrecta(respuesta);
+                }
+    
+                // Guardar o actualizar en el mapa
                 preguntaMap.put(idPregunta, pregunta);
             }
     
-            // Agregar todas las preguntas al listado
+            // Convertir el mapa en una lista
             preguntas.addAll(preguntaMap.values());
+    
         } catch (SQLException e) {
             System.err.println("Error al listar las preguntas: " + e.getMessage());
         }
+    
         return preguntas;
     }
     
     
     
+    
+    
+    
     @Override
     public void eliminar(int id) {
-        String query = "DELETE FROM respuestas WHERE id_pregunta = ?; DELETE FROM preguntas WHERE id_pregunta = ?";
-
+        String query = "DELETE FROM preguntas WHERE id_pregunta = ?";
+    
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
-            statement.setInt(2, id);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Pregunta eliminada con éxito.");
@@ -128,6 +149,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
     }
+    
     @Override
     public void modificar(int id, PreguntaOpcion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";

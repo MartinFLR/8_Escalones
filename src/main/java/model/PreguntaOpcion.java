@@ -21,7 +21,7 @@ public class PreguntaOpcion extends Preguntas {
 
     public PreguntaOpcion(int id,String pregunta, String tipoPregunta ,String opcion_a, String opcion_b,
     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
-        super(pregunta,tipoPregunta,id_tema);
+        super(id,pregunta,tipoPregunta,id_tema);
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
@@ -65,6 +65,22 @@ public class PreguntaOpcion extends Preguntas {
 
     public String getOpcionD(){
         return this.opcion_d;
+    }
+
+    public void setOpcionA(String opcion) {
+        this.opcion_a = opcion;
+    }
+
+    public void setOpcionB(String opcion) {
+        this.opcion_b = opcion;
+    }
+
+    public void setOpcionC(String opcion) {
+        this.opcion_c = opcion;
+    }
+
+    public void setOpcionD(String opcion) {
+        this.opcion_d = opcion;
     }
 
     public String getRespuestaCorrecta(){
