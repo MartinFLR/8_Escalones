@@ -3,9 +3,11 @@ package model.logica;
 import java.util.List;
 
 import model.ABM.ParticipantesDAO;
+import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
 import model.Participante;
+import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Tema;
 
@@ -15,32 +17,57 @@ public class Tests {
         PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
         TemasDAO abmTemas = TemasDAO.getInstance();
         ParticipantesDAO abmPart = ParticipantesDAO.getInstance();
+        PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
         List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
+        List<model.PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
         
-        model.Tema tema = new model.Tema (null, listaPreguntas, "Tema 1");
+        model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
         Escalon escalon = new Escalon();
-        // Para que funcionen los tests tenemos que pasar la respuesta de String a char donde la usemos y en el ABM
+
+        // Las preguntas opcionales no tienen las opciones seteadas
+        // Todas las preguntas tienen id=0
+        // Hay preguntas de opcion multiple con respuestaCorrecta = null
+        listarPreguntasOpcion(listaPreguntas);
+        // listarPreguntasAproximacion(listaPreguntaAproximacion);
+        
+        
         // testClaseTema(tema);
-        // testClaseEscalon(tema, listaParticipantes, escalon);
+         testClaseEscalon(tema, listaParticipantes, escalon);
         // Dentro de testClaseEscalon hay tests opcionales como: 
             // testEstadoRondaFinal
             // testEstadoRondaEmpate
     }
     // Tests
+    public static void listarPreguntasOpcion(List<PreguntaOpcion> listaPreguntas){
+        System.out.println("\nListando preguntas de opcion multiple\n");
+        for (PreguntaOpcion pregunta : listaPreguntas) {
+            pregunta.imprimirPregunta();
+        }
+    }
+    public static void listarPreguntasAproximacion(List<PreguntaAproximacion> listaPreguntas){
+        System.out.println("\nListando preguntas de aproximacion\n");
+        for (PreguntaAproximacion pregunta : listaPreguntas) {
+            pregunta.imprimirPregunta();
+        }
+    }
     public static void testClaseTema(Tema tema){
-        System.out.println("\nProbando clase Tema\n");
-        //Prueba si se eliminaron las preguntas y las devuelve en las variables pregunta y pregunta2
-        //Hay que filtrar las preguntas por el id del tema y crear cada tema con sus preguntas
-        System.out.println("\nProbando sacar 2 preguntas\n");
+        System.out.println("\nProbando sacar una pregunta de aproximacion\n");
+        List<PreguntaAproximacion> pregsAprox=tema.getPregsAproximacion();
+        PreguntaAproximacion preguntaAprox = tema.sacarPreguntaAprox();
+        preguntaAprox.imprimirPregunta();
+        
+        System.out.println("\nProbando sacar una pregunta de opcion multiple\n");
         PreguntaOpcion pregunta = tema.sacarPregunta();
-        PreguntaOpcion pregunta2 = tema.sacarPregunta();
-        imprimirPregunta(pregunta);
-        imprimirPregunta(pregunta2);
-        System.out.println("\nPrueba si se eliminaron las preguntas de la lista general\n");
-        for(model.PreguntaOpcion preg : tema.getPreguntas()){
-            imprimirPregunta(preg);
+        pregunta.imprimirPregunta();
+
+        //Verifica que las pregs sacadas no esten en la lista de pregs original
+        if(!pregsAprox.contains(preguntaAprox)){
+            System.out.println("\n[X] La pregunta de aproximacion fue eliminada correctamente");
+        }
+        if(!tema.getPreguntas().contains(pregunta)){
+            System.out.println("[X] La pregunta fue eliminada correctamente");
         }
     }
     public static void testClaseEscalon(Tema tema,List<Participante> listaParticipantes,Escalon escalon){
@@ -68,20 +95,11 @@ public class Tests {
     }
     public static void testEstadoRondaFinal(Escalon escalon){
         System.out.println("---------Prueba de cambio a ronda final---------");
-        System.out.println(escalon.getEscalon());
-        escalon.subeEscalon();
-        System.out.println("Subió al escalon: "+escalon.getEscalon());
-        escalon.subeEscalon();
-        System.out.println("Subió al escalon: "+escalon.getEscalon());
-        escalon.subeEscalon();
-        System.out.println("Subió al escalon: "+escalon.getEscalon());
-        escalon.subeEscalon();
-        System.out.println("Subió al escalon: "+escalon.getEscalon());
-        escalon.subeEscalon();
-        System.out.println("Subió al escalon: "+escalon.getEscalon());
-        escalon.subeEscalon();
-        System.out.println("Subió al escalon: "+escalon.getEscalon());
-        escalon.subeEscalon();
+        System.out.println("Escalon: "+ escalon.getEscalon());
+        for (int i = 1; i < 8; i++) {
+            escalon.subeEscalon();
+            System.out.println("Subió al escalon: " + escalon.getEscalon());
+        }
     }
     public static void testEstadoRondaEmpate(Escalon escalon){
         System.out.println("---------Prueba situacion de empate---------");
@@ -90,10 +108,7 @@ public class Tests {
         escalon.filtrarParticipantes();
     }
     
-    //Metodos para imprimir datos y probar los metodos
-    public static void imprimirPregunta(PreguntaOpcion pregunta){
-        System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
-    } 
+    //Metodos para imprimir datos y probar los metodos 
     public static void imprimirDatosEscalon(Escalon escalon){
         System.out.println("Escalon: "+escalon.getEscalon());
         for (Participante participante : escalon.getParticipantes()) {
