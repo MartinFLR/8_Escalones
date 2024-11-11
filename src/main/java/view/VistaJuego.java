@@ -15,6 +15,10 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
+import java.awt.GridLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.JTable;
 
 public class VistaJuego extends JFrame {
 
@@ -36,7 +40,12 @@ public class VistaJuego extends JFrame {
 	
 	private JPanel panelColumna;
 	private JPanel panelJugadores;
-
+	private JTable table;
+	private JLabel lblJuez;
+	private JLabel lblJugador;
+	
+	private PanelEscalon e1, e2, e3, e4, e5, e6, e7, e8;
+	private PanelJugador j1, j2, j3, j4, j5, j6 ,j7 ,j8 ,j9;
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -49,7 +58,14 @@ public class VistaJuego extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		lblJuez = new JLabel("Nombre JUEZ");
+		lblJuez.setBounds(75, 442, 347, 56);
+		contentPane.add(lblJuez);
 		
+		lblJugador = new JLabel("Nombre JUGADOR");
+		lblJugador.setBounds(581, 442, 393, 56);
+		contentPane.add(lblJugador);
 		
 		//
 		// PANEL COLUMNAS
@@ -58,6 +74,24 @@ public class VistaJuego extends JFrame {
 		panelColumna = new JPanel();
 		panelColumna.setBounds(0, 0, 65, 611);
 		contentPane.add(panelColumna);
+		panelColumna.setLayout(new GridLayout(8, 1, 0, 0));
+		
+		e8 = new PanelEscalon(8);
+		panelColumna.add(e8);
+		e7 = new PanelEscalon(7);
+		panelColumna.add(e7);
+		e6 = new PanelEscalon(6);
+		panelColumna.add(e6);
+		e5 = new PanelEscalon(5);
+		panelColumna.add(e5);
+		e4 = new PanelEscalon(4);
+		panelColumna.add(e4);
+		e3 = new PanelEscalon(3);
+		panelColumna.add(e3);
+		e2 = new PanelEscalon(2);
+		panelColumna.add(e2);
+		e1 = new PanelEscalon(1);
+		panelColumna.add(e1);
 		
 		
 		//
@@ -65,8 +99,31 @@ public class VistaJuego extends JFrame {
 		//
 		
 		panelJugadores = new JPanel();
-		panelJugadores.setBounds(65, 506, 919, 105);
+		panelJugadores.setSize(new Dimension(5, 5));
+		panelJugadores.setBounds(65, 508, 919, 103);
 		contentPane.add(panelJugadores);
+		panelJugadores.setBackground(Color.black);
+		panelJugadores.setLayout(new GridLayout(0, 9, 0, 0));
+		
+		j1 = new PanelJugador();
+		panelJugadores.add(j1);
+		j2 = new PanelJugador();
+		panelJugadores.add(j2);
+		j3 = new PanelJugador();
+		panelJugadores.add(j3);
+		j4 = new PanelJugador();
+		panelJugadores.add(j4);
+		j5 = new PanelJugador();
+		panelJugadores.add(j5);
+		j6 = new PanelJugador();
+		panelJugadores.add(j6);
+		j7 = new PanelJugador();
+		panelJugadores.add(j7);
+		j8 = new PanelJugador();
+		panelJugadores.add(j8);
+		j9 = new PanelJugador();
+		panelJugadores.add(j9);
+		
 		
 		//
 		// PANEL INFORMATIVOS
@@ -95,6 +152,14 @@ public class VistaJuego extends JFrame {
 		lblaproxPregunta = new JLabel("New label");
 		lblaproxPregunta.setBounds(48, 35, 370, 164);
 		panelAproximacion.add(lblaproxPregunta);
+		
+		table = new JTable();
+		table.setBounds(229, 209, 196, 149);
+		panelAproximacion.add(table);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(239, 368, 179, 43);
+		panelAproximacion.add(lblNewLabel);
 		
 		
 		
@@ -126,6 +191,7 @@ public class VistaJuego extends JFrame {
 		lblprePregunta = new JLabel("New label");
 		lblprePregunta.setBounds(10, 97, 420, 131);
 		panelPregunta.add(lblprePregunta);
+		
 		
 	}
 	public ControladorJuego getC() {
@@ -171,8 +237,4 @@ public class VistaJuego extends JFrame {
 	public JPanel getPanelJugadores() {
 		return panelJugadores;
 	}
-
-	
-	
-	
 }
