@@ -49,11 +49,12 @@ public class VistaPrincipal extends JFrame {
 		setTitle("8 ESCALONES");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 819, 469);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		//---PANELES (VENTANAS EXTRAS)
 		/* */
