@@ -12,22 +12,25 @@ public class ControladorPrincipal implements ActionListener{
 	public ControladorPrincipal() {
 		this.vista = new VistaPrincipal(this);
 		vista.setVisible(true);
+		vista.getBtnJugar().addActionListener(e -> {
+			new ControladorJuego();
+			this.vista.setVisible(false);});
+		vista.getBtnOpciones().addActionListener(e -> {new ControladorOpciones();});
+		vista.getBtnRanking().addActionListener(e -> {new ControladorRanking();});
+		vista.getBtnSalir().addActionListener(e -> {System.exit(0);});
+		
+		vista.getBtnLogin().addActionListener(e -> {new ControladorLogin();});
+		vista.getBtnModificar().addActionListener(e -> {new ControladorMod();});
+		
+		vista.getBtnAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(true);});
+		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});
+		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
+		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(getVista().getBtnJugar())) {
-			new ControladorJuego();
-			this.vista.setVisible(false);
-		} else if(e.getSource().equals(getVista().getBtnOpciones())) {
-			new ControladorOpciones();
-		} else if (e.getSource().equals(getVista().getBtnSalir())) {
-			System.exit(0);
-		} else if (e.getSource().equals(getVista().getCreditos())) {
-			new ControladorCreditos();
-		} else if (e.getSource().equals(getVista().getModificar())){
-			new ControladorMod();
-		}
+		
 	}
 
 	public VistaPrincipal getVista() {
