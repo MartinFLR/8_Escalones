@@ -10,6 +10,7 @@ import java.util.List;
 import model.Participante;
 
 public class ParticipantesDAO implements DAO <Participante>{
+    
     private static ParticipantesDAO instance;
 
     public static synchronized ParticipantesDAO getInstance() {
@@ -39,7 +40,6 @@ public class ParticipantesDAO implements DAO <Participante>{
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet resultSet = pstmt.executeQuery()) {
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id"); // Obtener el id
                 String nombre = resultSet.getString("nombre");
@@ -76,6 +76,7 @@ public class ParticipantesDAO implements DAO <Participante>{
 
             pstmt.setString(1, nuevoParticipante.getNombre());
             pstmt.setInt(3, id);
+            
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
                 System.out.println("Participante modificado con éxito.");
@@ -86,4 +87,38 @@ public class ParticipantesDAO implements DAO <Participante>{
             System.err.println("Error al modificar participante: " + e.getMessage());
         }
     }
+    @Override
+    public List<Participante> buscarObjeto(Object palabra) throws SQLException {
+        List<Participante> participantes = new ArrayList<>();
+        try (Connection conn = Database.getInstance().getConnection()){
+            //columnas guardael nombre de las columnas de la base de datos de nombreTabla
+            List<String> columnas = DAO.obtenerNombresColumnas(conn, "participantes");
+            StringBuilder sqlb = new StringBuilder("SELECT * FROM participantes WHERE ");
+            //append para ir agregando mas columnas en el condicional where
+            for (int i = 0; i < columnas.size(); i++) {
+                sqlb.append(columnas.get(i)).append(" = ?");
+                if (i < columnas.size() - 1) {
+                    sqlb.append(" OR ");
+                }
+            }
+            String sql = sqlb.toString();
+            try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                for (int i = 1; i <= columnas.size(); i++) {
+                    pstmt.setObject(i,  palabra );
+                }
+                try(ResultSet rs = pstmt.executeQuery()){
+                    while (rs.next()) {
+                    Participante participante = new Participante(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getInt("edad"));
+                    participantes.add(participante);
+                }  
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar en la base de datos: " + e.getMessage());
+        }
+        return participantes;
+    }
+}
 }

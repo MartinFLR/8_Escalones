@@ -6,7 +6,13 @@ import java.util.List;
 public class Participante {
     private int id;
     private final String nombre;
+<<<<<<< .merge_file_MOka8o
     private final List<PreguntaOpcion> preguntas = new ArrayList<>();
+=======
+    @SuppressWarnings("FieldMayBeFinal")
+
+    private List<PreguntaOpcion> preguntas = new ArrayList<>();
+>>>>>>> .merge_file_I6q5W3
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
     private double respuestaParticipanteEmpate;
@@ -49,6 +55,7 @@ public class Participante {
         return this.preguntas;
     } 
     public void setPreguntasParticipante(PreguntaOpcion preg){
+
         this.preguntas.add(preg);
     }
     public int getCantErrores(){
@@ -67,6 +74,7 @@ public class Participante {
         return this.pregEmpate;
     }
     public void setPregEmpate(PreguntaAproximacion pregEmpate) {
+
         this.pregEmpate = pregEmpate;
     }
     public int getNumEscalon() {
