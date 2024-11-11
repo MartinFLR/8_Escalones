@@ -33,6 +33,8 @@ public class VistaMod extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 		
 		btnSalir = new JButton("Volver");
 		btnSalir.setBounds(434, 358, 89, 23);

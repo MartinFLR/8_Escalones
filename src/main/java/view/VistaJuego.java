@@ -60,11 +60,11 @@ public class VistaJuego extends JFrame {
 		contentPane.setLayout(null);
 
 		lblJuez = new JLabel("Nombre JUEZ");
-		lblJuez.setBounds(75, 442, 347, 56);
+		lblJuez.setBounds(99, 442, 347, 56);
 		contentPane.add(lblJuez);
 		
 		lblJugador = new JLabel("Nombre JUGADOR");
-		lblJugador.setBounds(581, 442, 393, 56);
+		lblJugador.setBounds(705, 442, 393, 56);
 		contentPane.add(lblJugador);
 		
 		//
@@ -72,7 +72,7 @@ public class VistaJuego extends JFrame {
 		//
 		
 		panelColumna = new JPanel();
-		panelColumna.setBounds(0, 0, 65, 611);
+		panelColumna.setBounds(0, 0, 79, 683);
 		contentPane.add(panelColumna);
 		panelColumna.setLayout(new GridLayout(8, 1, 0, 0));
 		
@@ -100,7 +100,7 @@ public class VistaJuego extends JFrame {
 		
 		panelJugadores = new JPanel();
 		panelJugadores.setSize(new Dimension(5, 5));
-		panelJugadores.setBounds(65, 508, 919, 103);
+		panelJugadores.setBounds(85, 508, 1181, 175);
 		contentPane.add(panelJugadores);
 		panelJugadores.setBackground(Color.black);
 		panelJugadores.setLayout(new GridLayout(0, 9, 0, 0));
@@ -137,7 +137,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(525, 11, 449, 421);
+		panelAproximacion.setBounds(695, 11, 571, 421);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -167,7 +167,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelPregunta = new JPanel();
-		panelPregunta.setBounds(75, 11, 440, 421);
+		panelPregunta.setBounds(89, 11, 542, 421);
 		contentPane.add(panelPregunta);
 		panelPregunta.setLayout(null);
 		
@@ -188,7 +188,7 @@ public class VistaJuego extends JFrame {
 		panelPregunta.add(btnpreRespuesta4);
 		
 		lblprePregunta = new JLabel("New label");
-		lblprePregunta.setBounds(10, 97, 420, 131);
+		lblprePregunta.setBounds(10, 98, 420, 131);
 		panelPregunta.add(lblprePregunta);
 		
 		

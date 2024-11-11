@@ -57,7 +57,7 @@ public class VistaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		//---PANELES (VENTANAS EXTRAS)
-		/* */
+	
 		panelAyuda = new JPanel();
 		panelAyuda.setBounds(80, 11, 663, 408);
 		contentPane.add(panelAyuda);
@@ -77,7 +77,7 @@ public class VistaPrincipal extends JFrame {
 		
 		btnSalirCreditos = new JButton("Volver");
 		btnSalirCreditos.setBounds(564, 374, 89, 23);
-		panelCreditos.add(btnSalirCreditos);
+		panelCreditos.add(btnSalirCreditos);  
 	
 		
 		//---BOTONES PANTALLA PRINCIPAL
