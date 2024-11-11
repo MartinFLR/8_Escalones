@@ -34,7 +34,7 @@ public class Tests {
         
         
         // testClaseTema(tema);
-         testClaseEscalon(tema, listaParticipantes, escalon);
+        testClaseEscalon(tema, listaParticipantes, escalon);
         // Dentro de testClaseEscalon hay tests opcionales como: 
             // testEstadoRondaFinal
             // testEstadoRondaEmpate

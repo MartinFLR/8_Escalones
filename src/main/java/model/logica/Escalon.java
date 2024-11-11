@@ -38,8 +38,9 @@ public class Escalon {
             
         }
     }
-    public void subeEscalon(){
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
         this.escalon++;
+        this.resetAciertosyErrores();
         if (this.escalon==8){
             this.estadoDeRonda.setRondaFinal();
         }
@@ -103,6 +104,14 @@ public class Escalon {
     public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
+
+    public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
+        for (Participante par: participantes ){
+        par.setCantErrores(0);
+        par.setCantAciertos(0);
+    }}
+    
+
     //Getters y setters
     public void setTema(Tema tema) {
         this.tema = tema;
