@@ -104,7 +104,6 @@ public class VistaPrincipal extends JFrame {
 		btnLogin.setBounds(703, 379, 40, 40);
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);
-		ImageIcon login = new ImageIcon(login.svg);
 		
 		btnRanking = new JButton("RANKING");
 		btnRanking.setBounds(593, 233, 95, 30);
