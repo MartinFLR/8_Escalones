@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Participante;
+import model.PreguntaAproximacion;
+import model.PreguntaOpcion;
 import model.Tema;
 
 public class Escalon {
@@ -16,12 +18,15 @@ public class Escalon {
         //Crea la instancia de la ronda y setea por defecto ronda normal
         this.estadoDeRonda = new Ronda();
     }
-    
     public void repartirPreguntas(){
-        for (Participante participante : participantes) {
+        for (Participante participante : this.getParticipantes()) {
             for (int i = 0; i < 2; i++) {
-            participante.setPreguntasParticipante(tema.sacarPregunta());
-        }}
+                PreguntaOpcion pregunta = this.tema.sacarPregunta();
+                participante.setPreguntasParticipante(pregunta);
+            }
+            System.out.println("Participante: "+participante.getNombre());
+            System.out.println("CantPreguntas "+ participante.getPreguntasParticipante().size());
+        }
     }
 
     public void repartirPreguntasFinal(){
@@ -32,12 +37,6 @@ public class Escalon {
         }}
     }
 
-    public void repartirPreguntasAprox(List<Participante> participantesAEliminar){ //Reparte la pregunta de aproximacion a los participantes correspondientes
-        for (model.Participante par: participantesAEliminar){
-            par.setPregEmpate(tema.sacarPreguntaAprox());
-            
-        }
-    }
     public void subeEscalon(){
         this.escalon++;
         if (this.escalon==8){
@@ -76,15 +75,19 @@ public class Escalon {
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
             // les envia la pregunta de aproximacion a todos los participantes empatados.
-            this.repartirPreguntasAprox(participantesAEliminar);
+            PreguntaAproximacion preguntaAprox = tema.sacarPreguntaAprox();
+            for (Participante participante : participantesAEliminar) {
+                participante.setPregEmpate(preguntaAprox);
+            }
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             this.estadoDeRonda.setRondaDeEmpate(participantesAEliminar);
             //Despues de la ronda de empate tendriamos solo uno y podriamos eliminarlo
-            // this.participantes.remove(participantesAEliminar.get(0));
+            this.participantes.remove(participantesAEliminar.getFirst());
+            this.estadoDeRonda.setRondaNormal();
         }else{
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
-            this.participantes.remove(participantesAEliminar.get(0));
+            this.eliminoParticipantes(participantesAEliminar, participantes);
         }
     }
 
@@ -92,7 +95,6 @@ public class Escalon {
         //Saca los participantes que perdieron de la lista de participantes que siguen en juego
         for (Participante par: participantesAEliminar){
             participantes.remove(par);
-        
         }
     }
 
@@ -112,5 +114,9 @@ public class Escalon {
     }
     public List<Participante> getParticipantes() {
         return this.participantes;
+    }
+
+    public Ronda getEstadoDeRonda() {
+        return this.estadoDeRonda;
     }
 }

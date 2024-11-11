@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Tema {
     private int id;
@@ -18,13 +19,20 @@ public class Tema {
         this.nombre = nombre;
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
-    public model.PreguntaOpcion sacarPregunta(){
-
-        return this.preguntas.remove(0);
+    public model.PreguntaOpcion sacarPregunta() {
+        if (!this.preguntas.isEmpty()) {
+            return this.preguntas.remove(0);
+        } else {
+            throw new NoSuchElementException("No hay más preguntas de opción.");
+        }
     }
     
-    public model.PreguntaAproximacion sacarPreguntaAprox(){
-        return this.pregsAproximacion.remove(0);
+    public model.PreguntaAproximacion sacarPreguntaAprox() {
+        if (!this.pregsAproximacion.isEmpty()) {
+            return this.pregsAproximacion.remove(0);
+        } else {
+            throw new NoSuchElementException("No hay más preguntas de aproximación.");
+        }
     }
 
         // Conversion de un tema a una línea de texto

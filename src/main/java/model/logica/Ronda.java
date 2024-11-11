@@ -23,13 +23,8 @@ public class Ronda {
         //recibe como parametro la lista de participantes empatados en errores.
         //El que gane no sera eliminado
         System.out.println("Estado: Ronda de empate");
-        System.out.println("Empate entre los participantes:");
-        for (Participante participante : participantes) {
-            System.out.println(participante.getNombre());
-            System.out.println("Errores: "+participante.getCantErrores() + "\n");
-        }
-        
         this.estadoRonda = new RondaEmpate();
+        this.estadoRonda.rondaDePreguntas(this, participantes);
     }
     public void setRondaFinal(){
         System.out.println("Estado: Ronda final");

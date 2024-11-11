@@ -64,7 +64,7 @@ public class Participante {
         this.respuestaParticipanteEmpate = respuestaParticipanteEmpate;
     }
     public PreguntaAproximacion getPregEmpate() {
-        return pregEmpate;
+        return this.pregEmpate;
     }
     public void setPregEmpate(PreguntaAproximacion pregEmpate) {
         this.pregEmpate = pregEmpate;

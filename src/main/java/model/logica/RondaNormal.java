@@ -11,46 +11,53 @@ public class RondaNormal implements EstadoRonda {
     public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
         PreguntaOpcion preg;
         String resp;
+        System.out.println("Cantidad de p en ronda: "+participantes.size());
+        for(Participante participante:participantes){
+            System.out.println(participante.getNombre());
+            System.out.println(participante.getPreguntasParticipante().size()); 
+        }
         for (Participante participante:participantes){
             for (int i = 0; i <2; i++) {
-            preg=participante.getPreguntasParticipante().getFirst();
+            preg=participante.getPreguntasParticipante().get(i);
             // resp=participante.getRespuestaParticipante();
+            System.out.println("Participante: "+participante.getNombre());
             resp=this.getRespuestaPorTeclado(preg);
             if (preg.getRespuestaCorrecta().equals(resp)){
+                System.out.println("Respuesta correcta");
                 participante.sumaAcierto();
             }else {
+                System.out.println("Respuesta incorrecta");
                 participante.sumaError();
             }
         }
     }
 }
     //El metodo getRespuestaPorTeclado sirve para probar las rondas con la consola
-    private String getRespuestaPorTeclado(PreguntaOpcion pregunta){
-        //imprimirPregunta es un metodo abstracto de la clase Preguntas
+    private String getRespuestaPorTeclado(PreguntaOpcion pregunta) {
+        // imprimirPregunta es un método abstracto de la clase Preguntas
         pregunta.imprimirPregunta();
-        System.out.println("Ingrese la respuesta correcta:(a,b,c,d)");
-        try (Scanner sc = new Scanner(System.in)) {
-            String respuesta = sc.nextLine().toLowerCase();
-            switch (respuesta) {
-                case "a" -> {
-                    respuesta = pregunta.getOpcionA();
-                    break;
-                }
-                case "b" -> {
-                    respuesta = pregunta.getOpcionB();
-                    break;
-                }
-                case "c" -> {
-                    respuesta = pregunta.getOpcionC();
-                    break;
-                }
-                case "d" -> {
-                    respuesta = pregunta.getOpcionD();
-                    break;
-                }
+        System.out.println("Ingrese la respuesta correcta: (a, b, c, d)");
+
+        Scanner scanner = new Scanner(System.in);
+        char respuesta = scanner.next().charAt(0);
+
+        switch (respuesta) {
+            case 'a' -> {
+                return pregunta.getOpcionA();
             }
-            return respuesta;
+            case 'b' -> {
+                return pregunta.getOpcionB();
+            }
+            case 'c' -> {
+                return pregunta.getOpcionC();
+            }
+            case 'd' -> {
+                return pregunta.getOpcionD();
+            }
+            default -> {
+                System.out.println("Respuesta incorrecta, ingrese una respuesta válida");
+                return getRespuestaPorTeclado(pregunta);
+            }
         }
     }
-
 }

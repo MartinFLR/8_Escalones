@@ -25,16 +25,16 @@ public class Tests {
         
         model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
         Escalon escalon = new Escalon();
+        escalon.setTema(tema);
+        for (model.Participante participante : listaParticipantes) {
+            escalon.agregaParticipante(new model.Participante(participante.getNombre()));
+        }
 
-        // Las preguntas opcionales no tienen las opciones seteadas
-        // Todas las preguntas tienen id=0
-        // Hay preguntas de opcion multiple con respuestaCorrecta = null
-        listarPreguntasOpcion(listaPreguntas);
-        // listarPreguntasAproximacion(listaPreguntaAproximacion);
-        
+        // listarPreguntasOpcion(listaPreguntas);        
+        //  listarPreguntasAproximacion(listaPreguntaAproximacion);        
         
         // testClaseTema(tema);
-         testClaseEscalon(tema, listaParticipantes, escalon);
+        // testClaseEscalon(tema, listaParticipantes, escalon);
         // Dentro de testClaseEscalon hay tests opcionales como: 
             // testEstadoRondaFinal
             // testEstadoRondaEmpate
