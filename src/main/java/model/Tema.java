@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 
 public class Tema {
-    private int id;
+    private Integer id_tema;
     private String nombre_tema;
     private List<model.PreguntaOpcion> preguntas;
     private List<model.PreguntaAproximacion> pregsAproximacion;
@@ -14,7 +14,7 @@ public class Tema {
         this.nombre_tema = tema;
     }
     public Tema(int id, String nombre) {
-        this.id = id;
+        this.id_tema = id;
         this.nombre_tema = nombre;
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
@@ -30,7 +30,7 @@ public class Tema {
 
         // Conversion de un tema a una línea de texto
     public String toFileString() {
-        return this.id + "," + this.nombre;
+        return this.id_tema + "," + this.nombre_tema;
     }
     // Conversion de una línea de texto a un tema
     public static Tema fromFileString(String line) {
@@ -59,7 +59,7 @@ public class Tema {
         this.pregsAproximacion = pregsAproximacion;
     }
     public int getId() {
-        return id;
+        return id_tema;
     }
     public String getNombre() {
         return nombre_tema;

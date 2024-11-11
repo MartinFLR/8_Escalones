@@ -1,7 +1,8 @@
+import java.sql.SQLException;
 import java.util.List;
 
 import model.*;
-import model.ABM.FacadeBusqueda;
+import model.ABM.Busqueda;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
@@ -9,7 +10,7 @@ import model.ABM.TemasDAO;
 
 
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException {
     // PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
     // PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
      TemasDAO abmTemas = TemasDAO.getInstance();
@@ -17,7 +18,7 @@ public class Main {
 
     // List<Participante> listaParticipantes = abmPart.buscarTodos();
     // List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
-     List<Tema> listaTemas = abmTemas.buscarTodos();
+     List<Tema> listaTemas = abmTemas.buscarObjeto(1);
     // List<PreguntaAproximacion> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
 
     // System.out.println("Lista de Participantes:");
@@ -38,9 +39,11 @@ public class Main {
     //   System.out.println(tema.getNombre()+", Id: "+ tema.getId());
     // }
 
-    FacadeBusqueda busq = new FacadeBusqueda();
+    Busqueda busq = new Busqueda();
 
-    busq.busqueda("Historia", listaTemas.get(1));
+    for (Tema tema : listaTemas) {
+      System.out.println(tema.getNombre() + "ID: " + tema.getId());
+    }
 
   }}
 

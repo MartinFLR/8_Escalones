@@ -1,4 +1,5 @@
 package model.ABM;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,8 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.PreguntaOpcion;
 
+import model.PreguntaOpcion;
 
 public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
@@ -22,16 +23,18 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
         return instance;
     }
+
     @Override
     public void insertar(PreguntaOpcion pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, pregunta.getPregunta());
             pstmt.setInt(2, pregunta.getIdTema());
-            pstmt.setInt(3, 1); // Suponiendo que el id_tipopregunta es 1 para preguntas de opción, ajusta esto según sea necesario
+            pstmt.setInt(3, 1); // Suponiendo que el id_tipopregunta es 1 para preguntas de opción, ajusta esto
+                                // según sea necesario
 
             pstmt.executeUpdate();
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
@@ -49,57 +52,61 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
     private void insertarOpciones(int idPregunta, PreguntaOpcion pregunta) {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
-        
+
         try (Connection connection = Database.getInstance().getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, idPregunta);
             pstmt.setString(2, pregunta.getOpcionA());
-            pstmt.setBoolean(3, pregunta.getRespuestaCorrecta().equals(pregunta.getOpcionA())); // Ajusta esto según sea necesario
+            pstmt.setBoolean(3, pregunta.getRespuestaCorrecta().equals(pregunta.getOpcionA())); // Ajusta esto según sea
+                                                                                                // necesario
 
             pstmt.executeUpdate();
             // Repite para las otras opciones B, C y D
-            // Aquí también puedes marcar la respuesta correcta, dependiendo de cómo quieras almacenar esta información.
+            // Aquí también puedes marcar la respuesta correcta, dependiendo de cómo quieras
+            // almacenar esta información.
         } catch (SQLException e) {
             System.out.println("Error al agregar opciones: " + e.getMessage());
         }
     }
+
     @Override
     public List<PreguntaOpcion> buscarTodos() {
         List<PreguntaOpcion> preguntas = new ArrayList<>();
         String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
-                       "FROM preguntas p " +
-                       "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta "+
-                       "WHERE p.id_tipopregunta = 1";
-    
+                "FROM preguntas p " +
+                "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta " +
+                "WHERE p.id_tipopregunta = 1";
+
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query);
-             ResultSet resultSet = pstmt.executeQuery()) {
-    
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                ResultSet resultSet = pstmt.executeQuery()) {
+
             Map<Integer, PreguntaOpcion> preguntaMap = new HashMap<>();
-    
+
             while (resultSet.next()) {
                 int idPregunta = resultSet.getInt("id_pregunta");
                 String preguntaTexto = resultSet.getString("pregunta");
                 int idTema = resultSet.getInt("id_tema");
-    
+
                 // Crear o recuperar la pregunta del mapa
-                PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta, new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "", "", idTema));
-    
+                PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta,
+                        new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "", "", idTema));
+
                 // Obtener la respuesta y ver si es la correcta
                 String respuesta = resultSet.getString("respuesta");
                 boolean respuestaCorrecta = resultSet.getBoolean("respuesta_correcta");
-    
+
                 // Si la respuesta es correcta, la agregamos a la pregunta
                 if (respuestaCorrecta) {
                     // Almacenamos la respuesta correcta en la pregunta
                     pregunta.setRespuestaCorrecta(respuesta); // Implementa este método en la clase PreguntaOpcion
                 }
-    
+
                 // Almacenar la pregunta en el mapa
                 preguntaMap.put(idPregunta, pregunta);
             }
-    
+
             // Agregar todas las preguntas al listado
             preguntas.addAll(preguntaMap.values());
         } catch (SQLException e) {
@@ -107,15 +114,13 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
         return preguntas;
     }
-    
-    
-    
+
     @Override
     public void eliminar(int id) {
         String query = "DELETE FROM respuestas WHERE id_pregunta = ?; DELETE FROM preguntas WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             statement.setInt(2, id);
             int rowsAffected = statement.executeUpdate();
@@ -128,12 +133,13 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
     }
+
     @Override
     public void modificar(int id, PreguntaOpcion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, nuevaPregunta.getPregunta());
             statement.setInt(2, nuevaPregunta.getIdTema());
@@ -149,9 +155,60 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             System.err.println("Error al modificar la pregunta: " + e.getMessage());
         }
     }
+
     @Override
-    public List<PreguntaOpcion> buscarObjeto(String nombreColumna, Object tipo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarObjeto'");
+    public List<PreguntaOpcion> buscarObjeto(Object palabra) throws SQLException {
+        List<PreguntaOpcion> preguntas = new ArrayList<>();
+        try (Connection conn = Database.getInstance().getConnection()) {
+            // columnas guardael nombre de las columnas de la base de datos de nombreTabla
+            List<String> columnas = DAO.obtenerNombresColumnas(conn, "preguntas");
+            StringBuilder sqlb = new StringBuilder("SELECT * FROM preguntas WHERE ");
+            // append para ir agregando mas columnas en el condicional where
+            for (int i = 0; i < columnas.size(); i++) {
+                sqlb.append(columnas.get(i)).append(" = ?");
+                if (i < columnas.size() - 1) {
+                    sqlb.append(" OR ");
+                }
+            }
+            String sql = sqlb.toString();
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                for (int i = 1; i <= columnas.size(); i++) {
+                    pstmt.setObject(i, "%" + palabra + "%");
+                }
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    Map<Integer, PreguntaOpcion> preguntaMap = new HashMap<>();
+
+                    while (rs.next()) {
+                        int idPregunta = rs.getInt("id_pregunta");
+                        String preguntaTexto = rs.getString("pregunta");
+                        int idTema = rs.getInt("id_tema");
+
+                        // Crear o recuperar la pregunta del mapa
+                        PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta,
+                                new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "", "", idTema));
+
+                        // Obtener la respuesta y ver si es la correcta
+                        String respuesta = rs.getString("respuesta");
+                        boolean respuestaCorrecta = rs.getBoolean("respuesta_correcta");
+
+                        // Si la respuesta es correcta, la agregamos a la pregunta
+                        if (respuestaCorrecta) {
+                            // Almacenamos la respuesta correcta en la pregunta
+                            pregunta.setRespuestaCorrecta(respuesta); // Implementa este método en la clase
+                                                                      // PreguntaOpcion
+                        }
+
+                        // Almacenar la pregunta en el mapa
+                        preguntaMap.put(idPregunta, pregunta);
+                    }
+
+                    // Agregar todas las preguntas al listado
+                    preguntas.addAll(preguntaMap.values());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar en la base de datos: " + e.getMessage());
+        }
+        return preguntas;
     }
 }
