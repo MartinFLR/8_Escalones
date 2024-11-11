@@ -2,7 +2,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import model.*;
-import model.ABM.Busqueda;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
@@ -34,36 +33,17 @@ public class Main {
   
 
 
-<<<<<<< .merge_file_KrFaje
-      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
-    }
-  
-    System.out.println("Lista de Preguntas de aproximacion:");
-    for (PreguntaAproximacion pregunta : listaPreguntasAproximacion) {
-
-      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
-    }
-=======
     // System.out.println("Lista de Temas:");
     // for (Tema tema : listaTemas) {
     //   System.out.println(tema.getNombre()+", Id: "+ tema.getId());
     // }
->>>>>>> .merge_file_LqJ1ql
 
-    Busqueda busq = new Busqueda();
+
 
     for (Tema tema : listaTemas) {
       System.out.println(tema.getNombre() + "ID: " + tema.getId());
     }
 
-<<<<<<< .merge_file_KrFaje
-
-    //ASI SE ELIMINAN LAS PREGUNTAS
-    abmPreg.eliminar(4);
-  }
-}
-=======
   }}
->>>>>>> .merge_file_LqJ1ql
 
 

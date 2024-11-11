@@ -13,23 +13,22 @@ public interface DAO<T> {
     void eliminar(int id);
     //T buscarPorId(int id);
     List<T> buscarTodos();
-    List<T> buscarObjeto(Object palabra)throws SQLException;
 
-     static List<String> obtenerNombresColumnas(Connection conexion, String nombreTabla) throws SQLException {
-        List<String> columnas = new ArrayList<>();
-        DatabaseMetaData md = conexion.getMetaData();
-        try (ResultSet cr = md.getColumns(null, null, nombreTabla, null)) {
-            while (cr.next()) {
-                String nombreColumna = cr.getString("COLUMN_NAME");
-                columnas.add(nombreColumna);
-            }
-            if (columnas.isEmpty()) {
-                System.out.println("No se encontraron columnas en la tabla.");
+    //  static List<String> obtenerNombresColumnas(Connection conexion, String nombreTabla) throws SQLException {
+    //     List<String> columnas = new ArrayList<>();
+    //     DatabaseMetaData md = conexion.getMetaData();
+    //     try (ResultSet cr = md.getColumns(null, null, nombreTabla, null)) {
+    //         while (cr.next()) {
+    //             String nombreColumna = cr.getString("COLUMN_NAME");
+    //             columnas.add(nombreColumna);
+    //         }
+    //         if (columnas.isEmpty()) {
+    //             System.out.println("No se encontraron columnas en la tabla.");
                 
-            }
-        }
-        return columnas;
-    }
+    //         }
+    //     }
+    //     return columnas;
+    // }
 
     // static String setQuery(String nombreColumna, Object tipo, String entidad){
 

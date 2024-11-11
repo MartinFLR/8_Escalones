@@ -60,22 +60,12 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
     public List<PreguntaAproximacion> buscarTodos() {
         List<PreguntaAproximacion> preguntas = new ArrayList<>();
-<<<<<<< .merge_file_yBovZo
-        String query = "SELECT p.id_pregunta, p.pregunta,tp.tipo_pregunta AS tipoPregunta, r.respuesta AS respuesta_correcta, t.id_tema AS tema_id "
-                     + "FROM preguntas p "
-                     + "JOIN tipo_pregunta as tp ON tp.id_tipo = p.id_tipopregunta "
-                     + "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta AND r.respuesta_correcta = TRUE "
-                     + "LEFT JOIN tema t ON p.id_tema = t.id_tema "
-                     + "WHERE p.id_tipopregunta = 2";
-        
-=======
         String query = "SELECT p.id_pregunta, p.pregunta, r.respuesta AS respuesta_correcta, t.id_tema AS tema_id "
                 + "FROM preguntas p "
                 + "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta AND r.respuesta_correcta = TRUE "
                 + "LEFT JOIN tema t ON p.id_tema = t.id_tema "
                 + "WHERE p.id_tipopregunta = 2";
 
->>>>>>> .merge_file_zyHdT0
         try (Connection connection = Database.getInstance().getConnection();
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(query)) {
@@ -133,43 +123,6 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             }
         } catch (SQLException e) {
             System.err.println("Error al modificar la pregunta de aproximación: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public List<PreguntaAproximacion> buscarObjeto(Object palabra) throws SQLException {
-        List<PreguntaAproximacion> preguntasAprox = new ArrayList<>();
-        try (Connection conn = Database.getInstance().getConnection()) {
-            // columnas guardael nombre de las columnas de la base de datos de nombreTabla
-            List<String> columnas = DAO.obtenerNombresColumnas(conn, "preguntas");
-            StringBuilder sqlb = new StringBuilder("SELECT * FROM preguntas WHERE ");
-            // append para ir agregando mas columnas en el condicional where
-            for (int i = 0; i < columnas.size(); i++) {
-                sqlb.append(columnas.get(i)).append(" = ?");
-                if (i < columnas.size() - 1) {
-                    sqlb.append(" OR ");
-                }
-            }
-            String sql = sqlb.toString();
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                for (int i = 1; i <= columnas.size(); i++) {
-                    pstmt.setObject(i, palabra);
-                }
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    while (rs.next()) {
-                        PreguntaAproximacion pregAprox = new PreguntaAproximacion(
-                                rs.getInt("id_pregunta"),
-                                rs.getString("pregunta"),
-                                rs.getString("tipoPregunta"),
-                                rs.getString("respuesta_correcta"),
-                                rs.getInt("tema_id")); // Aquí aseguramos que tema_id sea int
-                        preguntasAprox.add(pregAprox);
-                    }
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al buscar en la base de datos: " + e.getMessage());
-            }
-            return preguntasAprox;
         }
     }
 }

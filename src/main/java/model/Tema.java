@@ -19,22 +19,6 @@ public class Tema {
         this.nombre_tema = nombre;
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
-<<<<<<< .merge_file_C4CQMe
-    public model.PreguntaOpcion sacarPregunta() {
-        if (!this.preguntas.isEmpty()) {
-            return this.preguntas.remove(0);
-        } else {
-            throw new NoSuchElementException("No hay más preguntas de opción.");
-        }
-    }
-    
-    public model.PreguntaAproximacion sacarPreguntaAprox() {
-        if (!this.pregsAproximacion.isEmpty()) {
-            return this.pregsAproximacion.remove(0);
-        } else {
-            throw new NoSuchElementException("No hay más preguntas de aproximación.");
-        }
-=======
 
     public model.PreguntaOpcion sacarPregunta(){
         return this.preguntas.remove(0);
@@ -43,7 +27,6 @@ public class Tema {
     public model.PreguntaAproximacion sacarPreguntaAprox(){
 
         return this.pregsAproximacion.remove(0);
->>>>>>> .merge_file_C0Yb4r
     }
 
         // Conversion de un tema a una línea de texto
