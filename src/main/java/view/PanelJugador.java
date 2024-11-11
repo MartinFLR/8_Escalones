@@ -40,7 +40,8 @@ public class PanelJugador extends JPanel {
 
 	// ------------------ setear la vida al estado normal
 	public void vidadefault () {
-		
+		panelvida1.setBackground(null);
+		panelvida2.setBackground(null);
 	}
 	
 	public JLabel getLblimagenJugador() {

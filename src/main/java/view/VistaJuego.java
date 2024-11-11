@@ -52,7 +52,7 @@ public class VistaJuego extends JFrame {
 		setTitle("8 ESCALONES");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 650);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.addKeyListener(c);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -160,7 +160,6 @@ public class VistaJuego extends JFrame {
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(239, 368, 179, 43);
 		panelAproximacion.add(lblNewLabel);
-		
 		
 		
 		//
