@@ -9,7 +9,8 @@ import java.util.List;
 
 import model.Participante;
 
-public class ParticipantesDAO implements DAO <Participante>{
+public class ParticipantesDAO implements DAO<Participante> {
+
     private static ParticipantesDAO instance;
 
     public static synchronized ParticipantesDAO getInstance() {
@@ -18,12 +19,13 @@ public class ParticipantesDAO implements DAO <Participante>{
         }
         return instance;
     }
+
     @Override
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
         try (Connection conn = Database.getInstance().getConnection();
 
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
 
             pstmt.executeUpdate();
@@ -32,30 +34,30 @@ public class ParticipantesDAO implements DAO <Participante>{
             System.err.println("Error al agregar participante: " + e.getMessage());
         }
     }
+
     @Override
     public List<Participante> buscarTodos() {
         List<Participante> participantes = new ArrayList<>();
         String sql = "SELECT * FROM participantes";
         try (Connection conn = Database.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet resultSet = pstmt.executeQuery()) {
-
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet resultSet = pstmt.executeQuery()) {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id"); // Obtener el id
                 String nombre = resultSet.getString("nombre");
-                int edad = resultSet.getInt("edad");
-                participantes.add(new Participante(id, nombre, edad));
+                participantes.add(new Participante(id, nombre));
             }
         } catch (SQLException e) {
             System.err.println("Error al listar participantes: " + e.getMessage());
         }
         return participantes;
     }
+
     @Override
     public void eliminar(int id) {
         String sql = "DELETE FROM participantes WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             int filasEliminadas = pstmt.executeUpdate();
@@ -68,14 +70,16 @@ public class ParticipantesDAO implements DAO <Participante>{
             System.err.println("Error al eliminar participante: " + e.getMessage());
         }
     }
+
     @Override
     public void modificar(int id, Participante nuevoParticipante) {
-        String sql = "UPDATE participantes SET nombre = ?, edad = ? WHERE id = ?";
+        String sql = "UPDATE participantes SET nombre = ? WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevoParticipante.getNombre());
-            pstmt.setInt(3, id);
+            pstmt.setInt(2, id);
+
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
                 System.out.println("Participante modificado con éxito.");
@@ -84,6 +88,21 @@ public class ParticipantesDAO implements DAO <Participante>{
             }
         } catch (SQLException e) {
             System.err.println("Error al modificar participante: " + e.getMessage());
+        }
+    }
+
+    public void modificarVecesGanadas(String nombreParticipante, Integer cantidad) {
+
+        String sql = "UPDATE participante SET vecesGanadas = vecesGanadas + ? WHERE nombre = ? ";
+        try (Connection conn = Database.getInstance().getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, cantidad);
+            pstmt.setString(2, nombreParticipante);
+
+            pstmt.executeUpdate();
+            System.out.println("Veces ganadas modificada con exito");
+        } catch (SQLException e) {
+            System.err.println("Error al modificar veces ganadas: " + e.getMessage());
         }
     }
 }

@@ -8,9 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import model.Tema;
 
-public class TemasDAO implements DAO<Tema>{
+public class TemasDAO implements DAO<Tema> {
     // Singleton
     private static TemasDAO instance;
 
@@ -25,7 +26,7 @@ public class TemasDAO implements DAO<Tema>{
         String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, tema.getId());
             pstmt.setString(2, tema.getNombre());
@@ -41,14 +42,13 @@ public class TemasDAO implements DAO<Tema>{
         String query = "SELECT * FROM tema";
 
         try (Connection connection = Database.getInstance().getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Tema tema = new Tema(
                         resultSet.getInt("id_tema"),
-                        resultSet.getString("nombre_tema")
-                );
+                        resultSet.getString("nombre_tema"));
                 temas.add(tema);
             }
         } catch (SQLException e) {
@@ -63,7 +63,7 @@ public class TemasDAO implements DAO<Tema>{
         String sql = "DELETE FROM tema WHERE id = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             int rowsAffected = pstmt.executeUpdate();
@@ -81,7 +81,7 @@ public class TemasDAO implements DAO<Tema>{
         String sql = "UPDATE tema SET nombre = ? WHERE id = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevoTema.getNombre());
             pstmt.setInt(2, id);
@@ -96,4 +96,5 @@ public class TemasDAO implements DAO<Tema>{
             System.err.println("Error al modificar tema: " + e.getMessage());
         }
     }
+
 }

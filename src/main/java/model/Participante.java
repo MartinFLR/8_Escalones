@@ -6,16 +6,19 @@ import java.util.List;
 public class Participante {
     private int id;
     private final String nombre;
-    private final List<PreguntaOpcion> preguntas = new ArrayList<>();
+    @SuppressWarnings("FieldMayBeFinal")
+
+    private List<PreguntaOpcion> preguntas = new ArrayList<>();
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
     private double respuestaParticipanteEmpate;
     private int cantErrores=0;
     private int cantAciertos = 0;
     private int numEscalon=1;
+    private int vecesGanadas;
     
     //Constructores
-    public Participante(int id, String nombre, int edad) {
+    public Participante(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -49,6 +52,7 @@ public class Participante {
         return this.preguntas;
     } 
     public void setPreguntasParticipante(PreguntaOpcion preg){
+
         this.preguntas.add(preg);
     }
     public int getCantErrores(){
@@ -67,6 +71,7 @@ public class Participante {
         return this.pregEmpate;
     }
     public void setPregEmpate(PreguntaAproximacion pregEmpate) {
+
         this.pregEmpate = pregEmpate;
     }
     public int getNumEscalon() {
@@ -80,6 +85,14 @@ public class Participante {
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;
+    }
+
+    public int getVecesGanadas(){
+        return this.vecesGanadas;
+    }
+
+    public void SetVecesGanadas(int vecesGanadas){
+        this.vecesGanadas=vecesGanadas;
     }
 }
 
