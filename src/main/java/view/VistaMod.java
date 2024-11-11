@@ -1,12 +1,16 @@
 package view;
 
 import controller.ControladorMod;
+import model.Tema;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -108,4 +112,21 @@ public class VistaMod extends JFrame{
 	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
+
+	public JTable getTable(){
+		return this.table;
+	}
+
+	public void actualizarTablaTemas(List<Tema> temas) {
+        t.setRowCount(0); // Limpia la tabla
+
+        for (Tema tema : temas) {
+            Object[] fila = {
+                tema.getId(),
+                tema.getNombre(),
+                tema.getCantidadPreguntas()
+            };
+            t.addRow(fila);
+        }
+    }
 }
