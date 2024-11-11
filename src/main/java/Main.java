@@ -17,7 +17,7 @@ public class Main {
 
     // List<Participante> listaParticipantes = abmPart.buscarTodos();
     // List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
-     List<Tema> listaTemas = abmTemas.buscarObjeto(1);
+
     // List<PreguntaAproximacion> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
 
     // System.out.println("Lista de Participantes:");
@@ -38,11 +38,6 @@ public class Main {
     //   System.out.println(tema.getNombre()+", Id: "+ tema.getId());
     // }
 
-
-
-    for (Tema tema : listaTemas) {
-      System.out.println(tema.getNombre() + "ID: " + tema.getId());
-    }
 
   }}
 
