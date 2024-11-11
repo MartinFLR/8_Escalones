@@ -14,8 +14,8 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//UIManager.setLookAndFeel(new FlatDarkLaf()); //Tema oscuro
-					UIManager.setLookAndFeel(new FlatLightLaf()); //Tema claro
+					UIManager.setLookAndFeel(new FlatDarkLaf()); //Tema oscuro
+					//UIManager.setLookAndFeel(new FlatLightLaf()); //Tema claro
 					//UIManager.setLookAndFeel(new FlatDarculaLaf()); //Tema oscuro pero diferente XD
 					//UIManager.setLookAndFeel(new FlatIntelliJLaf()); //tema claro y diferente tmb
 					ControladorPrincipal c = new ControladorPrincipal();

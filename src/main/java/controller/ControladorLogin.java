@@ -3,14 +3,14 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import view.VistaRanking;
+import view.VistaLogin;
 
-public class ControladorRanking implements ActionListener{
+public class ControladorLogin implements ActionListener{
 
-	private VistaRanking vista;
+	private VistaLogin vista;
 	
-	public ControladorRanking () {
-		this.vista = new VistaRanking (this);
+	public ControladorLogin () {
+		this.vista = new VistaLogin(this);
 		this.vista.setVisible(true);
 		
 		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
@@ -21,7 +21,5 @@ public class ControladorRanking implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 	
 }
