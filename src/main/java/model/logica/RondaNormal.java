@@ -11,11 +11,6 @@ public class RondaNormal implements EstadoRonda {
     public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
         PreguntaOpcion preg;
         String resp;
-        System.out.println("Cantidad de p en ronda: "+participantes.size());
-        for(Participante participante:participantes){
-            System.out.println(participante.getNombre());
-            System.out.println(participante.getPreguntasParticipante().size()); 
-        }
         for (Participante participante:participantes){
             for (int i = 0; i <2; i++) {
             preg=participante.getPreguntasParticipante().get(i);

@@ -29,10 +29,7 @@ public class TestJuego {
         // for (model.Participante participante : listaParticipantes) {
         //     escalon.agregaParticipante(new model.Participante(participante.getNombre()));
         // }
-        
-        System.out.println("Lista preguntas tema: " + tema.getPreguntas().size());
-        System.out.println("Lista pregAprox " + listaPreguntaAproximacion.size());
-        
+
         // Estado de la ronda
         Ronda estado = escalon.getEstadoDeRonda();
 

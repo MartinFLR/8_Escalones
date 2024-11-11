@@ -24,8 +24,6 @@ public class Escalon {
                 PreguntaOpcion pregunta = this.tema.sacarPregunta();
                 participante.setPreguntasParticipante(pregunta);
             }
-            System.out.println("Participante: "+participante.getNombre());
-            System.out.println("CantPreguntas "+ participante.getPreguntasParticipante().size());
         }
     }
 
