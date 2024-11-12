@@ -2,11 +2,14 @@ package view;
 
 import controller.ControladorPrincipal;
 
+import com.formdev.flatlaf.extras.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,9 +60,9 @@ public class VistaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		//---PANELES (VENTANAS EXTRAS)
-	
+		
 		panelAyuda = new JPanel();
-		panelAyuda.setBounds(80, 11, 663, 408);
+		panelAyuda.setBounds(236, 53, 792, 574);
 		contentPane.add(panelAyuda);
 		panelAyuda.setLayout(null);
 		panelAyuda.setVisible(false);
@@ -68,68 +71,68 @@ public class VistaPrincipal extends JFrame {
 		btnSalirAyuda.setBounds(564, 374, 89, 23);
 		panelAyuda.add(btnSalirAyuda);
 		 
-		
+
 		panelCreditos = new JPanel();
-		panelCreditos.setBounds(80, 11, 663, 408);
+		panelCreditos.setBounds(236, 53, 792, 574);
 		contentPane.add(panelCreditos);
 		panelCreditos.setLayout(null);
 		panelCreditos.setVisible(false);
 		
 		btnSalirCreditos = new JButton("Volver");
 		btnSalirCreditos.setBounds(564, 374, 89, 23);
-		panelCreditos.add(btnSalirCreditos);  
-	
+		panelCreditos.add(btnSalirCreditos);
+		
 		
 		//---BOTONES PANTALLA PRINCIPAL
 		btnJugar = new JButton("JUGAR");
-		btnJugar.setBounds(593, 111, 200, 50);
+		btnJugar.setBounds(1004, 191, 250, 60);
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
 		
 		btnOpciones = new JButton("OPCIONES");
-		btnOpciones.setBounds(593, 172, 200, 50);		
+		btnOpciones.setBounds(1004, 262, 250, 60);		
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
 		
 		BtnSalir = new JButton("SALIR");
-		BtnSalir.setBounds(593, 274, 200, 50);
+		BtnSalir.setBounds(1004, 394, 250, 60);
 		contentPane.add(BtnSalir);
 		BtnSalir.addActionListener(controlador);
 		
 		btnCreditos = new JButton("C");
-		btnCreditos.setBounds(653, 379, 40, 40);
+		btnCreditos.setBounds(1134, 610, 55, 55);
 		btnCreditos.addActionListener(controlador);
 		contentPane.add(btnCreditos);
 		
-		btnLogin = new JButton("L");
-		btnLogin.setBounds(703, 379, 40, 40);
+		btnLogin = new JButton(new FlatSVGIcon("imagenes/edit.svg", 0.35f));
+		btnLogin.setBounds(1199, 610, 55, 55);
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);
 		
 		btnRanking = new JButton("RANKING");
-		btnRanking.setBounds(593, 233, 95, 30);
+		btnRanking.setBounds(1004, 333, 120, 50);
 		contentPane.add(btnRanking);
 		btnRanking.addActionListener(controlador);
 		
 		btnAyuda = new JButton("AYUDA");
-		btnAyuda.setBounds(698, 233, 95, 30);
+		btnAyuda.setBounds(1134, 333, 120, 50);
 		contentPane.add(btnAyuda);
 		btnAyuda.addActionListener(controlador);
 		
 		btnModificar = new JButton("M");
-		btnModificar.setBounds(753, 379, 40, 40);
+		btnModificar.setBounds(1069, 610, 55, 55);
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
 		
 		JLabel lblTitutlo = new JLabel("8 ESCALONES");
 		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
+		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
 		lblTitutlo.setForeground(Color.CYAN);
-		lblTitutlo.setBounds(10, 11, 783, 89);
+		lblTitutlo.setBounds(10, 11, 1244, 169);
 		contentPane.add(lblTitutlo);
-		
-	}
 
+	}
+	
 	public ControladorPrincipal getControlador() {
 		return controlador;
 	}

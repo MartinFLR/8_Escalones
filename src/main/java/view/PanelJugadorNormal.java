@@ -12,17 +12,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 
-public class PanelJugador extends JPanel {
+public class PanelJugadorNormal extends PanelJugadorPadre {
 
-	private JLabel lblimagenJugador;
-	private JLabel lblnombreJugador;
-	private JPanel panelerrores;
-	private JPanel panelerror1;
-	private JPanel panelerror2;
-	private Color colorOriginal = Color.WHITE, colorAcierto = Color.GREEN, colorError = Color.RED;
-	private Color colorRespondiendo = Color.ORANGE, colorActivo = Color.WHITE,colorEliminado = Color.GRAY;
+	protected JPanel panelerror1;
+	protected JPanel panelerror2;
 
-	public PanelJugador(String url) {
+	public PanelJugadorNormal(String url) {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setLayout(new GridLayout(0, 1, 0, 0));
 		setBackground(colorActivo);
@@ -35,23 +30,24 @@ public class PanelJugador extends JPanel {
 		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblnombreJugador);
 		
-		panelerrores = new JPanel();
-		add(panelerrores);
-		panelerrores.setBackground(colorActivo);
-		panelerrores.setLayout(new GridLayout(0, 2, 20, 20));
-		panelerrores.setBorder(new EmptyBorder(20, 20, 20, 20));
+		panelErrores = new JPanel();
+		add(panelErrores);
+		panelErrores.setBackground(colorActivo);
+		panelErrores.setLayout(new GridLayout(0, 2, 20, 20));
+		panelErrores.setBorder(new EmptyBorder(20, 20, 20, 20));
 		panelerror1 = new JPanel();
 		panelerror1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelerror1.setBackground(colorOriginal);
-		panelerrores.add(panelerror1);
+		panelErrores.add(panelerror1);
 		panelerror2 = new JPanel();
 		panelerror2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelerror2.setBackground(colorOriginal);
-		panelerrores.add(panelerror2);
+		panelErrores.add(panelerror2);
 		
 	}
 
 	// SETEAR COLORES DE VIDA 
+	@Override
 	public void setError () {
 		if (panelerror1.getBackground().equals(colorOriginal)) {
 			panelerror1.setBackground(colorError);
@@ -60,6 +56,7 @@ public class PanelJugador extends JPanel {
 		}
 	}
 	
+	@Override
 	public void setAcierto() {
 		if (panelerror2.getBackground().equals(colorOriginal)) {
 			panelerror1.setBackground(colorAcierto);
@@ -68,25 +65,10 @@ public class PanelJugador extends JPanel {
 		}
 	}
 	
+	@Override
 	public void setResetErrores () {
 		panelerror1.setBackground(colorOriginal);
 		panelerror2.setBackground(colorOriginal);
-	}
-	
-	// SETEAR COLOR DE JUGADOR ACTIVO O ELIMINADO
-	public void setRespondiendo() {
-		setBackground(colorRespondiendo);
-		panelerrores.setBackground(colorRespondiendo);
-	}
-	
-	public void setActivo() {
-		setBackground(colorActivo);
-		panelerrores.setBackground(colorActivo);
-	}
-	
-	public void setEliminado() {
-		setBackground(colorEliminado);
-		panelerrores.setBackground(colorEliminado);
 	}
 	
 	

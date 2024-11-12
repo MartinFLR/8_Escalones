@@ -2,9 +2,9 @@ package controller;
 
 import view.VistaPrincipal;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 
 public class ControladorPrincipal implements ActionListener{
 	private VistaPrincipal vista;
@@ -28,10 +28,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
+	
 
 	public VistaPrincipal getVista() {
 		return vista;
@@ -39,6 +36,14 @@ public class ControladorPrincipal implements ActionListener{
 
 	public void setVista(VistaPrincipal vista) {
 		this.vista = vista;
+	}
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

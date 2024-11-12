@@ -44,9 +44,12 @@ public class VistaJuego extends JFrame {
 	private JLabel lblJuez;
 	private JLabel lblJugador;
 	
+	private JPanel panelFinal;
+	
 	// ATRIBUTOS PARA CADA JUGADOR Y ESCALON
 	private PanelEscalon e1, e2, e3, e4, e5, e6, e7, e8;
-	private PanelJugador j1, j2, j3, j4, j5, j6 ,j7 ,j8 ,j9;
+	private PanelJugadorNormal j1, j2, j3, j4, j5, j6 ,j7 ,j8 ,j9;
+	private PanelJugadorFinal jf1, jf2;
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -92,6 +95,23 @@ public class VistaJuego extends JFrame {
 		panelColumna.add(e1);
 		
 		//
+		// PANEL JUGADORES (FINAL)
+		//
+		
+		panelFinal = new JPanel();
+		panelFinal.setBounds(95, 370, 1181, 131);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		jf1 = new PanelJugadorFinal("imagenes/icons8-person-64.png");
+		panelFinal.add(jf1);
+		jf2 = new PanelJugadorFinal("imagenes/icons8-person-64.png");
+		panelFinal.add(jf2);
+		
+		//
 		// PANEL JUGADORES
 		//
 		
@@ -107,36 +127,35 @@ public class VistaJuego extends JFrame {
 		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
-		j1 = new PanelJugador("imagenes/icons8-person-64.png");
+		j1 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j1);
-		j2 = new PanelJugador("imagenes/icons8-person-64.png");
+		j2 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j2);
-		j3 = new PanelJugador("imagenes/icons8-person-64.png");
+		j3 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j3);
-		j4 = new PanelJugador("imagenes/icons8-person-64.png");
+		j4 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j4);
-		j5 = new PanelJugador("imagenes/icons8-person-64.png");
+		j5 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j5);
-		j6 = new PanelJugador("imagenes/icons8-person-64.png");
+		j6 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j6);
-		j7 = new PanelJugador("imagenes/icons8-person-64.png");
+		j7 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j7);
-		j8 = new PanelJugador("imagenes/icons8-person-64.png");
+		j8 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j8);
-		j9 = new PanelJugador("imagenes/icons8-person-64.png");
+		j9 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
 		panelJugadores.add(j9);
-		
 		
 		//
 		// PANEL INFORMATIVOS
 		//
 		
 		lblJuez = new JLabel("Nombre JUEZ");
-		lblJuez.setBounds(240, 442, 71, 56);
+		lblJuez.setBounds(627, 38, 71, 56);
 		contentPane.add(lblJuez);
 		
 		lblJugador = new JLabel("Nombre JUGADOR");
-		lblJugador.setBounds(705, 442, 393, 56);
+		lblJugador.setBounds(616, 89, 97, 56);
 		contentPane.add(lblJugador);
 		
 		//---------------------Panel Principal----------------------------------
@@ -145,7 +164,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(695, 11, 571, 421);
+		panelAproximacion.setBounds(695, 11, 571, 359);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -174,7 +193,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelPregunta = new JPanel();
-		panelPregunta.setBounds(89, 11, 542, 421);
+		panelPregunta.setBounds(89, 11, 542, 359);
 		contentPane.add(panelPregunta);
 		panelPregunta.setLayout(null);
 		
@@ -199,6 +218,8 @@ public class VistaJuego extends JFrame {
 		panelPregunta.add(lblprePregunta);
 		
 		
+
+		
 	}
 	
 	//GET DE LOS ESCALONES
@@ -218,15 +239,15 @@ public class VistaJuego extends JFrame {
 	public JPanel getPanelJugadores() {
 		return panelJugadores;
 	}
-	public PanelJugador getJ1() {return j1;}
-	public PanelJugador getJ2() {return j2;}
-	public PanelJugador getJ3() {return j3;}
-	public PanelJugador getJ4() {return j4;}
-	public PanelJugador getJ5() {return j5;}
-	public PanelJugador getJ6() {return j6;}
-	public PanelJugador getJ7() {return j7;}
-	public PanelJugador getJ8() {return j8;}
-	public PanelJugador getJ9() {return j9;}
+	public PanelJugadorNormal getJ1() {return j1;}
+	public PanelJugadorNormal getJ2() {return j2;}
+	public PanelJugadorNormal getJ3() {return j3;}
+	public PanelJugadorNormal getJ4() {return j4;}
+	public PanelJugadorNormal getJ5() {return j5;}
+	public PanelJugadorNormal getJ6() {return j6;}
+	public PanelJugadorNormal getJ7() {return j7;}
+	public PanelJugadorNormal getJ8() {return j8;}
+	public PanelJugadorNormal getJ9() {return j9;}
 	
 	
 	public ControladorJuego getC() {return c;}
@@ -267,6 +288,4 @@ public class VistaJuego extends JFrame {
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
 	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
-	
-	
 }
