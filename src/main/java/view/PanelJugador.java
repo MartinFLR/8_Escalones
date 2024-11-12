@@ -20,7 +20,7 @@ public class PanelJugador extends JPanel {
 	private JPanel panelerror1;
 	private JPanel panelerror2;
 	private Color colorOriginal = Color.WHITE, colorAcierto = Color.GREEN, colorError = Color.RED;
-	private Color colorActivo = Color.WHITE,colorEliminado = Color.GRAY;
+	private Color colorRespondiendo = Color.ORANGE, colorActivo = Color.WHITE,colorEliminado = Color.GRAY;
 
 	public PanelJugador(String url) {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -74,7 +74,12 @@ public class PanelJugador extends JPanel {
 	}
 	
 	// SETEAR COLOR DE JUGADOR ACTIVO O ELIMINADO
-	public void setJugando() {
+	public void setRespondiendo() {
+		setBackground(colorRespondiendo);
+		panelerrores.setBackground(colorRespondiendo);
+	}
+	
+	public void setActivo() {
 		setBackground(colorActivo);
 		panelerrores.setBackground(colorActivo);
 	}
