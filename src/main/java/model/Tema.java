@@ -1,7 +1,8 @@
 package model;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Random;
+
 
 public class Tema {
     private int id;
@@ -19,26 +20,16 @@ public class Tema {
         this.id = id;
         this.nombre = nombre;
     }
-
-
-    public Tema(){
+    // devuelve una pregunta random
+    public model.PreguntaOpcion sacarPregunta(){
+        Random random= new Random();
+        return this.preguntas.remove(random.nextInt(0, this.preguntas.size()));
         
     }
-    //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
-    public model.PreguntaOpcion sacarPregunta() {
-        if (!this.preguntas.isEmpty()) {
-            return this.preguntas.remove(0);
-        } else {
-            throw new NoSuchElementException("No hay más preguntas de opción.");
-        }
-    }
     
-    public model.PreguntaAproximacion sacarPreguntaAprox() {
-        if (!this.pregsAproximacion.isEmpty()) {
-            return this.pregsAproximacion.remove(0);
-        } else {
-            throw new NoSuchElementException("No hay más preguntas de aproximación.");
-        }
+    public model.PreguntaAproximacion sacarPreguntaAprox(){
+        Random random= new Random();
+        return this.pregsAproximacion.remove(random.nextInt(0, this.pregsAproximacion.size()));
     }
 
         // Conversion de un tema a una línea de texto
@@ -50,7 +41,7 @@ public class Tema {
         String[] parts = line.split(",");
         return new Tema(Integer.parseInt(parts[0]), parts[1]);
     }
-    
+
     //Getters y Setters
     public String getTema() {
         return this.nombre;

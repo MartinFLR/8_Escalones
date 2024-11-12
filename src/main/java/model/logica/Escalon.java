@@ -27,17 +27,21 @@ public class Escalon {
         }
     }
 
-    public void repartirPreguntasFinal(){
+    private void repartirPreguntasFinal(){
+        System.out.println("Reparte preguntas final");
         //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
-        for (Participante participante : participantes) {
-            for (int i = 0; i < 10; i++) {
-            participante.setPreguntasParticipante(tema.sacarPregunta());
-        }}
+        for (int i = 0; i < 10; i++) {
+            PreguntaOpcion pregunta = this.tema.sacarPregunta();
+            for (Participante participante : participantes) {
+                participante.setPreguntasParticipante(pregunta);
+            }
+        }
     }
-
-    public void subeEscalon(){
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
         this.escalon++;
+        this.resetAciertosyErrores();
         if (this.escalon==8){
+            this.repartirPreguntasFinal();
             this.estadoDeRonda.setRondaFinal();
         }
     }
@@ -79,7 +83,11 @@ public class Escalon {
             }
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             this.estadoDeRonda.setRondaDeEmpate(participantesAEliminar);
-            //Despues de la ronda de empate tendriamos solo uno y podriamos eliminarlo
+            
+            // Repite la ronda de desempate hasta que quede uno
+            while(participantesAEliminar.size()>1){
+                this.estadoDeRonda.rondaDePreguntas(participantesAEliminar);
+            }
             this.participantes.remove(participantesAEliminar.getFirst());
             this.estadoDeRonda.setRondaNormal();
         }else{
@@ -103,12 +111,27 @@ public class Escalon {
     public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
+
+    public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
+        for (Participante par: participantes ){
+        par.setCantErrores(0);
+        par.setCantAciertos(0);
+    }}
+    
+
     //Getters y setters
     public void setTema(Tema tema) {
         this.tema = tema;
     }
     public int getEscalon() {
         return this.escalon;
+    }
+    public void setEscalon(int escalon) {
+        this.escalon = escalon;
+        if (this.escalon==8){
+            this.repartirPreguntasFinal();
+            this.estadoDeRonda.setRondaFinal();
+        }
     }
     public List<Participante> getParticipantes() {
         return this.participantes;

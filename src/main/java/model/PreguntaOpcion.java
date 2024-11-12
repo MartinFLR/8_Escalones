@@ -19,9 +19,9 @@ public class PreguntaOpcion extends Preguntas {
         this.respuesta_correcta = respuestaCorrecta;
     }
 
-    public PreguntaOpcion(int id,String pregunta, String tipoPregunta ,String opcion_a, String opcion_b,
+    public PreguntaOpcion(String pregunta, String tipoPregunta ,String opcion_a, String opcion_b,
     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
-        super(id,pregunta,tipoPregunta,id_tema);
+        super(pregunta,tipoPregunta,id_tema);
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
@@ -29,14 +29,23 @@ public class PreguntaOpcion extends Preguntas {
         this.respuesta_correcta = respuestaCorrecta;
     }
 
-    public PreguntaOpcion(int idPregunta, String preguntaTexto, String tipoPregunta, String opcion_a2, String opcion_b2,
+    public PreguntaOpcion(String preguntaTexto, String tipoPregunta, String opcion_a2, String opcion_b2,
             String opcion_c2, String opcion_d2, int idTema) {
-        super(idPregunta, preguntaTexto, tipoPregunta, idTema);
+        super( preguntaTexto, tipoPregunta, idTema);
         this.opcion_a = opcion_a2;
         this.opcion_b = opcion_b2;
         this.opcion_c = opcion_c2;
         this.opcion_d = opcion_d2;
         
+    }
+    //Constructor usado en ABM
+    public PreguntaOpcion(int idPregunta, String preguntaTexto, String string, String string0, String string1, String string2, String string3, Object object, int idTema) {
+        super(idPregunta, preguntaTexto, string, idTema);
+        this.opcion_a = string0;
+        this.opcion_b = string1;
+        this.opcion_c = string2;
+        this.opcion_d = string3;
+        this.respuesta_correcta = (String) object;
     }
 
     //Metodos
