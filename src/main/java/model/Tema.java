@@ -8,6 +8,7 @@ public class Tema {
     private String nombre;
     private List<model.PreguntaOpcion> preguntas;
     private List<model.PreguntaAproximacion> pregsAproximacion;
+    private int CantidadPreguntas;
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
@@ -17,6 +18,11 @@ public class Tema {
     public Tema(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+
+
+    public Tema(){
+        
     }
     //Deberiamos hacer que en vez de devolver la 1ra pregunta, devuelva una pregunta random
     public model.PreguntaOpcion sacarPregunta() {
@@ -69,5 +75,16 @@ public class Tema {
     }
     public String getNombre() {
         return nombre;
+    }
+    public void setId(Integer id){
+        this.id = id;
+    }
+
+    public void setCantidadPreguntas(Integer Cantidad){
+        this.CantidadPreguntas = Cantidad;
+    }
+
+    public int getCantidadPreguntas(){
+        return this.CantidadPreguntas;
     }
 }

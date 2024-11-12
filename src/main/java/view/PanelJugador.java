@@ -11,26 +11,34 @@ import java.awt.GridLayout;
 public class PanelJugador extends JPanel {
 	private JLabel lblimagenJugador;
 	private JLabel lblnombreJugador;
-	private JPanel panelvida2;
-	private JPanel panelvida1;
 	private ImageIcon imgJugador;
+	private JPanel panelvida1;
+	private JPanel panelvida2;
 
 	public PanelJugador() {
 		setLayout(new GridLayout(0, 1, 0, 0));
-		
-		panelvida1 = new JPanel();
-		panelvida1.setBackground(Color.GREEN);
-		add(panelvida1);
-		
-		panelvida2 = new JPanel();
-		add(panelvida2);
-		
 		
 		lblimagenJugador = new JLabel("New label");
 		add(lblimagenJugador);
 		
 		lblnombreJugador = new JLabel("New label");
 		add(lblnombreJugador);
+		
+		JPanel panel = new JPanel();
+		add(panel);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		panelvida1 = new JPanel();
+		panelvida1.setBackground(Color.GREEN);
+		panel.add(panelvida1);
+		
+		panelvida2 = new JPanel();
+		panelvida2.setBackground(Color.RED);
+		panel.add(panelvida2);
+		
+		
+		
+		
 	}
 
 	// ----------------- setear vida de los jugadores con los colores

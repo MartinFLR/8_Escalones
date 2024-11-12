@@ -28,6 +28,8 @@ public class VistaOpciones extends JFrame {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 		
 		btnSalir = new JButton("Volver");
 		btnSalir.setBounds(142, 255, 89, 23);
