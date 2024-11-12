@@ -12,15 +12,7 @@ import java.util.List;
 import model.Tema;
 
 public class TemasDAO implements DAO<Tema> {
-    // Singleton
-    private static TemasDAO instance;
 
-    public static synchronized TemasDAO getInstance() {
-        if (instance == null) {
-            instance = new TemasDAO();
-        }
-        return instance;
-    }
 
     public void insertar(Tema tema) {
         String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
@@ -115,6 +107,7 @@ public class TemasDAO implements DAO<Tema> {
                 tema.setId(rs.getInt("ID"));
                 tema.setNombre(rs.getString("Tema"));
                 tema.setCantidadPreguntas(rs.getInt("Cantidad de preguntas"));
+
                 temas.add(tema);
             }
         } catch (SQLException e) {

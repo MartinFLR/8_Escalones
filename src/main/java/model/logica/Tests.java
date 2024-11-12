@@ -2,19 +2,16 @@ package model.logica;
 
 import java.util.List;
 
+import model.*;
 import model.ABM.*;
-import model.Participante;
-import model.PreguntaAproximacion;
-import model.PreguntaOpcion;
-import model.Tema;
 
 public class Tests {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
-        PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
-        TemasDAO abmTemas = TemasDAO.getInstance();
-        ParticipantesDAO abmPart = ParticipantesDAO.getInstance();
-        PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
+        PreguntaOpcionDAO abmPreg = new PreguntaOpcionDAO();
+        TemasDAO abmTemas = new TemasDAO();
+        ParticipantesDAO abmPart = new ParticipantesDAO();
+        PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
         List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
@@ -25,7 +22,11 @@ public class Tests {
         adminDAO.modificar(admin);
 
         Admin aldito = adminDAO.buscarAdmin();
-        System.out.println(aldito.nombre+" "+aldito.contrasenia);
+        System.out.println(aldito.getNombre()+" "+aldito.getContrasenia());
+
+        for (Tema tema : listaTemas) {
+            System.out.println(tema.getId()+" "+tema.getTema());
+        }
 
         model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
         Escalon escalon = new Escalon();

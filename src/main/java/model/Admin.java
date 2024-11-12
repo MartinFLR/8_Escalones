@@ -1,4 +1,4 @@
-package model.logica;
+package model;
 
 public class Admin {
     int id;

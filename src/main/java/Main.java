@@ -9,10 +9,10 @@ import model.ABM.TemasDAO;
 
 public class Main {
   public static void main(String[] args) {
-    PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
-    PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
-    TemasDAO abmTemas = TemasDAO.getInstance();
-    ParticipantesDAO abmPart = ParticipantesDAO.getInstance();
+    PreguntaOpcionDAO abmPreg = new PreguntaOpcionDAO();
+    PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
+    TemasDAO abmTemas = new TemasDAO();
+    ParticipantesDAO abmPart = new ParticipantesDAO();
 
     List<Participante> listaParticipantes = abmPart.buscarTodos();
     List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();

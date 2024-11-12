@@ -13,6 +13,7 @@ public class Participante {
     private int cantErrores=0;
     private int cantAciertos = 0;
     private int numEscalon=1;
+    private int vecesGanadas;
     
     //Constructores
     public Participante(int id, String nombre) {
