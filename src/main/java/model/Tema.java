@@ -20,7 +20,6 @@ public class Tema {
         this.preguntas = preguntas;
         this.nombre = tema;
     }
-    public Tema(){};
 
     public Tema(int id, String nombre) {
         this.id = id;

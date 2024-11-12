@@ -13,7 +13,7 @@ public class ParticipantesDAO implements DAO<Participante> {
 
     @Override
     public void insertar(Participante participante) {
-        String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
+        String sql = "INSERT INTO participantes (nombre, veces_ganadas) VALUES (?, 0)";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
@@ -35,7 +35,8 @@ public class ParticipantesDAO implements DAO<Participante> {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id"); // Obtener el id
                 String nombre = resultSet.getString("nombre");
-                participantes.add(new Participante(id, nombre));
+                int veces_ganadas = resultSet.getInt("veces_ganadas");
+                participantes.add(new Participante(id, nombre, veces_ganadas));
             }
         } catch (SQLException e) {
             System.err.println("Error al listar participantes: " + e.getMessage());
@@ -81,13 +82,15 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public void modificarVecesGanadas(String nombreParticipante, Integer cantidad) {
+    public void modificarVecesGanadas( String nombreParticipante, Integer cantidad) {
 
-        String sql = "UPDATE participante SET vecesGanadas = vecesGanadas + ? WHERE nombre = ? ";
+        String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setInt(1, cantidad);
             pstmt.setString(2, nombreParticipante);
+            
 
             pstmt.executeUpdate();
             System.out.println("Veces ganadas modificada con exito");

@@ -11,11 +11,15 @@ public class Tests {
         PreguntaOpcionDAO abmPreg = new PreguntaOpcionDAO();
         TemasDAO abmTemas = new TemasDAO();
         ParticipantesDAO abmPart = new ParticipantesDAO();
+        abmPart.insertar(new Participante("Martin"));
+        abmPart.modificarVecesGanadas("Martin",2);
         PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
+        PreguntaOpcionDAO abmPregOpcion = new PreguntaOpcionDAO();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
         List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
         List<model.PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
+        List<model.PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
 
         AdminDAO adminDAO = new AdminDAO();
         Admin admin = new Admin("aldo","pancho");
@@ -33,6 +37,19 @@ public class Tests {
         escalon.setTema(tema);
         for (model.Participante participante : listaParticipantes) {
             escalon.agregaParticipante(new model.Participante(participante.getNombre()));
+        }
+
+        for(Participante p : listaParticipantes){
+            System.out.println("Participante: " + p.getNombre());
+            System.out.println("Veces ganadas: " + p.getVecesGanadas());
+        }
+
+        for (PreguntaAproximacion preguntaAproximacion : listaPreguntaAproximacion) {
+            preguntaAproximacion.imprimirPregunta();
+        }
+
+        for (PreguntaOpcion preguntaOpcion : listaPreguntaOp) {
+            preguntaOpcion.imprimirPregunta();
         }
 
         // listarPreguntasOpcion(listaPreguntas);        

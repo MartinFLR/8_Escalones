@@ -55,7 +55,7 @@ public class PreguntaAproximacionDAO extends PreguntasDAO implements DAO<Pregunt
                      + "JOIN tipo_pregunta as tp ON tp.id_tipo = p.id_tipopregunta "
                      + "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta AND r.respuesta_correcta = TRUE "
                      + "LEFT JOIN tema t ON p.id_tema = t.id_tema "
-                     + "WHERE p.id_tipopregunta = 2";
+                     + "WHERE p.id_tipopregunta = 1";
         
         try (Connection connection = Database.getInstance().getConnection();
              Statement stmt = connection.createStatement();

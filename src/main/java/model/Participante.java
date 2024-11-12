@@ -24,6 +24,12 @@ public class Participante {
     public Participante(String nombre) {
         this.nombre = nombre;
     }
+
+    public Participante(int id, String nombre, int veces_ganadas) {
+        this.id = id;
+        this.nombre = nombre;
+        this.vecesGanadas=veces_ganadas;
+    }
     
     //Metodos
     public void sumaAcierto(){

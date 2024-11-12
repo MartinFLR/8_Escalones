@@ -70,7 +70,7 @@ public class PreguntaOpcionDAO extends PreguntasDAO implements DAO<PreguntaOpcio
         String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
                        "FROM preguntas p " +
                        "JOIN respuestas r ON p.id_pregunta = r.id_pregunta " +
-                       "WHERE p.id_tipopregunta = 1 " +
+                       "WHERE p.id_tipopregunta = 2 " +
                        "ORDER BY p.id_pregunta, r.id_respuesta";  // Ordenamos por pregunta y respuesta para agrupar correctamente
         
         try (Connection connection = Database.getInstance().getConnection();
