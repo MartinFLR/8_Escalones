@@ -129,6 +129,11 @@ public class Escalon {
     public void setEscalon(int escalon) {
         this.escalon = escalon;
         if (this.escalon==8){
+            //Esto asigna a priori dos preguntas para eventuales empates
+            //Estaria bueno poder asignar la lista de preguntas de empate a los participantes
+            for (Participante participante : participantes) {
+                participante.setPregEmpate(this.tema.sacarPreguntaAprox());
+            }
             this.repartirPreguntasFinal();
             this.estadoDeRonda.setRondaFinal();
         }
