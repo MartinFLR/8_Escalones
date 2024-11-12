@@ -38,6 +38,15 @@ public class PreguntaOpcion extends Preguntas {
         this.opcion_d = opcion_d2;
         
     }
+    //Constructor usado en ABM
+    public PreguntaOpcion(int idPregunta, String preguntaTexto, String string, String string0, String string1, String string2, String string3, Object object, int idTema) {
+        super(idPregunta, preguntaTexto, string, idTema);
+        this.opcion_a = string0;
+        this.opcion_b = string1;
+        this.opcion_c = string2;
+        this.opcion_d = string3;
+        this.respuesta_correcta = (String) object;
+    }
 
     //Metodos
     @Override
