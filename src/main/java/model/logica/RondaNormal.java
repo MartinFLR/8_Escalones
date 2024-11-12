@@ -28,6 +28,7 @@ public class RondaNormal implements EstadoRonda {
     }
 }
     //El metodo getRespuestaPorTeclado sirve para probar las rondas con la consola
+    //Toma el caracter y usa un switch con getOpcionA, getOpcionB,etc
     private String getRespuestaPorTeclado(PreguntaOpcion pregunta) {
         // imprimirPregunta es un método abstracto de la clase Preguntas
         pregunta.imprimirPregunta();
@@ -35,7 +36,6 @@ public class RondaNormal implements EstadoRonda {
 
         Scanner scanner = new Scanner(System.in);
         char respuesta = scanner.next().charAt(0);
-
         switch (respuesta) {
             case 'a' -> {
                 return pregunta.getOpcionA();

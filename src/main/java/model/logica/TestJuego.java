@@ -36,7 +36,21 @@ public class TestJuego {
         //Inicia el juego
         escalon.repartirPreguntas();
         estado.rondaDePreguntas(escalon.getParticipantes());
+
         //Elimina un participante o cambia el estado de la ronda a empate
         escalon.filtrarParticipantes();
+        System.out.println("Participantes que suben escalon");
+        for (Participante participante : escalon.getParticipantes()) {
+            System.out.println(participante.getNombre());
+        }
+
+        // Salta al escalon 8 para probar la ronda final
+        escalon.setEscalon(8);
+        estado.rondaDePreguntas(escalon.getParticipantes());
+        // Para arreglar:
+        //  Se rompe si hay empate en la ronda final
+        //  Leyendo el error parece que la preg no se esta asignando
+        //  a la rondaDePreguntas de Empate (llamado desde RondaFinal)
+        //  La ronda de desempate funciona bien para la ronda normal
     }
 }
