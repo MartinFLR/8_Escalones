@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import model.Preguntas;
 
 import model.PreguntaOpcion;
 
 
-public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
+public class PreguntaOpcionDAO extends PreguntasDAO implements DAO<PreguntaOpcion> {
 
     @Override
-    public void insertar(PreguntaOpcion pregunta) {
+    public void insertar(PreguntaOpcion entidad) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, pregunta.getPregunta());
-            pstmt.setInt(2, pregunta.getIdTema());
+            pstmt.setString(1, entidad.getPregunta());
+            pstmt.setInt(2, entidad.getIdTema());
             pstmt.setInt(3, 1); // Suponiendo que el id_tipopregunta es 1 para preguntas de opción, ajusta esto según sea necesario
 
             pstmt.executeUpdate();

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
+public class PreguntaAproximacionDAO extends PreguntasDAO implements DAO<PreguntaAproximacion> {
 
 
     public void insertar(PreguntaAproximacion pregunta) {
