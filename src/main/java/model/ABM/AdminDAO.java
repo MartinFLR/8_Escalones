@@ -1,11 +1,8 @@
 package model.ABM;
 
-import model.PreguntaAproximacion;
 import model.logica.Admin;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class AdminDAO {
 

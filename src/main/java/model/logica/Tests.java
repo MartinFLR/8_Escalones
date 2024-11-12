@@ -11,10 +11,10 @@ import model.Tema;
 public class Tests {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
-        PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
-        TemasDAO abmTemas = TemasDAO.getInstance();
-        ParticipantesDAO abmPart = ParticipantesDAO.getInstance();
-        PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
+        PreguntaOpcionDAO abmPreg = new PreguntaOpcionDAO();
+        TemasDAO abmTemas = new TemasDAO();
+        ParticipantesDAO abmPart = new ParticipantesDAO();
+        PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
         List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();

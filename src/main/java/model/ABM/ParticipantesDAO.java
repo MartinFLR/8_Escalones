@@ -11,15 +11,6 @@ import model.Participante;
 
 public class ParticipantesDAO implements DAO<Participante> {
 
-    private static ParticipantesDAO instance;
-
-    public static synchronized ParticipantesDAO getInstance() {
-        if (instance == null) {
-            instance = new ParticipantesDAO();
-        }
-        return instance;
-    }
-
     @Override
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";

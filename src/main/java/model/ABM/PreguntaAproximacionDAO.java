@@ -8,14 +8,6 @@ import java.util.List;
 
 public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
-    private static PreguntaAproximacionDAO instance;
-
-    public static synchronized PreguntaAproximacionDAO getInstance() {
-        if (instance == null) {
-            instance = new PreguntaAproximacionDAO();
-        }
-        return instance;
-    }
 
     public void insertar(PreguntaAproximacion pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";

@@ -14,14 +14,6 @@ import model.PreguntaOpcion;
 
 public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
-    private static PreguntaOpcionDAO instance;
-
-    public static synchronized PreguntaOpcionDAO getInstance() {
-        if (instance == null) {
-            instance = new PreguntaOpcionDAO();
-        }
-        return instance;
-    }
     @Override
     public void insertar(PreguntaOpcion pregunta) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";

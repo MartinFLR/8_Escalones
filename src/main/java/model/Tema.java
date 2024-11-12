@@ -33,7 +33,7 @@ public class Tema {
         Random random= new Random();
         return this.pregsAproximacion.remove(random.nextInt(0, this.pregsAproximacion.size()));
     }
-    
+
     //Getters y Setters
     public String getTema() {
         return this.nombre;
