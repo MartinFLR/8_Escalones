@@ -2,10 +2,14 @@ package view;
 
 import controller.ControladorCreacionJug;
 
+import java.util.HashMap;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 
 public class VistaCreacionJug extends JFrame{
@@ -23,64 +27,78 @@ public class VistaCreacionJug extends JFrame{
 	private JTextField txtJugador8;
 	private JTextField txtJugador9;
 	
+	private HashMap<Integer, ImageIcon> imagenes = new HashMap<Integer, ImageIcon>();
+	
 	public VistaCreacionJug (ControladorCreacionJug c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setBounds(300, 200, 781, 511);
+		setBounds(300, 200, 363, 431);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		// LOGICA DE IMAGENES
+		this.imagenes.put(1, new ImageIcon("imagenes/playericon/playerBlack.png"));
+		this.imagenes.put(2, new ImageIcon("imagenes/playericon/playerBlue.png"));
+		this.imagenes.put(3, new ImageIcon("imagenes/playericon/playerCyan.png"));
+		this.imagenes.put(4, new ImageIcon("imagenes/playericon/playerGreen.png"));
+		this.imagenes.put(5, new ImageIcon("imagenes/playericon/playerOrange.png"));
+		this.imagenes.put(6, new ImageIcon("imagenes/playericon/playerPink.png"));
+		this.imagenes.put(7, new ImageIcon("imagenes/playericon/playerPurple.png"));
+		this.imagenes.put(8, new ImageIcon("imagenes/playericon/playerRed.png"));
+		this.imagenes.put(9, new ImageIcon("imagenes/playericon/playerYellow.png"));
+		
 		btnJugar = new JButton("Jugar");
-		btnJugar.setBounds(668, 441, 89, 23);
+		btnJugar.setBounds(140, 342, 89, 23);
 		contentPane.add(btnJugar);
 		
 		txtJugador1 = new JTextField();
-		txtJugador1.setBounds(133, 85, 96, 19);
+		txtJugador1.setBounds(133, 36, 96, 19);
 		contentPane.add(txtJugador1);
 		txtJugador1.setColumns(10);
 		
 		txtJugador2 = new JTextField();
-		txtJugador2.setBounds(133, 130, 96, 19);
+		txtJugador2.setBounds(133, 61, 96, 19);
 		contentPane.add(txtJugador2);
 		txtJugador2.setColumns(10);
 		
 		txtJugador3 = new JTextField();
-		txtJugador3.setBounds(133, 175, 96, 19);
+		txtJugador3.setBounds(133, 89, 96, 19);
 		contentPane.add(txtJugador3);
 		txtJugador3.setColumns(10);
 		
 		txtJugador4 = new JTextField();
-		txtJugador4.setBounds(133, 217, 96, 19);
+		txtJugador4.setBounds(133, 119, 96, 19);
 		contentPane.add(txtJugador4);
 		txtJugador4.setColumns(10);
 		
 		txtJugador5 = new JTextField();
-		txtJugador5.setBounds(133, 263, 96, 19);
+		txtJugador5.setBounds(133, 149, 96, 19);
 		contentPane.add(txtJugador5);
 		txtJugador5.setColumns(10);
 		
 		txtJugador6 = new JTextField();
-		txtJugador6.setBounds(133, 308, 96, 19);
+		txtJugador6.setBounds(133, 175, 96, 19);
 		contentPane.add(txtJugador6);
 		txtJugador6.setColumns(10);
 		
 		txtJugador7 = new JTextField();
-		txtJugador7.setBounds(339, 85, 96, 19);
+		txtJugador7.setBounds(133, 205, 96, 19);
 		contentPane.add(txtJugador7);
 		txtJugador7.setColumns(10);
 		
 		txtJugador8 = new JTextField();
-		txtJugador8.setBounds(339, 130, 96, 19);
+		txtJugador8.setBounds(133, 236, 96, 19);
 		contentPane.add(txtJugador8);
 		txtJugador8.setColumns(10);
 		
 		txtJugador9 = new JTextField();
-		txtJugador9.setBounds(339, 175, 96, 19);
+		txtJugador9.setBounds(133, 266, 96, 19);
 		contentPane.add(txtJugador9);
 		txtJugador9.setColumns(10);
+		
 		
 	}
 
@@ -90,6 +108,21 @@ public class VistaCreacionJug extends JFrame{
 	public void setC(ControladorCreacionJug c) {
 		this.c = c;
 	}
+
+	public JPanel getContentPane() {
+		return contentPane;
+		}
+	
+	public JTextField getTxtJugador1() {return txtJugador1;}
+	public JTextField getTxtJugador2() {return txtJugador2;}
+	public JTextField getTxtJugador3() {return txtJugador3;}
+	public JTextField getTxtJugador4() {return txtJugador4;}
+	public JTextField getTxtJugador5() {return txtJugador5;}
+	public JTextField getTxtJugador6() {return txtJugador6;}
+	public JTextField getTxtJugador7() {return txtJugador7;}
+	public JTextField getTxtJugador8() {return txtJugador8;}
+	public JTextField getTxtJugador9() {return txtJugador9;}
+	
 
 	public JButton getBtnJugar() {
 		return btnJugar;

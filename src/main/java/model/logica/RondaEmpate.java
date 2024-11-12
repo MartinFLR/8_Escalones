@@ -52,6 +52,7 @@ public class RondaEmpate implements EstadoRonda {
             }
         } else if (peorParticipante != null) {
             // Agrega al peor participante para poder eliminarlo de la lista de aprticipantes en juego dsps.
+            peorParticipante.sumaError();
             participantes.add(peorParticipante);
             System.out.println("Participante a eliminar: "+peorParticipante.getNombre());
         }

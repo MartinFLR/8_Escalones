@@ -21,7 +21,7 @@ public class VistaMod extends JFrame{
 	private JButton btnCrear;
 	private JButton btnEditar;
 	private JButton btnBorrar;
-	private JTextField busqueda;
+	private JTextField textField;
 	private JTable table;
 	private DefaultTableModel t;
 	
@@ -45,10 +45,10 @@ public class VistaMod extends JFrame{
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		busqueda = new JTextField();
-		busqueda.setBounds(10, 11, 141, 20);
-		panel.add(busqueda);
-		busqueda.setColumns(10);
+		textField = new JTextField();
+		textField.setBounds(10, 11, 141, 20);
+		panel.add(textField);
+		textField.setColumns(10);
 		
 		btnBorrar = new JButton("Eliminar");
 		btnBorrar.setBounds(424, 10, 89, 23);
@@ -60,12 +60,11 @@ public class VistaMod extends JFrame{
 		
 		btnCrear = new JButton("Crear");
 		btnCrear.setBounds(226, 10, 89, 23);
-		btnCrear.setEnabled(false); // para q no se pueda seleccionar sin que elija una categoria o tema 
 		panel.add(btnCrear);
 		
-		JPanel panelTabla = new JPanel();
-		panelTabla.setBounds(10, 58, 513, 292);
-		contentPane.add(panelTabla);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 58, 513, 292);
+		contentPane.add(panel_1);
 		
 		String cabeza [] = {"ID", "Categoria", "Cantidad de preguntas"};
 		t = new DefaultTableModel(null, cabeza);
@@ -79,12 +78,12 @@ public class VistaMod extends JFrame{
 	    table.getTableHeader().setResizingAllowed(false);
 		table.getSelectionModel();
 		table.setBounds(10, 58, 513, 292);
-		panelTabla.add(table);
+		panel_1.add(table);
 		
 		JScrollPane sp = new JScrollPane();
 		sp.setBounds(10, 58, 513, 292);
 		sp.setViewportView(table);
-		panelTabla.add(sp);
+		panel_1.add(sp);
 
 		
 	}
@@ -111,17 +110,4 @@ public class VistaMod extends JFrame{
 	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
-
-	public DefaultTableModel getT() {
-		return t;
-	}
-
-	public void setT(DefaultTableModel t) {
-		this.t = t;
-	}
-
-	public JTable getTable() {
-		return table;
-	}
-	
 }

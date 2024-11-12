@@ -44,8 +44,12 @@ public class VistaJuego extends JFrame {
 	private JLabel lblJuez;
 	private JLabel lblJugador;
 	
+	private JPanel panelFinal;
+	
+	// ATRIBUTOS PARA CADA JUGADOR Y ESCALON
 	private PanelEscalon e1, e2, e3, e4, e5, e6, e7, e8;
-	private PanelJugador j1, j2, j3, j4, j5, j6 ,j7 ,j8 ,j9;
+	private PanelJugadorNormal j1, j2, j3, j4, j5, j6 ,j7 ,j8 ,j9;
+	private PanelJugadorFinal jf1, jf2;
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -58,78 +62,101 @@ public class VistaJuego extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
-		lblJuez = new JLabel("Nombre JUEZ");
-		lblJuez.setBounds(99, 442, 347, 56);
-		contentPane.add(lblJuez);
-		
-		lblJugador = new JLabel("Nombre JUGADOR");
-		lblJugador.setBounds(705, 442, 393, 56);
-		contentPane.add(lblJugador);
-		
 		//
 		// PANEL COLUMNAS
 		//
 		
 		panelColumna = new JPanel();
-		panelColumna.setBounds(0, 0, 79, 683);
+		panelColumna.setBackground(Color.BLACK);
+		panelColumna.setBounds(0, 0, 85, 683);
 		contentPane.add(panelColumna);
-		panelColumna.setLayout(new GridLayout(8, 1, 0, 0));
+		GridLayout gridLayoutColumna = new GridLayout(8, 1);
+        gridLayoutColumna.setVgap(2); 
+		panelColumna.setLayout(gridLayoutColumna);
 		
-		e8 = new PanelEscalon(8);
+		// --- FALTA CAMBIAR COLOR A LOS ESCALONES Y LOS GAPS ENTRE LAYOUT
+		e8 = new PanelEscalon(8,Color.BLACK,Color.red);
 		panelColumna.add(e8);
-		e7 = new PanelEscalon(7);
+		e7 = new PanelEscalon(7,Color.BLACK,Color.red);
 		panelColumna.add(e7);
-		e6 = new PanelEscalon(6);
+		e6 = new PanelEscalon(6,Color.BLACK,Color.red);
 		panelColumna.add(e6);
-		e5 = new PanelEscalon(5);
+		e5 = new PanelEscalon(5,Color.BLACK,Color.red);
 		panelColumna.add(e5);
-		e4 = new PanelEscalon(4);
+		e4 = new PanelEscalon(4,Color.BLACK,Color.red);
 		panelColumna.add(e4);
-		e3 = new PanelEscalon(3);
+		e3 = new PanelEscalon(3,Color.BLACK,Color.red);
 		panelColumna.add(e3);
-		e2 = new PanelEscalon(2);
+		e2 = new PanelEscalon(2,Color.BLACK,Color.red);
 		panelColumna.add(e2);
-		e1 = new PanelEscalon(1);
+		e1 = new PanelEscalon(1,Color.BLACK,Color.red);
 		panelColumna.add(e1);
 		
+		//
+		// PANEL JUGADORES (FINAL)
+		//
+		
+		panelFinal = new JPanel();
+		panelFinal.setBounds(95, 370, 1181, 131);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		jf1 = new PanelJugadorFinal("imagenes/playericon/playerBlack.png");
+		panelFinal.add(jf1);
+		jf2 = new PanelJugadorFinal("imagenes/playericon/playerBlack.png");
+		panelFinal.add(jf2);
 		
 		//
 		// PANEL JUGADORES
 		//
 		
 		panelJugadores = new JPanel();
+		panelJugadores.setBackground(Color.BLACK);
 		panelJugadores.setSize(new Dimension(5, 5));
 		panelJugadores.setBounds(85, 508, 1181, 175);
 		contentPane.add(panelJugadores);
-		panelJugadores.setBackground(Color.black);
-		panelJugadores.setLayout(new GridLayout(0, 9, 0, 0));
+		GridLayout gridLayoutJugador = new GridLayout (1, 9);
+		gridLayoutJugador.setHgap(10); 
+		gridLayoutJugador.setVgap(20); 
+		panelJugadores.setLayout(gridLayoutJugador);
+		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		j1 = new PanelJugador();
+		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
+		j1 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j1);
-		j2 = new PanelJugador();
+		j2 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j2);
-		j3 = new PanelJugador();
+		j3 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j3);
-		j4 = new PanelJugador();
+		j4 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j4);
-		j5 = new PanelJugador();
+		j5 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j5);
-		j6 = new PanelJugador();
+		j6 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j6);
-		j7 = new PanelJugador();
+		j7 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j7);
-		j8 = new PanelJugador();
+		j8 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j8);
-		j9 = new PanelJugador();
+		j9 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j9);
-		
 		
 		//
 		// PANEL INFORMATIVOS
 		//
 		
+		lblJuez = new JLabel("Nombre JUEZ");
+		lblJuez.setBounds(627, 38, 71, 56);
+		contentPane.add(lblJuez);
 		
+		lblJugador = new JLabel("Nombre JUGADOR");
+		lblJugador.setBounds(616, 89, 97, 56);
+		contentPane.add(lblJugador);
 		
 		//---------------------Panel Principal----------------------------------
 		//
@@ -137,7 +164,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(695, 11, 571, 421);
+		panelAproximacion.setBounds(695, 11, 571, 359);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -161,13 +188,12 @@ public class VistaJuego extends JFrame {
 		lblNewLabel.setBounds(239, 368, 179, 43);
 		panelAproximacion.add(lblNewLabel);
 		
-		
 		//
 		// PANEL PREGUNTA
 		//
 
 		panelPregunta = new JPanel();
-		panelPregunta.setBounds(89, 11, 542, 421);
+		panelPregunta.setBounds(89, 11, 542, 359);
 		contentPane.add(panelPregunta);
 		panelPregunta.setLayout(null);
 		
@@ -192,48 +218,74 @@ public class VistaJuego extends JFrame {
 		panelPregunta.add(lblprePregunta);
 		
 		
-	}
-	public ControladorJuego getC() {
-		return c;
-	}
-	public void setC(ControladorJuego c) {
-		this.c = c;
+
+		
 	}
 	
-	public JLabel getLblprePregunta() {
-		return lblprePregunta;
-	}
-	public JLabel getLblaproxPregunta() {
-		return lblaproxPregunta;
-	}
-	public JPanel getPanelPregunta() {
-		return panelPregunta;
-	}
-	public JButton getBtnpreRespuesta2() {
-		return btnpreRespuesta2;
-	}
-	public JButton getBtnpreRespuesta1() {
-		return btnpreRespuesta1;
-	}
-	public JButton getBtnpreRespuesta3() {
-		return btnpreRespuesta3;
-	}
-	public JButton getBtnpreRespuesta4() {
-		return btnpreRespuesta4;
-	}
-	public JPanel getPanelAproximacion() {
-		return panelAproximacion;
-	}
-	public JButton getBtnaproxEnviar() {
-		return btnaproxEnviar;
-	}
-	public JFormattedTextField getTxtaproxRespuesta() {
-		return txtaproxRespuesta;
-	}
+	//GET DE LOS ESCALONES
 	public JPanel getPanelColumna() {
 		return panelColumna;
 	}
+	public PanelEscalon getE1() {return e1;}
+	public PanelEscalon getE2() {return e2;}
+	public PanelEscalon getE3() {return e3;}
+	public PanelEscalon getE4() {return e4;}
+	public PanelEscalon getE5() {return e5;}
+	public PanelEscalon getE6() {return e6;}
+	public PanelEscalon getE7() {return e7;}
+	public PanelEscalon getE8() {return e8;}
+	
+	//GET DE LOS JUGADORES
 	public JPanel getPanelJugadores() {
 		return panelJugadores;
 	}
+	public PanelJugadorNormal getJ1() {return j1;}
+	public PanelJugadorNormal getJ2() {return j2;}
+	public PanelJugadorNormal getJ3() {return j3;}
+	public PanelJugadorNormal getJ4() {return j4;}
+	public PanelJugadorNormal getJ5() {return j5;}
+	public PanelJugadorNormal getJ6() {return j6;}
+	public PanelJugadorNormal getJ7() {return j7;}
+	public PanelJugadorNormal getJ8() {return j8;}
+	public PanelJugadorNormal getJ9() {return j9;}
+	
+	
+	public ControladorJuego getC() {return c;}
+	public void setC(ControladorJuego c) {this.c = c;}
+	
+	
+	public JTable getTable() {return table;}
+	public void setTable(JTable table) {this.table = table;}
+
+	public JLabel getLblJuez() {return lblJuez;}
+	public void setLblJuez(JLabel lblJuez) {this.lblJuez = lblJuez;}
+	
+	public JLabel getLblJugador() {return lblJugador;}
+	public void setLblJugador(JLabel lblJugador) {this.lblJugador = lblJugador;}
+	
+	
+	
+	public JPanel getPanelPregunta() {return panelPregunta;}
+	public JLabel getLblprePregunta() {return lblprePregunta;}
+	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
+
+	public JButton getBtnpreRespuesta2() {return btnpreRespuesta2;}
+	public JButton getBtnpreRespuesta1() {return btnpreRespuesta1;}
+	public JButton getBtnpreRespuesta3() {return btnpreRespuesta3;}
+	public JButton getBtnpreRespuesta4() {return btnpreRespuesta4;}
+	public void setBtnpreRespuesta2(JButton btnpreRespuesta2) {this.btnpreRespuesta2 = btnpreRespuesta2;}
+	public void setBtnpreRespuesta1(JButton btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
+	public void setBtnpreRespuesta3(JButton btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
+	public void setBtnpreRespuesta4(JButton btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
+	
+	
+	
+	public JPanel getPanelAproximacion() {return panelAproximacion;}
+	public JLabel getLblaproxPregunta() {return lblaproxPregunta;}
+	public void setLblaproxPregunta(JLabel lblaproxPregunta) {this.lblaproxPregunta = lblaproxPregunta;}
+	
+	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
+	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
+	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
+	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 }
