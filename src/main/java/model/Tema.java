@@ -26,6 +26,14 @@ public class Tema {
         this.id = id;
         this.nombre = nombre;
     }
+
+    
+    public Tema(int id, String nombre, int cantidadPreguntas) {
+        this.id = id;
+        this.nombre = nombre;
+        CantidadPreguntas = cantidadPreguntas;
+    }
+
     // devuelve una pregunta random
     public model.PreguntaOpcion sacarPregunta(){
         Random random= new Random();
