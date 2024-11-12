@@ -110,4 +110,13 @@ public class VistaMod extends JFrame{
 	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
+
+	public DefaultTableModel getT() {
+		return t;
+	}
+
+	public void setT(DefaultTableModel t) {
+		this.t = t;
+	}
+	
 }
