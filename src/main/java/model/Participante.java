@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Participante {
     private int id;
-    private final String nombre;
+    private final String nombre;//fijarse que no pueda tener el mismo nombre que otro participante
     private final List<PreguntaOpcion> preguntas = new ArrayList<>();
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
@@ -13,6 +13,7 @@ public class Participante {
     private int cantErrores=0;
     private int cantAciertos = 0;
     private int numEscalon=1;
+    private String imagen;
     
     //Constructores
     public Participante(int id, String nombre, int edad) {
@@ -80,6 +81,10 @@ public class Participante {
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;
+    }
+
+    public void setCantAciertos(int cantAciertos) {
+        this.cantAciertos = cantAciertos;
     }
 }
 
