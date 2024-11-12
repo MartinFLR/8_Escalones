@@ -1,6 +1,6 @@
 package model.ABM;
 
-import model.logica.Admin;
+import model.Admin;
 import java.sql.*;
 
 

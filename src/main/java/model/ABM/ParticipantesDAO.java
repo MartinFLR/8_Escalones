@@ -15,8 +15,7 @@ public class ParticipantesDAO implements DAO<Participante> {
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, edad) VALUES (?, ?)";
         try (Connection conn = Database.getInstance().getConnection();
-
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
 
             pstmt.executeUpdate();

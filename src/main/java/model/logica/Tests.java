@@ -2,11 +2,8 @@ package model.logica;
 
 import java.util.List;
 
+import model.*;
 import model.ABM.*;
-import model.Participante;
-import model.PreguntaAproximacion;
-import model.PreguntaOpcion;
-import model.Tema;
 
 public class Tests {
     @SuppressWarnings("unused")
@@ -25,7 +22,7 @@ public class Tests {
         adminDAO.modificar(admin);
 
         Admin aldito = adminDAO.buscarAdmin();
-        System.out.println(aldito.nombre+" "+aldito.contrasenia);
+        System.out.println(aldito.getNombre()+" "+aldito.getContrasenia());
 
         for (Tema tema : listaTemas) {
             System.out.println(tema.getId()+" "+tema.getTema());

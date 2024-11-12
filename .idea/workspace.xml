@@ -9,17 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c9e0e7d9-e1a0-4eb0-bc00-759bbf499a05" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/AdminDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/AdminDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/ParticipantesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/ParticipantesDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaAproximacionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaAproximacionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaOpcionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaOpcionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/TemasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/TemasDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Tema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Tema.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/logica/TestJuego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/logica/TestJuego.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/logica/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/logica/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/logica/Tests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/Tema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Tema.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
