@@ -8,49 +8,82 @@ import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+
 public class PanelJugador extends JPanel {
+
 	private JLabel lblimagenJugador;
 	private JLabel lblnombreJugador;
-	private ImageIcon imgJugador;
-	private JPanel panelvida1;
-	private JPanel panelvida2;
+	private JPanel panelerrores;
+	private JPanel panelerror1;
+	private JPanel panelerror2;
+	private Color colorOriginal = Color.WHITE, colorAcierto = Color.GREEN, colorError = Color.RED;
+	private Color colorActivo = Color.WHITE,colorEliminado = Color.GRAY;
 
-	public PanelJugador() {
+	public PanelJugador(String url) {
+		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setLayout(new GridLayout(0, 1, 0, 0));
+		setBackground(colorActivo);
 		
-		lblimagenJugador = new JLabel("New label");
+		ImageIcon imgJugador = new ImageIcon(url);
+		lblimagenJugador = new JLabel(imgJugador);
 		add(lblimagenJugador);
 		
-		lblnombreJugador = new JLabel("New label");
+		lblnombreJugador = new JLabel("NOMBRE");
+		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblnombreJugador);
 		
-		JPanel panel = new JPanel();
-		add(panel);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		panelvida1 = new JPanel();
-		panelvida1.setBackground(Color.GREEN);
-		panel.add(panelvida1);
-		
-		panelvida2 = new JPanel();
-		panelvida2.setBackground(Color.RED);
-		panel.add(panelvida2);
-		
-		
-		
-		
-	}
-
-	// ----------------- setear vida de los jugadores con los colores
-	public void vidaJugador () {
+		panelerrores = new JPanel();
+		add(panelerrores);
+		panelerrores.setBackground(colorActivo);
+		panelerrores.setLayout(new GridLayout(0, 2, 20, 20));
+		panelerrores.setBorder(new EmptyBorder(20, 20, 20, 20));
+		panelerror1 = new JPanel();
+		panelerror1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelerror1.setBackground(colorOriginal);
+		panelerrores.add(panelerror1);
+		panelerror2 = new JPanel();
+		panelerror2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelerror2.setBackground(colorOriginal);
+		panelerrores.add(panelerror2);
 		
 	}
 
-	// ------------------ setear la vida al estado normal
-	public void vidadefault () {
-		panelvida1.setBackground(null);
-		panelvida2.setBackground(null);
+	// SETEAR COLORES DE VIDA 
+	public void setError () {
+		if (panelerror1.getBackground().equals(colorOriginal)) {
+			panelerror1.setBackground(colorError);
+		} else {
+			panelerror2.setBackground(colorError);
+		}
 	}
+	
+	public void setAcierto() {
+		if (panelerror2.getBackground().equals(colorOriginal)) {
+			panelerror1.setBackground(colorAcierto);
+		} else {
+			panelerror2.setBackground(colorAcierto);
+		}
+	}
+	
+	public void setResetErrores () {
+		panelerror1.setBackground(colorOriginal);
+		panelerror2.setBackground(colorOriginal);
+	}
+	
+	// SETEAR COLOR DE JUGADOR ACTIVO O ELIMINADO
+	public void setJugando() {
+		setBackground(colorActivo);
+		panelerrores.setBackground(colorActivo);
+	}
+	
+	public void setEliminado() {
+		setBackground(colorEliminado);
+		panelerrores.setBackground(colorEliminado);
+	}
+	
 	
 	public JLabel getLblimagenJugador() {
 		return lblimagenJugador;
@@ -64,26 +97,6 @@ public class PanelJugador extends JPanel {
 	public void setLblnombreJugador(JLabel lblnombreJugador) {
 		this.lblnombreJugador = lblnombreJugador;
 	}
-	public JPanel getPanelvida2() {
-		return panelvida2;
-	}
-	public void setPanelvida2(JPanel panelvida2) {
-		this.panelvida2 = panelvida2;
-	}
-	public JPanel getPanelvida1() {
-		return panelvida1;
-	}
-	public void setPanelvida1(JPanel panelvida1) {
-		this.panelvida1 = panelvida1;
-	}
-	public ImageIcon getImgJugador() {
-		return imgJugador;
-	}
-	public void setImgJugador(ImageIcon imgJugador) {
-		this.imgJugador = imgJugador;
-	}
-	
-	
 
 }
 
