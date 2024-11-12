@@ -56,38 +56,8 @@ public class TemasDAO implements DAO<Tema>{
 
         }
 
-
         return temas;
     }
-
-    public List<Tema> obtenerTemasConCantidadPreguntas() {
-        List<Tema> temas = new ArrayList<>();
-
-        String query = "SELECT t.id_tema AS ID, t.nombre_tema AS Tema, " +
-                       "COUNT(p.id_pregunta) AS \"Cantidad de preguntas\" " +
-                       "FROM Tema t " +
-                       "LEFT JOIN preguntas p ON t.id_tema = p.id_tema " +
-                       "GROUP BY t.id_tema, t.nombre_tema";
-
-        try (Connection conn = Database.getInstance().getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                Tema tema = new Tema();
-                tema.setId(rs.getInt("ID"));
-                tema.setNombre(rs.getString("Tema"));
-                tema.setCantidadPreguntas(rs.getInt("Cantidad de preguntas"));
-                temas.add(tema);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return temas;
-    }
-
-    
 
     public void eliminar(int id) {
         String sql = "DELETE FROM tema WHERE id = ?";
