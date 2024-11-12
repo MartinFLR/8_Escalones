@@ -11,6 +11,10 @@ public class Tema {
     private List<model.PreguntaAproximacion> pregsAproximacion;
     private int CantidadPreguntas;
 
+    public Tema(){
+        
+    }
+
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntas = preguntas;
