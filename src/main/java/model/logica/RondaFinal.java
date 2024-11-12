@@ -47,7 +47,7 @@ public class RondaFinal implements EstadoRonda {
             System.out.println("Cant aciertos participante 2: "+participantes.getLast().getCantAciertos());
             if (cantPreguntasRestantes == 0 
             && participantes.getFirst().getCantAciertos() == participantes.getLast().getCantAciertos()) {
-                System.out.println("Pasa a ronda de empate");
+                System.out.println("Pasa a ronda de empate\n");
                 //Aca esta el problema donde no se manda la pregunta de desempate
                 // En caso de la rondaNormal se manda desde Escalon
                 // dentro de metodo filtrarParticipantes

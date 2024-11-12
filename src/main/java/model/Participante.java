@@ -69,7 +69,6 @@ public class Participante {
         return this.pregEmpate;
     }
     public void setPregEmpate(PreguntaAproximacion pregEmpate) {
-
         this.pregEmpate = pregEmpate;
     }
     public int getNumEscalon() {
