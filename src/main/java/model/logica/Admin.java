@@ -6,6 +6,7 @@ public class Admin {
     String contrasenia;
 
     public Admin(String nombre, String contrasenia) {
+        this.id = 1;
         this.nombre = nombre;
         this.contrasenia = contrasenia;
     }
