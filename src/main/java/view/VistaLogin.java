@@ -31,6 +31,8 @@ public class VistaLogin extends JFrame{
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 		
 		JLabel lblLogin = new JLabel("LOGIN ");
 		lblLogin.setBounds(154, 34, 46, 14);

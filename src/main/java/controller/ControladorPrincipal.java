@@ -13,7 +13,7 @@ public class ControladorPrincipal implements ActionListener{
 		this.vista = new VistaPrincipal(this);
 		vista.setVisible(true);
 		vista.getBtnJugar().addActionListener(e -> {
-			new ControladorJuego();
+			new ControladorCreacionJug();
 			this.vista.setVisible(false);});
 		vista.getBtnOpciones().addActionListener(e -> {new ControladorOpciones();});
 		vista.getBtnRanking().addActionListener(e -> {new ControladorRanking();});

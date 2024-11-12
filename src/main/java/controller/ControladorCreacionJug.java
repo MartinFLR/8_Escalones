@@ -10,8 +10,9 @@ public class ControladorCreacionJug {
 	public ControladorCreacionJug () {
 		this.vista = new VistaCreacionJug(this);
 		this.vista.setVisible(true);
+		
+		vista.getBtnJugar().addActionListener(e -> {new ControladorJuego();});
+		
 	}
-	
-	
 	
 }

@@ -49,14 +49,15 @@ public class VistaPrincipal extends JFrame {
 		setTitle("8 ESCALONES");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 819, 469);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		//---PANELES (VENTANAS EXTRAS)
-		/* */
+	
 		panelAyuda = new JPanel();
 		panelAyuda.setBounds(80, 11, 663, 408);
 		contentPane.add(panelAyuda);
@@ -76,7 +77,7 @@ public class VistaPrincipal extends JFrame {
 		
 		btnSalirCreditos = new JButton("Volver");
 		btnSalirCreditos.setBounds(564, 374, 89, 23);
-		panelCreditos.add(btnSalirCreditos);
+		panelCreditos.add(btnSalirCreditos);  
 	
 		
 		//---BOTONES PANTALLA PRINCIPAL
@@ -104,7 +105,6 @@ public class VistaPrincipal extends JFrame {
 		btnLogin.setBounds(703, 379, 40, 40);
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);
-		ImageIcon login = new ImageIcon(login.svg);
 		
 		btnRanking = new JButton("RANKING");
 		btnRanking.setBounds(593, 233, 95, 30);

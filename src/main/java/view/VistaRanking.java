@@ -20,6 +20,7 @@ public class VistaRanking extends JFrame{
 	private JTable table;
 	private DefaultTableModel defTableModel;
 	
+	
 	public VistaRanking (ControladorRanking c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,6 +29,7 @@ public class VistaRanking extends JFrame{
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblRanking = new JLabel("RANKING");
 		lblRanking.setBounds(255, 11, 100, 22);
@@ -38,12 +40,22 @@ public class VistaRanking extends JFrame{
 		contentPane.add(btnSalir);
 
 		//--- TABLA DE RANKING ---
-		String[] column = {"Jugador", "Veces ganadas"};
+		String[] column = {"id","Jugador", "Veces ganadas"};
 		setDefTableModel(new DefaultTableModel(null,column));
-	
 		table = new JTable(getDefTableModel());
+		table.setDefaultEditor(Object.class, null);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+	    table.getTableHeader().setReorderingAllowed(false);
+	    table.getTableHeader().setResizingAllowed(false);
 		table.setBounds(26, 53, 499, 255);
 		contentPane.add(table);
+		
+		JScrollPane sc = new JScrollPane();
+		sc.setBounds(26, 53, 499, 255);
+		sc.setViewportView(table);
+		contentPane.add(sc);
 		
 	}
 

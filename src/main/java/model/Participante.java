@@ -13,10 +13,9 @@ public class Participante {
     private int cantErrores=0;
     private int cantAciertos = 0;
     private int numEscalon=1;
-    private String imagen;
     
     //Constructores
-    public Participante(int id, String nombre, int edad) {
+    public Participante(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -50,6 +49,7 @@ public class Participante {
         return this.preguntas;
     } 
     public void setPreguntasParticipante(PreguntaOpcion preg){
+
         this.preguntas.add(preg);
     }
     public int getCantErrores(){
@@ -68,6 +68,7 @@ public class Participante {
         return this.pregEmpate;
     }
     public void setPregEmpate(PreguntaAproximacion pregEmpate) {
+
         this.pregEmpate = pregEmpate;
     }
     public int getNumEscalon() {
@@ -85,6 +86,14 @@ public class Participante {
 
     public void setCantAciertos(int cantAciertos) {
         this.cantAciertos = cantAciertos;
+    }
+
+    public int getVecesGanadas(){
+        return this.vecesGanadas;
+    }
+
+    public void SetVecesGanadas(int vecesGanadas){
+        this.vecesGanadas=vecesGanadas;
     }
 }
 

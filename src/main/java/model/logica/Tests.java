@@ -2,10 +2,7 @@ package model.logica;
 
 import java.util.List;
 
-import model.ABM.ParticipantesDAO;
-import model.ABM.PreguntaAproximacionDAO;
-import model.ABM.PreguntaOpcionDAO;
-import model.ABM.TemasDAO;
+import model.ABM.*;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
@@ -22,7 +19,11 @@ public class Tests {
         List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
         List<model.PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
-        
+
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = new Admin("aldo","pancho");
+        adminDAO.modificar(admin);
+
         model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
         Escalon escalon = new Escalon();
         escalon.setTema(tema);
