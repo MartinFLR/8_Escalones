@@ -115,6 +115,7 @@ public class TemasDAO implements DAO<Tema> {
                 tema.setId(rs.getInt("ID"));
                 tema.setNombre(rs.getString("Tema"));
                 tema.setCantidadPreguntas(rs.getInt("Cantidad de preguntas"));
+
                 temas.add(tema);
             }
         } catch (SQLException e) {

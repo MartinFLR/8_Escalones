@@ -27,6 +27,10 @@ public class Tests {
         Admin aldito = adminDAO.buscarAdmin();
         System.out.println(aldito.nombre+" "+aldito.contrasenia);
 
+        for (Tema tema : listaTemas) {
+            System.out.println(tema.getId()+" "+tema.getTema());
+        }
+
         model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
         Escalon escalon = new Escalon();
         escalon.setTema(tema);
