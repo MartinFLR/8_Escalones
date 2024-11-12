@@ -31,6 +31,7 @@ public class VistaCreacionJug extends JFrame{
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		btnJugar = new JButton("Jugar");
 		btnJugar.setBounds(668, 441, 89, 23);

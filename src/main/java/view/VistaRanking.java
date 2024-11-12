@@ -29,6 +29,7 @@ public class VistaRanking extends JFrame{
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblRanking = new JLabel("RANKING");
 		lblRanking.setBounds(255, 11, 100, 22);
