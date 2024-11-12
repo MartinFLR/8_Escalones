@@ -47,10 +47,14 @@ public class TestJuego {
         // Salta al escalon 8 para probar la ronda final
         escalon.setEscalon(8);
         estado.rondaDePreguntas(escalon.getParticipantes());
+        escalon.filtrarParticipantes();
+        if(escalon.getParticipantes().isEmpty()){
+            System.out.println("No se elimina el participante correctamente");
+        }else{
+            System.out.println("\nGanador: "+ escalon.getParticipantes().getFirst().getNombre());
+        }
         // Para arreglar:
-        //  Se rompe si hay empate en la ronda final
-        //  Leyendo el error parece que la preg no se esta asignando
-        //  a la rondaDePreguntas de Empate (llamado desde RondaFinal)
-        //  La ronda de desempate funciona bien para la ronda normal
+        // Funciona la ronda de empate en la final pero el perdedor no se esta eliminando
+        // Capaz falta manejar los err en rondaEmpate
     }
 }
