@@ -103,12 +103,11 @@ public class TemasDAO implements DAO<Tema> {
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                Tema tema = new Tema();
-                tema.setId(rs.getInt("ID"));
-                tema.setNombre(rs.getString("Tema"));
-                tema.setCantidadPreguntas(rs.getInt("Cantidad de preguntas"));
+                int id = rs.getInt("ID");
+                String nombre = rs.getString("Tema");
+                int cantidadPreguntas = rs.getInt("Cantidad de preguntas");
 
-                temas.add(tema);
+                temas.add(new Tema(id, nombre, cantidadPreguntas));
             }
         } catch (SQLException e) {
             e.printStackTrace();
