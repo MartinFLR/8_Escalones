@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Participante;
+import model.Tema;
 
 public class ParticipantesDAO implements DAO<Participante> {
 
@@ -97,5 +99,30 @@ public class ParticipantesDAO implements DAO<Participante> {
         } catch (SQLException e) {
             System.err.println("Error al modificar veces ganadas: " + e.getMessage());
         }
+    }
+    
+    public List<Participante> datosRanking() {
+    	List<Participante> participantes = new ArrayList<>();
+    	
+    	String query = "SELECT p.id AS ID, p.nombre AS Nombre, p.veces_ganadas AS veces_ganadas " +
+    			       "FROM participantes AS p " +
+    			       "ORDER BY p.veces_ganadas DESC";
+    	
+        try (Connection conn = Database.getInstance().getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
+
+               while (rs.next()) {
+                   int id = rs.getInt("ID");
+                   String nombre = rs.getString("Nombre");
+                   int cantVecesGanadas= rs.getInt("veces_ganadas");
+
+                   participantes.add(new Participante(id, nombre, cantVecesGanadas));   
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+
+    	return participantes;
     }
 }
