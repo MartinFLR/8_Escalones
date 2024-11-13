@@ -122,6 +122,7 @@ public class VistaJuego extends JFrame {
 		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
 		for (int i = 0; i < 9; i++) {
 			this.jugadorNormal.add(new PanelJugadorNormal());
+			panelJugadores.add(this.jugadorNormal.get(i));
 		}
 		
 		//

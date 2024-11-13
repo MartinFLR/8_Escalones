@@ -52,6 +52,10 @@ public abstract class PanelJugadorPadre extends JPanel{
 	public void setNombre (String nombre) {
 		this.lblnombreJugador.setText(nombre);
 	}
+
+	public void setImagen (ImageIcon img){
+		this.lblimagenJugador.setIcon(img);
+	}
 	
 	
 	

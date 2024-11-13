@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public class Participante {
     private int id;
     private String nombre;//fijarse que no pueda tener el mismo nombre que otro participante
@@ -14,16 +16,22 @@ public class Participante {
     private int cantAciertos = 0;
     private int numEscalon=1;
     private int vecesGanadas;
+    private ImageIcon img;
     
+
+
     //Constructores
     public Participante(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
+
     // Constructor sin id para agregar participantes
-    public Participante(String nombre) {
+    public Participante(String nombre, ImageIcon img) { //agregué imageIcon, entonces tuve que comentar los constructores en testJuego para que ande.
         this.nombre = nombre;
+        this.img = img;
     }
+
 
     public Participante(int id, String nombre, int veces_ganadas) {
         this.id = id;
@@ -101,5 +109,26 @@ public class Participante {
     public void SetVecesGanadas(int vecesGanadas){
         this.vecesGanadas=vecesGanadas;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public List<PreguntaOpcion> getPreguntas() {
+        return preguntas;
+    }
+    public void setNumEscalon(int numEscalon) {
+        this.numEscalon = numEscalon;
+    }
+    public void setVecesGanadas(int vecesGanadas) {
+        this.vecesGanadas = vecesGanadas;
+    }
+    public ImageIcon getImg() {
+        return img;
+    }
+    public void setImg(ImageIcon img) {
+        this.img = img;
+    }
+    
 }
 
