@@ -2,6 +2,7 @@ package view;
 
 import controller.ControladorPrincipal;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.*;
 
 import javax.swing.JFrame;
@@ -70,8 +71,8 @@ public class VistaPrincipal extends JFrame {
 		btnSalirAyuda = new JButton("Volver");
 		btnSalirAyuda.setBounds(564, 374, 89, 23);
 		panelAyuda.add(btnSalirAyuda);
-		 
 
+		
 		panelCreditos = new JPanel();
 		panelCreditos.setBounds(236, 53, 792, 574);
 		contentPane.add(panelCreditos);
@@ -104,7 +105,7 @@ public class VistaPrincipal extends JFrame {
 		btnCreditos.addActionListener(controlador);
 		contentPane.add(btnCreditos);
 		
-		btnLogin = new JButton(new FlatSVGIcon("imagenes/edit.svg", 0.35f));
+		btnLogin = new JButton(new FlatSVGIcon("/8_Escalones/imagenes/login.svg"));
 		btnLogin.setBounds(1199, 610, 55, 55);
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);

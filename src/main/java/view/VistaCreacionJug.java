@@ -2,7 +2,9 @@ package view;
 
 import controller.ControladorCreacionJug;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,28 +29,33 @@ public class VistaCreacionJug extends JFrame{
 	private JTextField txtJugador8;
 	private JTextField txtJugador9;
 	
-	private HashMap<Integer, ImageIcon> imagenes = new HashMap<Integer, ImageIcon>();
+	private Vector<ImageIcon> imagenes = new Vector<ImageIcon>();
 	
 	public VistaCreacionJug (ControladorCreacionJug c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setBounds(300, 200, 363, 431);
+		setBounds(300, 200, 1280, 720);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
 		// LOGICA DE IMAGENES
-		this.imagenes.put(1, new ImageIcon("imagenes/playericon/playerBlack.png"));
-		this.imagenes.put(2, new ImageIcon("imagenes/playericon/playerBlue.png"));
-		this.imagenes.put(3, new ImageIcon("imagenes/playericon/playerCyan.png"));
-		this.imagenes.put(4, new ImageIcon("imagenes/playericon/playerGreen.png"));
-		this.imagenes.put(5, new ImageIcon("imagenes/playericon/playerOrange.png"));
-		this.imagenes.put(6, new ImageIcon("imagenes/playericon/playerPink.png"));
-		this.imagenes.put(7, new ImageIcon("imagenes/playericon/playerPurple.png"));
-		this.imagenes.put(8, new ImageIcon("imagenes/playericon/playerRed.png"));
-		this.imagenes.put(9, new ImageIcon("imagenes/playericon/playerYellow.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlack.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlue.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerCyan.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerGreen.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerOrange.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerPink.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerPurple.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
+		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
+		
+		JComboBox comboBox = new JComboBox(imagenes);
+		comboBox.setBounds(47, 35, 89, 73);
+		contentPane.add(comboBox);
+		// ........................................
 		
 		btnJugar = new JButton("Jugar");
 		btnJugar.setBounds(140, 342, 89, 23);
@@ -98,6 +105,8 @@ public class VistaCreacionJug extends JFrame{
 		txtJugador9.setBounds(133, 266, 96, 19);
 		contentPane.add(txtJugador9);
 		txtJugador9.setColumns(10);
+		
+		
 		
 		
 	}
