@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class Participante {
     private int id;
     private final String nombre;//fijarse que no pueda tener el mismo nombre que otro participante
@@ -14,7 +13,8 @@ public class Participante {
     private int cantAciertos = 0;
     private int numEscalon=1;
     private int vecesGanadas;
-    
+    @SuppressWarnings("unused")
+    //private PanelJugadorFinal pj //seria el controlador del panel
     //Constructores
     public Participante(int id, String nombre) {
         this.id = id;
@@ -82,12 +82,25 @@ public class Participante {
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;
+        //pj.setError();
+        //aca iria el controlador cuando este enrealiadad
     }
-
+    public void resetCantErrores() {
+        this.cantErrores = 0;
+       // pj.setResetErrores();
+        ////aca iria el controlador cuando este enrealiadad.
+    }
     public void setCantAciertos(int cantAciertos) {
         this.cantAciertos = cantAciertos;
+        //pj.setAcierto();final Participante par= new Participante("ana");
+        
+        //acontrolador vista de aciertos
     }
-
+    public void resetCantAciertos() {
+        this.cantAciertos = 0;
+        //pj.setResetErrores();//aca iria el controlador cuando este enrealiadad
+        //controlador vista de aciertos
+    }
     public int getVecesGanadas(){
         return this.vecesGanadas;
     }
@@ -95,5 +108,6 @@ public class Participante {
     public void SetVecesGanadas(int vecesGanadas){
         this.vecesGanadas=vecesGanadas;
     }
+
 }
 
