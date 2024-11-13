@@ -1,15 +1,21 @@
 package controller;
 
 
+import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import model.Tema;
 import model.ABM.TemasDAO;
 import view.VistaModPadre;
 import view.VistaMod;
-import view.VistaModCategoria;
+import view.VistaModPreguntas;
 
 public class ControladorModCategoria {
 
@@ -43,25 +49,70 @@ public class ControladorModCategoria {
 			this.vista.getBtnBorrar().setEnabled(true);	
 		});
 		
-		vista.getBtnBorrar().addActionListener(e ->{});
+		vista.getBtnBorrar().addActionListener(e ->{
+			JDialog dialogoEliminar = new JDialog();
+			dialogoEliminar.setSize(300, 150);
+			dialogoEliminar.setLayout(new GridLayout(3, 1));
+			dialogoEliminar.setLocationRelativeTo(null);
+			dialogoEliminar.setModal(true);
+			
+			JLabel lblEliminar = new JLabel("¿Esta seguro de eliminar la categoria?");
+			JButton btnAceptar = new JButton("Aceptar");
+			JButton btnSalir = new JButton("Salir");
+			
+			btnAceptar.addActionListener(ev->{
+				dialogoEliminar.dispose();
+	            JOptionPane.showMessageDialog(dialogoEliminar, "Categoria eliminada");
+			});
+			
+			btnSalir.addActionListener(ev -> {
+				dialogoEliminar.setVisible(false);
+			});
+			
+			dialogoEliminar.add(lblEliminar);
+			dialogoEliminar.add(btnAceptar);
+			dialogoEliminar.add(btnSalir);
+			dialogoEliminar.setVisible(true);
+		});
 		
-		vista.getBtnEditar().addActionListener(e->{new VistaModCategoria(this);
+		vista.getBtnEditar().addActionListener(e->{new VistaModPreguntas(this);
 		this.vista.setVisible(false);
 		});
 		
 		vista.getBtnCrear().addActionListener(e ->{
-			/*
-			int selectedRow = vista.getTable().getSelectedRow();
-            String temaSeleccionado = (String) vista.getTable().getValueAt(selectedRow, 1);
-			*/
-			new ControladorModPreguntas("fadas");});
+		    JDialog dialogoCategoria = new JDialog();
+		    dialogoCategoria.setTitle("Creacion de la categoria");
+		    dialogoCategoria.setSize(300, 150);
+		    dialogoCategoria.setLayout(new GridLayout(3, 1));
+		    dialogoCategoria.setLocationRelativeTo(null);
+		    dialogoCategoria.setModal(true);
+
+		    JLabel lblCategoria = new JLabel("Ingrese la categoría:");
+		    JTextField txtCategoria = new JTextField();
+		    JButton btnAceptar = new JButton("Aceptar");
+
+		    btnAceptar.addActionListener(ev -> {
+		        String categoria = txtCategoria.getText();
+		        if (!categoria.isEmpty()) {
+		            System.out.println("Categoría ingresada: " + categoria);
+		            dialogoCategoria.dispose(); 
+		        } else {
+		            JOptionPane.showMessageDialog(dialogoCategoria, "Por favor, ingrese una categoría válida.");
+		        }
+		    });
+		    
+		    dialogoCategoria.add(lblCategoria);
+		    dialogoCategoria.add(txtCategoria);
+		    dialogoCategoria.add(btnAceptar);
+		    dialogoCategoria.setVisible(true);
+			});
 		
 		vista.getBtnSalir().addActionListener(e -> {vista.setVisible(false);});
 		
 		vista.getBtnBuscar().addActionListener(e ->{
 			String texto = this.vista.getTextBuscador().getText();
 			System.out.println(texto);
-			new VistaModCategoria(this);
+			new VistaModPreguntas(this);
 		});
 	}
 	
