@@ -1,25 +1,40 @@
 package model.logica;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
 import model.ABM.*;
 
+import model.ABM.ParticipantesDAO;
+import model.ABM.PreguntaAproximacionDAO;
+import model.ABM.PreguntaOpcionDAO;
+import model.ABM.TemasDAO;
+import model.Participante;
+import model.PreguntaAproximacion;
+import model.PreguntaOpcion;
+
 public class Tests {
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
     public static void main(String[] args) {
-        PreguntaOpcionDAO abmPreg = new PreguntaOpcionDAO();
         TemasDAO abmTemas = new TemasDAO();
         ParticipantesDAO abmPart = new ParticipantesDAO();
-        abmPart.insertar(new Participante("Martin"));
+        //inserta participante y modifica, martin ya esta en la bdd
+        //abmPart.insertar(new Participante("Martin"));
         abmPart.modificarVecesGanadas("Martin",2);
         PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
         PreguntaOpcionDAO abmPregOpcion = new PreguntaOpcionDAO();
+
         List<Participante> listaParticipantes = abmPart.buscarTodos();
-        List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
-        List<model.Tema> listaTemas = abmTemas.buscarTodos();
-        List<model.PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
-        List<model.PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
+
+        List<Tema> listaTemas = abmTemas.buscarTodos();
+        //preguntas por tipo y general, se puede usar la general directamente con addAll que agrega las dos listas en una, despues si quieren ver de un tipo hacen un if o switch
+        List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
+        List<PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
+        List<Preguntas> listaPreguntas = new ArrayList<>();
+
+        listaPreguntas.addAll(listaPreguntaAproximacion);
+        listaPreguntas.addAll(listaPreguntaOp);
 
         AdminDAO adminDAO = new AdminDAO();
         Admin admin = new Admin("aldo","pancho");
@@ -32,7 +47,7 @@ public class Tests {
             System.out.println(tema.getId()+" "+tema.getTema());
         }
 
-        model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
+        model.Tema tema = new Tema (listaPreguntaAproximacion, listaPreguntaOp, "Tema 1");
         Escalon escalon = new Escalon();
         escalon.setTema(tema);
         for (model.Participante participante : listaParticipantes) {
@@ -44,13 +59,24 @@ public class Tests {
             System.out.println("Veces ganadas: " + p.getVecesGanadas());
         }
 
-        for (PreguntaAproximacion preguntaAproximacion : listaPreguntaAproximacion) {
-            preguntaAproximacion.imprimirPregunta();
-        }
+        // aca pueden probar cada uno y funcionan(con la bdv6)
 
-        for (PreguntaOpcion preguntaOpcion : listaPreguntaOp) {
-            preguntaOpcion.imprimirPregunta();
-        }
+
+        // System.out.println("preguntas aproximacion: ");
+        // for (Preguntas preguntaAproximacion : listaPreguntaAproximacion) {
+        //     preguntaAproximacion.imprimirPregunta();
+        // }
+
+        // System.out.println("Preguntas opciones: ");
+
+        // for (Preguntas preguntaOpcion : listaPreguntaOp) {
+        //     preguntaOpcion.imprimirPregunta();
+        // }
+
+        // System.out.println("Preguntas todas: ");
+        // for (Preguntas preguntas : listaPreguntas) {
+        //     preguntas.imprimirPregunta();
+        // }
 
         // listarPreguntasOpcion(listaPreguntas);        
         //  listarPreguntasAproximacion(listaPreguntaAproximacion);        
@@ -81,7 +107,7 @@ public class Tests {
         preguntaAprox.imprimirPregunta();
         
         System.out.println("\nProbando sacar una pregunta de opcion multiple\n");
-        PreguntaOpcion pregunta = tema.sacarPregunta();
+        PreguntaOpcion pregunta = tema.sacarPreguntaOp();
         pregunta.imprimirPregunta();
 
         //Verifica que las pregs sacadas no esten en la lista de pregs original

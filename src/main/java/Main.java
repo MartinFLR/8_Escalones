@@ -15,9 +15,9 @@ public class Main {
     ParticipantesDAO abmPart = new ParticipantesDAO();
 
     List<Participante> listaParticipantes = abmPart.buscarTodos();
-    List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
+    List<Preguntas> listaPreguntas = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
-    List<PreguntaAproximacion> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
+    List<Preguntas> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
 
     System.out.println("Lista de Participantes:");
     for (Participante participante : listaParticipantes) {
@@ -25,13 +25,13 @@ public class Main {
     }
 
     System.out.println("Lista de Preguntas:");
-    for (PreguntaOpcion pregunta : listaPreguntas) {
+    for (Preguntas pregunta : listaPreguntas) {
 
       System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
   
     System.out.println("Lista de Preguntas de aproximacion:");
-    for (PreguntaAproximacion pregunta : listaPreguntasAproximacion) {
+    for (Preguntas pregunta : listaPreguntasAproximacion) {
 
       System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }

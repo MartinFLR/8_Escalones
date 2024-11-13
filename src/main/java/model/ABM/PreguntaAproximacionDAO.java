@@ -1,12 +1,13 @@
 package model.ABM;
 
 import model.PreguntaAproximacion;
+import model.Preguntas;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntaAproximacionDAO extends PreguntasDAO implements DAO<PreguntaAproximacion> {
+public class PreguntaAproximacionDAO extends PreguntasDAO {
 
 
     public void insertar(PreguntaAproximacion pregunta) {
@@ -48,7 +49,7 @@ public class PreguntaAproximacionDAO extends PreguntasDAO implements DAO<Pregunt
         }
     }
 
-    public List<PreguntaAproximacion> buscarTodos() {
+    public List buscarTodos() {
         List<PreguntaAproximacion> preguntas = new ArrayList<>();
         String query = "SELECT p.id_pregunta, p.pregunta,tp.tipo_pregunta AS tipoPregunta, r.respuesta AS respuesta_correcta, t.id_tema AS tema_id "
                      + "FROM preguntas p "

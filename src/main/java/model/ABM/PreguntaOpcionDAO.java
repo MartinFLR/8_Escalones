@@ -1,21 +1,19 @@
 package model.ABM;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import model.PreguntaAproximacion;
+import model.PreguntaOpcion;
+import model.Preguntas;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import model.Preguntas;
-
-import model.PreguntaOpcion;
 
 
-public class PreguntaOpcionDAO extends PreguntasDAO implements DAO<PreguntaOpcion> {
 
-    @Override
+public class PreguntaOpcionDAO extends PreguntasDAO {
+
+
     public void insertar(PreguntaOpcion entidad) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
 
@@ -64,8 +62,7 @@ public class PreguntaOpcionDAO extends PreguntasDAO implements DAO<PreguntaOpcio
     }
     
 
-    @Override
-    public List<PreguntaOpcion> buscarTodos() {
+    public List buscarTodos() {
         List<PreguntaOpcion> preguntas = new ArrayList<>();
         String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
                        "FROM preguntas p " +
@@ -120,12 +117,6 @@ public class PreguntaOpcionDAO extends PreguntasDAO implements DAO<PreguntaOpcio
         return preguntas;
     }
     
-    
-    
-    
-    
-    
-    @Override
     public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id_pregunta = ?";
     
@@ -143,7 +134,6 @@ public class PreguntaOpcionDAO extends PreguntasDAO implements DAO<PreguntaOpcio
         }
     }
     
-    @Override
     public void modificar(int id, PreguntaOpcion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
 

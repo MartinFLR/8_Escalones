@@ -44,5 +44,6 @@ public abstract class Preguntas {
     public int getIdTema() {
         return idTema;
     }
+    public abstract String getRespuestaCorrecta();
     
 }

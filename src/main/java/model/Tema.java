@@ -2,22 +2,32 @@ package model;
 
 import java.util.List;
 import java.util.Random;
-
+import model.*;
 
 public class Tema {
     private int id;
     private String nombre;
-    private List<model.PreguntaOpcion> preguntas;
-    private List<model.PreguntaAproximacion> pregsAproximacion;
+    private List<PreguntaOpcion> preguntasOp;
+    private List<PreguntaAproximacion> pregsAproximacion;
+    private List<Preguntas> preguntas;
     private int CantidadPreguntas;
 
     public Tema(){
         
     }
 
+    
+
+    public Tema(String nombre, List<Preguntas> preguntas) {
+        this.nombre = nombre;
+        this.preguntas = preguntas;
+    }
+
+
+
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
-        this.preguntas = preguntas;
+        this.preguntasOp = preguntas;
         this.nombre = tema;
     }
 
@@ -34,13 +44,13 @@ public class Tema {
     }
 
     // devuelve una pregunta random
-    public model.PreguntaOpcion sacarPregunta(){
+    public PreguntaOpcion sacarPreguntaOp(){
         Random random= new Random();
-        return this.preguntas.remove(random.nextInt(0, this.preguntas.size()));
+        return this.preguntasOp.remove(random.nextInt(0, this.preguntasOp.size()));
         
     }
     
-    public model.PreguntaAproximacion sacarPreguntaAprox(){
+    public PreguntaAproximacion sacarPreguntaAprox(){
         Random random= new Random();
         return this.pregsAproximacion.remove(random.nextInt(0, this.pregsAproximacion.size()));
     }
@@ -52,11 +62,11 @@ public class Tema {
     public void setNombre(String nombreTema) {
         this.nombre = nombreTema;
     }
-    public List<PreguntaOpcion> getPreguntas() {
+    public List<Preguntas> getPreguntas() {
         return preguntas;
     }
-    public void setPreguntas(List<PreguntaOpcion> preguntas) {
-        this.preguntas = preguntas;
+    public void setPreguntasOp(List<PreguntaOpcion> preguntas) {
+        this.preguntasOp = preguntas;
     }
     public List<PreguntaAproximacion> getPregsAproximacion() {
         return pregsAproximacion;

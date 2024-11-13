@@ -7,20 +7,21 @@ import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
 import model.Participante;
+import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 public class TestJuego {
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "unchecked" })
     public static void main(String[] args) {
-        PreguntaOpcionDAO abmPreg = new PreguntaOpcionDAO();
+        PreguntaOpcionDAO abmPregOp = new PreguntaOpcionDAO();
         TemasDAO abmTemas = new TemasDAO();
         ParticipantesDAO abmPart = new ParticipantesDAO();
         PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
         List<Participante> listaParticipantes = abmPart.buscarTodos();
-        List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
+        List<PreguntaOpcion> listaPreguntasOp = abmPregOp.buscarTodos();
         List<model.Tema> listaTemas = abmTemas.buscarTodos();
-        List<model.PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
+        List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
         
-        model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
+        model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntasOp, "Tema 1");
         Escalon escalon = new Escalon();
         escalon.setTema(tema);
         escalon.agregaParticipante(new Participante("Participante 1")); 

@@ -21,7 +21,7 @@ public class Escalon {
     public void repartirPreguntas(){
         for (Participante participante : this.getParticipantes()) {
             for (int i = 0; i < 2; i++) {
-                PreguntaOpcion pregunta = this.tema.sacarPregunta();
+                PreguntaOpcion pregunta = this.tema.sacarPreguntaOp();
                 participante.setPreguntasParticipante(pregunta);
             }
         }
@@ -31,7 +31,7 @@ public class Escalon {
         System.out.println("Reparte preguntas final");
         //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
         for (int i = 0; i < 10; i++) {
-            PreguntaOpcion pregunta = this.tema.sacarPregunta();
+            PreguntaOpcion pregunta = this.tema.sacarPreguntaOp();
             for (Participante participante : participantes) {
                 participante.setPreguntasParticipante(pregunta);
             }
