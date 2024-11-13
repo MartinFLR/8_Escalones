@@ -31,4 +31,6 @@ public class PanelEscalon extends JPanel{
 		setBackground(colorOriginal);
 	}
 	
+	
+	
 }
