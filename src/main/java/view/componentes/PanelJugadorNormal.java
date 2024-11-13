@@ -1,4 +1,4 @@
-package view;
+package view.componentes;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -71,19 +71,6 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		panelerror2.setBackground(colorOriginal);
 	}
 	
-	
-	public JLabel getLblimagenJugador() {
-		return lblimagenJugador;
-	}
-	public void setLblimagenJugador(JLabel lblimagenJugador) {
-		this.lblimagenJugador = lblimagenJugador;
-	}
-	public JLabel getLblnombreJugador() {
-		return lblnombreJugador;
-	}
-	public void setLblnombreJugador(JLabel lblnombreJugador) {
-		this.lblnombreJugador = lblnombreJugador;
-	}
 
 }
 

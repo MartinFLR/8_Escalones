@@ -3,6 +3,7 @@ package view;
 import controller.ControladorMod;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -84,7 +85,6 @@ public class VistaMod extends JFrame{
 		sp.setBounds(10, 58, 513, 292);
 		sp.setViewportView(table);
 		panel_1.add(sp);
-
 		
 	}
 

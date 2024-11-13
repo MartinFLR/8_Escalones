@@ -21,7 +21,8 @@ public class VistaLogin extends JFrame{
 	private JButton btnSalir;
 	private JTextField txtCuenta;
 	private JPasswordField txtContrasenia;
-	private JButton btnNewButton;
+	private JButton btnLogin;
+	private JButton btnCambioContrasenia;
 
 	public VistaLogin (ControladorLogin c) {
 		this.setC(c);
@@ -38,15 +39,15 @@ public class VistaLogin extends JFrame{
 		lblLogin.setBounds(154, 34, 46, 14);
 		contentPane.add(lblLogin);
 		
-		JLabel lblNewLabel = new JLabel("Cuenta: ");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(60, 97, 64, 14);
-		contentPane.add(lblNewLabel);
+		JLabel lblCuenta = new JLabel("Cuenta: ");
+		lblCuenta.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCuenta.setBounds(60, 97, 64, 14);
+		contentPane.add(lblCuenta);
 		
-		JLabel lblNewLabel_1 = new JLabel("Contraseña: ");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(60, 141, 64, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblContrasenia = new JLabel("Contraseña: ");
+		lblContrasenia.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblContrasenia.setBounds(60, 141, 64, 14);
+		contentPane.add(lblContrasenia);
 		
 		btnSalir = new JButton("Volver");
 		btnSalir.setBounds(278, 290, 89, 23);
@@ -62,9 +63,13 @@ public class VistaLogin extends JFrame{
 		txtContrasenia.setBounds(134, 138, 150, 20);
 		contentPane.add(txtContrasenia);
 	
-		btnNewButton = new JButton("Logearse");
-		btnNewButton.setBounds(111, 189, 89, 23);
-		contentPane.add(btnNewButton);
+		btnLogin = new JButton("Logearse");
+		btnLogin.setBounds(111, 188, 89, 23);
+		contentPane.add(btnLogin);
+		
+		btnCambioContrasenia = new JButton("Contrasenia");
+		btnCambioContrasenia.setBounds(210, 188, 89, 23);
+		contentPane.add(btnCambioContrasenia);
 	}
 
 	public ControladorLogin getC() {
@@ -84,8 +89,6 @@ public class VistaLogin extends JFrame{
 		return txtContrasenia;
 	}
 	public JButton getBtnNewButton() {
-		return btnNewButton;
+		return btnLogin;
 	}
-	
-	
 }

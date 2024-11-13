@@ -1,4 +1,4 @@
-package view;
+package view.componentes;
 
 import java.awt.Color;
 import java.util.ArrayList;
