@@ -27,14 +27,6 @@ public class Tema {
         this.CantidadPreguntas = 0;
     }
     
-    public Tema(int id, String tema, int cantidad) {
-    	this.id = id;
-    	this.nombre = tema;
-    	this.CantidadPreguntas = cantidad;
-    	
-    }
-
-    
     public Tema(int id, String nombre, int cantidadPreguntas) {
         this.id = id;
         this.nombre = nombre;
