@@ -1,14 +1,16 @@
 package view;
 
 import controller.ControladorJuego;
+import view.componentes.PanelEscalon;
+import view.componentes.PanelJugadorNormal;
+import view.componentes.PanelJugadorFinal;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
-
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -16,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JTable;
@@ -34,7 +37,6 @@ public class VistaJuego extends JFrame {
 	private JButton btnpreRespuesta4;
 	
 	private JPanel panelAproximacion;
-	private JLabel lblaproxPregunta;
 	private JButton btnaproxEnviar;
 	private JFormattedTextField txtaproxRespuesta;
 	
@@ -175,10 +177,7 @@ public class VistaJuego extends JFrame {
 		txtaproxRespuesta = new JFormattedTextField();
 		txtaproxRespuesta.setBounds(48, 257, 142, 48);
 		panelAproximacion.add(txtaproxRespuesta);
-		
-		lblaproxPregunta = new JLabel("New label");
-		lblaproxPregunta.setBounds(48, 35, 370, 164);
-		panelAproximacion.add(lblaproxPregunta);
+
 		
 		table = new JTable();
 		table.setBounds(229, 209, 196, 149);
@@ -279,10 +278,7 @@ public class VistaJuego extends JFrame {
 	public void setBtnpreRespuesta4(JButton btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
 	
 	
-	
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
-	public JLabel getLblaproxPregunta() {return lblaproxPregunta;}
-	public void setLblaproxPregunta(JLabel lblaproxPregunta) {this.lblaproxPregunta = lblaproxPregunta;}
 	
 	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}

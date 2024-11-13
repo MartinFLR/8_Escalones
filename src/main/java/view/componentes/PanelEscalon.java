@@ -1,4 +1,4 @@
-package view;
+package view.componentes;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -10,6 +10,7 @@ import java.awt.Color;
 
 public class PanelEscalon extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	private Color colorOriginal, colorUso;
 	
 	public PanelEscalon(Integer num, Color colorOriginal, Color colorUso) {
