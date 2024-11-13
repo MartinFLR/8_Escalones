@@ -2,8 +2,14 @@ package view;
 
 import javax.swing.JFrame;
 
+import controller.ControladorModCategoria;
+
 public class VistaModCategoria extends JFrame {
-	public VistaModCategoria() {
+	private ControladorModCategoria c;
+	
+	public VistaModCategoria(ControladorModCategoria c) {
+		super();
 	}
+	
 
 }

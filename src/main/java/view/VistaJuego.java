@@ -106,9 +106,9 @@ public class VistaJuego extends JFrame {
 		gridLayoutFinal.setVgap(20); 
 		panelFinal.setLayout(gridLayoutFinal);
 		
-		jf1 = new PanelJugadorFinal("imagenes/icons8-person-64.png");
+		jf1 = new PanelJugadorFinal("imagenes/playericon/playerBlack.png");
 		panelFinal.add(jf1);
-		jf2 = new PanelJugadorFinal("imagenes/icons8-person-64.png");
+		jf2 = new PanelJugadorFinal("imagenes/playericon/playerBlack.png");
 		panelFinal.add(jf2);
 		
 		//
@@ -127,23 +127,23 @@ public class VistaJuego extends JFrame {
 		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
-		j1 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j1 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j1);
-		j2 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j2 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j2);
-		j3 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j3 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j3);
-		j4 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j4 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j4);
-		j5 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j5 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j5);
-		j6 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j6 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j6);
-		j7 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j7 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j7);
-		j8 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j8 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j8);
-		j9 = new PanelJugadorNormal("imagenes/icons8-person-64.png");
+		j9 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
 		panelJugadores.add(j9);
 		
 		//
