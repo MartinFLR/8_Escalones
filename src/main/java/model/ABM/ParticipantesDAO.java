@@ -15,7 +15,7 @@ public class ParticipantesDAO implements DAO<Participante> {
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, veces_ganadas) VALUES (?, 0)";
         try (Connection conn = Database.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, participante.getNombre());
 
             pstmt.executeUpdate();
@@ -82,7 +82,7 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public void modificarVecesGanadas( String nombreParticipante, Integer cantidad) {
+    public void modificarVecesGanadas(String nombreParticipante, Integer cantidad) {
 
         String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
@@ -90,7 +90,6 @@ public class ParticipantesDAO implements DAO<Participante> {
 
             pstmt.setInt(1, cantidad);
             pstmt.setString(2, nombreParticipante);
-            
 
             pstmt.executeUpdate();
             System.out.println("Veces ganadas modificada con exito");
@@ -98,4 +97,25 @@ public class ParticipantesDAO implements DAO<Participante> {
             System.err.println("Error al modificar veces ganadas: " + e.getMessage());
         }
     }
+
+    public static List<Participante> Ranking(){
+        List<Participante> top10participantes = new ArrayList<>();
+        String sql = "SELECT p.nombre, p.veces_ganadas FROM participantes p GROUP BY p.nombre, p.veces_ganadas ORDER BY p.veces_ganadas DESC LIMIT 10;";
+        {
+        try (Connection conn = Database.getInstance().getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()){
+
+            while(rs.next()){
+                top10participantes.add(new Participante(rs.getString("nombre"), rs.getInt("veces_ganadas")));
+            }
+            
+        } catch (SQLException e) {
+           System.out.println("Error al formar ranking: " + e.getMessage());
+        }
+
+    }
+    return top10participantes;
+    }
+
 }

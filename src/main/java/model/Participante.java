@@ -25,6 +25,10 @@ public class Participante {
         this.nombre = nombre;
     }
 
+    public Participante(String nombre, int vecesGanadas) {
+        this.nombre = nombre;
+        this.vecesGanadas = vecesGanadas;
+    }
     public Participante(int id, String nombre, int veces_ganadas) {
         this.id = id;
         this.nombre = nombre;
