@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -18,7 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
 import java.awt.GridLayout;
+import java.awt.Panel;
+import java.lang.reflect.Array;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JTable;
@@ -49,9 +53,9 @@ public class VistaJuego extends JFrame {
 	private JPanel panelFinal;
 	
 	// ATRIBUTOS PARA CADA JUGADOR Y ESCALON
-	private PanelEscalon e1, e2, e3, e4, e5, e6, e7, e8;
-	private PanelJugadorNormal j1, j2, j3, j4, j5, j6 ,j7 ,j8 ,j9;
-	private PanelJugadorFinal jf1, jf2;
+	private ArrayList<PanelEscalon> escalones = new ArrayList<PanelEscalon>();
+	private ArrayList<PanelJugadorNormal> jugadorNormal = new ArrayList<PanelJugadorNormal>();
+	private ArrayList<PanelJugadorFinal> jugadorFinal = new ArrayList<PanelJugadorFinal>();
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -79,22 +83,10 @@ public class VistaJuego extends JFrame {
 		panelColumna.setLayout(gridLayoutColumna);
 		
 		// --- FALTA CAMBIAR COLOR A LOS ESCALONES Y LOS GAPS ENTRE LAYOUT
-		e8 = new PanelEscalon(8,Color.BLACK,Color.red);
-		panelColumna.add(e8);
-		e7 = new PanelEscalon(7,Color.BLACK,Color.red);
-		panelColumna.add(e7);
-		e6 = new PanelEscalon(6,Color.BLACK,Color.red);
-		panelColumna.add(e6);
-		e5 = new PanelEscalon(5,Color.BLACK,Color.red);
-		panelColumna.add(e5);
-		e4 = new PanelEscalon(4,Color.BLACK,Color.red);
-		panelColumna.add(e4);
-		e3 = new PanelEscalon(3,Color.BLACK,Color.red);
-		panelColumna.add(e3);
-		e2 = new PanelEscalon(2,Color.BLACK,Color.red);
-		panelColumna.add(e2);
-		e1 = new PanelEscalon(1,Color.BLACK,Color.red);
-		panelColumna.add(e1);
+		for (int i = 0; i < 8; i++) {
+			this.escalones.add(new PanelEscalon(i+1));
+			panelColumna.add(this.escalones.get(i));
+		}
 		
 		//
 		// PANEL JUGADORES (FINAL)
@@ -108,10 +100,9 @@ public class VistaJuego extends JFrame {
 		gridLayoutFinal.setVgap(20); 
 		panelFinal.setLayout(gridLayoutFinal);
 		
-		jf1 = new PanelJugadorFinal("imagenes/playericon/playerBlack.png");
-		panelFinal.add(jf1);
-		jf2 = new PanelJugadorFinal("imagenes/playericon/playerBlack.png");
-		panelFinal.add(jf2);
+		for (int i = 0; i < 2; i++) {
+			this.jugadorFinal.add(new PanelJugadorFinal());
+		}
 		
 		//
 		// PANEL JUGADORES
@@ -129,24 +120,9 @@ public class VistaJuego extends JFrame {
 		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
-		j1 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j1);
-		j2 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j2);
-		j3 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j3);
-		j4 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j4);
-		j5 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j5);
-		j6 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j6);
-		j7 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j7);
-		j8 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j8);
-		j9 = new PanelJugadorNormal("imagenes/playericon/playerBlack.png");
-		panelJugadores.add(j9);
+		for (int i = 0; i < 9; i++) {
+			this.jugadorNormal.add(new PanelJugadorNormal());
+		}
 		
 		//
 		// PANEL INFORMATIVOS
@@ -224,31 +200,22 @@ public class VistaJuego extends JFrame {
 	//GET DE LOS ESCALONES
 	public JPanel getPanelColumna() {
 		return panelColumna;
+	}	
+	public ArrayList<PanelEscalon> getEscalones() {
+		return escalones;
 	}
-	public PanelEscalon getE1() {return e1;}
-	public PanelEscalon getE2() {return e2;}
-	public PanelEscalon getE3() {return e3;}
-	public PanelEscalon getE4() {return e4;}
-	public PanelEscalon getE5() {return e5;}
-	public PanelEscalon getE6() {return e6;}
-	public PanelEscalon getE7() {return e7;}
-	public PanelEscalon getE8() {return e8;}
-	
+
 	//GET DE LOS JUGADORES
 	public JPanel getPanelJugadores() {
 		return panelJugadores;
 	}
-	public PanelJugadorNormal getJ1() {return j1;}
-	public PanelJugadorNormal getJ2() {return j2;}
-	public PanelJugadorNormal getJ3() {return j3;}
-	public PanelJugadorNormal getJ4() {return j4;}
-	public PanelJugadorNormal getJ5() {return j5;}
-	public PanelJugadorNormal getJ6() {return j6;}
-	public PanelJugadorNormal getJ7() {return j7;}
-	public PanelJugadorNormal getJ8() {return j8;}
-	public PanelJugadorNormal getJ9() {return j9;}
-	
-	
+	public ArrayList<PanelJugadorNormal> getJugadorNormal() {
+		return jugadorNormal;
+	}
+	public ArrayList<PanelJugadorFinal> getJugadorFinal() {
+		return jugadorFinal;
+	}
+
 	public ControladorJuego getC() {return c;}
 	public void setC(ControladorJuego c) {this.c = c;}
 	

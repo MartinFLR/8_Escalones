@@ -15,7 +15,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
 	}
-	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -51,4 +50,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	public void setVista(VistaJuego vista) {
 		this.vista = vista;
 	}
+	
+	
+	
 }

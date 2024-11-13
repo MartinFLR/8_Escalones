@@ -12,13 +12,17 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
@@ -60,6 +64,7 @@ public class VistaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		
 		
 		//---PANELES (VENTANAS EXTRAS)
 		
@@ -106,7 +111,10 @@ public class VistaPrincipal extends JFrame {
 		btnCreditos.addActionListener(controlador);
 		contentPane.add(btnCreditos);
 		
-		btnLogin = new JButton(new FlatSVGIcon("/8_Escalones/imagenes/login.svg"));
+		
+		
+		
+		btnLogin = new JButton();
 		btnLogin.setBounds(1199, 610, 55, 55);
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);
