@@ -34,14 +34,13 @@ public class PreguntaAproximacionDAO extends PreguntasDAO {
         }
     }
 
-    private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
-        String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
+    private void insertarRespuesta(PreguntaAproximacion pregunta) {
+        String sql = "INSERT INTO respuestas (id_respuesta, respuesta_correcta) VALUES ( ?)";
         
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setInt(1, idPregunta);
-            pstmt.setString(2, pregunta.getRespuestaCorrecta());
+                pstmt.setInt(1,pregunta.get
+            pstmt.setString(1, pregunta.getRespuestaCorrecta());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

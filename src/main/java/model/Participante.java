@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Participante {
-    private int id;
-    private String nombre;//fijarse que no pueda tener el mismo nombre que otro participante
+    private int id_participante;
+    private String nombre_participante;//fijarse que no pueda tener el mismo nombre que otro participante
     private final List<PreguntaOpcion> preguntas = new ArrayList<>();
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
@@ -17,21 +17,21 @@ public class Participante {
     
     //Constructores
     public Participante(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+        this.id_participante = id;
+        this.nombre_participante = nombre;
     }
     // Constructor sin id para agregar participantes
     public Participante(String nombre) {
-        this.nombre = nombre;
+        this.nombre_participante = nombre;
     }
 
     public Participante(String nombre, int vecesGanadas) {
-        this.nombre = nombre;
+        this.nombre_participante = nombre;
         this.vecesGanadas = vecesGanadas;
     }
     public Participante(int id, String nombre, int veces_ganadas) {
-        this.id = id;
-        this.nombre = nombre;
+        this.id_participante = id;
+        this.nombre_participante = nombre;
         this.vecesGanadas=veces_ganadas;
     }
     
@@ -48,7 +48,7 @@ public class Participante {
     
     //Getters y Setters
     public String getNombre() {
-        return nombre;
+        return nombre_participante;
     }
     public String getRespuestaParticipante() {
         return respuestaParticipante;
@@ -85,10 +85,10 @@ public class Participante {
         return numEscalon;
     }
     public int getId() {
-        return id;
+        return id_participante;
     }
     public void setId(int id) {
-        this.id = id;
+        this.id_participante = id;
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;

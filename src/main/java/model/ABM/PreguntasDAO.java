@@ -7,19 +7,7 @@ import model.PreguntaOpcion;
 import model.Preguntas;
 
 public abstract class PreguntasDAO implements DAO<Preguntas>{
-
-    private ArrayList<Preguntas> preguntas = new ArrayList<>();
     
-    public void agregaPreguntas(Preguntas p){
-        this.preguntas.add(p);
-    }
-
-    public void recorrePreguntas(){
-        for (Preguntas p : preguntas) {
-            p.imprimirPregunta();
-        }
-    }
-
     @Override
     public List<Preguntas> buscarTodos() {
         // TODO Auto-generated method stub

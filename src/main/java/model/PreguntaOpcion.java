@@ -2,11 +2,11 @@ package model;
 
 @SuppressWarnings("FieldMayBeFinal")
 public class PreguntaOpcion extends Preguntas {
+
     private String opcion_a;
     private String opcion_b;
     private String opcion_c;
     private String opcion_d;
-    private String respuesta_correcta;
 
     //Constructores
     public PreguntaOpcion(String pregunta,int id_tema ,String tipoPregunta,String opcion_a, String opcion_b,
@@ -51,7 +51,7 @@ public class PreguntaOpcion extends Preguntas {
     //Metodos
     @Override
     public void imprimirPregunta(){
-        System.out.println("\tId: "+this.getId());
+        System.out.println("\tId: "+this.getId_pregunta());
         System.out.println("\tPregunta: "+this.getPregunta());
         System.out.println("\tOpcion A: "+this.opcion_a);
         System.out.println("\tOpcion B: "+this.opcion_b);
