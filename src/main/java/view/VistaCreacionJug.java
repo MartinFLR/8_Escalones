@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 
 public class VistaCreacionJug extends JFrame{
@@ -35,6 +36,9 @@ public class VistaCreacionJug extends JFrame{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		GridLayout gridlayout = new GridLayout();
+		contentPane.setLayout(gridlayout);
+		
 		// LOGICA DE IMAGENES
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlack.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlue.png"));
@@ -48,12 +52,14 @@ public class VistaCreacionJug extends JFrame{
 		
 		for (int i = 0; i < 9; i++) {
 			this.comboboxImg.add(new JComboBox(imagenes));
+			contentPane.add(this.comboboxImg.get(i));
 		}
 		// ........................................
 		
 		for (int i = 0; i < 9; i++) {
 			this.txtJugador.add(new JTextField());
 			setFont(new Font("Tahoma", Font.PLAIN, 15));
+			contentPane.add(this.txtJugador.get(i));
 		}
 		
 		btnJugar = new JButton("Jugar");
