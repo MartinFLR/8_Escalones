@@ -6,7 +6,6 @@ public abstract class Preguntas {
     protected String tipo_preg;
     protected int id_pregunta;
     protected final int idTema;
-    protected String respuesta_correcta;
 
     //Para traer de la bd
     public Preguntas(int id,String pregunta,String tipo_preg, int id_tema) {

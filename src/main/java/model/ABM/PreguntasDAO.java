@@ -32,6 +32,8 @@ public abstract class PreguntasDAO implements DAO<Preguntas>{
         
     }
 
+    protected abstract Boolean preguntaYaTieneOpciones(Preguntas pregunta);
+
     
 
 }

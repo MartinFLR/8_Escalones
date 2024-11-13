@@ -7,6 +7,7 @@ public class PreguntaOpcion extends Preguntas {
     private String opcion_b;
     private String opcion_c;
     private String opcion_d;
+    private String respuesta_correcta;
 
     //Constructores
     public PreguntaOpcion(String pregunta,int id_tema ,String tipoPregunta,String opcion_a, String opcion_b,
