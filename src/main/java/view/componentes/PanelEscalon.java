@@ -11,9 +11,9 @@ import java.awt.Color;
 public class PanelEscalon extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	private Color colorOriginal, colorUso;
+	private Color colorOriginal = Color.black, colorUso = Color.red;
 	
-	public PanelEscalon(Integer num, Color colorOriginal, Color colorUso) {
+	public PanelEscalon(Integer num) {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setLayout(new BorderLayout(0, 0));
 		JLabel lblNumeroEscalon = new JLabel(String.valueOf(num));
