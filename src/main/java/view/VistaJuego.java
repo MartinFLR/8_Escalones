@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControladorJuego;
+import view.componentes.BotonPregunta;
 import view.componentes.PanelEscalon;
 import view.componentes.PanelJugadorNormal;
 import view.componentes.PanelJugadorFinal;
@@ -35,10 +36,10 @@ public class VistaJuego extends JFrame {
 
 	private JPanel panelPregunta;
 	private JLabel lblprePregunta;
-	private JButton btnpreRespuesta2;
-	private JButton btnpreRespuesta1;
-	private JButton btnpreRespuesta3;
-	private JButton btnpreRespuesta4;
+	private BotonPregunta btnpreRespuesta1 = new BotonPregunta();
+	private BotonPregunta btnpreRespuesta2 = new BotonPregunta();;
+	private BotonPregunta btnpreRespuesta3 = new BotonPregunta();;
+	private BotonPregunta btnpreRespuesta4 = new BotonPregunta();;
 	
 	private JPanel panelAproximacion;
 	private JButton btnaproxEnviar;
@@ -170,21 +171,18 @@ public class VistaJuego extends JFrame {
 		panelPregunta = new JPanel();
 		panelPregunta.setBounds(89, 11, 542, 359);
 		contentPane.add(panelPregunta);
+	
 		panelPregunta.setLayout(null);
 		
-		btnpreRespuesta1 = new JButton("New button");
 		btnpreRespuesta1.setBounds(10, 239, 187, 55);
 		panelPregunta.add(btnpreRespuesta1);
 		
-		btnpreRespuesta2 = new JButton("New button");
 		btnpreRespuesta2.setBounds(243, 239, 187, 55);
 		panelPregunta.add(btnpreRespuesta2);
 		
-		btnpreRespuesta3 = new JButton("New button");
 		btnpreRespuesta3.setBounds(10, 313, 187, 55);
 		panelPregunta.add(btnpreRespuesta3);
-		
-		btnpreRespuesta4 = new JButton("New button");
+	
 		btnpreRespuesta4.setBounds(243, 313, 187, 55);
 		panelPregunta.add(btnpreRespuesta4);
 		
@@ -239,10 +237,10 @@ public class VistaJuego extends JFrame {
 	public JButton getBtnpreRespuesta1() {return btnpreRespuesta1;}
 	public JButton getBtnpreRespuesta3() {return btnpreRespuesta3;}
 	public JButton getBtnpreRespuesta4() {return btnpreRespuesta4;}
-	public void setBtnpreRespuesta2(JButton btnpreRespuesta2) {this.btnpreRespuesta2 = btnpreRespuesta2;}
-	public void setBtnpreRespuesta1(JButton btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
-	public void setBtnpreRespuesta3(JButton btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
-	public void setBtnpreRespuesta4(JButton btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
+	public void setBtnpreRespuesta2(BotonPregunta btnpreRespuesta2) {this.btnpreRespuesta2 = btnpreRespuesta2;}
+	public void setBtnpreRespuesta1(BotonPregunta btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
+	public void setBtnpreRespuesta3(BotonPregunta btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
+	public void setBtnpreRespuesta4(BotonPregunta btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
 	
 	
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
