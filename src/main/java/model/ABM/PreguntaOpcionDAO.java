@@ -34,32 +34,29 @@ public class PreguntaOpcionDAO extends PreguntasDAO {
         }
     }
 
-    public void insertarRespuestas(int idPregunta, String opcionA, String opcionB, String opcionC, String opcionD, String respuestaCorrecta) {
+    public static void crearRespuesta(String respuestaTexto, int idPregunta, boolean respuestaCorrecta) {
         String query = "INSERT INTO respuestas (respuesta, id_pregunta, respuesta_correcta) VALUES (?, ?, ?)";
     
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
     
-            // Insertar cada opción de respuesta
-            insertarOpcion(statement, opcionA, idPregunta, opcionA.equals(respuestaCorrecta));
-            insertarOpcion(statement, opcionB, idPregunta, opcionB.equals(respuestaCorrecta));
-            insertarOpcion(statement, opcionC, idPregunta, opcionC.equals(respuestaCorrecta));
-            insertarOpcion(statement, opcionD, idPregunta, opcionD.equals(respuestaCorrecta));
+            pstmt.setString(1, respuestaTexto);
+            pstmt.setInt(2, idPregunta);
+            pstmt.setBoolean(3, respuestaCorrecta);
     
-            System.out.println("Opciones de respuesta insertadas correctamente.");
+            int rowsAffected = pstmt.executeUpdate();
+    
+            if (rowsAffected > 0) {
+                System.out.println("Respuesta creada exitosamente.");
+            } else {
+                System.out.println("No se pudo crear la respuesta.");
+            }
     
         } catch (SQLException e) {
-            System.err.println("Error al insertar las respuestas: " + e.getMessage());
+            System.err.println("Error al crear la respuesta: " + e.getMessage());
         }
     }
     
-    // Método auxiliar para insertar una opción de respuesta
-    private void insertarOpcion(PreparedStatement statement, String opcion, int idPregunta, boolean esCorrecta) throws SQLException {
-        statement.setString(1, opcion);
-        statement.setInt(2, idPregunta);
-        statement.setBoolean(3, esCorrecta);
-        statement.executeUpdate();
-    }
     
 
     public List buscarTodos() {
@@ -67,7 +64,7 @@ public class PreguntaOpcionDAO extends PreguntasDAO {
         String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
                        "FROM preguntas p " +
                        "JOIN respuestas r ON p.id_pregunta = r.id_pregunta " +
-                       "WHERE p.id_tipopregunta = 2 " +
+                       "WHERE p.id_tipopregunta = 1 " +
                        "ORDER BY p.id_pregunta, r.id_respuesta";  // Ordenamos por pregunta y respuesta para agrupar correctamente
         
         try (Connection connection = Database.getInstance().getConnection();
@@ -152,6 +149,29 @@ public class PreguntaOpcionDAO extends PreguntasDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al modificar la pregunta: " + e.getMessage());
+        }
+    }
+
+    public static void crearPregunta(String pregunta, int idTema, int idTipoPregunta) {
+        String query = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
+    
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(query)) {
+    
+            pstmt.setString(1, pregunta);
+            pstmt.setInt(2, idTema);
+            pstmt.setInt(3, idTipoPregunta);
+    
+            int rowsAffected = pstmt.executeUpdate();
+    
+            if (rowsAffected > 0) {
+                System.out.println("Pregunta creada exitosamente.");
+            } else {
+                System.out.println("No se pudo crear la pregunta.");
+            }
+    
+        } catch (SQLException e) {
+            System.err.println("Error al crear la pregunta: " + e.getMessage());
         }
     }
 }

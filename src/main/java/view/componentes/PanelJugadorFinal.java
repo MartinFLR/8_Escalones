@@ -1,4 +1,4 @@
-package view;
+package view.componentes;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -14,16 +14,9 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 
 	protected ArrayList<JPanel> errores = new ArrayList<JPanel>();
 	
-	public PanelJugadorFinal (String url) {
+	public PanelJugadorFinal () {
 	setLayout(new GridLayout(1, 3, 0, 0));
 	setBorder(new EmptyBorder(20, 20, 20, 20));
-	
-	ImageIcon imgJugador = new ImageIcon(url);
-	lblimagenJugador = new JLabel(imgJugador);
-	add(lblimagenJugador);
-	
-	lblnombreJugador = new JLabel("New label");
-	add(lblnombreJugador);
 	
 	panelErrores = new JPanel();
 	add(panelErrores);
