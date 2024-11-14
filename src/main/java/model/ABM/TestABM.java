@@ -19,7 +19,7 @@ public class TestABM {
         AdminDAO adminDAO = new AdminDAO();
         PreguntasDAO preguntasDAO = new PreguntasDAO();
 
-        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("cuantos años tiene aldo");
+        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("cuantos años tiene aldo",4);
        ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
        Respuesta respuesta1 = new Respuesta("10",true);
 

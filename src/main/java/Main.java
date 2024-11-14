@@ -37,13 +37,13 @@ public class Main {
     System.out.println("Lista de Preguntas:");
     for (Preguntas pregunta : listaPreguntasOpcion) {
 
-      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+      System.out.println("Id pregunta "+pregunta.getId_pregunta() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
   
     System.out.println("Lista de Preguntas de aproximacion:");
     for (Preguntas pregunta : listaPreguntasAproximacion) {
 
-      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+      System.out.println("Id pregunta "+pregunta.getId_pregunta() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
 
 

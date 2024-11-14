@@ -6,9 +6,9 @@ public class PreguntaAproximacion extends Preguntas{
     private Respuesta respuesta;
 
     //Constructores
-    public PreguntaAproximacion(String pregunta){
+    public PreguntaAproximacion(String pregunta, int id_tema){
         //para traer de la bd
-        super(pregunta,"Aproximacion",2);
+        super(pregunta,"Aproximacion", id_tema);
     }
     public PreguntaAproximacion(int id,String pregunta,String respuesta_correcta,int id_tema){
         super(id,pregunta,"Aproximacion",id_tema);
