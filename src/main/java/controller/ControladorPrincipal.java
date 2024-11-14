@@ -20,7 +20,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnSalir().addActionListener(e -> {System.exit(0);});
 		
 		vista.getBtnLogin().addActionListener(e -> {new ControladorLogin();});
-		vista.getBtnModificar().addActionListener(e -> {new ControladorMod();});
+		vista.getBtnModificar().addActionListener(e -> {new ControladorModCategoria();});
 		
 		vista.getBtnAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(true);});
 		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});

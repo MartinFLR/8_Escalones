@@ -9,23 +9,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import model.Participante;
 import model.Tema;
 
 public class TemasDAO implements DAO<Tema> {
 
 
     public void insertar(Tema tema) {
-        String sql = "INSERT INTO tema (id_tema, nombre_tema) VALUES (?, ?)";
+        String sql = "INSERT INTO tema (nombre_tema) VALUES (?)";
+        if (!existeTema(tema)) {
+            try (Connection connection = Database.getInstance().getConnection();
+                 PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
-        try (Connection connection = Database.getInstance().getConnection();
-                PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setInt(1, tema.getId());
-            pstmt.setString(2, tema.getNombre());
-            pstmt.executeUpdate();
-            System.out.println("Tema agregado con éxito.");
-        } catch (SQLException e) {
-            System.err.println("Error al agregar tema: " + e.getMessage());
+                pstmt.setString(1, tema.getNombre());
+                pstmt.executeUpdate();
+                System.out.println("Tema agregado con éxito.");
+            } catch (SQLException e) {
+                System.err.println("Error al agregar tema: " + e.getMessage());
+            }
+        }else{
+            System.out.println("El tema ya existe, elige otro nombre");
         }
     }
 
@@ -52,7 +55,7 @@ public class TemasDAO implements DAO<Tema> {
     }
 
     public void eliminar(int id) {
-        String sql = "DELETE FROM tema WHERE id = ?";
+        String sql = "DELETE FROM tema WHERE id_tema = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -70,7 +73,7 @@ public class TemasDAO implements DAO<Tema> {
     }
 
     public void modificar(int id, Tema nuevoTema) {
-        String sql = "UPDATE tema SET nombre = ? WHERE id = ?";
+        String sql = "UPDATE tema SET nombre_tema = ? WHERE id_tema = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -103,11 +106,11 @@ public class TemasDAO implements DAO<Tema> {
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                Tema tema = new Tema();
-                tema.setId(rs.getInt("ID"));
-                tema.setNombre(rs.getString("Tema"));
-                tema.setCantidadPreguntas(rs.getInt("Cantidad de preguntas"));
-
+                int id = rs.getInt("ID");
+                String nombre = rs.getString("Tema");
+                int cantidadPreguntas = rs.getInt("Cantidad de preguntas");
+                Tema tema = new Tema(id,nombre);
+                tema.setCantidadPreguntas(cantidadPreguntas);
                 temas.add(tema);
             }
         } catch (SQLException e) {
@@ -117,5 +120,22 @@ public class TemasDAO implements DAO<Tema> {
         return temas;
     }
 
+    private Boolean existeTema(Tema tema) {
+        String query = "SELECT * FROM tema WHERE nombre_tema = ?";
+
+        try (Connection conn = Database.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, tema.getNombre());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 }

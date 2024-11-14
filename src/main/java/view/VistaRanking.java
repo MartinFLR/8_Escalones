@@ -70,6 +70,7 @@ public class VistaRanking extends JFrame{
 	public DefaultTableModel getDefTableModel() {
 		return defTableModel;
 	}
+	
 	public void setDefTableModel(DefaultTableModel defTableModel) {
 		this.defTableModel = defTableModel;
 	}
@@ -77,4 +78,14 @@ public class VistaRanking extends JFrame{
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+	
+	
 }
