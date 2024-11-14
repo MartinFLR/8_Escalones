@@ -8,11 +8,8 @@ import model.Respuesta;
 import view.VistaCreacionPreguntas;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.awt.*;
-
 
 public class ControladorCreacionPreguntas {
 
@@ -30,9 +27,9 @@ public class ControladorCreacionPreguntas {
 		this.vista.setVisible(true);
 		this.botones();
 		this.id = id;
-		
+
 	}
-	
+
 	public void botones() {
 		this.vista.getBtnAñadir().addActionListener(e->{
 			pregunta = getVista().getTxetPregunta().getText();
@@ -50,14 +47,15 @@ public class ControladorCreacionPreguntas {
 
 			Collections.shuffle(listaRespuestas);
 
-			int id_temaoriginal = Integer.parseInt(id);
-			//necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
-			this.Añadirpregunta(pregunta,id_temaoriginal,"Aproximacion",listaRespuestas);
+		 	int id_temaoriginal = Integer.parseInt(id);
+			 //necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
+		 	this.Añadirpregunta(pregunta,id_temaoriginal,"Aproximacion",listaRespuestas);
+
 		});
-		this.vista.getBtnCancelar().addActionListener(e->{this.vista.setVisible(false);});
+	 	this.vista.getBtnCancelar().addActionListener(e->{this.vista.setVisible(false);});
 	}
 
-	public VistaCreacionPreguntas getVista() {
+	 public VistaCreacionPreguntas getVista() {
 		return vista;
 	}
 
@@ -66,25 +64,22 @@ public class ControladorCreacionPreguntas {
 	}
 
 	public void Añadirpregunta(String pregunta, int id_tema, String tipopregunta, List<Respuesta> listaRespuestas){
-		PreguntasDAO preguntasDAO = new PreguntasDAO();
-		switch (tipopregunta){
-			case("Opcion Multiple"):{
-				PreguntaOpcion preguntaObjeto = new PreguntaOpcion(pregunta,id_tema);
-				preguntasDAO.crearPregunta(preguntaObjeto,listaRespuestas);
-			}
-			case ("Aproximacion"):{
-				PreguntaAproximacion preguntaObjeto = new PreguntaAproximacion(pregunta,id_tema);
-				preguntasDAO.crearPregunta(preguntaObjeto,listaRespuestas);
-			}
+	 	PreguntasDAO preguntasDAO = new PreguntasDAO();
+		 switch (tipopregunta){
+		 	case("Opcion Multiple"):{
+		 		PreguntaOpcion preguntaObjeto = new PreguntaOpcion(pregunta,id_tema);
+		 		preguntasDAO.crearPregunta(preguntaObjeto,listaRespuestas);
+		 	}
+		 	case ("Aproximacion"):{
+		 		PreguntaAproximacion preguntaObjeto = new PreguntaAproximacion(pregunta,id_tema);
+		 		preguntasDAO.crearPregunta(preguntaObjeto,listaRespuestas);
+		 	}
 
-        }
+		 }
 
-
+ 
 
 	}
-
-	
-
 
 
 
