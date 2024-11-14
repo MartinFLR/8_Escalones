@@ -24,9 +24,9 @@ public class TestJuego {
         model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntasOp, "Tema 1");
         Escalon escalon = new Escalon();
         escalon.setTema(tema);
-        escalon.agregaParticipante(new Participante("Participante 1")); 
-        escalon.agregaParticipante(new Participante("Participante 2")); 
-        escalon.agregaParticipante(new Participante("Participante 3")); 
+        //escalon.agregaParticipante(new Participante("Participante 1")); 
+        //escalon.agregaParticipante(new Participante("Participante 2")); 
+        //escalon.agregaParticipante(new Participante("Participante 3")); 
         // for (model.Participante participante : listaParticipantes) {
         //     escalon.agregaParticipante(new model.Participante(participante.getNombre()));
         // }
