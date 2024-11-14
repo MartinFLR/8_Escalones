@@ -16,16 +16,10 @@ public class ParticipantesDAO implements DAO<Participante> {
     @Override
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, veces_ganadas) VALUES (?, 0)";
-<<<<<<< HEAD
-        try (Connection conn = Database.getInstance().getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, participante.getNombre());
-=======
         if (!existeParticipante(participante)) {
             try (Connection conn = Database.getInstance().getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, participante.getNombre());
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
 
                 pstmt.executeUpdate();
                 System.out.println("Participante agregado con éxito.");
@@ -139,13 +133,10 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
 
     }
-<<<<<<< HEAD
     return top10participantes;
     }
 
-=======
-
-    private Boolean existeParticipante(Participante participante) {
+        private Boolean existeParticipante(Participante participante) {
         String query = "SELECT * FROM participantes WHERE nombre = ?";
 
         try (Connection conn = Database.getInstance().getConnection();
@@ -162,5 +153,5 @@ public class ParticipantesDAO implements DAO<Participante> {
             return false;
         }
     }
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
+    
 }

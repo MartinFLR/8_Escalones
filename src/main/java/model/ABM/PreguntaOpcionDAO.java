@@ -10,13 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
-public class PreguntaOpcionDAO extends PreguntasDAO {
-=======
 
 
 public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
 
     public void insertar(PreguntaOpcion entidad) {
         String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
@@ -38,50 +34,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-<<<<<<< HEAD
-    protected Boolean preguntaYaTieneOpciones(Preguntas pregunta) {
-        int cantidad_opciones = 0;
-        String query = " SELECT COUNT(id_respuesta) as Opciones FROM respuestas r JOIN preguntas p ON r.id_respuesta=p.id_respuesta WHERE p.id_pregunta = ?";
-        try (Connection conn = Database.getInstance().getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, pregunta.getId_pregunta());
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    cantidad_opciones = rs.getInt("Opciones");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        if (cantidad_opciones >= 4) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void crearRespuesta(String respuesta, Boolean vf, PreguntaOpcion pregunta) {
-        String query = "INSERT INTO respuestas (respuesta, id_pregunta, respuesta_correcta) VALUES (?, ?, ?)";
-
-        try (Connection connection = Database.getInstance().getConnection();
-                PreparedStatement pstmt = connection.prepareStatement(query)) {
-            if (!preguntaYaTieneOpciones(pregunta)) {
-                pstmt.setString(1, respuesta);
-                pstmt.setInt(2, pregunta.getId_pregunta());
-                pstmt.setBoolean(3, vf);
-
-                int rowsAffected = pstmt.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    System.out.println("Respuesta creada exitosamente.");
-                } else {
-                    System.out.println("No se pudo crear la respuesta.");
-                }
-            }else{
-                System.out.println("La pregunta: " + pregunta.getPregunta() + " ya tiene las opciones llenas, pruebe a modificarlas");
-            }
-
-=======
     public void crearPregunta(PreguntaOpcion nuevaPregunta, List<Respuesta> respuestas) {
         String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
                 + "VALUES (?, ?, ?)";
@@ -121,7 +73,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                     connection.commit();
                 }
             }
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -131,15 +82,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
     public List<PreguntaOpcion> buscarTodos() {
         List<PreguntaOpcion> preguntas = new ArrayList<>();
-<<<<<<< HEAD
-        String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
-                "FROM preguntas p " +
-                "JOIN respuestas r ON p.id_pregunta = r.id_pregunta " +
-                "WHERE p.id_tipopregunta = 1 " +
-                "ORDER BY p.id_pregunta, r.id_respuesta"; // Ordenamos por pregunta y respuesta para agrupar
-                                                          // correctamente
-
-=======
         String query = """
                 SELECT *
                 FROM (
@@ -151,7 +93,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                 ORDER BY subquery.id_pregunta, subquery.respuesta;
                 """; // Ordenamos por pregunta y respuesta para agrupar correctamente
         
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
         try (Connection connection = Database.getInstance().getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 ResultSet resultSet = pstmt.executeQuery()) {
@@ -166,15 +107,9 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                 boolean esCorrecta = resultSet.getBoolean("respuesta_correcta");
 
                 // Obtener o crear la pregunta en el mapa
-<<<<<<< HEAD
-                PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta,
-                        new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "", "", null, idTema));
-
-=======
                 PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta, 
                     new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "","", null, idTema));
     
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
                 // Asignar cada respuesta a una de las opciones A, B, C o D
                 if (pregunta.getOpcionA().isEmpty()) {
                     pregunta.setOpcionA(respuesta);
@@ -243,31 +178,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-<<<<<<< HEAD
-    public static void crearPregunta(String pregunta, int idTema, int idTipoPregunta) {
-        String query = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
-
-        try (Connection connection = Database.getInstance().getConnection();
-                PreparedStatement pstmt = connection.prepareStatement(query)) {
-
-            pstmt.setString(1, pregunta);
-            pstmt.setInt(2, idTema);
-            pstmt.setInt(3, idTipoPregunta);
-
-            int rowsAffected = pstmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Pregunta creada exitosamente.");
-            } else {
-                System.out.println("No se pudo crear la pregunta.");
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Error al crear la pregunta: " + e.getMessage());
-        }
-    }
-
-=======
 //    public static void crearPregunta(String pregunta, int idTema, int idTipoPregunta) {
 //        String query = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
 //
@@ -290,5 +200,26 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 //            System.err.println("Error al crear la pregunta: " + e.getMessage());
 //        }
 //    }
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
+
+// protected Boolean preguntaYaTieneOpciones(Preguntas pregunta) {
+//     int cantidad_opciones = 0;
+//     String query = " SELECT COUNT(id_respuesta) as Opciones FROM respuestas r JOIN preguntas p ON r.id_respuesta=p.id_respuesta WHERE p.id_pregunta = ?";
+//     try (Connection conn = Database.getInstance().getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(query)) {
+//         pstmt.setInt(1, pregunta.getId_pregunta());
+//         try (ResultSet rs = pstmt.executeQuery()) {
+//             if (rs.next()) {
+//                 cantidad_opciones = rs.getInt("Opciones");
+//             }
+//         }
+//     } catch (SQLException e) {
+//         System.out.println(e.getMessage());
+//     }
+//     if (cantidad_opciones >= 4) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
 }

@@ -7,10 +7,6 @@ import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Preguntas;
 
-<<<<<<< HEAD
-public abstract class PreguntasDAO implements DAO<Preguntas>{
-    
-=======
 public class PreguntasDAO implements DAO<Preguntas>{
 
     private ArrayList<Preguntas> preguntas = new ArrayList<>();
@@ -25,7 +21,6 @@ public class PreguntasDAO implements DAO<Preguntas>{
         }
     }
 
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
     @Override
     public List<Preguntas> buscarTodos() {
 
@@ -59,8 +54,6 @@ public class PreguntasDAO implements DAO<Preguntas>{
         // TODO Auto-generated method stub
         
     }
-
-    protected abstract Boolean preguntaYaTieneOpciones(Preguntas pregunta);
 
     
 
