@@ -6,6 +6,9 @@ public class ControladorCreacionPreguntas {
 
 	private VistaCreacionPreguntas vista;
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public ControladorCreacionPreguntas(){
 		this.vista = new VistaCreacionPreguntas(this);
 		this.vista.setVisible(true);
@@ -28,6 +31,9 @@ public class ControladorCreacionPreguntas {
 		return vista;
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void setVista(VistaCreacionPreguntas vista) {
 		this.vista = vista;
 	}
