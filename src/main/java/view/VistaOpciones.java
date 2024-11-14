@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSlider;
 import javax.swing.JButton;
-import javax.swing.JTabbedPane;
 
 public class VistaOpciones extends JFrame {
 
@@ -33,14 +32,13 @@ public class VistaOpciones extends JFrame {
 		setUndecorated(true);
 		
 		btnSalir = new JButton("Volver");
-		btnSalir.setBounds(158, 294, 89, 23);
+		btnSalir.setBounds(142, 255, 89, 23);
 		contentPane.add(btnSalir);
 		btnSalir.addActionListener(c);
 
 		lblNewLabel = new JLabel("Opciones");
 		lblNewLabel.setBounds(97, 11, 46, 14);
 		contentPane.add(lblNewLabel);
-	
 		
 	}
 
@@ -56,4 +54,6 @@ public class VistaOpciones extends JFrame {
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
+	
+	
 }

@@ -1,25 +1,25 @@
 package model;
 
 public class Admin {
-    int id;
-    String nombre;
-    String contrasenia;
+    int id_admin;
+    String nombre_admin;
+    String contrasenia_admin;
 
     public Admin(String nombre, String contrasenia) {
-        this.id = 1;
-        this.nombre = nombre;
-        this.contrasenia = contrasenia;
+        this.id_admin = 1;
+        this.nombre_admin = nombre;
+        this.contrasenia_admin = contrasenia;
     }
 
     public int getId() {
-        return id;
+        return id_admin;
     }
 
     public String getNombre() {
-        return nombre;
+        return nombre_admin;
     }
 
     public String getContrasenia() {
-        return contrasenia;
+        return contrasenia_admin;
     }
 }

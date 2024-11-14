@@ -75,8 +75,13 @@ public class ControladorModCategoria {
 			dialogoEliminar.setVisible(true);
 		});
 		
-		vista.getBtnEditar().addActionListener(e->{new VistaModPreguntas(this);
-		this.vista.setVisible(false);
+		vista.getBtnEditar().addActionListener(e->{
+			int filaSeleccionada = this.vista.getTable().getSelectedRow();
+			String idCategoria = this.vista.getTable().getValueAt(filaSeleccionada, 0).toString();
+		System.out.println(idCategoria);
+			new VistaModPreguntas(this,idCategoria);
+		
+			this.vista.setVisible(false);
 		});
 		
 		vista.getBtnCrear().addActionListener(e ->{
@@ -112,7 +117,7 @@ public class ControladorModCategoria {
 		vista.getBtnBuscar().addActionListener(e ->{
 			String texto = this.vista.getTextBuscador().getText();
 			System.out.println(texto);
-			new VistaModPreguntas(this);
+			new VistaModPreguntas(this,"dsa");
 		});
 	}
 	

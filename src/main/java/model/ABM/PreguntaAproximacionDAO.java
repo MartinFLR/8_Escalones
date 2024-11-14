@@ -2,6 +2,7 @@ package model.ABM;
 
 import model.PreguntaAproximacion;
 import model.Preguntas;
+import model.Respuesta;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,9 +24,8 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             pstmt.executeUpdate();
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                int idPregunta = generatedKeys.getInt(1);
                 // Aquí puedes guardar la respuesta correcta en la tabla de respuestas
-                insertarRespuesta(idPregunta, pregunta);
+                insertarRespuesta(generatedKeys.getInt(1),pregunta);
             }
             System.out.println("Pregunta de aproximación agregada exitosamente.");
 
@@ -34,14 +34,64 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         }
     }
 
+    public void crearPregunta(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
+        String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
+                + "VALUES (?, ?, ?)";
+
+        String queryRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) "
+                + "VALUES (?, ?, ?)"; // No incluimos id_respuesta
+
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement stmtRespuesta = connection.prepareStatement(queryRespuesta)) {
+
+            connection.setAutoCommit(false);
+
+            // Insertar la nueva pregunta
+            stmtPregunta.setString(1, nuevaPregunta.getPregunta());
+            stmtPregunta.setInt(2, 2);  // id_tipopregunta debe ser válido
+            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());  // id_tema debe ser válido
+            stmtPregunta.executeUpdate();
+
+            // Obtener el ID de la pregunta recién insertada
+            try (ResultSet rs = stmtPregunta.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idPregunta = rs.getInt(1);  // Obtener el ID de la nueva pregunta
+
+                    // Insertar las respuestas asociadas
+                    for (Respuesta respuesta : respuestas) {
+                        stmtRespuesta.setInt(1, idPregunta);  // Establecer el ID de la pregunta
+                        stmtRespuesta.setString(2, respuesta.getRespuesta());
+                        stmtRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
+                        stmtRespuesta.addBatch();  // Usamos batch para insertar varias respuestas
+                    }
+
+                    // Ejecutar el batch para insertar todas las respuestas
+                    stmtRespuesta.executeBatch();
+
+                    // Commit de la transacción
+                    connection.commit();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
+
+
+
     private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
         
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setInt(1, idPregunta);
-            pstmt.setString(2, pregunta.getRespuestaCorrecta());
+                
+                    pstmt.setInt(1,pregunta.getId_pregunta());
+                    pstmt.setString(2, pregunta.getRespuestaCorrecta());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -78,7 +128,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
                 int temaId = rs.getInt("tema_id");
 
-                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta, tipoPregunta, respuestaCorrecta, temaId);
+                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta, respuestaCorrecta, temaId);
                 preguntas.add(preguntaAprox);
             }
         } catch (SQLException e) {
@@ -86,6 +136,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         }
         return preguntas;
     }
+    
 
 
 
@@ -107,9 +158,31 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         } catch (SQLException e) {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
+    
+    }
+
+    
+    private void modificarRespuesta(PreguntaAproximacion pregunta){
+        String sql = "UPDATE respuestas SET respuesta_correcta = ? WHERE preguntas.id_pregunta = ?";
+        try (Connection conn = Database.getInstance().getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setString(1, pregunta.getRespuestaCorrecta());
+            pstmt.setInt(2, pregunta.getId_pregunta());
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                if(rs.rowUpdated()){
+                    System.out.println("Respuesta modificada");
+                }else{
+                    System.out.println("No se pudo modificar la respuesta");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
-
+    //si se modifica la pregunta por ley deben modificarse las respuesta(depende si cambia el contexto)
     public void modificar(int id, PreguntaAproximacion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
 
@@ -119,7 +192,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             statement.setString(1, nuevaPregunta.getPregunta());
             statement.setInt(2, nuevaPregunta.getIdTema());
             statement.setInt(3, id);
-
+            modificarRespuesta(nuevaPregunta);
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Pregunta de aproximación modificada con éxito.");
