@@ -44,7 +44,7 @@ public class Tests {
         System.out.println(aldito.getNombre()+" "+aldito.getContrasenia());
 
         for (Tema tema : listaTemas) {
-            System.out.println(tema.getId()+" "+tema.getTema());
+            System.out.println(tema.getId()+" "+tema.getNombre());
         }
 
         model.Tema tema = new Tema (listaPreguntaAproximacion, listaPreguntaOp, "Tema 1");

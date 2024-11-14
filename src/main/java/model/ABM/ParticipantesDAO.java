@@ -16,14 +16,18 @@ public class ParticipantesDAO implements DAO<Participante> {
     @Override
     public void insertar(Participante participante) {
         String sql = "INSERT INTO participantes (nombre, veces_ganadas) VALUES (?, 0)";
-        try (Connection conn = Database.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, participante.getNombre());
+        if (!existeParticipante(participante)) {
+            try (Connection conn = Database.getInstance().getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, participante.getNombre());
 
-            pstmt.executeUpdate();
-            System.out.println("Participante agregado con éxito.");
-        } catch (SQLException e) {
-            System.err.println("Error al agregar participante: " + e.getMessage());
+                pstmt.executeUpdate();
+                System.out.println("Participante agregado con éxito.");
+            } catch (SQLException e) {
+                System.err.println("Error al agregar participante: " + e.getMessage());
+            }
+        }else{
+            System.out.println("El participante ya existe, elige otro nombre");
         }
     }
 
@@ -47,17 +51,17 @@ public class ParticipantesDAO implements DAO<Participante> {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void eliminar(int id_tema) {
         String sql = "DELETE FROM participantes WHERE id = ?";
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, id_tema);
             int filasEliminadas = pstmt.executeUpdate();
             if (filasEliminadas > 0) {
                 System.out.println("Participante eliminado con éxito.");
             } else {
-                System.out.println("No se encontró el participante con ID: " + id);
+                System.out.println("No se encontró el participante con ID: " + id_tema);
             }
         } catch (SQLException e) {
             System.err.println("Error al eliminar participante: " + e.getMessage());
@@ -66,20 +70,32 @@ public class ParticipantesDAO implements DAO<Participante> {
 
     @Override
     public void modificar(int id, Participante nuevoParticipante) {
-        String sql = "UPDATE participantes SET nombre = ? WHERE id = ?";
-        try (Connection conn = Database.getInstance().getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+        String sql = "UPDATE participantes SET nombre = ? WHERE id = ?";
+
+        if (nuevoParticipante == null || nuevoParticipante.getNombre() == null || nuevoParticipante.getNombre().trim().isEmpty()) {
+            System.out.println("El nombre del participante no puede ser vacío.");
+            return;
+        }
+
+        try (Connection conn = Database.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Establecemos los parámetros de la consulta
             pstmt.setString(1, nuevoParticipante.getNombre());
             pstmt.setInt(2, id);
 
+            // Ejecutamos la actualización
             int filasActualizadas = pstmt.executeUpdate();
+
+            // Verificamos si alguna fila fue actualizada
             if (filasActualizadas > 0) {
                 System.out.println("Participante modificado con éxito.");
             } else {
                 System.out.println("No se encontró el participante con ID: " + id);
             }
         } catch (SQLException e) {
+            // Imprimir el error detallado si algo falla
             System.err.println("Error al modificar participante: " + e.getMessage());
         }
     }
@@ -124,5 +140,23 @@ public class ParticipantesDAO implements DAO<Participante> {
            }
 
     	return participantes;
+    }
+
+    private Boolean existeParticipante(Participante participante) {
+        String query = "SELECT * FROM participantes WHERE nombre = ?";
+
+        try (Connection conn = Database.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, participante.getNombre());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

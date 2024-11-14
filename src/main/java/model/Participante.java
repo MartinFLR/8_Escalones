@@ -14,17 +14,13 @@ public class Participante {
     private int cantAciertos = 0;
     private int numEscalon=1;
     private int vecesGanadas;
-    
-    //Constructores
-    public Participante(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-    // Constructor sin id para agregar participantes
+
+    // Constructor sin id para crear el objeto desde local
     public Participante(String nombre) {
         this.nombre = nombre;
     }
 
+    // Constructor con id para cuando generamos los objetos desde bd
     public Participante(int id, String nombre, int veces_ganadas) {
         this.id = id;
         this.nombre = nombre;

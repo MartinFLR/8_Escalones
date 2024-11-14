@@ -8,7 +8,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9e0e7d9-e1a0-4eb0-bc00-759bbf499a05" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/ParticipantesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/ParticipantesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/TemasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/TemasDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Participante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Participante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Tema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Tema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/logica/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/logica/Tests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Participante.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Participante.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Tema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Tema.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +61,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.TestABM.executor": "Run",
     "Application.TestJuego.executor": "Run",
     "Application.Tests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -75,5 +86,16 @@
       <updated>1731380959765</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
