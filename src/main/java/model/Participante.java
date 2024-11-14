@@ -45,12 +45,6 @@ public class Participante {
     }
     
     //Getters y Setters
-    public ImageIcon getImg(){
-        return img;
-    }
-    public void setImg(ImageIcon img){
-        this.img = img;
-    }
     public String getNombre() {
         return nombre;
     }
