@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
@@ -15,9 +16,18 @@ public class Main {
     ParticipantesDAO abmPart = new ParticipantesDAO();
 
     List<Participante> listaParticipantes = abmPart.buscarTodos();
-    List<Preguntas> listaPreguntas = abmPreg.buscarTodos();
+    List<PreguntaOpcion> listaPreguntasOpcion = abmPreg.buscarTodos();
     List<Tema> listaTemas = abmTemas.buscarTodos();
-    List<Preguntas> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
+    List<PreguntaAproximacion> listaPreguntasAproximacion = abmPregAprox.buscarTodos();
+
+    List<Preguntas> listaTodas = new ArrayList<>();
+    listaTodas.addAll(listaPreguntasOpcion);
+    listaTodas.addAll(listaPreguntasAproximacion);
+
+    for (Preguntas todas : listaTodas) {
+      System.out.println(todas.getId_pregunta() +" "+todas.getPregunta()+" "+ todas.getTipo_preg());
+    }
+
 
     System.out.println("Lista de Participantes:");
     for (Participante participante : listaParticipantes) {
@@ -25,7 +35,7 @@ public class Main {
     }
 
     System.out.println("Lista de Preguntas:");
-    for (Preguntas pregunta : listaPreguntas) {
+    for (Preguntas pregunta : listaPreguntasOpcion) {
 
       System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }

@@ -1,7 +1,5 @@
 package model.ABM;
-import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
-import model.Preguntas;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.Map;
 
 
 
-public class PreguntaOpcionDAO extends PreguntasDAO {
+public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
 
     public void insertar(PreguntaOpcion entidad) {
@@ -59,13 +57,18 @@ public class PreguntaOpcionDAO extends PreguntasDAO {
     
     
 
-    public List buscarTodos() {
+    public List<PreguntaOpcion> buscarTodos() {
         List<PreguntaOpcion> preguntas = new ArrayList<>();
-        String query = "SELECT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta " +
-                       "FROM preguntas p " +
-                       "JOIN respuestas r ON p.id_pregunta = r.id_pregunta " +
-                       "WHERE p.id_tipopregunta = 1 " +
-                       "ORDER BY p.id_pregunta, r.id_respuesta";  // Ordenamos por pregunta y respuesta para agrupar correctamente
+        String query = """
+                SELECT *
+                FROM (
+                    SELECT DISTINCT p.id_pregunta, p.pregunta, p.id_tema, r.respuesta, r.respuesta_correcta
+                    FROM preguntas p
+                    JOIN respuestas r ON p.id_pregunta = r.id_pregunta
+                    WHERE p.id_tipopregunta = 1
+                ) subquery
+                ORDER BY subquery.id_pregunta, subquery.respuesta;
+                """; // Ordenamos por pregunta y respuesta para agrupar correctamente
         
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(query);
@@ -82,7 +85,7 @@ public class PreguntaOpcionDAO extends PreguntasDAO {
     
                 // Obtener o crear la pregunta en el mapa
                 PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta, 
-                    new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "", "","", null, idTema));
+                    new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "","", null, idTema));
     
                 // Asignar cada respuesta a una de las opciones A, B, C o D
                 if (pregunta.getOpcionA().isEmpty()) {

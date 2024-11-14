@@ -18,8 +18,9 @@ public class PreguntaAproximacion extends Preguntas{
     //Metodos
     @Override
     public void imprimirPregunta(){
-        System.out.println("\tId: "+this.getId());
+        System.out.println("\tId: "+this.getId_pregunta());
         System.out.println("\tPregunta: "+this.getPregunta());
+        System.out.println("\tTipo Pregunta: "+this.getTipo_preg());
         System.out.println("\tRespuesta correcta: "+this.getRespuestaCorrecta());
     }
 

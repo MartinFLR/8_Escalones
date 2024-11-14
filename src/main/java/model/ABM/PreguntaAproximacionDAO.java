@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntaAproximacionDAO extends PreguntasDAO {
+public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
 
     public void insertar(PreguntaAproximacion pregunta) {
@@ -49,27 +49,36 @@ public class PreguntaAproximacionDAO extends PreguntasDAO {
         }
     }
 
-    public List buscarTodos() {
+    public List<PreguntaAproximacion> buscarTodos() {
         List<PreguntaAproximacion> preguntas = new ArrayList<>();
-        String query = "SELECT p.id_pregunta, p.pregunta,tp.tipo_pregunta AS tipoPregunta, r.respuesta AS respuesta_correcta, t.id_tema AS tema_id "
-                     + "FROM preguntas p "
-                     + "JOIN tipo_pregunta as tp ON tp.id_tipo = p.id_tipopregunta "
-                     + "LEFT JOIN respuestas r ON p.id_pregunta = r.id_pregunta AND r.respuesta_correcta = TRUE "
-                     + "LEFT JOIN tema t ON p.id_tema = t.id_tema "
-                     + "WHERE p.id_tipopregunta = 2";
-        
+        String query = "SELECT p.id_pregunta, p.pregunta, tp.tipo_pregunta AS tipoPregunta, "
+                + "(SELECT r.respuesta "
+                + " FROM respuestas r "
+                + " WHERE r.id_pregunta = p.id_pregunta AND r.respuesta_correcta = TRUE LIMIT 1) AS respuesta_correcta, "
+                + " t.id_tema AS tema_id "
+                + "FROM preguntas p "
+                + "JOIN tipo_pregunta as tp ON tp.id_tipo = p.id_tipopregunta "
+                + "LEFT JOIN tema t ON p.id_tema = t.id_tema "
+                + "WHERE p.id_tipopregunta = 2";
+
         try (Connection connection = Database.getInstance().getConnection();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
-    
+
             while (rs.next()) {
                 int idPregunta = rs.getInt("id_pregunta");
                 String pregunta = rs.getString("pregunta");
                 String tipoPregunta = rs.getString("tipoPregunta");
+
+                // Obtener la respuesta correcta, si es NULL, se asigna un valor predeterminado
                 String respuestaCorrecta = rs.getString("respuesta_correcta");
-                int temaId = rs.getInt("tema_id");  // Aquí aseguramos que tema_id sea int
-    
-                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta,tipoPregunta, respuestaCorrecta, temaId);
+                if (respuestaCorrecta == null) {
+                    respuestaCorrecta = "No tiene respuesta correcta";  // O un valor predeterminado adecuado
+                }
+
+                int temaId = rs.getInt("tema_id");
+
+                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta, tipoPregunta, respuestaCorrecta, temaId);
                 preguntas.add(preguntaAprox);
             }
         } catch (SQLException e) {
@@ -77,11 +86,12 @@ public class PreguntaAproximacionDAO extends PreguntasDAO {
         }
         return preguntas;
     }
-    
-    
-    
-    
-    
+
+
+
+
+
+
     public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id_pregunta = ?";
     
