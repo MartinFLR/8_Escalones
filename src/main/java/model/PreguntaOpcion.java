@@ -25,12 +25,13 @@ public class PreguntaOpcion extends Preguntas {
         this.respuesta_correcta = respuestaCorrecta;
     }
     //Usado por abm
-    public PreguntaOpcion(String pregunta){
-        super(pregunta,"Opcion multiple", 1);
+    public PreguntaOpcion(String pregunta, int id_tema){
+        super(pregunta,"Opcion multiple", id_tema);
     }
+
     //para modificar preguntas y respuestas, se usa en PreguntaOpcionDAO
-    public PreguntaOpcion(String pregunta, String tipo_preg, int id_tema, ArrayList<Respuesta> respuestas) {
-        super(pregunta, "Opcion multiple", 1);
+    public PreguntaOpcion(String pregunta, int id_tema, ArrayList<Respuesta> respuestas) {
+        super(pregunta, "Opcion multiple", id_tema);
         this.respuestas = respuestas;
     }
 
