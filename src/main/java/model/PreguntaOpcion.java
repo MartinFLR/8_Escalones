@@ -29,8 +29,8 @@ public class PreguntaOpcion extends Preguntas {
         super(pregunta,"Opcion multiple", 1);
     }
     //para modificar preguntas y respuestas, se usa en PreguntaOpcionDAO
-    public PreguntaOpcion(String pregunta, String tipo_preg, int id_tema, ArrayList<Respuesta> respuestas) {
-        super(pregunta, "Opcion multiple", 1);
+    public PreguntaOpcion(String pregunta, int id_tema, ArrayList<Respuesta> respuestas) {
+        super(pregunta, "Opcion multiple", id_tema);
         this.respuestas = respuestas;
     }
 
