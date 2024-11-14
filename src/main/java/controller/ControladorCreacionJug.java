@@ -23,7 +23,8 @@ public class ControladorCreacionJug {
 	public void creaParticiapantes(){
 
 		for (int i = 0; i < 9; i++) {
-			Participante participante = new Participante(this.vista.getTxtJugador().get(i).getText(),(ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
+			Participante participante = new Participante(this.vista.getTxtJugador().get(i).getText());
+			participante.setImg((ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
 			escalon.agregaParticipante(participante);
 		}
 

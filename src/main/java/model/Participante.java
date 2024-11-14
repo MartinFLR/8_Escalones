@@ -27,9 +27,8 @@ public class Participante {
     }
 
     // Constructor sin id para agregar participantes
-    public Participante(String nombre, ImageIcon img) { //agregué imageIcon, entonces tuve que comentar los constructores en testJuego para que ande.
+    public Participante(String nombre) { //agregué imageIcon, entonces tuve que comentar los constructores en testJuego para que ande.
         this.nombre = nombre;
-        this.img = img;
     }
 
 
