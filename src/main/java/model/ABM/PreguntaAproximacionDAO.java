@@ -24,9 +24,8 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             pstmt.executeUpdate();
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                generatedKeys.getInt(1);
                 // Aquí puedes guardar la respuesta correcta en la tabla de respuestas
-                insertarRespuesta(pregunta);
+                insertarRespuesta(generatedKeys.getInt(1),pregunta);
             }
             System.out.println("Pregunta de aproximación agregada exitosamente.");
 
@@ -35,47 +34,6 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         }
     }
 
-<<<<<<< HEAD
-    //verifica si la pregunta ya tiene respuesta
-    protected Boolean preguntaYaTieneOpciones(Preguntas pregunta){
-        Boolean lleno = false;
-        String sql = "SELECT respuesta_correcta FROM respuestas r JOIN preguntas p ON r.id_pregunta=p.id_pregunta WHERE p.id_pregunta= ?";
-        try(Connection conn = Database.getInstance().getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-                pstmt.setInt(1, pregunta.getId_pregunta());
-                try(ResultSet rs = pstmt.executeQuery()){
-                    if(rs.next()){
-                        lleno = true;
-                    }
-                }
-            } catch (SQLException e) {
-               System.out.println(e.getMessage());
-             }
-             return lleno;
-    }
-
-    private void modificarRespuesta(PreguntaAproximacion pregunta){
-        String sql = "UPDATE respuestas SET respuesta_correcta = ? WHERE preguntas.id_pregunta = ?";
-        try (Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setString(1, pregunta.getRespuestaCorrecta());
-            pstmt.setInt(2, pregunta.getId_pregunta());
-            try(ResultSet rs = pstmt.executeQuery()){
-                if(rs.rowUpdated()){
-                    System.out.println("Respuesta modificada");
-                }else{
-                    System.out.println("No se pudo modificar la respuesta");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    private void insertarRespuesta(PreguntaAproximacion pregunta) {
-        String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES ( ?)";
-=======
     public void crearPregunta(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
         String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
                 + "VALUES (?, ?, ?)";
@@ -128,16 +86,12 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
     private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
         
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                if(!preguntaYaTieneOpciones(pregunta)){
+                
                     pstmt.setInt(1,pregunta.getId_pregunta());
                     pstmt.setString(2, pregunta.getRespuestaCorrecta());
-                } else{
-                    System.out.println("Pregunta " + pregunta.getPregunta() + " ya tiene respuesta, pruebe a modificarla");
-                }
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -182,16 +136,13 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         }
         return preguntas;
     }
-<<<<<<< HEAD
     
-=======
 
 
 
 
 
 
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
     public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id_pregunta = ?";
     
@@ -206,6 +157,28 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             }
         } catch (SQLException e) {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
+        }
+    
+    }
+
+    
+    private void modificarRespuesta(PreguntaAproximacion pregunta){
+        String sql = "UPDATE respuestas SET respuesta_correcta = ? WHERE preguntas.id_pregunta = ?";
+        try (Connection conn = Database.getInstance().getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setString(1, pregunta.getRespuestaCorrecta());
+            pstmt.setInt(2, pregunta.getId_pregunta());
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                if(rs.rowUpdated()){
+                    System.out.println("Respuesta modificada");
+                }else{
+                    System.out.println("No se pudo modificar la respuesta");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
     

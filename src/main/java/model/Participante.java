@@ -16,41 +16,28 @@ public class Participante {
     private int cantAciertos = 0;
     private int numEscalon=1;
     private int vecesGanadas;
-<<<<<<< HEAD
-    
-    //Constructores
-    public Participante(int id, String nombre) {
-        this.id_participante = id;
-        this.nombre_participante = nombre;
-    }
-    // Constructor sin id para agregar participantes
-    public Participante(String nombre) {
-        this.nombre_participante = nombre;
-    }
-
-    public Participante(String nombre, int vecesGanadas) {
-        this.nombre_participante = nombre;
-        this.vecesGanadas = vecesGanadas;
-    }
-=======
     private ImageIcon img;
 
 //holaaa soy martin, usen el setImg para setear la imagen, asi no tenemos como 10 constructores :P
 
     // Constructor sin id para crear el objeto desde local
     public Participante(String nombre) {
-        this.nombre = nombre;
+        this.nombre_participante = nombre;
         this.img = img;
     }
 
     // Constructor con id para cuando generamos los objetos desde bd
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
     public Participante(int id, String nombre, int veces_ganadas) {
         this.id_participante = id;
         this.nombre_participante = nombre;
         this.vecesGanadas=veces_ganadas;
     }
     
+    public Participante(String nombre, int vecesGanadas) {
+        this.nombre_participante=nombre;
+        this.vecesGanadas=vecesGanadas;
+    }
+
     //Metodos
     public void sumaAcierto(){
         this.cantAciertos++;
@@ -123,7 +110,7 @@ public class Participante {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre_participante = nombre;
     }
     
     public List<PreguntaOpcion> getPreguntas() {

@@ -1,31 +1,18 @@
 package model;
 
 public class PreguntaAproximacion extends Preguntas{
-<<<<<<< HEAD
-
-    private final String respuesta_correcta;
-=======
     
-    private String respuestaCorrecta;
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
+    private String respuesta_correcta;
+    private Respuesta respuesta;
 
     //Constructores
-    public PreguntaAproximacion(String pregunta){
+    public PreguntaAproximacion(String pregunta, int id_tema){
         //para traer de la bd
-<<<<<<< HEAD
-        super(pregunta,tipoPregunta,id_tema);
-        this.respuesta_correcta = respuestaCorrecta;
-    }
-    public PreguntaAproximacion(int id,String pregunta,String tipoPregunta,String respuesta_correcta,int id_tema){
-        super(id,pregunta,tipoPregunta,id_tema);
-        this.respuesta_correcta = respuesta_correcta;
-=======
-        super(pregunta,"Aproximacion",2);
+        super(pregunta,"Aproximacion", id_tema);
     }
     public PreguntaAproximacion(int id,String pregunta,String respuesta_correcta,int id_tema){
         super(id,pregunta,"Aproximacion",id_tema);
-        this.respuestaCorrecta = respuesta_correcta;
->>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
+        this.respuesta_correcta = respuesta_correcta;
     }
     
     //Metodos

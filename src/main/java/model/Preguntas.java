@@ -5,7 +5,7 @@ public abstract class Preguntas {
     protected final  String pregunta;
     protected String tipo_preg;
     protected int id_pregunta;
-    protected final int idTema;
+    protected int idTema;
 
     //Para traer de la bd
     public Preguntas(int id,String pregunta,String tipo_preg, int id_tema) {
@@ -42,5 +42,8 @@ public abstract class Preguntas {
         return idTema;
     }
     public abstract String getRespuestaCorrecta();
-    
+
+    public void setIdTema(int idTema) {
+        this.idTema = idTema;
+    }
 }

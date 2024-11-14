@@ -19,7 +19,7 @@ public class TestABM {
         AdminDAO adminDAO = new AdminDAO();
         PreguntasDAO preguntasDAO = new PreguntasDAO();
 
-        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("cuantos años tiene aldo");
+        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("cuantos años tiene aldo",4);
        ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
        Respuesta respuesta1 = new Respuesta("10",true);
 
@@ -46,7 +46,16 @@ public class TestABM {
         List<Preguntas> listaTodo = preguntasDAO.buscarTodos();
         for (Preguntas preguntas : listaTodo) {
             preguntas.imprimirPregunta();
-        }
+        }//abajo se prueba modificar pregunta
+
+        // ArrayList<Respuesta> resp = new ArrayList<>();
+        // resp.add(new Respuesta("pene", false));
+        // resp.add(new Respuesta("pene", false));
+        // resp.add(new Respuesta("pene", false));
+        // resp.add(new Respuesta("pene", true));
+
+        // PreguntaOpcion nuevaPre = new PreguntaOpcion("Comida favorita de martin",  1, resp);
+        // preguntaOpcionDAO.modificar(5, nuevaPre);
 
         //Prueba Participante
 //        Participante participante = new Participanste("Aldo");
