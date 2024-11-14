@@ -2,6 +2,7 @@ package model.ABM;
 
 import model.PreguntaAproximacion;
 import model.Preguntas;
+import model.Respuesta;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -33,6 +34,56 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             System.out.println("Error al agregar la pregunta de aproximación: " + e.getMessage());
         }
     }
+
+    public void crearPregunta(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
+        String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
+                + "VALUES (?, ?, ?)";
+
+        String queryRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) "
+                + "VALUES (?, ?, ?)"; // No incluimos id_respuesta
+
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement stmtRespuesta = connection.prepareStatement(queryRespuesta)) {
+
+            connection.setAutoCommit(false);
+
+            // Insertar la nueva pregunta
+            stmtPregunta.setString(1, nuevaPregunta.getPregunta());
+            stmtPregunta.setInt(2, 2);  // id_tipopregunta debe ser válido
+            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());  // id_tema debe ser válido
+            stmtPregunta.executeUpdate();
+
+            // Obtener el ID de la pregunta recién insertada
+            try (ResultSet rs = stmtPregunta.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idPregunta = rs.getInt(1);  // Obtener el ID de la nueva pregunta
+
+                    // Insertar las respuestas asociadas
+                    for (Respuesta respuesta : respuestas) {
+                        stmtRespuesta.setInt(1, idPregunta);  // Establecer el ID de la pregunta
+                        stmtRespuesta.setString(2, respuesta.getRespuesta());
+                        stmtRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
+                        stmtRespuesta.addBatch();  // Usamos batch para insertar varias respuestas
+                    }
+
+                    // Ejecutar el batch para insertar todas las respuestas
+                    stmtRespuesta.executeBatch();
+
+                    // Commit de la transacción
+                    connection.commit();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
+
+
 
     private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
@@ -78,7 +129,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
                 int temaId = rs.getInt("tema_id");
 
-                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta, tipoPregunta, respuestaCorrecta, temaId);
+                PreguntaAproximacion preguntaAprox = new PreguntaAproximacion(idPregunta, pregunta, respuestaCorrecta, temaId);
                 preguntas.add(preguntaAprox);
             }
         } catch (SQLException e) {

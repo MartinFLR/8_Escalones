@@ -2,16 +2,15 @@ package model;
 
 public class PreguntaAproximacion extends Preguntas{
     
-    private final String respuestaCorrecta;
+    private String respuestaCorrecta;
 
     //Constructores
-    public PreguntaAproximacion(String pregunta,String tipoPregunta,int id_tema,String respuestaCorrecta){
+    public PreguntaAproximacion(String pregunta,int id_tema){
         //para traer de la bd
-        super(pregunta,tipoPregunta,id_tema);
-        this.respuestaCorrecta = respuestaCorrecta;
+        super(pregunta,"Aproximacion",id_tema);
     }
-    public PreguntaAproximacion(int id,String pregunta,String tipoPregunta,String respuesta_correcta,int id_tema){
-        super(id,pregunta,tipoPregunta,id_tema);
+    public PreguntaAproximacion(int id,String pregunta,String respuesta_correcta,int id_tema){
+        super(id,pregunta,"Aproximacion",id_tema);
         this.respuestaCorrecta = respuesta_correcta;
     }
     

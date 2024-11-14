@@ -2,10 +2,9 @@ package model.ABM;
 
 //Sincronizacion general
 
-import model.Participante;
-import model.Preguntas;
-import model.Tema;
+import model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestABM {
@@ -19,6 +18,20 @@ public class TestABM {
         TemasDAO temasDAO = new TemasDAO();
         AdminDAO adminDAO = new AdminDAO();
         PreguntasDAO preguntasDAO = new PreguntasDAO();
+
+        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("quien es alditasdasdo",2);
+        ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
+        Respuesta respuesta = new Respuesta("el mismisimo aldoasdasdasdasd",false);
+        Respuesta respuesta1 = new Respuesta("un pasdaanchasdasdo",true);
+        Respuesta respuesta2 = new Respuesta("usasdasn casdaapo",false);
+        Respuesta respuesta3 = new Respuesta("alasdasdasdasddo",false);
+        listaRespuestas.add(respuesta);
+        listaRespuestas.add(respuesta1);
+        listaRespuestas.add(respuesta2);
+        listaRespuestas.add(respuesta3);
+
+        preguntaAproximacionDAO.crearPregunta(preguntaAprox,listaRespuestas);
+
 
         List<Preguntas> listaTodo = preguntasDAO.buscarTodos();
         for (Preguntas preguntas : listaTodo) {
