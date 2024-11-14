@@ -1,5 +1,7 @@
 package model;
 
+import model.ABM.PreguntaOpcionDAO;
+
 @SuppressWarnings("FieldMayBeFinal")
 public class PreguntaOpcion extends Preguntas {
 
@@ -19,10 +21,15 @@ public class PreguntaOpcion extends Preguntas {
         this.opcion_d = opcion_d;
         this.respuesta_correcta = respuestaCorrecta;
     }
+    //Usado por abm
+    public PreguntaOpcion(String pregunta){
+        super(pregunta,"Opcion multiple", 1);
+    }
 
-    public PreguntaOpcion(String pregunta, String tipoPregunta ,String opcion_a, String opcion_b,
+
+    public PreguntaOpcion(String pregunta,String opcion_a, String opcion_b,
     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
-        super(pregunta,tipoPregunta,id_tema);
+        super(pregunta,"Opcion multiple",id_tema);
         this.opcion_a = opcion_a;
         this.opcion_b = opcion_b;
         this.opcion_c = opcion_c;
@@ -30,9 +37,9 @@ public class PreguntaOpcion extends Preguntas {
         this.respuesta_correcta = respuestaCorrecta;
     }
 
-    public PreguntaOpcion(String preguntaTexto, String tipoPregunta, String opcion_a2, String opcion_b2,
+    public PreguntaOpcion(String preguntaTexto, String opcion_a2, String opcion_b2,
             String opcion_c2, String opcion_d2, int idTema) {
-        super( preguntaTexto, tipoPregunta, idTema);
+        super( preguntaTexto,"Opcion multiple" , idTema);
         this.opcion_a = opcion_a2;
         this.opcion_b = opcion_b2;
         this.opcion_c = opcion_c2;
@@ -40,8 +47,8 @@ public class PreguntaOpcion extends Preguntas {
         
     }
     //Constructor usado en ABM
-    public PreguntaOpcion(int idPregunta, String preguntaTexto, String string, String string0, String string1, String string2, String string3, Object object, int idTema) {
-        super(idPregunta, preguntaTexto, string, idTema);
+    public PreguntaOpcion(int idPregunta, String preguntaTexto, String string0, String string1, String string2, String string3, Object object, int idTema) {
+        super(idPregunta, preguntaTexto,"Opcion multiple", idTema);
         this.opcion_a = string0;
         this.opcion_b = string1;
         this.opcion_c = string2;
@@ -54,6 +61,7 @@ public class PreguntaOpcion extends Preguntas {
     public void imprimirPregunta(){
         System.out.println("\tId: "+this.getId_pregunta());
         System.out.println("\tPregunta: "+this.getPregunta());
+        System.out.println("\tTipo Pregunta: "+this.getTipo_preg());
         System.out.println("\tOpcion A: "+this.opcion_a);
         System.out.println("\tOpcion B: "+this.opcion_b);
         System.out.println("\tOpcion C: "+this.opcion_c);

@@ -12,18 +12,23 @@ public class Tema {
     private List<Preguntas> preguntas;
     private int CantidadPreguntas;
 
-    public Tema(){
-        
-    }
-
-    
 
     public Tema(String nombre, List<Preguntas> preguntas) {
         this.nombre_tema = nombre;
         this.preguntas = preguntas;
     }
 
+    //Constructor que usa team ABM para generar un nuevo tema de manera local
+    public Tema(String nombre){
+        this.nombre = nombre;
+    }
 
+    //Constructor que usa team ABM para traer de la bd un tema
+    public Tema(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+        this.CantidadPreguntas = 0;
+    }
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
@@ -31,6 +36,7 @@ public class Tema {
         this.nombre_tema = tema;
     }
 
+<<<<<<< HEAD
     public Tema(int id, String nombre) {
         this.id_tema = id;
         this.nombre_tema = nombre;
@@ -42,6 +48,8 @@ public class Tema {
         this.nombre_tema = nombre;
         CantidadPreguntas = cantidadPreguntas;
     }
+=======
+>>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
 
     // devuelve una pregunta random
     public PreguntaOpcion sacarPreguntaOp(){
@@ -56,9 +64,12 @@ public class Tema {
     }
 
     //Getters y Setters
+<<<<<<< HEAD
     public String getTema() {
         return this.nombre_tema;
     }
+=======
+>>>>>>> 4139275b255ea57a5f455b048fca28030fbb90f2
     public void setNombre(String nombreTema) {
         this.nombre_tema = nombreTema;
     }

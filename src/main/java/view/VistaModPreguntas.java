@@ -4,16 +4,20 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.ControladorModCategoria;
 import controller.ControladorCreacionPreguntas;
+import model.ABM.PreguntaOpcionDAO;
 
 public class VistaModPreguntas extends VistaModPadre{
 	private String encabezado [] = {"ID", "Preguntas"};
 	private DefaultTableModel tablaNueva = new DefaultTableModel(null, encabezado);
+	private String numerocategoria;
 
-	public VistaModPreguntas(ControladorModCategoria c) {
+
+	public VistaModPreguntas(ControladorModCategoria c, String id) {
 		super(c);
 		setVisible(true);
 		actuailizarTabla();
 		botones();
+		this.numerocategoria = id;
 	}
 
 	
@@ -32,7 +36,7 @@ public class VistaModPreguntas extends VistaModPadre{
 	public void botones() {
 		this.getBtnBorrar().addActionListener(null);
 		this.getBtnCrear().addActionListener(e->{
-			new ControladorCreacionPreguntas();
+			new ControladorCreacionPreguntas(numerocategoria);
 		});
 		this.getBtnEditar().addActionListener(null);
 		this.getBtnSalir().addActionListener(e-> {
@@ -50,4 +54,11 @@ public class VistaModPreguntas extends VistaModPadre{
 	public void setTablaNueva(DefaultTableModel tablaNueva) {
 		this.tablaNueva = tablaNueva;
 	}
+
+	public String getNumcategoria(){
+		return this.numerocategoria;
+	}
+
+	
+	
 }
