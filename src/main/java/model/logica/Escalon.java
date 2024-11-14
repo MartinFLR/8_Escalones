@@ -39,6 +39,7 @@ public class Escalon {
     }
     public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
         this.escalon++;
+        this.estadoDeRonda.setRondaNormal();//setea la ronda correspondiente segun el num del escalon.
         this.resetAciertosyErrores();
         if (this.escalon==8){
             this.repartirPreguntasFinal();
@@ -86,14 +87,17 @@ public class Escalon {
             
             // Repite la ronda de desempate hasta que quede uno
             while(participantesAEliminar.size()>1){
-                this.estadoDeRonda.rondaDePreguntas(participantesAEliminar);
+                //this.estadoDeRonda.rondaDePreguntas(participantesAEliminar);
+                this.estadoDeRonda.setRondaDeEmpate(participantesAEliminar);
             }
             this.participantes.remove(participantesAEliminar.getFirst());
-            this.estadoDeRonda.setRondaNormal();
-        }else{
+            this.subeEscalon();//sube el escalon y setea la ronda correspondiente
+            }
+        else{
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
             this.eliminoParticipantes(participantesAEliminar, participantes);
+            this.subeEscalon();//sube el escalon y setea la ronda correspondiente
         }
     }
 
