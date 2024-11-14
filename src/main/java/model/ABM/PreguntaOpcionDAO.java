@@ -1,5 +1,7 @@
 package model.ABM;
+import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.Respuesta;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,27 +34,50 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-    public static void crearRespuesta(String respuestaTexto, int idPregunta, boolean respuestaCorrecta) {
-        String query = "INSERT INTO respuestas (respuesta, id_pregunta, respuesta_correcta) VALUES (?, ?, ?)";
-    
+    public void crearPregunta(PreguntaOpcion nuevaPregunta, List<Respuesta> respuestas) {
+        String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
+                + "VALUES (?, ?, ?)";
+
+        String queryRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) "
+                + "VALUES (?, ?, ?)"; // No incluimos id_respuesta
+
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
-    
-            pstmt.setString(1, respuestaTexto);
-            pstmt.setInt(2, idPregunta);
-            pstmt.setBoolean(3, respuestaCorrecta);
-    
-            int rowsAffected = pstmt.executeUpdate();
-    
-            if (rowsAffected > 0) {
-                System.out.println("Respuesta creada exitosamente.");
-            } else {
-                System.out.println("No se pudo crear la respuesta.");
+             PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement stmtRespuesta = connection.prepareStatement(queryRespuesta)) {
+
+            connection.setAutoCommit(false);
+
+            // Insertar la nueva pregunta
+            stmtPregunta.setString(1, nuevaPregunta.getPregunta());
+            stmtPregunta.setInt(2, 1);  // id_tipopregunta debe ser válido
+            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());  // id_tema debe ser válido
+            stmtPregunta.executeUpdate();
+
+            // Obtener el ID de la pregunta recién insertada
+            try (ResultSet rs = stmtPregunta.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idPregunta = rs.getInt(1);  // Obtener el ID de la nueva pregunta
+
+                    // Insertar las respuestas asociadas
+                    for (Respuesta respuesta : respuestas) {
+                        stmtRespuesta.setInt(1, idPregunta);  // Establecer el ID de la pregunta
+                        stmtRespuesta.setString(2, respuesta.getRespuesta());
+                        stmtRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
+                        stmtRespuesta.addBatch();  // Usamos batch para insertar varias respuestas
+                    }
+
+                    // Ejecutar el batch para insertar todas las respuestas
+                    stmtRespuesta.executeBatch();
+
+                    // Commit de la transacción
+                    connection.commit();
+                }
             }
-    
         } catch (SQLException e) {
-            System.err.println("Error al crear la respuesta: " + e.getMessage());
+            e.printStackTrace();
+
         }
+
     }
     
     
@@ -155,26 +180,26 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-    public static void crearPregunta(String pregunta, int idTema, int idTipoPregunta) {
-        String query = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
-    
-        try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
-    
-            pstmt.setString(1, pregunta);
-            pstmt.setInt(2, idTema);
-            pstmt.setInt(3, idTipoPregunta);
-    
-            int rowsAffected = pstmt.executeUpdate();
-    
-            if (rowsAffected > 0) {
-                System.out.println("Pregunta creada exitosamente.");
-            } else {
-                System.out.println("No se pudo crear la pregunta.");
-            }
-    
-        } catch (SQLException e) {
-            System.err.println("Error al crear la pregunta: " + e.getMessage());
-        }
-    }
+//    public static void crearPregunta(String pregunta, int idTema, int idTipoPregunta) {
+//        String query = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
+//
+//        try (Connection connection = Database.getInstance().getConnection();
+//             PreparedStatement pstmt = connection.prepareStatement(query)) {
+//
+//            pstmt.setString(1, pregunta);
+//            pstmt.setInt(2, idTema);
+//            pstmt.setInt(3, idTipoPregunta);
+//
+//            int rowsAffected = pstmt.executeUpdate();
+//
+//            if (rowsAffected > 0) {
+//                System.out.println("Pregunta creada exitosamente.");
+//            } else {
+//                System.out.println("No se pudo crear la pregunta.");
+//            }
+//
+//        } catch (SQLException e) {
+//            System.err.println("Error al crear la pregunta: " + e.getMessage());
+//        }
+//    }
 }

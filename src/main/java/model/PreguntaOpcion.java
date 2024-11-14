@@ -1,5 +1,7 @@
 package model;
 
+import model.ABM.PreguntaOpcionDAO;
+
 @SuppressWarnings("FieldMayBeFinal")
 public class PreguntaOpcion extends Preguntas {
     private String opcion_a;
@@ -18,6 +20,11 @@ public class PreguntaOpcion extends Preguntas {
         this.opcion_d = opcion_d;
         this.respuesta_correcta = respuestaCorrecta;
     }
+    //Usado por abm
+    public PreguntaOpcion(String pregunta){
+        super(pregunta,"Opcion multiple", 1);
+    }
+
 
     public PreguntaOpcion(String pregunta,String opcion_a, String opcion_b,
     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){

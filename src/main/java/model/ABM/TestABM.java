@@ -19,18 +19,28 @@ public class TestABM {
         AdminDAO adminDAO = new AdminDAO();
         PreguntasDAO preguntasDAO = new PreguntasDAO();
 
-        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("quien es alditasdasdo",2);
-        ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
-        Respuesta respuesta = new Respuesta("el mismisimo aldoasdasdasdasd",false);
-        Respuesta respuesta1 = new Respuesta("un pasdaanchasdasdo",true);
-        Respuesta respuesta2 = new Respuesta("usasdasn casdaapo",false);
-        Respuesta respuesta3 = new Respuesta("alasdasdasdasddo",false);
-        listaRespuestas.add(respuesta);
-        listaRespuestas.add(respuesta1);
-        listaRespuestas.add(respuesta2);
-        listaRespuestas.add(respuesta3);
+        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("cuantos años tiene aldo");
+       ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
+       Respuesta respuesta1 = new Respuesta("10",true);
 
-        preguntaAproximacionDAO.crearPregunta(preguntaAprox,listaRespuestas);
+       listaRespuestas.add(respuesta1);
+
+//        Id: 32
+//        Pregunta: quien es aldo
+//        Tipo Pregunta: Aproximacion
+//        Respuesta correcta: un pancho
+
+//        PreguntaOpcion preguntaOpcion = new PreguntaOpcion("Hola soy pregunta opcion");
+//        ArrayList<Respuesta> listaRespuestasOpcion = new ArrayList<>();
+//        Respuesta respuesta11 = new Respuesta("opcion1",false);
+//        Respuesta respuesta22 = new Respuesta("opcionasa",true);
+//        Respuesta respuesta33 = new Respuesta("opcion mala",false);
+//        Respuesta respuesta44 = new Respuesta("opcion aldo",false);
+//        listaRespuestasOpcion.add(respuesta11);
+//        listaRespuestasOpcion.add(respuesta22);
+//        listaRespuestasOpcion.add(respuesta33);
+//        listaRespuestasOpcion.add(respuesta44);
+//        preguntaOpcionDAO.crearPregunta(preguntaOpcion,listaRespuestasOpcion);
 
 
         List<Preguntas> listaTodo = preguntasDAO.buscarTodos();
