@@ -15,7 +15,7 @@ import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 
 public class Tests {
-    @SuppressWarnings({ "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
+    @SuppressWarnings({ "unused", "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
     public static void main(String[] args) {
         TemasDAO abmTemas = new TemasDAO();
         ParticipantesDAO abmPart = new ParticipantesDAO();
@@ -32,7 +32,6 @@ public class Tests {
         List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
         List<PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
         List<Preguntas> listaPreguntas = new ArrayList<>();
-        List<Participante> top10 = ParticipantesDAO.Ranking();
 
         listaPreguntas.addAll(listaPreguntaAproximacion);
         listaPreguntas.addAll(listaPreguntaOp);
@@ -59,15 +58,6 @@ public class Tests {
             System.out.println("Participante: " + p.getNombre());
             System.out.println("Veces ganadas: " + p.getVecesGanadas());
         }
-
-        System.out.println("Top 10 participantes: ");
-        System.out.println("Nombre            Veces Ganadas");
-        for (Participante participante : top10) {
-            System.out.println(participante.getNombre()+ "       " + participante.getVecesGanadas());
-
-        }
-
-
 
         // aca pueden probar cada uno y funcionan(con la bdv6)
 

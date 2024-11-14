@@ -2,9 +2,10 @@ package model.ABM;
 
 //Sincronizacion general
 
-import model.*;
+import model.Participante;
+import model.Preguntas;
+import model.Tema;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TestABM {
@@ -19,43 +20,10 @@ public class TestABM {
         AdminDAO adminDAO = new AdminDAO();
         PreguntasDAO preguntasDAO = new PreguntasDAO();
 
-        PreguntaAproximacion preguntaAprox = new PreguntaAproximacion("cuantos años tiene aldo",4);
-       ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
-       Respuesta respuesta1 = new Respuesta("10",true);
-
-       listaRespuestas.add(respuesta1);
-
-//        Id: 32
-//        Pregunta: quien es aldo
-//        Tipo Pregunta: Aproximacion
-//        Respuesta correcta: un pancho
-
-//        PreguntaOpcion preguntaOpcion = new PreguntaOpcion("Hola soy pregunta opcion");
-//        ArrayList<Respuesta> listaRespuestasOpcion = new ArrayList<>();
-//        Respuesta respuesta11 = new Respuesta("opcion1",false);
-//        Respuesta respuesta22 = new Respuesta("opcionasa",true);
-//        Respuesta respuesta33 = new Respuesta("opcion mala",false);
-//        Respuesta respuesta44 = new Respuesta("opcion aldo",false);
-//        listaRespuestasOpcion.add(respuesta11);
-//        listaRespuestasOpcion.add(respuesta22);
-//        listaRespuestasOpcion.add(respuesta33);
-//        listaRespuestasOpcion.add(respuesta44);
-//        preguntaOpcionDAO.crearPregunta(preguntaOpcion,listaRespuestasOpcion);
-
-
         List<Preguntas> listaTodo = preguntasDAO.buscarTodos();
         for (Preguntas preguntas : listaTodo) {
             preguntas.imprimirPregunta();
-        }//abajo se prueba modificar pregunta
-
-        // ArrayList<Respuesta> resp = new ArrayList<>();
-        // resp.add(new Respuesta("pene", false));
-        // resp.add(new Respuesta("pene", false));
-        // resp.add(new Respuesta("pene", false));
-        // resp.add(new Respuesta("pene", true));
-
-        // PreguntaOpcion nuevaPre = new PreguntaOpcion("Comida favorita de martin",  1, resp);
-        // preguntaOpcionDAO.modificar(5, nuevaPre);
+        }
 
         //Prueba Participante
 //        Participante participante = new Participanste("Aldo");

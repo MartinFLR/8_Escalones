@@ -10,8 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -65,7 +67,6 @@ public class VistaPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		
 		//---PANELES (VENTANAS EXTRAS)
 		
 		panelAyuda = new JPanel();
@@ -95,6 +96,7 @@ public class VistaPrincipal extends JFrame {
 		btnJugar.setBounds(1004, 191, 250, 60);
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
+		btnJugar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		btnOpciones = new JButton("OPCIONES");
 		btnOpciones.setBounds(1004, 262, 250, 60);		
