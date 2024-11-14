@@ -1,26 +1,18 @@
 package view;
 
-import controller.ControladorMod;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
+import controller.ControladorModCategoria;
 
-public class VistaMod extends JFrame{
-
-	private ControladorMod c;
-	private JPanel contentPane;
+public class VistaMod extends VistaModPadre {
+	private ControladorModCategoria c;
 	
-	public VistaMod (ControladorMod c) {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		
+	public VistaMod(ControladorModCategoria c) {
+		super(c);
 	}
 	
+	
+	
+
 }

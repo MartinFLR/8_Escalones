@@ -1,8 +1,11 @@
 package model.logica;
 
+import java.util.List;
+
+import model.Participante;
 
 public interface EstadoRonda {
-    //Capaz tengamos que agregar List[Participante] como parametro
+    
     //para que el estado pueda manejar la ronda de preguntas
-    public void rondaDePreguntas(Ronda ronda);
+    public void rondaDePreguntas(Ronda ronda,List<Participante> participantes);
 }

@@ -13,6 +13,7 @@ public class ControladorOpciones implements ActionListener{
 	public ControladorOpciones() {
 		this.vista = new VistaOpciones(this);
 		this.vista.setVisible(true);
+		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
 	}
 
 	@Override
