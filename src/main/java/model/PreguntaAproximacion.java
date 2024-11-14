@@ -3,6 +3,7 @@ package model;
 public class PreguntaAproximacion extends Preguntas{
     
     private String respuesta_correcta;
+    private Respuesta respuesta;
 
     //Constructores
     public PreguntaAproximacion(String pregunta){

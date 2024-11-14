@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import model.ABM.PreguntaOpcionDAO;
 
 @SuppressWarnings("FieldMayBeFinal")
@@ -10,6 +12,7 @@ public class PreguntaOpcion extends Preguntas {
     private String opcion_c;
     private String opcion_d;
     private String respuesta_correcta;
+    private ArrayList<Respuesta> respuestas = new ArrayList<>();
 
     //Constructores
     public PreguntaOpcion(String pregunta,int id_tema ,String tipoPregunta,String opcion_a, String opcion_b,
@@ -25,7 +28,11 @@ public class PreguntaOpcion extends Preguntas {
     public PreguntaOpcion(String pregunta){
         super(pregunta,"Opcion multiple", 1);
     }
-
+    //para modificar preguntas y respuestas, se usa en PreguntaOpcionDAO
+    public PreguntaOpcion(String pregunta, String tipo_preg, int id_tema, ArrayList<Respuesta> respuestas) {
+        super(pregunta, "Opcion multiple", 1);
+        this.respuestas = respuestas;
+    }
 
     public PreguntaOpcion(String pregunta,String opcion_a, String opcion_b,
     String opcion_c, String opcion_d, String respuestaCorrecta, int id_tema){
@@ -107,6 +114,10 @@ public class PreguntaOpcion extends Preguntas {
 
     public void setRespuestaCorrecta(String respuestaCorrecta){
         this.respuesta_correcta = respuestaCorrecta;
+    }
+
+    public Respuesta getRespuesta(){
+        return this.respuestas.remove(0);
     }
 
 }

@@ -157,7 +157,50 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-    public void modificar(int id, PreguntaOpcion nuevaPregunta) {
+
+    //busca respuestas para el id_pregunta, se usa para modificar las respuestas de id_pregunta
+    private List<Integer> buscaIdRespuestas(int id_pregunta){
+
+        List<Integer> respuestas = new ArrayList<>();
+        String sql = "SELECT r.id_respuesta FROM respuestas r JOIN preguntas p ON p.id_pregunta=r.id_pregunta WHERE p.id_pregunta = ? ";
+        try(Connection conn = Database.getInstance().getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, id_pregunta);
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){
+                    respuestas.add(rs.getInt("id_respuesta"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudo encontrar respuestas para id_pregunta: " + id_pregunta + e.getMessage() );
+        }
+        return respuestas;
+
+    }
+
+    //aca Respuesta(objeto) se utiliza el constructor sin id_respuesta, que contiene la respuesta y si es correcta
+    private void modificarOpciones(int id_respuesta, Respuesta nuevaRespuesta, int idpregunta){
+        String sql = "UPDATE respuestas SET respuesta = ?, respuesta_correcta = ? WHERE id_respuesta = ? AND id_pregunta = ? ";
+        try(Connection conn = Database.getInstance().getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nuevaRespuesta.getRespuesta());
+            pstmt.setBoolean(2, nuevaRespuesta.isRespuestaCorrecta());
+            pstmt.setInt(3, id_respuesta);
+            pstmt.setInt(4, idpregunta);
+            
+            int rowsAffected = pstmt.executeUpdate();
+            if(rowsAffected>0){
+                System.out.println("Se modificaron las respuestas de id_pregunta: " + idpregunta + " con exito" );
+            } else{
+                System.out.println("No se modificaron respuestas para id_pregunta: " + idpregunta);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al intentar modificar respuestas de id_pregunta: " + idpregunta + e.getMessage());
+        }
+    }
+
+    //aca nuevaPregunta deberia tener ya el arreglo de respuestas usando el constructor con arraylist de respuestas
+    public void modificar(int id_pregunta, PreguntaOpcion nuevaPregunta) {
         String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
 
         try (Connection connection = Database.getInstance().getConnection();
@@ -165,11 +208,17 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
             statement.setString(1, nuevaPregunta.getPregunta());
             statement.setInt(2, nuevaPregunta.getIdTema());
-            statement.setInt(3, id);
+            statement.setInt(3, id_pregunta);
 
             int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
+            if (rowsAffected > 0) {// aca se modifican las respuestas para la pregunta
+                List<Integer> id_respuestas = buscaIdRespuestas(id_pregunta);
                 System.out.println("Pregunta modificada con éxito.");
+
+                for (Integer integer : id_respuestas) {
+                    modificarOpciones(integer, nuevaPregunta.getRespuesta(), id_pregunta);
+                }
+                
             } else {
                 System.out.println("Pregunta no encontrada para modificar.");
             }

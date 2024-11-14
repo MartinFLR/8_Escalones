@@ -161,12 +161,15 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
     
     }
 
+    
     private void modificarRespuesta(PreguntaAproximacion pregunta){
         String sql = "UPDATE respuestas SET respuesta_correcta = ? WHERE preguntas.id_pregunta = ?";
         try (Connection conn = Database.getInstance().getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
+
             pstmt.setString(1, pregunta.getRespuestaCorrecta());
             pstmt.setInt(2, pregunta.getId_pregunta());
+
             try(ResultSet rs = pstmt.executeQuery()){
                 if(rs.rowUpdated()){
                     System.out.println("Respuesta modificada");
