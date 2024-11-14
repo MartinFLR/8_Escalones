@@ -1,15 +1,14 @@
 package model;
 
 public abstract class Preguntas {
-    
-    protected final  String pregunta;
-    protected String tipo_preg;
-    protected int id_pregunta;
-    protected int idTema;
+    private final  String pregunta;
+    private String tipo_preg;
+    private int id;
+    private final int idTema;
 
     //Para traer de la bd
     public Preguntas(int id,String pregunta,String tipo_preg, int id_tema) {
-        this.id_pregunta = id;
+        this.id = id;
         this.pregunta = pregunta;
         this.tipo_preg = tipo_preg;
         this.idTema = id_tema;
@@ -26,6 +25,10 @@ public abstract class Preguntas {
         return pregunta;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getTipo_preg() {
         return tipo_preg;
     }
@@ -35,15 +38,12 @@ public abstract class Preguntas {
     }
 
     public int getId_pregunta() {
-        return id_pregunta;
+        return id;
     }
 
     public int getIdTema() {
         return idTema;
     }
     public abstract String getRespuestaCorrecta();
-
-    public void setIdTema(int idTema) {
-        this.idTema = idTema;
-    }
+    
 }

@@ -6,8 +6,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 public class Participante {
-    private int id_participante;
-    private String nombre_participante;//fijarse que no pueda tener el mismo nombre que otro participante
+    private int id;
+    private String nombre;//fijarse que no pueda tener el mismo nombre que otro participante
     private final List<PreguntaOpcion> preguntas = new ArrayList<>();
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
@@ -22,22 +22,17 @@ public class Participante {
 
     // Constructor sin id para crear el objeto desde local
     public Participante(String nombre) {
-        this.nombre_participante = nombre;
+        this.nombre = nombre;
         this.img = img;
     }
 
     // Constructor con id para cuando generamos los objetos desde bd
     public Participante(int id, String nombre, int veces_ganadas) {
-        this.id_participante = id;
-        this.nombre_participante = nombre;
+        this.id = id;
+        this.nombre = nombre;
         this.vecesGanadas=veces_ganadas;
     }
     
-    public Participante(String nombre, int vecesGanadas) {
-        this.nombre_participante=nombre;
-        this.vecesGanadas=vecesGanadas;
-    }
-
     //Metodos
     public void sumaAcierto(){
         this.cantAciertos++;
@@ -51,7 +46,7 @@ public class Participante {
     
     //Getters y Setters
     public String getNombre() {
-        return nombre_participante;
+        return nombre;
     }
     public String getRespuestaParticipante() {
         return respuestaParticipante;
@@ -88,10 +83,10 @@ public class Participante {
         return numEscalon;
     }
     public int getId() {
-        return id_participante;
+        return id;
     }
     public void setId(int id) {
-        this.id_participante = id;
+        this.id = id;
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;
@@ -110,7 +105,7 @@ public class Participante {
     }
 
     public void setNombre(String nombre) {
-        this.nombre_participante = nombre;
+        this.nombre = nombre;
     }
     
     public List<PreguntaOpcion> getPreguntas() {

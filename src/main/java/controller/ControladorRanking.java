@@ -28,7 +28,7 @@ public class ControladorRanking implements ActionListener{
 	}
 	
 	public void rellenarTablas() {
-		List<Participante> participantes = ParticipantesDAO.Ranking();
+		List<Participante> participantes = getParticipante().datosRanking();
 		getVista().getDefTableModel().setRowCount(0);
 		
 		for (Participante participante : participantes) {

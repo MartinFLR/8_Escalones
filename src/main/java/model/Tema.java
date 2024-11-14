@@ -5,8 +5,8 @@ import java.util.Random;
 import model.*;
 
 public class Tema {
-    private int id_tema;
-    private String nombre_tema;
+    private int id;
+    private String nombre;
     private List<PreguntaOpcion> preguntasOp;
     private List<PreguntaAproximacion> pregsAproximacion;
     private List<Preguntas> preguntas;
@@ -14,26 +14,26 @@ public class Tema {
 
 
     public Tema(String nombre, List<Preguntas> preguntas) {
-        this.nombre_tema = nombre;
+        this.nombre = nombre;
         this.preguntas = preguntas;
     }
 
     //Constructor que usa team ABM para generar un nuevo tema de manera local
     public Tema(String nombre){
-        this.nombre_tema = nombre;
+        this.nombre = nombre;
     }
 
     //Constructor que usa team ABM para traer de la bd un tema
     public Tema(int id, String nombre) {
-        this.id_tema = id;
-        this.nombre_tema = nombre;
+        this.id = id;
+        this.nombre = nombre;
         this.CantidadPreguntas = 0;
     }
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntasOp = preguntas;
-        this.nombre_tema = tema;
+        this.nombre = tema;
     }
 
 
@@ -51,7 +51,7 @@ public class Tema {
 
     //Getters y Setters
     public void setNombre(String nombreTema) {
-        this.nombre_tema = nombreTema;
+        this.nombre = nombreTema;
     }
     public List<Preguntas> getPreguntas() {
         return preguntas;
@@ -66,13 +66,13 @@ public class Tema {
         this.pregsAproximacion = pregsAproximacion;
     }
     public int getId() {
-        return id_tema;
+        return id;
     }
     public String getNombre() {
-        return nombre_tema;
+        return nombre;
     }
     public void setId(Integer id){
-        this.id_tema = id;
+        this.id = id;
     }
 
     public void setCantidadPreguntas(Integer Cantidad){

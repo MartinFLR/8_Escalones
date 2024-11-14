@@ -100,7 +100,7 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public void modificarVecesGanadas(String nombreParticipante, Integer cantidad) {
+    public void modificarVecesGanadas( String nombreParticipante, Integer cantidad) {
 
         String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
@@ -108,6 +108,7 @@ public class ParticipantesDAO implements DAO<Participante> {
 
             pstmt.setInt(1, cantidad);
             pstmt.setString(2, nombreParticipante);
+            
 
             pstmt.executeUpdate();
             System.out.println("Veces ganadas modificada con exito");
@@ -115,28 +116,33 @@ public class ParticipantesDAO implements DAO<Participante> {
             System.err.println("Error al modificar veces ganadas: " + e.getMessage());
         }
     }
-
-    public static List<Participante> Ranking(){
-        List<Participante> top10participantes = new ArrayList<>();
-        String sql = "SELECT p.nombre, p.veces_ganadas FROM participantes p GROUP BY p.nombre, p.veces_ganadas ORDER BY p.veces_ganadas DESC LIMIT 10;";
-        {
+    
+    public List<Participante> datosRanking() {
+    	List<Participante> participantes = new ArrayList<>();
+    	
+    	String query = "SELECT p.id AS ID, p.nombre AS Nombre, p.veces_ganadas AS veces_ganadas " +
+    			       "FROM participantes AS p " +
+    			       "ORDER BY p.veces_ganadas DESC";
+    	
         try (Connection conn = Database.getInstance().getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery()){
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query)) {
 
-            while(rs.next()){
-                top10participantes.add(new Participante(rs.getString("nombre"), rs.getInt("veces_ganadas")));
-            }
-            
-        } catch (SQLException e) {
-           System.out.println("Error al formar ranking: " + e.getMessage());
-        }
+               while (rs.next()) {
+                   int id = rs.getInt("ID");
+                   String nombre = rs.getString("Nombre");
+                   int cantVecesGanadas= rs.getInt("veces_ganadas");
 
+                   participantes.add(new Participante(id, nombre, cantVecesGanadas));   
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+
+    	return participantes;
     }
-    return top10participantes;
-    }
 
-        private Boolean existeParticipante(Participante participante) {
+    private Boolean existeParticipante(Participante participante) {
         String query = "SELECT * FROM participantes WHERE nombre = ?";
 
         try (Connection conn = Database.getInstance().getConnection();
@@ -153,5 +159,4 @@ public class ParticipantesDAO implements DAO<Participante> {
             return false;
         }
     }
-    
 }
