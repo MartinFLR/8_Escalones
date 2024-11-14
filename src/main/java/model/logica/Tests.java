@@ -15,7 +15,7 @@ import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 
 public class Tests {
-    @SuppressWarnings({ "unused", "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
+    @SuppressWarnings({ "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
     public static void main(String[] args) {
         TemasDAO abmTemas = new TemasDAO();
         ParticipantesDAO abmPart = new ParticipantesDAO();
@@ -32,6 +32,7 @@ public class Tests {
         List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
         List<PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
         List<Preguntas> listaPreguntas = new ArrayList<>();
+        List<Participante> top10 = ParticipantesDAO.Ranking();
 
         listaPreguntas.addAll(listaPreguntaAproximacion);
         listaPreguntas.addAll(listaPreguntaOp);
@@ -44,20 +45,29 @@ public class Tests {
         System.out.println(aldito.getNombre()+" "+aldito.getContrasenia());
 
         for (Tema tema : listaTemas) {
-            System.out.println(tema.getId()+" "+tema.getTema());
+            System.out.println(tema.getId()+" "+tema.getNombre());
         }
 
         model.Tema tema = new Tema (listaPreguntaAproximacion, listaPreguntaOp, "Tema 1");
         Escalon escalon = new Escalon();
         escalon.setTema(tema);
         for (model.Participante participante : listaParticipantes) {
-            escalon.agregaParticipante(new model.Participante(participante.getNombre()));
+            //escalon.agregaParticipante(new model.Participante(participante.getNombre()));
         }
 
         for(Participante p : listaParticipantes){
             System.out.println("Participante: " + p.getNombre());
             System.out.println("Veces ganadas: " + p.getVecesGanadas());
         }
+
+        System.out.println("Top 10 participantes: ");
+        System.out.println("Nombre            Veces Ganadas");
+        for (Participante participante : top10) {
+            System.out.println(participante.getNombre()+ "       " + participante.getVecesGanadas());
+
+        }
+
+
 
         // aca pueden probar cada uno y funcionan(con la bdv6)
 
@@ -118,12 +128,12 @@ public class Tests {
             System.out.println("[X] La pregunta fue eliminada correctamente");
         }
     }
-    public static void testClaseEscalon(Tema tema,List<Participante> listaParticipantes,Escalon escalon){
+    /*public static void testClaseEscalon(Tema tema,List<Participante> listaParticipantes,Escalon escalon){
         System.out.println("\nProbando clase Escalon\n");
         //Prueba repartir preguntas, suma errores a un participante y prubea la funcion de filtrar participantes
         escalon.setTema(tema);
         for (Participante participante : listaParticipantes) {
-            escalon.agregaParticipante(new Participante(participante.getNombre()));
+            escalon.agregaParticipante(//new Participante(participante.getNombre()));
         }
 
         System.out.println("---------Datos originales---------");
@@ -140,7 +150,7 @@ public class Tests {
         //Pruebas opcionales
         // testEstadoRondaFinal(escalon);
         // testEstadoRondaEmpate(escalon);
-    }
+    }*/
     public static void testEstadoRondaFinal(Escalon escalon){
         System.out.println("---------Prueba de cambio a ronda final---------");
         System.out.println("Escalon: "+ escalon.getEscalon());

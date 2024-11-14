@@ -5,43 +5,37 @@ import java.util.Random;
 import model.*;
 
 public class Tema {
-    private int id;
-    private String nombre;
+    private int id_tema;
+    private String nombre_tema;
     private List<PreguntaOpcion> preguntasOp;
     private List<PreguntaAproximacion> pregsAproximacion;
     private List<Preguntas> preguntas;
     private int CantidadPreguntas;
 
-    public Tema(){
-        
-    }
-
-    
 
     public Tema(String nombre, List<Preguntas> preguntas) {
-        this.nombre = nombre;
+        this.nombre_tema = nombre;
         this.preguntas = preguntas;
     }
 
+    //Constructor que usa team ABM para generar un nuevo tema de manera local
+    public Tema(String nombre){
+        this.nombre_tema = nombre;
+    }
 
+    //Constructor que usa team ABM para traer de la bd un tema
+    public Tema(int id, String nombre) {
+        this.id_tema = id;
+        this.nombre_tema = nombre;
+        this.CantidadPreguntas = 0;
+    }
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntasOp = preguntas;
-        this.nombre = tema;
+        this.nombre_tema = tema;
     }
 
-    public Tema(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-        this.CantidadPreguntas = 0;
-    }
-    
-    public Tema(int id, String nombre, int cantidadPreguntas) {
-        this.id = id;
-        this.nombre = nombre;
-        CantidadPreguntas = cantidadPreguntas;
-    }
 
     // devuelve una pregunta random
     public PreguntaOpcion sacarPreguntaOp(){
@@ -56,11 +50,8 @@ public class Tema {
     }
 
     //Getters y Setters
-    public String getTema() {
-        return this.nombre;
-    }
     public void setNombre(String nombreTema) {
-        this.nombre = nombreTema;
+        this.nombre_tema = nombreTema;
     }
     public List<Preguntas> getPreguntas() {
         return preguntas;
@@ -75,13 +66,13 @@ public class Tema {
         this.pregsAproximacion = pregsAproximacion;
     }
     public int getId() {
-        return id;
+        return id_tema;
     }
     public String getNombre() {
-        return nombre;
+        return nombre_tema;
     }
     public void setId(Integer id){
-        this.id = id;
+        this.id_tema = id;
     }
 
     public void setCantidadPreguntas(Integer Cantidad){

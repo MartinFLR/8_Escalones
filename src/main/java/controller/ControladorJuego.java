@@ -8,14 +8,26 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
+import model.logica.Escalon;
+
+
 public class ControladorJuego implements ActionListener, KeyListener {
 	private VistaJuego vista;
+	private Escalon escalon;
 	
-	public ControladorJuego() {
+	public ControladorJuego(Escalon escalon) {
+		this.escalon = escalon;
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
+		poneNombres();
 	}
-	
+
+	public void poneNombres(){
+		for (int i = 0; i < 9; i++) {
+			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
+			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
+		}
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -42,13 +54,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		
 	}
 
-
-	public VistaJuego getVista() {
-		return vista;
-	}
-
-
-	public void setVista(VistaJuego vista) {
-		this.vista = vista;
-	}
+	
+	
 }
