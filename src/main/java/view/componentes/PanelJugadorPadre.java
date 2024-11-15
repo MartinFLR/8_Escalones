@@ -1,13 +1,11 @@
 package view.componentes;
 
 import java.awt.Color;
-import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 public abstract class PanelJugadorPadre extends JPanel{
 	
@@ -37,6 +35,9 @@ public abstract class PanelJugadorPadre extends JPanel{
 	public void setRespondiendo() {
 		setBackground(colorRespondiendo);
 		panelErrores.setBackground(colorRespondiendo);
+		//Cambie el color de la letra para mejorar el contraste
+		//Capaz cuando pase a responder otro, haya que revertir esto
+		this.lblnombreJugador.setForeground(Color.BLACK);
 	}
 	
 	public void setActivo() {

@@ -1,32 +1,23 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+
 import controller.ControladorJuego;
 import view.componentes.BotonPregunta;
 import view.componentes.PanelEscalon;
-import view.componentes.PanelJugadorNormal;
 import view.componentes.PanelJugadorFinal;
-
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JDesktopPane;
-import javax.swing.JFormattedTextField;
-import java.awt.GridLayout;
-import java.awt.Panel;
-import java.lang.reflect.Array;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.awt.Component;
-import java.awt.Dimension;
-import javax.swing.JTable;
+import view.componentes.PanelJugadorNormal;
 
 public class VistaJuego extends JFrame {
 
@@ -88,7 +79,9 @@ public class VistaJuego extends JFrame {
 			this.escalones.add(new PanelEscalon(i+1));
 			panelColumna.add(this.escalones.get(i));
 		}
-		
+		// Cambia el color del primer escalon por default
+		this.escalones.getFirst().setcolorUso();
+
 		//
 		// PANEL JUGADORES (FINAL)
 		//
@@ -202,6 +195,13 @@ public class VistaJuego extends JFrame {
 	}	
 	public ArrayList<PanelEscalon> getEscalones() {
 		return escalones;
+	}
+	//SET DE ESCALON EN USO
+	public void setEscalonUso(int nroEscalon) {
+		for (PanelEscalon panelEscalon : escalones) {
+			panelEscalon.setcolorNoUso();
+		}
+		escalones.get(nroEscalon).setcolorUso();
 	}
 
 	//GET DE LOS JUGADORES
