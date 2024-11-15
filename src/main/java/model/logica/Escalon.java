@@ -123,6 +123,9 @@ public class Escalon {
     public void setTema(Tema tema) {
         this.tema = tema;
     }
+    public Tema getTema() {
+        return this.tema;
+    }
     public int getEscalon() {
         return this.escalon;
     }
