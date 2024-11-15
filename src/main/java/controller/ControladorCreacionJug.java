@@ -72,11 +72,21 @@ public class ControladorCreacionJug {
 		new ControladorJuego(escalon);
 	}
 	//Asigna un tema random a un escalon
+	//se deberia llamar en cjto con subeEscalon
 	public void asignarTema(List<Tema> temas){
 		Random random = new Random();
-		int index = random.nextInt(0, temas.size());
+		if (this.escalon.getEscalon()==8){//le asigna el tema final al ultimo escalon. (el que contiene preguntas de cada tema)
+			//tiene que haber un tema final en la bd
+			for (Tema t: temas){
+				if(t.getNombre().equals("Final")){
+					escalon.setTema(t);
+				}
+			}
+			
+		}else{
+		int index = random.nextInt(0, temas.size()); 
 		this.escalon.setTema(temas.remove(index));
-	}
+	}}
 
 	
 	
