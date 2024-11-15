@@ -20,21 +20,23 @@ public class ControladorCreacionJug {
 
 	private final VistaCreacionJug vista;
 	private final Escalon escalon;
-	private Tema tema;
 	
 	public ControladorCreacionJug () {
 		this.vista = new VistaCreacionJug(this);
 		PreguntaOpcionDAO abmPregOp = new PreguntaOpcionDAO();
-		PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
 		List<PreguntaOpcion> listaPreguntasOp = abmPregOp.buscarTodos();
+		
+		PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
 		List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
+		
 		TemasDAO abmTemas = new TemasDAO();
 		List<Tema> listaTemas = abmTemas.buscarTodos();
+		
 		//Agrega a todos los temas todas las preguntas
 		//Sirve solo para probar
-		for(Tema tema : listaTemas){
-			tema.setPreguntasOp(listaPreguntasOp);
-			tema.setPregsAproximacion(listaPreguntaAproximacion);
+		for(Tema t : listaTemas){
+			t.setPreguntasOp(listaPreguntasOp);
+			t.setPregsAproximacion(listaPreguntaAproximacion);
 		}
 		//Agrega las preguntas a los temas por id
 		//Hay que usar esto cuando tengamos como minimo 18preg por tema 
@@ -45,8 +47,9 @@ public class ControladorCreacionJug {
 		Random random = new Random();
 		int index = random.nextInt(0, listaTemas.size());
 		escalon.setTema(listaTemas.get(random.nextInt(index)));
-		vista.getBtnJugar().addActionListener(e -> creaParticiapantes());
+		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
 	}
+
 	public void agregarPreguntasATemas(List<Tema> listaTemas, List<PreguntaOpcion> listaPreguntasOp, List<PreguntaAproximacion> listaPreguntaAproximacion){
 		for(Tema t : listaTemas){
 			for(PreguntaOpcion pregunta : listaPreguntasOp){
@@ -61,11 +64,12 @@ public class ControladorCreacionJug {
 			}
 		}
 	}
-	public void creaParticiapantes(){
+	public void creaParticipantes(){
 
 		for (int i = 0; i < 9; i++) {
 			Participante participante = new Participante(this.vista.getTxtJugador().get(i).getText());
 			participante.setImg((ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
+			participante.setNombre("Jugador "+i);
 			escalon.agregaParticipante(participante);
 		}
 		escalon.repartirPreguntas();
