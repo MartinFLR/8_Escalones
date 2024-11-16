@@ -82,8 +82,6 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
 
 
-
-
     private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
         

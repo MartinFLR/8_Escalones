@@ -117,29 +117,47 @@ public class ControladorModCategoria {
 			dialogoEliminar.add(btnSalir);
 			dialogoEliminar.setVisible(true);
 		});
-		
-		vista.getBtnEditar().addActionListener(e->{
-			int filaSeleccionada = this.vista.getTable().getSelectedRow();
+
+		vista.getBtnEditar().addActionListener(e -> {
+			int filaSeleccionada = vista.getTable().getSelectedRow();
 			if (filaSeleccionada != -1) {
-				try {
-					int idCategoria = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
-					System.out.println(idCategoria);
-					//Tema tema = new Tema()
-					//temasDAO.modificar(idCategoria);
+				int idCategoria = Integer.parseInt(vista.getTable().getValueAt(filaSeleccionada, 0).toString());
+				String nombreActual = vista.getTable().getValueAt(filaSeleccionada, 1).toString();
 
-					JOptionPane.showMessageDialog(this.vista, "Categoria modificada");
+				JDialog dialogoEditar = new JDialog();
+				dialogoEditar.setSize(400, 200);
+				dialogoEditar.setLayout(new GridLayout(4, 1));
+				dialogoEditar.setLocationRelativeTo(null);
+				dialogoEditar.setModal(true);
 
-					// Actualiza la tabla para reflejar los cambios
-					cargarTemasTablas();
-				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(this.vista, "Error al convertir el ID de la categoría a un número.", "Error", JOptionPane.ERROR_MESSAGE);
-				}
+				JLabel lblNombre = new JLabel("Editar nombre de la categoría:");
+				JTextField txtNombre = new JTextField(nombreActual);
+				JButton btnAceptar = new JButton("Aceptar");
+				JButton btnCancelar = new JButton("Cancelar");
+
+				btnAceptar.addActionListener(ev -> {
+					String nuevoNombre = txtNombre.getText().trim();
+					if (!nuevoNombre.isEmpty()) {
+						Tema tema = new Tema(nuevoNombre);
+						temasDAO.modificar(idCategoria,tema);
+						JOptionPane.showMessageDialog(dialogoEditar, "Categoria editada!");
+						cargarTemasTablas();
+						dialogoEditar.dispose();
+					} else {
+						JOptionPane.showMessageDialog(dialogoEditar, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				});
+
+				btnCancelar.addActionListener(ev -> dialogoEditar.dispose());
+
+				dialogoEditar.add(lblNombre);
+				dialogoEditar.add(txtNombre);
+				dialogoEditar.add(btnAceptar);
+				dialogoEditar.add(btnCancelar);
+				dialogoEditar.setVisible(true);
 			} else {
-				JOptionPane.showMessageDialog(this.vista, "Por favor, seleccione una fila para eliminar.");
+				JOptionPane.showMessageDialog(vista, "Seleccione una categoría para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 			}
-			//new VistaModPreguntas(this,idCategoria);
-		
-			this.vista.setVisible(false);
 		});
 		
 		vista.getBtnCrear().addActionListener(e ->{
