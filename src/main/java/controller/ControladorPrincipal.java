@@ -1,10 +1,9 @@
 package controller;
 
-import view.VistaPrincipal;
-
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
 	private VistaPrincipal vista;
