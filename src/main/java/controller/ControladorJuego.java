@@ -24,9 +24,29 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista.setEscalonUso(0);
 		//Por default muestra el de el primer participante
 		poneNombres();
-		mostrarPregunta(escalon.getParticipantes().getFirst());
+		Participante participante = escalon.getParticipantes().getFirst();
+		//getjugadorNormal = devuelve PanelJugador[]
+		mostrarPregunta(participante);
+		getBotonPresionado(participante);
+		// Para llamar a la ronda de preguntas
+		// this.escalon.getEstadoDeRonda().rondaDePreguntas(participantes);
 	}
-
+	//Agrega los action listener a los botones de respuesta y setea la respuesta del participante
+	public void getBotonPresionado(Participante participante){
+		this.vista.getBtnpreRespuesta1().addActionListener(e ->
+			// e.getActionCommand() es el texto del boton
+			participante.setRespuestaParticipante(e.getActionCommand())
+		);
+		this.vista.getBtnpreRespuesta2().addActionListener(e ->
+			participante.setRespuestaParticipante(e.getActionCommand())
+		);
+		this.vista.getBtnpreRespuesta3().addActionListener(e ->
+			participante.setRespuestaParticipante(e.getActionCommand())
+		);
+		this.vista.getBtnpreRespuesta4().addActionListener(e ->
+			participante.setRespuestaParticipante(e.getActionCommand())
+		);
+	}
 	//Muestra la pregunta de un participante, obtiene el indice y enciende su panel correspondiente
 	public void mostrarPregunta(Participante participante){
 		//Podemos usar .remove() para sacar la preg y que no se repita
