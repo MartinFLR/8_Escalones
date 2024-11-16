@@ -24,6 +24,7 @@ public class VistaLogin extends JFrame{
 	private JButton btnLogin;
 	private JButton btnCambioContrasenia;
 
+
 	public VistaLogin (ControladorLogin c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,4 +92,13 @@ public class VistaLogin extends JFrame{
 	public JButton getBtnNewButton() {
 		return btnLogin;
 	}
+
+	public JButton getBtnLogin(){
+		return btnLogin;
+	}
+
+	public JButton getBtnCambioContrasenia(){
+		return btnCambioContrasenia;
+	}
+
 }

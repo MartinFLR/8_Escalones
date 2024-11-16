@@ -7,7 +7,7 @@ public class Database {
     // Datos de conexión
     private static final String URL = "jdbc:postgresql://localhost:5432/8_escalones";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "123123";
+    private static final String PASSWORD = "Nicokpo123";
 
     private static Database instance; // Instancia singleton
     private Connection conexion;

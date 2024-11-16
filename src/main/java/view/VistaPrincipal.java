@@ -52,6 +52,8 @@ public class VistaPrincipal extends JFrame {
 	private JPanel panelCreditos;
 	private JButton btnSalirAyuda;
 	private JButton btnSalirCreditos;
+
+
 	
 	public VistaPrincipal(ControladorPrincipal controlador) {
 		this.setControlador(controlador);
@@ -131,6 +133,7 @@ public class VistaPrincipal extends JFrame {
 		
 		btnModificar = new JButton("M");
 		btnModificar.setBounds(1069, 610, 55, 55);
+		btnModificar.setEnabled(false);
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
 		
@@ -187,4 +190,18 @@ public class VistaPrincipal extends JFrame {
 	public JButton getBtnSalirAyuda() {
 		return btnSalirAyuda;
 	}
-}
+
+	public void actualizarEstadoLogin(boolean logueado) {
+		if (logueado) {
+			btnLogin.setIcon(new FlatSVGIcon("login_success.svg", 10, 10)); 
+			btnLogin.setBackground(new Color(0, 128, 0));
+			btnLogin.setEnabled(false); // Deshabilita el botón
+		} 
+	}
+	
+
+	}
+	
+
+
+
