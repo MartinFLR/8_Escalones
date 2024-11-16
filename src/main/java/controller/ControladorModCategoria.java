@@ -19,8 +19,10 @@ import view.VistaModPreguntas;
 
 public class ControladorModCategoria {
 
-	protected VistaModPadre vista;
-	protected TemasDAO temasDAO;
+	private VistaModPadre vista;
+	private TemasDAO temasDAO;
+	private String id_categoria;
+	private String nombreCategoria;
 	
 	public ControladorModCategoria() {
 		this.vista = new VistaMod(this);
@@ -50,6 +52,7 @@ public class ControladorModCategoria {
 		});
 		
 		vista.getBtnBorrar().addActionListener(e ->{
+			int filaSeleccionada = this.vista.getTable().getSelectedRow();
 			JDialog dialogoEliminar = new JDialog();
 			dialogoEliminar.setSize(300, 150);
 			dialogoEliminar.setLayout(new GridLayout(3, 1));
@@ -61,8 +64,10 @@ public class ControladorModCategoria {
 			JButton btnSalir = new JButton("Salir");
 			
 			btnAceptar.addActionListener(ev->{
+				id_categoria = this.vista.getTable().getValueAt(filaSeleccionada, 0).toString();
+				nombreCategoria = this.vista.getTable().getValueAt(filaSeleccionada, 1).toString();
 				dialogoEliminar.dispose();
-	            JOptionPane.showMessageDialog(dialogoEliminar, "Categoria eliminada");
+	            JOptionPane.showMessageDialog(dialogoEliminar, "Categoria Eliminada");
 			});
 			
 			btnSalir.addActionListener(ev -> {

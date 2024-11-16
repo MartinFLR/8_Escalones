@@ -18,9 +18,7 @@ public class VistaModPreguntas extends VistaModPadre{
 
 	
 	public void actuailizarTabla() {
-		Object [] row = {"1"," messi o cristiano?"};
 		this.getTable().setModel(tablaNueva);
-		getTablaNueva().addRow(row);
         this.getTable().setDefaultEditor(Object.class, null);
         this.getTable().getTableHeader().setReorderingAllowed(false);
         this.getTable().getTableHeader().setResizingAllowed(false);
@@ -30,6 +28,11 @@ public class VistaModPreguntas extends VistaModPadre{
 	}
 	
 	public void botones() {
+		this.getTable().getSelectionModel().addListSelectionListener(e->{
+			getBtnEditar().setEnabled(true);
+			getBtnBorrar().setEnabled(true);	
+		});
+		
 		this.getBtnBorrar().addActionListener(null);
 		this.getBtnCrear().addActionListener(e->{
 			new ControladorCreacionPreguntas();
