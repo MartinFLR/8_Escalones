@@ -1,182 +1,253 @@
 package view;
 
-import controller.ControladorJuego;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.border.LineBorder;
-
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+
+import controller.ControladorJuego;
+import view.componentes.BotonPregunta;
+import view.componentes.PanelEscalon;
+import view.componentes.PanelJugadorFinal;
+import view.componentes.PanelJugadorNormal;
 
 public class VistaJuego extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JPanel panel_aproximacion;
-	private JPanel panelPreguntas;
 	private ControladorJuego c;
-	private JButton btnUno;
-	private JButton btnDos;
-	private JButton btnTres;
-	private JButton btnCuatro;
-	private JPanel panel_1;
-	private JLabel lblNewLabel;
-	private JPanel panel;
-	private JTextField textField;
-	private JButton btnEnviar;
 
+	private JPanel panelPregunta;
+	private JLabel lblprePregunta;
+	private BotonPregunta btnpreRespuesta1 = new BotonPregunta();
+	private BotonPregunta btnpreRespuesta2 = new BotonPregunta();;
+	private BotonPregunta btnpreRespuesta3 = new BotonPregunta();;
+	private BotonPregunta btnpreRespuesta4 = new BotonPregunta();;
+	
+	private JPanel panelAproximacion;
+	private JButton btnaproxEnviar;
+	private JFormattedTextField txtaproxRespuesta;
+	
+	private JPanel panelColumna;
+	private JPanel panelJugadores;
+	private JTable table;
+	private JLabel lblJuez;
+	private JLabel lblJugador;
+	
+	private JPanel panelFinal;
+	
+	// ATRIBUTOS PARA CADA JUGADOR Y ESCALON
+	private ArrayList<PanelEscalon> escalones = new ArrayList<PanelEscalon>();
+	private ArrayList<PanelJugadorNormal> jugadorNormal = new ArrayList<PanelJugadorNormal>();
+	private ArrayList<PanelJugadorFinal> jugadorFinal = new ArrayList<PanelJugadorFinal>();
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
 		setTitle("8 ESCALONES");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 819, 469);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.BLACK);
 		contentPane.addKeyListener(c);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setLocationRelativeTo(null);
+
 		//
-		// panel columnas
-		//
-		
-		
-		
-		//
-		// panel participantes
+		// PANEL COLUMNAS
 		//
 		
+		panelColumna = new JPanel();
+		panelColumna.setBackground(Color.BLACK);
+		panelColumna.setBounds(0, 0, 85, 683);
+		contentPane.add(panelColumna);
+		GridLayout gridLayoutColumna = new GridLayout(8, 1);
+        gridLayoutColumna.setVgap(2); 
+		panelColumna.setLayout(gridLayoutColumna);
+		
+		// --- FALTA CAMBIAR COLOR A LOS ESCALONES Y LOS GAPS ENTRE LAYOUT
+		for (int i = 0; i < 8; i++) {
+			this.escalones.add(new PanelEscalon(i+1));
+			panelColumna.add(this.escalones.get(i));
+		}
+		// Cambia el color del primer escalon por default
+		this.escalones.getFirst().setcolorUso();
+
+		//
+		// PANEL JUGADORES (FINAL)
+		//
+		
+		panelFinal = new JPanel();
+		panelFinal.setBounds(95, 370, 1181, 131);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		for (int i = 0; i < 2; i++) {
+			this.jugadorFinal.add(new PanelJugadorFinal());
+		}
+		
+		//
+		// PANEL JUGADORES
+		//
+		
+		panelJugadores = new JPanel();
+		panelJugadores.setBackground(Color.BLACK);
+		panelJugadores.setSize(new Dimension(5, 5));
+		panelJugadores.setBounds(85, 508, 1181, 175);
+		contentPane.add(panelJugadores);
+		GridLayout gridLayoutJugador = new GridLayout (1, 9);
+		gridLayoutJugador.setHgap(10); 
+		gridLayoutJugador.setVgap(20); 
+		panelJugadores.setLayout(gridLayoutJugador);
+		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
+		
+		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
+		for (int i = 0; i < 9; i++) {
+			this.jugadorNormal.add(new PanelJugadorNormal());
+			panelJugadores.add(this.jugadorNormal.get(i));
+		}
+		
+		//
+		// PANEL INFORMATIVOS
+		//
+		
+		lblJuez = new JLabel("Nombre JUEZ");
+		lblJuez.setBounds(627, 38, 71, 56);
+		contentPane.add(lblJuez);
+		
+		lblJugador = new JLabel("Nombre JUGADOR");
+		lblJugador.setBounds(616, 89, 97, 56);
+		contentPane.add(lblJugador);
 		
 		//---------------------Panel Principal----------------------------------
 		//
-		// panel aproximacion
+		// PANEL APROXIMACION
 		//
+
+		panelAproximacion = new JPanel();
+		panelAproximacion.setBounds(695, 11, 571, 359);
+		contentPane.add(panelAproximacion);
+		panelAproximacion.setLayout(null);
 		
-		panel_aproximacion = new JPanel();
-		panel_aproximacion.setBounds(0, 260, 803, 170);
-		panel_aproximacion.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panel_aproximacion.setBackground(new Color(0, 0, 139));
-		contentPane.add(panel_aproximacion);
-		panel_aproximacion.setLayout(null);
+		btnaproxEnviar = new JButton("ENVIAR");
+		btnaproxEnviar.setBounds(48, 316, 142, 47);
+		panelAproximacion.add(btnaproxEnviar);
 		
-		panel = new JPanel();
-		panel.setBackground(new Color(0, 255, 255));
-		panel.setBounds(82, 48, 369, 52);
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panel_aproximacion.add(panel);
+		txtaproxRespuesta = new JFormattedTextField();
+		txtaproxRespuesta.setBounds(48, 257, 142, 48);
+		panelAproximacion.add(txtaproxRespuesta);
+
 		
-		JLabel lblNewLabel_1 = new JLabel("preguntas de aproximacion");
-		panel.add(lblNewLabel_1);
+		table = new JTable();
+		table.setBounds(229, 209, 196, 149);
+		panelAproximacion.add(table);
 		
-		textField = new JTextField();
-		textField.setBounds(82, 124, 128, 35);
-		panel_aproximacion.add(textField);
-		textField.setColumns(10);
-		
-		btnEnviar = new JButton("New button");
-		btnEnviar.setBounds(323, 124, 128, 35);
-		btnEnviar.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		btnEnviar.setBackground(new Color(0, 255, 255));
-		panel_aproximacion.add(btnEnviar);
-		panel_aproximacion.setVisible(false);
-		
-		panel_aproximacion.setVisible(false);
-		panel_aproximacion.addKeyListener(c);
-		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(239, 368, 179, 43);
+		panelAproximacion.add(lblNewLabel);
 		
 		//
-		// panel preguntas
+		// PANEL PREGUNTA
 		//
+
+		panelPregunta = new JPanel();
+		panelPregunta.setBounds(89, 11, 542, 359);
+		contentPane.add(panelPregunta);
+	
+		panelPregunta.setLayout(null);
 		
-		panelPreguntas = new JPanel();
-		panelPreguntas.setBounds(0, 260, 803, 170);
-		panelPreguntas.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panelPreguntas.setBackground(new Color(0, 0, 139));
-		panelPreguntas.setLayout(null);
-		contentPane.add(panelPreguntas);
+		btnpreRespuesta1.setBounds(10, 239, 187, 55);
+		panelPregunta.add(btnpreRespuesta1);
 		
-		btnUno = new JButton("Respuesta 1");
-		btnUno.setForeground(new Color(0, 0, 0));
-		btnUno.setBackground(new Color(0, 255, 255));
-		btnUno.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		btnUno.setBounds(10, 58, 382, 45);
-		panelPreguntas.add(btnUno);
+		btnpreRespuesta2.setBounds(243, 239, 187, 55);
+		panelPregunta.add(btnpreRespuesta2);
 		
-		btnDos = new JButton("Respuesta 2");
-		btnDos.setBackground(new Color(0, 255, 255));
-		btnDos.setBounds(10, 114, 382, 45);
-		btnDos.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panelPreguntas.add(btnDos);
+		btnpreRespuesta3.setBounds(10, 313, 187, 55);
+		panelPregunta.add(btnpreRespuesta3);
+	
+		btnpreRespuesta4.setBounds(243, 313, 187, 55);
+		panelPregunta.add(btnpreRespuesta4);
 		
-		btnTres = new JButton("Respuesta 3");
-		btnTres.setBackground(new Color(0, 255, 255));
-		btnTres.setBounds(411, 58, 382, 45);
-		btnTres.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panelPreguntas.add(btnTres);
-		
-		btnCuatro = new JButton("Respuesta 4");
-		btnCuatro.setBackground(new Color(0, 255, 255));
-		btnCuatro.setBounds(411, 114, 382, 45);
-		btnCuatro.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panelPreguntas.add(btnCuatro);
-		
-		panel_1 = new JPanel();
-		panel_1.setBackground(Color.CYAN);
-		panel_1.setBounds(199, 11, 402, 36);
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		lblNewLabel = new JLabel("Preguntas...");
-		panel_1.add(lblNewLabel, BorderLayout.CENTER);
-		panelPreguntas.add(panel_1);
-		panelPreguntas.setVisible(false);
-		panelPreguntas.addKeyListener(c);
-		
-		//-------------Panel informativo nombre y juez---------------------
+		lblprePregunta = new JLabel("New label");
+		lblprePregunta.setBounds(10, 98, 420, 131);
+		panelPregunta.add(lblprePregunta);
 		
 		
-		addKeyListener(c);
-		setFocusable(true);
+
+		
+	}
+	
+	//GET DE LOS ESCALONES
+	public JPanel getPanelColumna() {
+		return panelColumna;
+	}	
+	public ArrayList<PanelEscalon> getEscalones() {
+		return escalones;
+	}
+	//SET DE ESCALON EN USO
+	public void setEscalonUso(int nroEscalon) {
+		for (PanelEscalon panelEscalon : escalones) {
+			panelEscalon.setcolorNoUso();
+		}
+		escalones.get(nroEscalon).setcolorUso();
 	}
 
-	public ControladorJuego getC() {
-		return c;
+	//GET DE LOS JUGADORES
+	public JPanel getPanelJugadores() {
+		return panelJugadores;
+	}
+	public ArrayList<PanelJugadorNormal> getJugadorNormal() {
+		return jugadorNormal;
+	}
+	public ArrayList<PanelJugadorFinal> getJugadorFinal() {
+		return jugadorFinal;
 	}
 
-	public void setC(ControladorJuego c) {
-		this.c = c;
-	}
+	public ControladorJuego getC() {return c;}
+	public void setC(ControladorJuego c) {this.c = c;}
+	
+	
+	public JTable getTable() {return table;}
+	public void setTable(JTable table) {this.table = table;}
 
-	public JButton getBtnUno() {
-		return btnUno;
-	}
+	public JLabel getLblJuez() {return lblJuez;}
+	public void setLblJuez(JLabel lblJuez) {this.lblJuez = lblJuez;}
+	
+	public JLabel getLblJugador() {return lblJugador;}
+	public void setLblJugador(JLabel lblJugador) {this.lblJugador = lblJugador;}
+	
+	
+	
+	public JPanel getPanelPregunta() {return panelPregunta;}
+	public JLabel getLblprePregunta() {return lblprePregunta;}
+	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
 
-	public void setBtnUno(JButton btnUno) {
-		this.btnUno = btnUno;
-	}
-
-	public JPanel getPanel_aproximacion() {
-		return panel_aproximacion;
-	}
-
-	public void setPanel_aproximacion(JPanel panel_aproximacion) {
-		this.panel_aproximacion = panel_aproximacion;
-	}
-
-	public JPanel getPanelPreguntas() {
-		return panelPreguntas;
-	}
-
-	public void setPanelPreguntas(JPanel panelPreguntas) {
-		this.panelPreguntas = panelPreguntas;
-	}
+	public JButton getBtnpreRespuesta2() {return btnpreRespuesta2;}
+	public JButton getBtnpreRespuesta1() {return btnpreRespuesta1;}
+	public JButton getBtnpreRespuesta3() {return btnpreRespuesta3;}
+	public JButton getBtnpreRespuesta4() {return btnpreRespuesta4;}
+	public void setBtnpreRespuesta2(BotonPregunta btnpreRespuesta2) {this.btnpreRespuesta2 = btnpreRespuesta2;}
+	public void setBtnpreRespuesta1(BotonPregunta btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
+	public void setBtnpreRespuesta3(BotonPregunta btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
+	public void setBtnpreRespuesta4(BotonPregunta btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
+	
+	
+	public JPanel getPanelAproximacion() {return panelAproximacion;}
+	
+	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
+	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
+	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
+	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 }

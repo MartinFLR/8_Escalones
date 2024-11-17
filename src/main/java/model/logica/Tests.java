@@ -1,40 +1,99 @@
 package model.logica;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import model.ABM.AdminDAO;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
+import model.Admin;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.Preguntas;
 import model.Tema;
 
 public class Tests {
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
     public static void main(String[] args) {
-        PreguntaOpcionDAO abmPreg = PreguntaOpcionDAO.getInstance();
-        TemasDAO abmTemas = TemasDAO.getInstance();
-        ParticipantesDAO abmPart = ParticipantesDAO.getInstance();
-        PreguntaAproximacionDAO abmPregAprox = PreguntaAproximacionDAO.getInstance();
-        List<Participante> listaParticipantes = abmPart.buscarTodos();
-        List<PreguntaOpcion> listaPreguntas = abmPreg.buscarTodos();
-        List<model.Tema> listaTemas = abmTemas.buscarTodos();
-        List<model.PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
-        
-        model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntas, "Tema 1");
-        Escalon escalon = new Escalon();
+        TemasDAO abmTemas = new TemasDAO();
+        ParticipantesDAO abmPart = new ParticipantesDAO();
+        //inserta participante y modifica, martin ya esta en la bdd
+        //abmPart.insertar(new Participante("Martin"));
+        abmPart.modificarVecesGanadas("Martin",2);
+        PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
+        PreguntaOpcionDAO abmPregOpcion = new PreguntaOpcionDAO();
 
-        // Las preguntas opcionales no tienen las opciones seteadas
-        // Todas las preguntas tienen id=0
-        // Hay preguntas de opcion multiple con respuestaCorrecta = null
-        listarPreguntasOpcion(listaPreguntas);
-        // listarPreguntasAproximacion(listaPreguntaAproximacion);
-        
+        List<Participante> listaParticipantes = abmPart.buscarTodos();
+
+        List<Tema> listaTemas = abmTemas.buscarTodos();
+        //preguntas por tipo y general, se puede usar la general directamente con addAll que agrega las dos listas en una, despues si quieren ver de un tipo hacen un if o switch
+        List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
+        List<PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
+        List<Preguntas> listaPreguntas = new ArrayList<>();
+        List<Participante> top10 = ParticipantesDAO.Ranking();
+
+        listaPreguntas.addAll(listaPreguntaAproximacion);
+        listaPreguntas.addAll(listaPreguntaOp);
+
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = new Admin("aldo","pancho");
+        adminDAO.modificar(admin);
+
+        Admin aldito = adminDAO.buscarAdmin();
+        System.out.println(aldito.getNombre()+" "+aldito.getContrasenia());
+
+        for (Tema tema : listaTemas) {
+            System.out.println(tema.getId()+" "+tema.getNombre());
+        }
+
+        model.Tema tema = new Tema (listaPreguntaAproximacion, listaPreguntaOp, "Tema 1");
+        Escalon escalon = new Escalon();
+        escalon.setTema(tema);
+        for (model.Participante participante : listaParticipantes) {
+            //escalon.agregaParticipante(new model.Participante(participante.getNombre()));
+        }
+
+        for(Participante p : listaParticipantes){
+            System.out.println("Participante: " + p.getNombre());
+            System.out.println("Veces ganadas: " + p.getVecesGanadas());
+        }
+
+        System.out.println("Top 10 participantes: ");
+        System.out.println("Nombre            Veces Ganadas");
+        for (Participante participante : top10) {
+            System.out.println(participante.getNombre()+ "       " + participante.getVecesGanadas());
+
+        }
+
+
+
+        // aca pueden probar cada uno y funcionan(con la bdv6)
+
+
+        // System.out.println("preguntas aproximacion: ");
+        // for (Preguntas preguntaAproximacion : listaPreguntaAproximacion) {
+        //     preguntaAproximacion.imprimirPregunta();
+        // }
+
+        // System.out.println("Preguntas opciones: ");
+
+        // for (Preguntas preguntaOpcion : listaPreguntaOp) {
+        //     preguntaOpcion.imprimirPregunta();
+        // }
+
+        // System.out.println("Preguntas todas: ");
+        // for (Preguntas preguntas : listaPreguntas) {
+        //     preguntas.imprimirPregunta();
+        // }
+
+        // listarPreguntasOpcion(listaPreguntas);        
+        //  listarPreguntasAproximacion(listaPreguntaAproximacion);        
         
         // testClaseTema(tema);
-         testClaseEscalon(tema, listaParticipantes, escalon);
+        // testClaseEscalon(tema, listaParticipantes, escalon);
         // Dentro de testClaseEscalon hay tests opcionales como: 
             // testEstadoRondaFinal
             // testEstadoRondaEmpate
@@ -59,7 +118,7 @@ public class Tests {
         preguntaAprox.imprimirPregunta();
         
         System.out.println("\nProbando sacar una pregunta de opcion multiple\n");
-        PreguntaOpcion pregunta = tema.sacarPregunta();
+        PreguntaOpcion pregunta = tema.sacarPreguntaOp();
         pregunta.imprimirPregunta();
 
         //Verifica que las pregs sacadas no esten en la lista de pregs original
@@ -70,12 +129,12 @@ public class Tests {
             System.out.println("[X] La pregunta fue eliminada correctamente");
         }
     }
-    public static void testClaseEscalon(Tema tema,List<Participante> listaParticipantes,Escalon escalon){
+    /*public static void testClaseEscalon(Tema tema,List<Participante> listaParticipantes,Escalon escalon){
         System.out.println("\nProbando clase Escalon\n");
         //Prueba repartir preguntas, suma errores a un participante y prubea la funcion de filtrar participantes
         escalon.setTema(tema);
         for (Participante participante : listaParticipantes) {
-            escalon.agregaParticipante(new Participante(participante.getNombre()));
+            escalon.agregaParticipante(//new Participante(participante.getNombre()));
         }
 
         System.out.println("---------Datos originales---------");
@@ -92,7 +151,7 @@ public class Tests {
         //Pruebas opcionales
         // testEstadoRondaFinal(escalon);
         // testEstadoRondaEmpate(escalon);
-    }
+    }*/
     public static void testEstadoRondaFinal(Escalon escalon){
         System.out.println("---------Prueba de cambio a ronda final---------");
         System.out.println("Escalon: "+ escalon.getEscalon());
@@ -105,7 +164,7 @@ public class Tests {
         System.out.println("---------Prueba situacion de empate---------");
         escalon.getParticipantes().get(0).setCantErrores(2);
         escalon.getParticipantes().get(1).setCantErrores(2);
-        escalon.filtrarParticipantes();
+        // escalon.filtrarParticipantes();
     }
     
     //Metodos para imprimir datos y probar los metodos 
