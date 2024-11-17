@@ -1,19 +1,13 @@
 package view.componentes;
 
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import model.Participante;
-
-import javax.swing.SwingConstants;
 public class PanelJugadorNormal extends PanelJugadorPadre {
 
 	protected JPanel panelerror1;
@@ -69,6 +63,8 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
         @Override
 	public void setActivo(){
 		setBackground(colorActivo);
+		setForeground(colorActivo);
+		panelErrores.setBackground(colorActivo);
 	}
 	
 }

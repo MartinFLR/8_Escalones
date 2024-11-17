@@ -44,7 +44,9 @@ public abstract class PanelJugadorPadre extends JPanel{
 	
 	public void setActivo() {
 		setBackground(colorActivo);
+		setForeground(colorActivo);
 		panelErrores.setBackground(colorActivo);
+		
 	}
 	
 	public void setEliminado() {
