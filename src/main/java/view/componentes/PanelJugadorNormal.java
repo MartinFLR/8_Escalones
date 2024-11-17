@@ -14,7 +14,6 @@ import javax.swing.border.LineBorder;
 import model.Participante;
 
 import javax.swing.SwingConstants;
-
 public class PanelJugadorNormal extends PanelJugadorPadre {
 
 	protected JPanel panelerror1;
@@ -67,7 +66,11 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		panelerror2.setBackground(colorOriginal);
 	}
 	
-
+        @Override
+	public void setActivo(){
+		setBackground(colorActivo);
+	}
+	
 }
 
 

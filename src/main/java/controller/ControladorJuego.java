@@ -34,6 +34,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		poneNombres();
         mostrarPreguntaActual();
         inicializarActionListeners();
+        
 		//Mostrar en la vista
 			// La cant errores
             // Cant aciertos
@@ -42,9 +43,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	}
 
     private void inicializarActionListeners(){
+
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
+            
             if (esperandoRespuesta) {
                 procesarRespuesta(e.getActionCommand());
+                
             }
         });
         this.vista.getBtnpreRespuesta2().addActionListener(e -> {
@@ -55,14 +59,33 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnpreRespuesta3().addActionListener(e -> {
             if (esperandoRespuesta) {
                 procesarRespuesta(e.getActionCommand());
+
             }
         });
         this.vista.getBtnpreRespuesta4().addActionListener(e -> {
             if (esperandoRespuesta) {
                 procesarRespuesta(e.getActionCommand());
             }
+            
         });
     }
+//setea los colores del fondo para indicar de quien es el turno
+    public void setColore(){
+    Participante participante = escalon.getParticipantes().get(turnoJugador);
+        if (turnoJugador!=0 ){
+            participante = escalon.getParticipantes().get(turnoJugador-1);
+            int nroParticipante = escalon.getParticipantes().indexOf(participante);
+            PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
+            panelParticipante.setActivo(); }
+            else{
+                participante = escalon.getParticipantes().getLast();
+                int nroParticipante = escalon.getParticipantes().indexOf(participante);
+                PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
+                panelParticipante.setActivo(); 
+            }
+            
+            }
+        
 
 	//Rondas
 	public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
@@ -249,6 +272,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;  // Reiniciamos si hemos llegado al final
         }
+        setColore();
         esperandoRespuesta = false;  // Ya no estamos esperando respuesta del jugador
         mostrarPreguntaActual();  // Muestra la siguiente pregunta
     }
@@ -257,13 +281,14 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
 		int nroParticipante = escalon.getParticipantes().indexOf(participante);
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
-
+        
 		panelParticipante.setRespondiendo();
 		this.vista.getLblprePregunta().setText(pregunta.getPregunta());
 		this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
 		this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
 		this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
 		this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
+        
 	}
 	private void poneNombres(){
 		for (int i = 0; i < 9; i++) {
