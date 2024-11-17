@@ -3,23 +3,11 @@ package view;
 import controller.ControladorRanking;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 
 
 public class VistaRanking extends JFrame{
-	
-	private JPanel contentPane;
+
 	private ControladorRanking c;
-	private JButton btnSalir;
-	private JTable table;
-	private DefaultTableModel defTableModel;
-	
 	
 	public VistaRanking (ControladorRanking c) {
 		this.setC(c);

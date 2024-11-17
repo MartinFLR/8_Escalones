@@ -29,6 +29,19 @@ public abstract class PanelJugadorPadre extends JPanel{
 
 	public abstract void setError ();
 	public abstract void setAcierto();
+
+	public PanelJugadorPadre() {
+		lblimagenJugador = new JLabel(imgJugador);
+		add(lblimagenJugador);
+		
+		lblnombreJugador = new JLabel("NOMBRE");
+		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblnombreJugador);
+	}
+
+	public abstract void setError (Participante par);
+	public abstract void setAcierto(Participante par);
+
 	public abstract void setResetErrores(); 
 
 	//SETEAR COLORES ACTIVO, RESPONDIENDO, ELIMINANDO 

@@ -3,8 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
 public class Participante {
     private int id_participante;
     private String nombre_participante;//fijarse que no pueda tener el mismo nombre que otro participante
@@ -96,12 +94,28 @@ public class Participante {
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;
+        //pj.setError();
+        //aca iria el controlador cuando este enrealiadad
     }
-
+    public void resetCantErrores() {
+        this.cantErrores = 0;
+       // pj.setResetErrores();
+        ////aca iria el controlador cuando este enrealiadad.
+    }
     public void setCantAciertos(int cantAciertos) {
         this.cantAciertos = cantAciertos;
-    }
 
+        //pj.setAcierto();final Participante par= new Participante("ana");
+        
+        //acontrolador vista de aciertos
+    }
+    public void resetCantAciertos() {
+        this.cantAciertos = 0;
+        //pj.setResetErrores();//aca iria el controlador cuando este enrealiadad
+        //controlador vista de aciertos
+
+
+    }
     public int getVecesGanadas(){
         return this.vecesGanadas;
     }
