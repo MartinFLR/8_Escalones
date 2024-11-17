@@ -21,21 +21,20 @@ import view.componentes.PanelJugadorNormal;
 public class ControladorJuego implements ActionListener, KeyListener {
 	private VistaJuego vista;
 	private Escalon escalon;
+    private int turnoJugador = 0;
+    private boolean esperandoRespuesta = false;
 	
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
+        this.vista.getPanelAproximacion().setVisible(false);
 		//Cambia el color del escalon en uso y apaga el resto
 		this.vista.setEscalonUso(0);
 		//Por default muestra el de el primer participante
 		poneNombres();
-        Ronda estadoRonda = escalon.getEstadoDeRonda();
-        List<Participante> participantes = escalon.getParticipantes();
-		// this.rondaDePreguntas(estadoRonda, participantes);
-		//getjugadorNormal = devuelve PanelJugador[]
-			mostrarPregunta(participantes.get(0));
-			getBotonPresionado(participantes.get(0));
+        mostrarPreguntaActual();
+        this.getBotonPresionado(escalon.getParticipantes().get(turnoJugador));
 			//Mostrar
 			// La cant errores
             // cant aciertos
@@ -186,7 +185,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
         }
         return participantesAEliminar;
     }
-
+    private void mostrarPreguntaActual(){
+        Participante participante = escalon.getParticipantes().get(turnoJugador);
+        System.out.println("MostrarPreguntaActual");
+        mostrarPregunta(participante);
+        esperandoRespuesta = true;  // Estamos esperando la respuesta
+    }
     public void filtrarParticipantes(){
         List<Participante> participantesAEliminar = getParticipantesAEliminar();
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
@@ -217,24 +221,43 @@ public class ControladorJuego implements ActionListener, KeyListener {
 
 	//Agrega los action listener a los botones de respuesta y setea la respuesta del participante
 	private void getBotonPresionado(Participante participante){
-		this.vista.getBtnpreRespuesta1().addActionListener(e ->
-			// e.getActionCommand() es el texto del boton
-
-			participante.setRespuestaParticipante(e.getActionCommand())
-		);
-		this.vista.getBtnpreRespuesta2().addActionListener(e ->
-			participante.setRespuestaParticipante(e.getActionCommand())
-		);
-		this.vista.getBtnpreRespuesta3().addActionListener(e ->
-			participante.setRespuestaParticipante(e.getActionCommand())
-		);
-		this.vista.getBtnpreRespuesta4().addActionListener(e ->
-			participante.setRespuestaParticipante(e.getActionCommand())
-		);
+		this.vista.getBtnpreRespuesta1().addActionListener(e ->{
+            if(esperandoRespuesta){
+                participante.setRespuestaParticipante(e.getActionCommand());
+                //Aca hay que checkear que no sea el turno del ultimo
+                procesarRespuesta();
+            }
+        });
+		this.vista.getBtnpreRespuesta2().addActionListener(e ->{
+            if(esperandoRespuesta){
+                participante.setRespuestaParticipante(e.getActionCommand());
+                procesarRespuesta();
+            }
+        });
+		this.vista.getBtnpreRespuesta3().addActionListener(e ->{
+            if(esperandoRespuesta){
+                participante.setRespuestaParticipante(e.getActionCommand());}
+                procesarRespuesta();
+            });
+		this.vista.getBtnpreRespuesta4().addActionListener(e ->{
+            if(esperandoRespuesta){
+                participante.setRespuestaParticipante(e.getActionCommand());}
+                procesarRespuesta();
+            });
 	}
+    private void procesarRespuesta(){
+        // Cambiar al siguiente jugador
+        turnoJugador++;
+        if (turnoJugador >= escalon.getParticipantes().size()) {
+            turnoJugador = 0;  // Reiniciamos si hemos llegado al final
+        }
+        esperandoRespuesta = false;  // Ya no estamos esperando respuesta del jugador
+        mostrarPreguntaActual();  // Muestra la siguiente pregunta
+    }
 	//Muestra la pregunta de un participante, obtiene el indice y enciende su panel correspondiente
 	private void mostrarPregunta(Participante participante){
 		//Podemos usar .remove() para sacar la preg y que no se repita
+        System.out.println("MostrarPregunta");
 		PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
 		int nroParticipante = escalon.getParticipantes().indexOf(participante);
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
