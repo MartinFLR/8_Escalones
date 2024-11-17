@@ -17,7 +17,7 @@ public abstract class PanelJugadorPadre extends JPanel{
 	protected JLabel lblimagenJugador;
 	protected JLabel lblnombreJugador;
 	protected JPanel panelErrores;
-	protected Color colorOriginal = Color.WHITE, colorAcierto = Color.GREEN, colorError = Color.RED;
+	protected Color colorOriginal = new Color(222, 226, 230), colorAcierto = new Color(56, 176, 0), colorError = new Color(193, 18, 31);
 	protected Color colorRespondiendo = Color.ORANGE, colorActivo = Color.WHITE, colorEliminado = Color.GRAY;
 
 	public PanelJugadorPadre() {

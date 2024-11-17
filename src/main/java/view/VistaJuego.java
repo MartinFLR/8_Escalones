@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
 
 import controller.ControladorJuego;
 import view.componentes.BotonPregunta;
@@ -53,6 +55,7 @@ public class VistaJuego extends JFrame {
 		this.setC(c);
 		setTitle("8 ESCALONES");
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -134,7 +137,10 @@ public class VistaJuego extends JFrame {
 		btnaproxEnviar.setBounds(48, 316, 142, 47);
 		panelAproximacion.add(btnaproxEnviar);
 		
-		txtaproxRespuesta = new JFormattedTextField();
+		NumberFormat formatoNumero = NumberFormat.getIntegerInstance();
+        NumberFormatter formateador = new NumberFormatter(formatoNumero);
+        formateador.setAllowsInvalid(false);
+		txtaproxRespuesta = new JFormattedTextField(formateador);
 		txtaproxRespuesta.setBounds(48, 257, 142, 48);
 		panelAproximacion.add(txtaproxRespuesta);
 
@@ -165,10 +171,10 @@ public class VistaJuego extends JFrame {
 		
 		btnpreRespuesta3.setBounds(10, 218, 187, 55);
 		panelPregunta.add(btnpreRespuesta3);
-	
+
 		btnpreRespuesta4.setBounds(232, 219, 187, 55);
 		panelPregunta.add(btnpreRespuesta4);
-		
+
 		lblprePregunta = new JLabel("New label");
 		lblprePregunta.setBounds(70, 11, 420, 131);
 		panelPregunta.add(lblprePregunta);

@@ -14,6 +14,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import com.formdev.flatlaf.FlatClientProperties;
+
 public class VistaLogin extends JFrame{
 	
 	private JPanel contentPane;
@@ -61,6 +63,7 @@ public class VistaLogin extends JFrame{
 		txtCuenta.setColumns(10);
 		
 		txtContrasenia = new JPasswordField();
+		txtContrasenia.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "INGRESE LA CONTRASEÑA");
 		txtContrasenia.setBounds(134, 138, 150, 20);
 		contentPane.add(txtContrasenia);
 	
