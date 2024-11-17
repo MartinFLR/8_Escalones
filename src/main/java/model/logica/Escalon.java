@@ -37,8 +37,7 @@ public class Escalon {
             }
         }
     }
-    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
-        //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
         this.escalon++;
         this.resetAciertosyErrores();
         if (this.escalon==8){
@@ -96,9 +95,12 @@ public class Escalon {
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
             this.eliminoParticipantes(participantesAEliminar, participantes);
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.subeEscalon();
 =======
 >>>>>>> parent of 5b74cf1 (Se rompio todo)
+=======
+>>>>>>> parent of ec7ec60 (Merge branch 'ana' of https://github.com/MartinFLR/8_Escalones mergee mi branch con lo de la vista de aciertos y errores :))
         }
     }
 
@@ -119,8 +121,8 @@ public class Escalon {
 
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
         for (Participante par: participantes ){
-        par.resetCantAciertos();//no usa el set(0) por tema vista y colores
-        par.resetCantErrores();//idem
+        par.setCantErrores(0);
+        par.setCantAciertos(0);
     }}
     
 
@@ -153,5 +155,4 @@ public class Escalon {
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
     }
-    
 }

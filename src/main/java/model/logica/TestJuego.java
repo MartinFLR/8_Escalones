@@ -2,7 +2,6 @@ package model.logica;
 
 import java.util.List;
 
-import controller.ControladorPrincipal;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
@@ -58,7 +57,5 @@ public class TestJuego {
         // Para arreglar:
         // Funciona la ronda de empate en la final pero el perdedor no se esta eliminando
         // Capaz falta manejar los err en rondaEmpate
-        ControladorPrincipal cont = new ControladorPrincipal();
-        cont.setVista(null);
     }
 }

@@ -10,8 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.GridLayout;
 
-import model.Participante;
-
 public class PanelJugadorFinal extends PanelJugadorPadre{
 
 	protected ArrayList<JPanel> errores = new ArrayList<JPanel>();
@@ -31,7 +29,7 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 	}
 
 	@Override
-	public void setError(Participante par) {
+	public void setError() {
 		for (JPanel panel: errores) {
 			if (panel.getBackground().equals(colorOriginal)) {
 				panel.setBackground(colorError);
@@ -41,7 +39,7 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 	}
 
 	@Override
-	public void setAcierto(Participante par) {
+	public void setAcierto() {
 		for (JPanel panel: errores) {
 			if (panel.getBackground().equals(colorOriginal)) {
 				panel.setBackground(colorAcierto);
