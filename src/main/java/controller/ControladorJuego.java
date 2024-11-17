@@ -66,7 +66,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
 //setea los colores del fondo para indicar de quien es el turno
     public void setColore(){
-    Participante participante = escalon.getParticipantes().get(turnoJugador);
+    Participante participante;
         if (turnoJugador!=0 ){
             participante = escalon.getParticipantes().get(turnoJugador-1);
             int nroParticipante = escalon.getParticipantes().indexOf(participante);
@@ -220,11 +220,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
-            ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+            ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon);
             // Repite la ronda de desempate hasta que quede uno
             while(participantesAEliminar.size()>1){
 				this.rondaEmpate(ronda, participantesAEliminar);
-                ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+                ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon);
             }
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();
@@ -243,7 +243,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 Ronda estado = this.escalon.getEstadoDeRonda();
                 estado.setRondaNormal();
                 escalon.setTema();
-                estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
+                estado.actualizarDatos(estado, escalon.getParticipantes(), this.escalon);
                 this.rondaDePreguntas(estado, escalon.getParticipantes());
             }
         }
