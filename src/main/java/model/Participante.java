@@ -92,6 +92,7 @@ public class Participante {
     }
     public void setCantAciertos(int cantAciertos) {
         this.cantAciertos = cantAciertos;
+
         //pj.setAcierto();final Participante par= new Participante("ana");
         
         //acontrolador vista de aciertos
@@ -100,6 +101,8 @@ public class Participante {
         this.cantAciertos = 0;
         //pj.setResetErrores();//aca iria el controlador cuando este enrealiadad
         //controlador vista de aciertos
+
+
     }
     public int getVecesGanadas(){
         return this.vecesGanadas;

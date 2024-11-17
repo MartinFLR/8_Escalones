@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import model.Participante;
+
 public abstract class PanelJugadorPadre extends JPanel{
 
 	protected JLabel lblimagenJugador;
@@ -15,8 +17,22 @@ public abstract class PanelJugadorPadre extends JPanel{
 	protected Color colorOriginal = Color.WHITE, colorAcierto = Color.GREEN, colorError = Color.RED;
 	protected Color colorRespondiendo = Color.ORANGE, colorActivo = Color.WHITE, colorEliminado = Color.GRAY;
 	
+
 	public abstract void setError ();
 	public abstract void setAcierto();
+
+	public PanelJugadorPadre() {
+		lblimagenJugador = new JLabel(imgJugador);
+		add(lblimagenJugador);
+		
+		lblnombreJugador = new JLabel("NOMBRE");
+		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblnombreJugador);
+	}
+
+	public abstract void setError (Participante par);
+	public abstract void setAcierto(Participante par);
+
 	public abstract void setResetErrores(); 
 
 	//SETEAR COLORES ACTIVO, RESPONDIENDO, ELIMINANDO 

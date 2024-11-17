@@ -2,6 +2,7 @@ package model.logica;
 
 import java.util.List;
 
+import controller.ControladorPrincipal;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
@@ -25,7 +26,11 @@ public class TestJuego {
         escalon.setTema(tema);
         escalon.agregaParticipante(new Participante("Participante 1")); 
         escalon.agregaParticipante(new Participante("Participante 2")); 
+
         escalon.agregaParticipante(new Participante("Participante 3")); 
+
+        //escalon.agregaParticipante(new Participante("Participante 3")); 
+
         // for (model.Participante participante : listaParticipantes) {
         //     escalon.agregaParticipante(new model.Participante(participante.getNombre()));
         // }
@@ -56,5 +61,7 @@ public class TestJuego {
         // Para arreglar:
         // Funciona la ronda de empate en la final pero el perdedor no se esta eliminando
         // Capaz falta manejar los err en rondaEmpate
+        ControladorPrincipal cont = new ControladorPrincipal();
+        cont.setVista(null);
     }
 }
