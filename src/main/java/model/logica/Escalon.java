@@ -69,7 +69,6 @@ public class Escalon {
         Random random = new Random();
         int indice = random.nextInt(0, this.getTemas().size());
         this.tema = this.getTemas().remove(indice);
-        System.out.println("Tema: "+this.tema.getNombre());
     }
     public Tema getTema() {
         return this.tema;
