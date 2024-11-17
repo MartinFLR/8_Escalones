@@ -223,7 +223,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Repite la ronda de desempate hasta que quede uno
             while(participantesAEliminar.size()>1){
 				this.rondaEmpate(ronda, participantesAEliminar);
-                ronda.actualizarDatos(participantesAEliminar);
+                //ronda.actualizarDatos(participantesAEliminar);
             }
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();

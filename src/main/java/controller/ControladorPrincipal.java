@@ -3,12 +3,11 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.JOptionPane;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 
+import model.ABM.ManagerSession;
 import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
@@ -24,26 +23,14 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnRanking().addActionListener(e -> {new ControladorRanking();});
 		vista.getBtnSalir().addActionListener(e -> {System.exit(0);});
 		
-		vista.getBtnLogin().addActionListener(e -> {new ControladorLogin();});
+		vista.getBtnLogin().addActionListener(e -> {new ControladorLogin(this);});
 		vista.getBtnModificar().addActionListener(e -> {new ControladorModCategoria();});
 		
 		vista.getBtnAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(true);});
 		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});
 		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
 		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
-		
-		vista.getBtnCambioTema().addActionListener(e -> {
-			 try {
-                 if (UIManager.getLookAndFeel() instanceof FlatLightLaf) {
-                     UIManager.setLookAndFeel(new FlatDarkLaf());
-                 } else {
-                     UIManager.setLookAndFeel(new FlatLightLaf());
-                 }
-                 SwingUtilities.updateComponentTreeUI(this.vista);
-             } catch (Exception ex) {
-                 ex.printStackTrace();
-             }
-		});
+		verificarEstadoSesion();
 	}
 
 	
@@ -59,10 +46,34 @@ public class ControladorPrincipal implements ActionListener{
 
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == vista.getBtnModificar()) {
+            if (ManagerSession.estaLogueado()) {
+                JOptionPane.showMessageDialog(vista, "Accediendo a la opción de modificar.", "Modificar", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(vista, "Debe iniciar sesión primero.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+
 	
+
+}
+
+	private void actualizarEstadoModificar() {
+		vista.getBtnModificar().setEnabled(ManagerSession.estaLogueado());
+}
+
+	public void verificarEstadoSesion() {
+		actualizarEstadoModificar();
+}
+
+
+
+
+
+
+
+
+
 
 }

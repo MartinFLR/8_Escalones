@@ -101,28 +101,12 @@ public class Participante {
     }
     public void setCantErrores(int i) {
         this.cantErrores = i;
-        //pj.setError();
-        //aca iria el controlador cuando este enrealiadad
     }
-    public void resetCantErrores() {
-        this.cantErrores = 0;
-       // pj.setResetErrores();
-        ////aca iria el controlador cuando este enrealiadad.
-    }
+
     public void setCantAciertos(int cantAciertos) {
         this.cantAciertos = cantAciertos;
-
-        //pj.setAcierto();final Participante par= new Participante("ana");
-        
-        //acontrolador vista de aciertos
     }
-    public void resetCantAciertos() {
-        this.cantAciertos = 0;
-        //pj.setResetErrores();//aca iria el controlador cuando este enrealiadad
-        //controlador vista de aciertos
 
-
-    }
     public int getVecesGanadas(){
         return this.vecesGanadas;
     }
