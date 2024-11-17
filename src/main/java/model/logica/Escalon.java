@@ -10,7 +10,7 @@ import model.Tema;
 public class Escalon {
     private final Ronda estadoDeRonda; 
     private Tema tema;
-    private int escalon=1;
+    private int escalon=0;
     private final List<Participante> participantes = new ArrayList<>();
 
     public Escalon() {
@@ -25,7 +25,6 @@ public class Escalon {
             }
         }
     }
-
     private void repartirPreguntasFinal(){
         System.out.println("Reparte preguntas final");
         //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
@@ -36,7 +35,8 @@ public class Escalon {
             }
         }
     }
-    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
+        //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
         this.escalon++;
         this.resetAciertosyErrores();
         if (this.escalon==8){
@@ -44,15 +44,12 @@ public class Escalon {
             this.estadoDeRonda.setRondaFinal();
         }
     }
-    
-
     public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
         //Saca los participantes que perdieron de la lista de participantes que siguen en juego
         for (Participante par: participantesAEliminar){
             participantes.remove(par);
         }
     }
-
     public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
@@ -60,12 +57,9 @@ public class Escalon {
     public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
-
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
-        for (Participante par: participantes ){
-        par.setCantErrores(0);
-        par.setCantAciertos(0);
-    }}
+
+    }
     
 
     //Getters y setters
@@ -93,8 +87,8 @@ public class Escalon {
     public List<Participante> getParticipantes() {
         return this.participantes;
     }
-
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
     }
+    
 }

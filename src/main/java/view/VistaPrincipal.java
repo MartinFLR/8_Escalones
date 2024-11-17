@@ -1,37 +1,17 @@
 package view;
 
-import controller.ControladorPrincipal;
+import java.awt.Color;
+import java.awt.Font;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
+import controller.ControladorPrincipal;
 
 public class VistaPrincipal extends JFrame {
 

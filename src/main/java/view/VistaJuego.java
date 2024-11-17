@@ -226,6 +226,7 @@ public class VistaJuego extends JFrame {
 	public JLabel getLblprePregunta() {return lblprePregunta;}
 	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
 
+	public JButton getBtnContinuar() {return btnContinuar;}
 	public JButton getBtnpreRespuesta2() {return btnpreRespuesta2;}
 	public JButton getBtnpreRespuesta1() {return btnpreRespuesta1;}
 	public JButton getBtnpreRespuesta3() {return btnpreRespuesta3;}
