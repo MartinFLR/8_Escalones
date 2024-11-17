@@ -7,7 +7,11 @@ import model.PreguntaOpcion;
 
 public class RondaNormal implements EstadoRonda {
     @Override
-    public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
+    public void actualizarDatos(Ronda ronda,List<Participante> participantes){
+        //Actualizar datos
+            // Setee la cant errores
+            // Setee la cant aciertos
+            // Filtrar la cant participantes
         PreguntaOpcion preg;
         String resp;
         for (Participante participante:participantes){

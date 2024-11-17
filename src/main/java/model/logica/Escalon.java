@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Participante;
-import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Tema;
 
@@ -37,7 +36,8 @@ public class Escalon {
             }
         }
     }
-    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
+        //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
         this.escalon++;
         this.resetAciertosyErrores();
         if (this.escalon==8){
@@ -94,6 +94,7 @@ public class Escalon {
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
             this.eliminoParticipantes(participantesAEliminar, participantes);
+            this.subeEscalon();
         }
     }
 
@@ -114,8 +115,8 @@ public class Escalon {
 
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
         for (Participante par: participantes ){
-        par.setCantErrores(0);
-        par.setCantAciertos(0);
+        par.resetCantAciertos();//no usa el set(0) por tema vista y colores
+        par.resetCantErrores();//idem
     }}
     
 
@@ -148,4 +149,5 @@ public class Escalon {
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
     }
+    
 }

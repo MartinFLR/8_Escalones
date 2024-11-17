@@ -10,6 +10,9 @@ import java.awt.GridLayout;
 
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import model.Participante;
+
 import javax.swing.SwingConstants;
 
 public class PanelJugadorNormal extends PanelJugadorPadre {
@@ -40,8 +43,9 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 
 	// SETEAR COLORES DE VIDA 
 	@Override
-	public void setError () {
-		if (panelerror1.getBackground().equals(colorOriginal)) {
+	public void setError (Participante par) {
+			if (par.getPreguntasParticipante().size()==1)//si es tu primera respuesta respondida,osea que te queds responder otra (por eso el =1)setea e color del primer boton
+			{
 			panelerror1.setBackground(colorError);
 		} else {
 			panelerror2.setBackground(colorError);
@@ -49,9 +53,9 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 	}
 	
 	@Override
-	public void setAcierto() {
-		if (panelerror2.getBackground().equals(colorOriginal)) {
-			panelerror1.setBackground(colorAcierto);
+	public void setAcierto(Participante par) {
+		if (par.getPreguntasParticipante().size()==1)
+{panelerror1.setBackground(colorAcierto);
 		} else {
 			panelerror2.setBackground(colorAcierto);
 		}
