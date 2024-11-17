@@ -247,7 +247,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         participante.setRespuestaParticipante(respuesta);
 
         if (!participante.getPreguntasParticipante().isEmpty()) {
-            PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().get(0); 
+            PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst(); 
             if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
                 this.vista.getJugadorNormal().get(turnoJugador).setAcierto(participante);
             } else {
@@ -266,7 +266,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	private void mostrarPregunta(Participante participante){
 		//Podemos usar .remove() para sacar la preg y que no se repita
         System.out.println(participante.getPreguntasParticipante().size());
-		PreguntaOpcion pregunta = participante.getPreguntasParticipante().get(0);
+		PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
 		int nroParticipante = escalon.getParticipantes().indexOf(participante);
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
 
