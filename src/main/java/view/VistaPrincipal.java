@@ -1,37 +1,17 @@
 package view;
 
-import controller.ControladorPrincipal;
+import java.awt.Color;
+import java.awt.Font;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
+import controller.ControladorPrincipal;
 
 public class VistaPrincipal extends JFrame {
 
@@ -52,6 +32,7 @@ public class VistaPrincipal extends JFrame {
 	private JPanel panelCreditos;
 	private JButton btnSalirAyuda;
 	private JButton btnSalirCreditos;
+	private JButton btnCambioTema;
 	
 	public VistaPrincipal(ControladorPrincipal controlador) {
 		this.setControlador(controlador);
@@ -76,7 +57,7 @@ public class VistaPrincipal extends JFrame {
 		
 		btnSalirAyuda = new JButton("Volver");
 		btnSalirAyuda.setBounds(564, 374, 89, 23);
-		panelAyuda.add(btnSalirAyuda);
+		panelAyuda.add(btnSalirAyuda); 
 
 		
 		panelCreditos = new JPanel();
@@ -86,8 +67,19 @@ public class VistaPrincipal extends JFrame {
 		panelCreditos.setVisible(false);
 		
 		btnSalirCreditos = new JButton("Volver");
-		btnSalirCreditos.setBounds(564, 374, 89, 23);
+		btnSalirCreditos.setBounds(693, 540, 89, 23);
 		panelCreditos.add(btnSalirCreditos);
+		
+		JLabel lblLogica = new JLabel("Lógica: Botha Ana, Montiel Nicolas, Rojas Axel");
+		lblLogica.setBounds(10, 11, 772, 138);
+		panelCreditos.add(lblLogica);
+		JLabel lblABM = new JLabel("ABM: Bustamante Nicolas, Flores Martin, Titos Felix Aldo");
+		lblABM.setBounds(10, 160, 772, 138);
+		panelCreditos.add(lblABM);
+		JLabel lblIGU = new JLabel("IGU: Arbita Rodrigo, Lopez Gabriel, Toconas Walter");
+		lblIGU.setBounds(10, 308, 772, 138);
+		panelCreditos.add(lblIGU);
+		
 		
 		
 		//---BOTONES PANTALLA PRINCIPAL
@@ -97,42 +89,60 @@ public class VistaPrincipal extends JFrame {
 		btnJugar.addActionListener(controlador);
 		
 		btnOpciones = new JButton("OPCIONES");
+		FlatSVGIcon iconOpciones = new FlatSVGIcon("configuracion.svg", 30, 30);
+		btnOpciones.setIcon(iconOpciones);
 		btnOpciones.setBounds(1004, 262, 250, 60);		
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
+		
+		btnRanking = new JButton("RANKING");
+		FlatSVGIcon iconRanking = new FlatSVGIcon("ranking.svg", 30, 30);
+		btnRanking.setIcon(iconRanking);
+		btnRanking.setBounds(1004, 333, 120, 50);
+		contentPane.add(btnRanking);
+		btnRanking.addActionListener(controlador);
+		
+		btnAyuda = new JButton("AYUDA");
+		FlatSVGIcon iconAyuda = new FlatSVGIcon("ayuda.svg", 30, 30);
+		btnAyuda.setIcon(iconAyuda);
+		btnAyuda.setBounds(1134, 333, 120, 50);
+		contentPane.add(btnAyuda);
+		btnAyuda.addActionListener(controlador);
 		
 		BtnSalir = new JButton("SALIR");
 		BtnSalir.setBounds(1004, 394, 250, 60);
 		contentPane.add(BtnSalir);
 		BtnSalir.addActionListener(controlador);
 		
-		btnCreditos = new JButton("C");
-		btnCreditos.setBounds(1134, 610, 55, 55);
-		btnCreditos.addActionListener(controlador);
-		contentPane.add(btnCreditos);
 
-		
-		FlatSVGIcon icon = new FlatSVGIcon("login.svg", 10, 10);
+	
+		// BOTONES PEQUEÑOS
 		btnLogin = new JButton();
-		btnLogin.setIcon(icon);
+		FlatSVGIcon iconLogin = new FlatSVGIcon("login.svg", 30, 30);
+		btnLogin.setIcon(iconLogin);
 		btnLogin.setBounds(1199, 610, 55, 55);
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);
+	
+		btnCreditos = new JButton();
+		FlatSVGIcon iconCreditos = new FlatSVGIcon("creditos.svg", 30, 30);
+		btnCreditos.setIcon(iconCreditos);
+		btnCreditos.setBounds(1134, 610, 55, 55);
+		btnCreditos.addActionListener(controlador);
+		contentPane.add(btnCreditos);
 		
-		btnRanking = new JButton("RANKING");
-		btnRanking.setBounds(1004, 333, 120, 50);
-		contentPane.add(btnRanking);
-		btnRanking.addActionListener(controlador);
-		
-		btnAyuda = new JButton("AYUDA");
-		btnAyuda.setBounds(1134, 333, 120, 50);
-		contentPane.add(btnAyuda);
-		btnAyuda.addActionListener(controlador);
-		
-		btnModificar = new JButton("M");
+		btnModificar = new JButton();
+		FlatSVGIcon iconModificar = new FlatSVGIcon("editar.svg", 30, 30);
+		btnModificar.setIcon(iconModificar);
 		btnModificar.setBounds(1069, 610, 55, 55);
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
+		
+		btnCambioTema = new JButton();
+		FlatSVGIcon iconCambioTema = new FlatSVGIcon("cambiotema.svg", 30, 30);
+		btnCambioTema.setIcon(iconCambioTema);
+		btnCambioTema.setBounds(1004, 610, 55, 55);
+		contentPane.add(btnCambioTema);
 		
 		JLabel lblTitutlo = new JLabel("8 ESCALONES");
 		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,6 +150,8 @@ public class VistaPrincipal extends JFrame {
 		lblTitutlo.setForeground(Color.CYAN);
 		lblTitutlo.setBounds(10, 11, 1244, 169);
 		contentPane.add(lblTitutlo);
+		
+		
 
 	}
 	
@@ -186,5 +198,8 @@ public class VistaPrincipal extends JFrame {
 	}
 	public JButton getBtnSalirAyuda() {
 		return btnSalirAyuda;
+	}
+	public JButton getBtnCambioTema() {
+		return btnCambioTema;
 	}
 }

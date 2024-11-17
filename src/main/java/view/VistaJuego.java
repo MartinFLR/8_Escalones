@@ -31,6 +31,7 @@ public class VistaJuego extends JFrame {
 	private BotonPregunta btnpreRespuesta2 = new BotonPregunta();;
 	private BotonPregunta btnpreRespuesta3 = new BotonPregunta();;
 	private BotonPregunta btnpreRespuesta4 = new BotonPregunta();;
+	private JButton btnContinuar;
 	
 	private JPanel panelAproximacion;
 	private JButton btnaproxEnviar;
@@ -39,8 +40,6 @@ public class VistaJuego extends JFrame {
 	private JPanel panelColumna;
 	private JPanel panelJugadores;
 	private JTable table;
-	private JLabel lblJuez;
-	private JLabel lblJugador;
 	
 	private JPanel panelFinal;
 	
@@ -48,6 +47,7 @@ public class VistaJuego extends JFrame {
 	private ArrayList<PanelEscalon> escalones = new ArrayList<PanelEscalon>();
 	private ArrayList<PanelJugadorNormal> jugadorNormal = new ArrayList<PanelJugadorNormal>();
 	private ArrayList<PanelJugadorFinal> jugadorFinal = new ArrayList<PanelJugadorFinal>();
+	
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -118,18 +118,7 @@ public class VistaJuego extends JFrame {
 			this.jugadorNormal.add(new PanelJugadorNormal());
 			panelJugadores.add(this.jugadorNormal.get(i));
 		}
-		
-		//
-		// PANEL INFORMATIVOS
-		//
-		
-		lblJuez = new JLabel("Nombre JUEZ");
-		lblJuez.setBounds(627, 38, 71, 56);
-		contentPane.add(lblJuez);
-		
-		lblJugador = new JLabel("Nombre JUGADOR");
-		lblJugador.setBounds(616, 89, 97, 56);
-		contentPane.add(lblJugador);
+	
 		
 		//---------------------Panel Principal----------------------------------
 		//
@@ -167,22 +156,26 @@ public class VistaJuego extends JFrame {
 		contentPane.add(panelPregunta);
 	
 		panelPregunta.setLayout(null);
-		
-		btnpreRespuesta1.setBounds(10, 239, 187, 55);
+
+		btnpreRespuesta1.setBounds(10, 153, 187, 55);
 		panelPregunta.add(btnpreRespuesta1);
 		
-		btnpreRespuesta2.setBounds(243, 239, 187, 55);
+		btnpreRespuesta2.setBounds(232, 153, 187, 55);
 		panelPregunta.add(btnpreRespuesta2);
 		
-		btnpreRespuesta3.setBounds(10, 313, 187, 55);
+		btnpreRespuesta3.setBounds(10, 218, 187, 55);
 		panelPregunta.add(btnpreRespuesta3);
 	
-		btnpreRespuesta4.setBounds(243, 313, 187, 55);
+		btnpreRespuesta4.setBounds(232, 219, 187, 55);
 		panelPregunta.add(btnpreRespuesta4);
 		
 		lblprePregunta = new JLabel("New label");
-		lblprePregunta.setBounds(10, 98, 420, 131);
+		lblprePregunta.setBounds(70, 11, 420, 131);
 		panelPregunta.add(lblprePregunta);
+		
+		btnContinuar = new JButton("Continuar");
+		btnContinuar.setBounds(170, 310, 89, 23);
+		panelPregunta.add(btnContinuar);
 		
 		
 
@@ -221,19 +214,13 @@ public class VistaJuego extends JFrame {
 	
 	public JTable getTable() {return table;}
 	public void setTable(JTable table) {this.table = table;}
-
-	public JLabel getLblJuez() {return lblJuez;}
-	public void setLblJuez(JLabel lblJuez) {this.lblJuez = lblJuez;}
-	
-	public JLabel getLblJugador() {return lblJugador;}
-	public void setLblJugador(JLabel lblJugador) {this.lblJugador = lblJugador;}
-	
 	
 	
 	public JPanel getPanelPregunta() {return panelPregunta;}
 	public JLabel getLblprePregunta() {return lblprePregunta;}
 	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
 
+	public JButton getBtnContinuar() {return btnContinuar;}
 	public JButton getBtnpreRespuesta2() {return btnpreRespuesta2;}
 	public JButton getBtnpreRespuesta1() {return btnpreRespuesta1;}
 	public JButton getBtnpreRespuesta3() {return btnpreRespuesta3;}

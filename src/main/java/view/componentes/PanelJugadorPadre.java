@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import model.Participante;
+
 public abstract class PanelJugadorPadre extends JPanel{
 	
 	protected ImageIcon imgJugador;
@@ -27,8 +29,9 @@ public abstract class PanelJugadorPadre extends JPanel{
 		add(lblnombreJugador);
 	}
 
-	public abstract void setError ();
-	public abstract void setAcierto();
+
+	public abstract void setError (Participante par);
+	public abstract void setAcierto(Participante par);
 	public abstract void setResetErrores(); 
 
 	//SETEAR COLORES ACTIVO, RESPONDIENDO, ELIMINANDO 
@@ -42,7 +45,9 @@ public abstract class PanelJugadorPadre extends JPanel{
 	
 	public void setActivo() {
 		setBackground(colorActivo);
+		setForeground(colorActivo);
 		panelErrores.setBackground(colorActivo);
+		
 	}
 	
 	public void setEliminado() {

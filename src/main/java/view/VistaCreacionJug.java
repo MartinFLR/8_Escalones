@@ -21,10 +21,12 @@ public class VistaCreacionJug extends JFrame{
 	private ControladorCreacionJug c;
 	private JPanel contentPane;
 	private JButton btnJugar;
+	private JPanel panelCreacion;
 	
 	private ArrayList<JTextField> txtJugador = new ArrayList<JTextField>();
 	private ArrayList<JComboBox> comboboxImg = new ArrayList<JComboBox>();
 	private Vector<ImageIcon> imagenes = new Vector<ImageIcon>();
+	private ArrayList<JPanel> paneles = new ArrayList<>();
 	
 	public VistaCreacionJug (ControladorCreacionJug c) {
 		this.setC(c);
@@ -36,8 +38,11 @@ public class VistaCreacionJug extends JFrame{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		GridLayout gridlayout = new GridLayout();
-		contentPane.setLayout(gridlayout);
+		GridLayout gridlayout = new GridLayout(3,3);
+		panelCreacion = new JPanel();
+		panelCreacion.setBounds(10, 11, 1244, 625);
+		panelCreacion.setLayout(gridlayout);
+		contentPane.add(panelCreacion);
 		
 		// LOGICA DE IMAGENES
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlack.png"));
@@ -50,20 +55,25 @@ public class VistaCreacionJug extends JFrame{
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
 		
-		for (int i = 0; i < 9; i++) {
-			this.comboboxImg.add(new JComboBox(imagenes));
-			contentPane.add(this.comboboxImg.get(i));
-		}
-		// ........................................
+		
 		
 		for (int i = 0; i < 9; i++) {
+			this.paneles.add(new JPanel(new GridLayout(1,2)));
+			panelCreacion.add(this.paneles.get(i));
+			
+			this.comboboxImg.add(new JComboBox(imagenes));
+			this.paneles.get(i).add(this.comboboxImg.get(i));
+			
 			this.txtJugador.add(new JTextField());
 			setFont(new Font("Tahoma", Font.PLAIN, 15));
-			contentPane.add(this.txtJugador.get(i));
+			this.paneles.get(i).add(this.txtJugador.get(i));
 		}
 		
+		
+		// ........................................
+		
 		btnJugar = new JButton("Jugar");
-		btnJugar.setBounds(203, 484, 89, 23);
+		btnJugar.setBounds(1165, 647, 89, 23);
 		contentPane.add(btnJugar);
 		
 		
