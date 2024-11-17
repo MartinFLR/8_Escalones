@@ -17,8 +17,8 @@ import java.util.List;
 public class ControladorModPreguntas {
 
     private VistaModPreguntas vista;
-    private int id_categoria;
-    private int id_pregunta;
+    private Integer id_categoria;
+    private Integer id_pregunta;
 
     public ControladorModPreguntas(){
         this.vista = new VistaModPreguntas(this);
@@ -80,14 +80,14 @@ public class ControladorModPreguntas {
 
 
         this.vista.getBtnCrear().addActionListener(e -> {
-
+            new ControladorCreacionPreguntas(id_categoria);
         });
 
         this.vista.getBtnEditar().addActionListener(e -> {
             int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
 
-            new ControladorCreacionPreguntas(idPregunta);
+            new ControladorCreacionPreguntas(id_categoria,idPregunta);
         });
 
 
