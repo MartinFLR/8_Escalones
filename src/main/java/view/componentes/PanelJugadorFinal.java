@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import java.awt.GridLayout;
 
@@ -19,12 +20,15 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 	public PanelJugadorFinal () {
 		setLayout(new GridLayout(1, 3, 0, 0));
 		setBorder(new EmptyBorder(20, 20, 20, 20));
-
+		setBackground(colorOriginal);		
+		
 		panelErrores = new JPanel();
 		add(panelErrores);
+		panelErrores.setBackground(colorOriginal);
 		for (int i = 0; i < 10; i++) {
 			this.errores.add(new JPanel());
 			this.errores.get(i).setBackground(colorOriginal);
+			this.errores.get(i).setBorder(new LineBorder(Color.black, 1));
 			panelErrores.add(this.errores.get(i));
 		}
 

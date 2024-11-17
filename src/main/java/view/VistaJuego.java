@@ -12,6 +12,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -46,7 +47,7 @@ public class VistaJuego extends JFrame {
 	
 	private JLabel lblaproxPregunta;
 	private JLabel lblaproxRespuesta;
-	private JTable table;
+	private DefaultTableModel defTable;
 	
 	private JPanel panelFinal;
 	
@@ -90,18 +91,6 @@ public class VistaJuego extends JFrame {
 		}
 		// Cambia el color del primer escalon por default
 		this.escalones.getFirst().setcolorUso();
-
-		//
-		// PANEL JUGADORES (FINAL)
-		//
-		
-		panelFinal = new JPanel();
-		panelFinal.setBounds(85, 390, 1181, 131);
-		contentPane.add(panelFinal);
-		GridLayout gridLayoutFinal = new GridLayout (2, 1);
-		gridLayoutFinal.setHgap(10); 
-		gridLayoutFinal.setVgap(20); 
-		panelFinal.setLayout(gridLayoutFinal);
 		
 		for (int i = 0; i < 2; i++) {
 			this.jugadorFinal.add(new PanelJugadorFinal());
@@ -148,6 +137,7 @@ public class VistaJuego extends JFrame {
 		NumberFormat formatoNumero = NumberFormat.getIntegerInstance();
         NumberFormatter formateador = new NumberFormatter(formatoNumero);
         formateador.setAllowsInvalid(false);
+        formateador.setMinimum(0);
         formateador.setMaximum(10000000); 
 		txtaproxRespuesta = new JFormattedTextField(formateador);
 		txtaproxRespuesta.setBounds(48, 188, 142, 48);
@@ -156,11 +146,15 @@ public class VistaJuego extends JFrame {
 		txtaproxRespuesta.setForeground(new Color(37, 36, 34));
 
 		String[] column = {"Jugador", "Respuesta"};
-		DefaultTableModel defTable = new DefaultTableModel(null,column);
-		table = new JTable(defTable);
+		defTable = new DefaultTableModel(null,column);
+		JTable table = new JTable(defTable);
 		table.setBounds(214, 188, 347, 118);
-		panelAproximacion.add(table);
-		table.setBackground(new Color(222, 226, 230));
+	    table.getTableHeader().setReorderingAllowed(false);
+	    table.getTableHeader().setResizingAllowed(false);
+		JScrollPane sc = new JScrollPane();
+		sc.setBounds(214, 191, 347, 115);
+		sc.setViewportView(table);
+		panelAproximacion.add(sc);
 		
 		JPanel panelPregunta = new JPanel();
 		panelPregunta.setBackground(new Color(222, 226, 230));
@@ -185,7 +179,6 @@ public class VistaJuego extends JFrame {
 		lblaproxRespuesta.setForeground(new Color(37, 36, 34));
 		panelCorrecto.add(lblaproxRespuesta);
 		panelCorrecto.setBackground(new Color(222, 226, 230));
-		
 		
 		//
 		// PANEL PREGUNTA
@@ -224,6 +217,22 @@ public class VistaJuego extends JFrame {
 		lblprePregunta.setForeground(new Color(37, 36, 34));
 		panel.add(lblprePregunta);		
 		
+		//
+		// PANEL JUGADORES (FINAL)
+		//
+			
+		panelFinal = new JPanel();		
+		panelFinal.setBounds(85, 367, 1181, 131);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		for (int i = 0; i < 2; i++) {
+			panelFinal.add(this.jugadorFinal.get(i));
+		}
+		
 		
 		
 
@@ -260,10 +269,9 @@ public class VistaJuego extends JFrame {
 	public void setC(ControladorJuego c) {this.c = c;}
 	
 	
-	public JTable getTable() {return table;}
-	public void setTable(JTable table) {this.table = table;}
-	
-	
+	public DefaultTableModel getDefTable() {return defTable;}
+	public void setDefTable(DefaultTableModel defTable) {this.defTable = defTable;}
+
 	public JPanel getPanelPregunta() {return panelPregunta;}
 	public JLabel getLblprePregunta() {return lblprePregunta;}
 	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
@@ -279,9 +287,13 @@ public class VistaJuego extends JFrame {
 	
 	
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
-	
 	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
 	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
+
+	public JPanel getPanelFinal() {return panelFinal;}
+	
+	
+	
 }
