@@ -1,14 +1,14 @@
 package view;
 
-import controller.ControladorRanking;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
+
+import controller.ControladorRanking;
 
 public class VistaRanking extends JFrame {
 
@@ -82,5 +82,6 @@ public class VistaRanking extends JFrame {
 	public void setTable(JTable table) {
 		this.table = table;
 	}
-
+	
+	
 }

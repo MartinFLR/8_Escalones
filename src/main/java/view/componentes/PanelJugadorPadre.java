@@ -32,7 +32,6 @@ public abstract class PanelJugadorPadre extends JPanel{
 
 	public abstract void setError (Participante par);
 	public abstract void setAcierto(Participante par);
-
 	public abstract void setResetErrores(); 
 
 	//SETEAR COLORES ACTIVO, RESPONDIENDO, ELIMINANDO 
@@ -46,7 +45,9 @@ public abstract class PanelJugadorPadre extends JPanel{
 	
 	public void setActivo() {
 		setBackground(colorActivo);
+		setForeground(colorActivo);
 		panelErrores.setBackground(colorActivo);
+		
 	}
 	
 	public void setEliminado() {
