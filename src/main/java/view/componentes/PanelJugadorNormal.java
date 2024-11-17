@@ -1,4 +1,4 @@
-package view;
+package view.componentes;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -20,18 +20,10 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 	protected JPanel panelerror1;
 	protected JPanel panelerror2;
 
-	public PanelJugadorNormal(String url) {
+	public PanelJugadorNormal() {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setLayout(new GridLayout(0, 1, 0, 0));
 		setBackground(colorActivo);
-		
-		ImageIcon imgJugador = new ImageIcon(url);
-		lblimagenJugador = new JLabel(imgJugador);
-		add(lblimagenJugador);
-		
-		lblnombreJugador = new JLabel("NOMBRE");
-		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblnombreJugador);
 		
 		panelErrores = new JPanel();
 		add(panelErrores);
@@ -75,19 +67,6 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		panelerror2.setBackground(colorOriginal);
 	}
 	
-	
-	public JLabel getLblimagenJugador() {
-		return lblimagenJugador;
-	}
-	public void setLblimagenJugador(JLabel lblimagenJugador) {
-		this.lblimagenJugador = lblimagenJugador;
-	}
-	public JLabel getLblnombreJugador() {
-		return lblnombreJugador;
-	}
-	public void setLblnombreJugador(JLabel lblnombreJugador) {
-		this.lblnombreJugador = lblnombreJugador;
-	}
 
 }
 

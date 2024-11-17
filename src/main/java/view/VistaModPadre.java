@@ -1,32 +1,33 @@
 package view;
 
-import controller.ControladorMod;
+import controller.ControladorModCategoria;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 
 
-public class VistaMod extends JFrame{
+public abstract class VistaModPadre extends JFrame{
 
-	private ControladorMod c;
-	private JPanel contentPane;
-	private JButton btnSalir;
-	private JButton btnCrear;
-	private JButton btnEditar;
-	private JButton btnBorrar;
-	private JTextField textField;
-	private JTable table;
-	private DefaultTableModel t;
+	protected ControladorModCategoria c;
+	protected JPanel contentPane;
+	protected JButton btnSalir;
+	protected JButton btnCrear;
+	protected JButton btnEditar;
+	protected JButton btnBorrar;
+	protected JButton btnBuscar;
+	protected JTextField textBuscador;
+	protected JTable table;
+	protected DefaultTableModel t;
 	
-	public VistaMod (ControladorMod c) {
-		this.setC(c);
+	public VistaModPadre () {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 549, 431);
 		contentPane = new JPanel();
@@ -45,22 +46,28 @@ public class VistaMod extends JFrame{
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 11, 141, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		textBuscador = new JTextField();
+		textBuscador.setBounds(10, 11, 141, 20);
+		panel.add(textBuscador);
+		textBuscador.setColumns(10);
 		
 		btnBorrar = new JButton("Eliminar");
 		btnBorrar.setBounds(424, 10, 89, 23);
+		btnBorrar.setEnabled(false);
 		panel.add(btnBorrar);
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(325, 10, 89, 23);
+		btnEditar.setEnabled(false);
 		panel.add(btnEditar);
 		
 		btnCrear = new JButton("Crear");
 		btnCrear.setBounds(226, 10, 89, 23);
 		panel.add(btnCrear);
+		
+		btnBuscar = new JButton("");
+		btnBuscar.setBounds(154, 10, 35, 21);
+		panel.add(btnBuscar);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 58, 513, 292);
@@ -88,10 +95,10 @@ public class VistaMod extends JFrame{
 		
 	}
 
-	public ControladorMod getC() {
+	public ControladorModCategoria getC() {
 		return c;
 	}
-	public void setC(ControladorMod c) {
+	public void setC(ControladorModCategoria c) {
 		this.c = c;
 	}
 
@@ -110,4 +117,33 @@ public class VistaMod extends JFrame{
 	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
+
+	public DefaultTableModel getT() {
+		return t;
+	}
+
+	public void setT(DefaultTableModel t) {
+		this.t = t;
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+
+	public void setBtnBuscar(JButton btnBuscar) {
+		this.btnBuscar = btnBuscar;
+	}
+
+	public JTextField getTextBuscador() {
+		return textBuscador;
+	}
+
 }

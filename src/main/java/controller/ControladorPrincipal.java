@@ -1,10 +1,9 @@
 package controller;
 
-import view.VistaPrincipal;
-
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
 	private VistaPrincipal vista;
@@ -20,7 +19,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnSalir().addActionListener(e -> {System.exit(0);});
 		
 		vista.getBtnLogin().addActionListener(e -> {new ControladorLogin();});
-		vista.getBtnModificar().addActionListener(e -> {new ControladorMod();});
+		vista.getBtnModificar().addActionListener(e -> {new ControladorModCategoria();});
 		
 		vista.getBtnAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(true);});
 		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});
