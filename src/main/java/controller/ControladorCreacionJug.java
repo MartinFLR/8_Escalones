@@ -69,10 +69,6 @@ public class ControladorCreacionJug {
 		for (int i = 0; i < 9; i++) {
 			Participante participante = new Participante(this.vista.getTxtJugador().get(i).getText());
 			participante.setImg((ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
-<<<<<<< HEAD
-			participante.setNombre("Jugador "+i);
-=======
->>>>>>> 9e44d539b6a4ac923dfd0c0455acf447d5619467
 			escalon.agregaParticipante(participante);
 		}
 		escalon.repartirPreguntas();
