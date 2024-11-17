@@ -19,8 +19,8 @@ import view.componentes.PanelJugadorNormal;
 
 
 public class ControladorJuego implements ActionListener, KeyListener {
-	private VistaJuego vista;
-	private Escalon escalon;
+	private final VistaJuego vista;
+	private final Escalon escalon;
     private int turnoJugador = 0;
     private boolean esperandoRespuesta = false;
 	
@@ -29,18 +29,40 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
         this.vista.getPanelAproximacion().setVisible(false);
-		//Cambia el color del escalon en uso y apaga el resto
 		this.vista.setEscalonUso(0);
 		//Por default muestra el de el primer participante
 		poneNombres();
         mostrarPreguntaActual();
-        this.getBotonPresionado(escalon.getParticipantes().get(turnoJugador));
-			//Mostrar
+        inicializarActionListeners();
+		//Mostrar en la vista
 			// La cant errores
-            // cant aciertos
+            // Cant aciertos
             // Filtrar participantes
-		// Subir escalon
+		    // Subir escalon
 	}
+
+    private void inicializarActionListeners(){
+        this.vista.getBtnpreRespuesta1().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuesta(e.getActionCommand());
+            }
+        });
+        this.vista.getBtnpreRespuesta2().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuesta(e.getActionCommand());
+            }
+        });
+        this.vista.getBtnpreRespuesta3().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuesta(e.getActionCommand());
+            }
+        });
+        this.vista.getBtnpreRespuesta4().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuesta(e.getActionCommand());
+            }
+        });
+    }
 
 	//Rondas
 	public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
@@ -185,12 +207,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         }
         return participantesAEliminar;
     }
-    private void mostrarPreguntaActual(){
-        Participante participante = escalon.getParticipantes().get(turnoJugador);
-        System.out.println("MostrarPreguntaActual");
-        mostrarPregunta(participante);
-        esperandoRespuesta = true;  // Estamos esperando la respuesta
-    }
     public void filtrarParticipantes(){
         List<Participante> participantesAEliminar = getParticipantesAEliminar();
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
@@ -219,34 +235,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
         }
     }
 
-	//Agrega los action listener a los botones de respuesta y setea la respuesta del participante
-	private void getBotonPresionado(Participante participante){
-		this.vista.getBtnpreRespuesta1().addActionListener(e ->{
-            if(esperandoRespuesta){
-                participante.setRespuestaParticipante(e.getActionCommand());
-                //Aca hay que checkear que no sea el turno del ultimo
-                procesarRespuesta();
-            }
-        });
-		this.vista.getBtnpreRespuesta2().addActionListener(e ->{
-            if(esperandoRespuesta){
-                participante.setRespuestaParticipante(e.getActionCommand());
-                procesarRespuesta();
-            }
-        });
-		this.vista.getBtnpreRespuesta3().addActionListener(e ->{
-            if(esperandoRespuesta){
-                participante.setRespuestaParticipante(e.getActionCommand());}
-                procesarRespuesta();
-            });
-		this.vista.getBtnpreRespuesta4().addActionListener(e ->{
-            if(esperandoRespuesta){
-                participante.setRespuestaParticipante(e.getActionCommand());}
-                procesarRespuesta();
-            });
-	}
-    private void procesarRespuesta(){
+    //Procesar preguntas y respuestas
+    private void mostrarPreguntaActual(){
+        Participante participante = escalon.getParticipantes().get(turnoJugador);
+        mostrarPregunta(participante);
+        esperandoRespuesta = true;  // Estamos esperando la respuesta
+    }
+    private void procesarRespuesta(String respuesta){
         // Cambiar al siguiente jugador
+        Participante participante = escalon.getParticipantes().get(turnoJugador);
+        participante.setRespuestaParticipante(respuesta);
         turnoJugador++;
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;  // Reiniciamos si hemos llegado al final
@@ -254,10 +252,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
         esperandoRespuesta = false;  // Ya no estamos esperando respuesta del jugador
         mostrarPreguntaActual();  // Muestra la siguiente pregunta
     }
-	//Muestra la pregunta de un participante, obtiene el indice y enciende su panel correspondiente
 	private void mostrarPregunta(Participante participante){
 		//Podemos usar .remove() para sacar la preg y que no se repita
-        System.out.println("MostrarPregunta");
 		PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
 		int nroParticipante = escalon.getParticipantes().indexOf(participante);
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
@@ -269,7 +265,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
 		this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
 	}
-
 	private void poneNombres(){
 		for (int i = 0; i < 9; i++) {
 			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
