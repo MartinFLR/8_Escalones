@@ -25,7 +25,6 @@ public class Escalon {
             }
         }
     }
-
     private void repartirPreguntasFinal(){
         System.out.println("Reparte preguntas final");
         //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
@@ -44,15 +43,12 @@ public class Escalon {
             this.estadoDeRonda.setRondaFinal();
         }
     }
-    
-
     public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
         //Saca los participantes que perdieron de la lista de participantes que siguen en juego
         for (Participante par: participantesAEliminar){
             participantes.remove(par);
         }
     }
-
     public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
@@ -60,7 +56,6 @@ public class Escalon {
     public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
-
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
         for (Participante par: participantes ){
         par.setCantErrores(0);
@@ -93,7 +88,6 @@ public class Escalon {
     public List<Participante> getParticipantes() {
         return this.participantes;
     }
-
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
     }
