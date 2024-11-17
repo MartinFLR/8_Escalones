@@ -10,26 +10,28 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.GridLayout;
 
+import model.Participante;
+
 public class PanelJugadorFinal extends PanelJugadorPadre{
 
 	protected ArrayList<JPanel> errores = new ArrayList<JPanel>();
-	
+
 	public PanelJugadorFinal () {
-	setLayout(new GridLayout(1, 3, 0, 0));
-	setBorder(new EmptyBorder(20, 20, 20, 20));
-	
-	panelErrores = new JPanel();
-	add(panelErrores);
-	for (int i = 0; i < 10; i++) {
-		this.errores.add(new JPanel());
-		this.errores.get(i).setBackground(colorOriginal);
-		panelErrores.add(this.errores.get(i));
+		setLayout(new GridLayout(1, 3, 0, 0));
+		setBorder(new EmptyBorder(20, 20, 20, 20));
+
+		panelErrores = new JPanel();
+		add(panelErrores);
+		for (int i = 0; i < 10; i++) {
+			this.errores.add(new JPanel());
+			this.errores.get(i).setBackground(colorOriginal);
+			panelErrores.add(this.errores.get(i));
 		}
-	
+
 	}
 
 	@Override
-	public void setError() {
+	public void setError(Participante par) {
 		for (JPanel panel: errores) {
 			if (panel.getBackground().equals(colorOriginal)) {
 				panel.setBackground(colorError);
@@ -39,7 +41,7 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 	}
 
 	@Override
-	public void setAcierto() {
+	public void setAcierto(Participante par) {
 		for (JPanel panel: errores) {
 			if (panel.getBackground().equals(colorOriginal)) {
 				panel.setBackground(colorAcierto);
@@ -52,7 +54,6 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 	public void setResetErrores() {
 		for (JPanel panel: errores) {
 			panel.setBackground(colorOriginal);
-			}
 		}
 	}
-
+}

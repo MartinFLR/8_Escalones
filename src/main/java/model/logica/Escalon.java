@@ -58,10 +58,8 @@ public class Escalon {
         this.participantes.remove(participante);
     }
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
-        for (Participante par: participantes ){
-        par.resetCantAciertos();//no usa el set(0) por tema vista y colores
-        par.resetCantErrores();//idem
-    }}
+
+    }
     
 
     //Getters y setters
