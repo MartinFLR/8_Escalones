@@ -247,7 +247,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
 
 		panelParticipante.setRespondiendo();
-		this.vista.getLblJugador().setText(participante.getNombre());
 		this.vista.getLblprePregunta().setText(pregunta.getPregunta());
 		this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
 		this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
