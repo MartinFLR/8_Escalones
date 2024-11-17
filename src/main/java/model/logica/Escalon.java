@@ -2,6 +2,7 @@ package model.logica;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import model.Participante;
 import model.PreguntaOpcion;
@@ -12,6 +13,7 @@ public class Escalon {
     private Tema tema;
     private int escalon=0;
     private final List<Participante> participantes = new ArrayList<>();
+    private List<Tema> temas = new ArrayList<>(); 
 
     public Escalon() {
         //Crea la instancia de la ronda y setea por defecto ronda normal
@@ -63,8 +65,10 @@ public class Escalon {
     
 
     //Getters y setters
-    public void setTema(Tema tema) {
-        this.tema = tema;
+    public void setTema() {
+        Random random = new Random();
+        int indice = random.nextInt(0, this.getTemas().size());
+        this.tema = this.getTemas().remove(indice);
     }
     public Tema getTema() {
         return this.tema;
@@ -90,5 +94,10 @@ public class Escalon {
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
     }
-    
+    public List<Tema> getTemas() {
+        return this.temas;
+    }
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
+    }
 }
