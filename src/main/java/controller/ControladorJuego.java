@@ -95,7 +95,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             for (Participante participante:participantes){
 				this.mostrarPregunta(participante);
 				preg=participante.getPreguntasParticipante().get(i);
-				this.getBotonPresionado(participante);
+				//this.getBotonPresionado(participante);
 				//Si aca espera a que este la rta deberia funcionar todo bien
 				resp=participante.getRespuestaParticipante();
 				if (preg.getRespuestaCorrecta().equals(resp)){
@@ -268,17 +268,29 @@ public class ControladorJuego implements ActionListener, KeyListener {
         // Cambiar al siguiente jugador
         Participante participante = escalon.getParticipantes().get(turnoJugador);
         participante.setRespuestaParticipante(respuesta);
+
+        if (!participante.getPreguntasParticipante().isEmpty()) {
+            PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().get(0); 
+            if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
+                this.vista.getJugadorNormal().get(turnoJugador).setAcierto(participante);
+            } else {
+                this.vista.getJugadorNormal().get(turnoJugador).setError(participante);
+            }
+            participante.getPreguntasParticipante().remove(0);
+        }
         turnoJugador++;
         if (turnoJugador >= escalon.getParticipantes().size()) {
-            turnoJugador = 0;  // Reiniciamos si hemos llegado al final
+            turnoJugador = 0;  
         }
         setColore();
         esperandoRespuesta = false;  // Ya no estamos esperando respuesta del jugador
         mostrarPreguntaActual();  // Muestra la siguiente pregunta
     }
+
 	private void mostrarPregunta(Participante participante){
 		//Podemos usar .remove() para sacar la preg y que no se repita
-		PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
+        System.out.println(participante.getPreguntasParticipante().size());
+		PreguntaOpcion pregunta = participante.getPreguntasParticipante().get(0);
 		int nroParticipante = escalon.getParticipantes().indexOf(participante);
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
         

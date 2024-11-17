@@ -29,6 +29,7 @@ public abstract class PanelJugadorPadre extends JPanel{
 		add(lblnombreJugador);
 	}
 
+
 	public abstract void setError (Participante par);
 	public abstract void setAcierto(Participante par);
 	public abstract void setResetErrores(); 
