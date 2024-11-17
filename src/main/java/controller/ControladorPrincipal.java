@@ -3,6 +3,12 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
@@ -25,6 +31,19 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});
 		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
 		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
+		
+		vista.getBtnCambioTema().addActionListener(e -> {
+			 try {
+                 if (UIManager.getLookAndFeel() instanceof FlatLightLaf) {
+                     UIManager.setLookAndFeel(new FlatDarkLaf());
+                 } else {
+                     UIManager.setLookAndFeel(new FlatLightLaf());
+                 }
+                 SwingUtilities.updateComponentTreeUI(this.vista);
+             } catch (Exception ex) {
+                 ex.printStackTrace();
+             }
+		});
 	}
 
 	

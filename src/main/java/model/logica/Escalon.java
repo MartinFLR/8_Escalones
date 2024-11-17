@@ -25,7 +25,6 @@ public class Escalon {
             }
         }
     }
-
     private void repartirPreguntasFinal(){
         System.out.println("Reparte preguntas final");
         //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
@@ -45,6 +44,7 @@ public class Escalon {
             this.estadoDeRonda.setRondaFinal();
         }
     }
+<<<<<<< HEAD
     private List<Participante> getParticipantesAEliminar() {
         //Tiene que checkear que haya solo 1, si hay mas de 1 setea el estado en RondaEmpate
         List<Participante> participantesAEliminar = new ArrayList<>();
@@ -98,13 +98,14 @@ public class Escalon {
         }
     }
 
+=======
+>>>>>>> 3d59884c5477ad8906a62e1314700b697ebefd76
     public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
         //Saca los participantes que perdieron de la lista de participantes que siguen en juego
         for (Participante par: participantesAEliminar){
             participantes.remove(par);
         }
     }
-
     public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
@@ -112,7 +113,6 @@ public class Escalon {
     public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
-
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
         for (Participante par: participantes ){
         par.resetCantAciertos();//no usa el set(0) por tema vista y colores
@@ -145,7 +145,6 @@ public class Escalon {
     public List<Participante> getParticipantes() {
         return this.participantes;
     }
-
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
     }
