@@ -219,11 +219,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
-            
+            ronda.actualizarDatos(ronda, participantesAEliminar, tema);
             // Repite la ronda de desempate hasta que quede uno
             while(participantesAEliminar.size()>1){
 				this.rondaEmpate(ronda, participantesAEliminar);
-                //ronda.actualizarDatos(participantesAEliminar);
+                ronda.actualizarDatos(ronda, participantesAEliminar, tema);
             }
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();
@@ -235,10 +235,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }else{
                 System.out.println("Se elimina el participante "+ participantesAEliminar.getFirst().getNombre());  
                 Participante participante = participantesAEliminar.getFirst();
-                //Para ver la posicion en el panel
+                //Para ver la posicion en el panel recupero el indice que ocupa en la lista
                 int indice = this.escalon.getParticipantes().indexOf(participante);
                 this.vista.getJugadorNormal().get(indice).setEliminado();
                 this.escalon.eliminaParticipante(participante);
+                Ronda estado = this.escalon.getEstadoDeRonda();
+                estado.setRondaNormal();
+                escalon.setTema();
+                estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
+                this.rondaDePreguntas(estado, escalon.getParticipantes());
             }
         }
     }
@@ -286,6 +291,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             //subeEscalon() aumenta el escalon, resetea los errores y aciertos y reparte preguntas
             int nroRonda = escalon.getEscalon()+1;
             System.out.println("Ronda " + nroRonda +" terminada");
+            turnoJugador = 0;
             this.filtrarParticipantes();
             this.escalon.subeEscalon();
             this.vista.setEscalonUso(this.escalon.getEscalon());
