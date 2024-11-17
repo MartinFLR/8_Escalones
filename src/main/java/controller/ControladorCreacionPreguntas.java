@@ -17,8 +17,8 @@ import java.awt.*;
 public class ControladorCreacionPreguntas {
 
     private VistaCreacionPreguntas vista;
-    private String id;
-    private int idPregunta;
+    private Integer idTema;
+    private Integer idPregunta;
     private String pregunta;
     private String respuesta;
     private String incorrecta_1;
@@ -30,14 +30,14 @@ public class ControladorCreacionPreguntas {
         this.vista = new VistaCreacionPreguntas(this);
         this.vista.setVisible(true);
         this.botones();
-        this.id = id;
+        this.idTema = idTema;
     }
     public ControladorCreacionPreguntas( int idTema, int idPregunta) {
         this.vista = new VistaCreacionPreguntas(this);
-        this.id = id;
+        this.idPregunta = idPregunta;
+        this.idTema = idTema;
         this.vista.setVisible(true);
         this.botones();
-        this.id = id;
     }
 
 
@@ -58,9 +58,8 @@ public class ControladorCreacionPreguntas {
 
             Collections.shuffle(listaRespuestas);
 
-            int id_temaoriginal = Integer.parseInt(id);
             //necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
-            this.Añadirpregunta(pregunta, id_temaoriginal, "Aproximacion", listaRespuestas);
+            this.Añadirpregunta(pregunta, idTema, "Aproximacion", listaRespuestas);
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -73,8 +72,7 @@ public class ControladorCreacionPreguntas {
             Respuesta respuestaCorrecta = new Respuesta(getVista().getTextPregunta().getText(), true);
             List<Respuesta> listaRespuestas = new ArrayList<>();
             listaRespuestas.add(respuestaCorrecta);
-            int it_temaoriginal = Integer.parseInt(id);
-            this.Añadirpregunta(pregunta, it_temaoriginal, "Aproximacion", listaRespuestas);
+            this.Añadirpregunta(pregunta, idTema, "Aproximacion", listaRespuestas);
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);

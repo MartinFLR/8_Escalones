@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import model.Participante;
 import model.PreguntaAproximacion;
@@ -33,6 +32,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista.setEscalonUso(this.escalon.getEscalon());
 		//Por default muestra el de el primer participante
 		poneNombres();
+        inicializarActionListeners();
         this.rondaDePreguntas(this.escalon.getEstadoDeRonda(), this.escalon.getParticipantes());
         //Mostrar en la vista
 			// La cant errores
@@ -84,7 +84,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	//Rondas
 	public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
         mostrarPreguntaActual();
-        inicializarActionListeners();
+        esperandoRespuesta = true;
 	}
 	public void rondaEmpate(Ronda ronda,List<Participante> participantes){
 		PreguntaAproximacion preg = participantes.get(0).getPregEmpate();
@@ -96,16 +96,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
         preg.imprimirPregunta();
 
         //recorre la lista de participantes y compara las respuestas de los participantes con la respuesta correcta
-        Scanner scanner = new Scanner(System.in);
         for (model.Participante participante: participantes){
-            
-            // Double respuestaParticipante = participante.getRespuestaParticipanteEmpate();
             System.out.println("Respuesta del participante: " + participante.getNombre());	
-            Double respuestaParticipante = scanner.nextDouble();
+            Double respuestaParticipante = participante.getRespuestaParticipanteEmpate();
             
             //Calcula la diferencia entre la respuesta correcta y la respuesta del participante
             diferencia = Math.abs(respuestaCorrecta-respuestaParticipante);
-
             //Si la diferencia es mayor a la respuesta mas lejana, se guarda la diferencia y el participante
             if (diferencia>respMasLejana){
                 respMasLejana = diferencia;
@@ -126,13 +122,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 System.out.println(participante.getNombre());
             }
         } else if (peorParticipante != null) {
-            // Agrega al peor participante para poder eliminarlo de la lista de aprticipantes en juego dsps.
             peorParticipante.sumaError();
             participantes.add(peorParticipante);
             System.out.println("Participante a eliminar: "+peorParticipante.getNombre());
         }
-        //Hay que contemplar el caso de que haya empate entre los participantes nuevamente
-        scanner.close();
 	}
 	public void rondaFinal(Ronda ronda,List<Participante> participantes){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
@@ -239,6 +232,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 Participante participante = participantesAEliminar.getFirst();
                 //Para ver la posicion en el panel recupero el indice que ocupa en la lista
                 int indice = this.escalon.getParticipantes().indexOf(participante);
+                this.setColore();
                 this.vista.getJugadorNormal().get(indice).setEliminado();
                 this.escalon.eliminaParticipante(participante);
                 Ronda estado = this.escalon.getEstadoDeRonda();
@@ -298,6 +292,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.escalon.subeEscalon();
             this.vista.setEscalonUso(this.escalon.getEscalon());
             esperandoRespuesta = false;
+            for (Participante p : this.escalon.getParticipantes()) {
+                System.out.println("Reseteando px: "+p.getNombre());
+                int posicion = this.escalon.getParticipantes().indexOf(p);
+                this.vista.getJugadorNormal().get(posicion).setResetErrores();
+            }
+            mostrarPreguntaActual();
             return;
         }
         if (turnoJugador >= escalon.getParticipantes().size()) {
@@ -313,30 +313,28 @@ public class ControladorJuego implements ActionListener, KeyListener {
 			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
 		}
 	}
+    private void mostrarPreguntaEmpate(){
 
+    }
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
 			new ControladorMenupausa();
 		}
 	}
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
