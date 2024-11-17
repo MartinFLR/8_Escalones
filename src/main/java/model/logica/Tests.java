@@ -50,7 +50,8 @@ public class Tests {
 
         model.Tema tema = new Tema (listaPreguntaAproximacion, listaPreguntaOp, "Tema 1");
         Escalon escalon = new Escalon();
-        escalon.setTema(tema);
+        escalon.setTemas(listaTemas);
+        escalon.setTema();
         for (model.Participante participante : listaParticipantes) {
             //escalon.agregaParticipante(new model.Participante(participante.getNombre()));
         }

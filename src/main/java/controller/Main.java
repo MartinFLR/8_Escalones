@@ -15,7 +15,6 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_RIGHT,"bienvenidos panchitos");
 					UIManager.setLookAndFeel(new FlatDarkLaf()); //Tema oscuro
 					//UIManager.setLookAndFeel(new FlatLightLaf()); //Tema claro
 					//UIManager.setLookAndFeel(new FlatDarculaLaf()); //Tema oscuro pero diferente XD

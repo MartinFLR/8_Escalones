@@ -28,7 +28,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.escalon = escalon;
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
-        this.vista.getPanelAproximacion().setVisible(false);
+        this.vista.getPanelAproximacion().setVisible(true);
 		this.vista.setEscalonUso(this.escalon.getEscalon());
 		//Por default muestra el de el primer participante
 		poneNombres();
@@ -38,6 +38,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Cant aciertos
             // Filtrar participantes
 		    // Subir escalon
+
 	}
 
     private void inicializarActionListeners(){
@@ -261,7 +262,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         panelParticipante.setRespondiendo();
-        this.vista.getLblprePregunta().setText(pregunta.getPregunta());
+        this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
         this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
         this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());

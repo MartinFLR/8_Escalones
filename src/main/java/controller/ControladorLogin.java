@@ -11,6 +11,7 @@ import model.ABM.AdminDAO;
 import view.VistaLogin;
 import view.VistaPrincipal;
 import model.ABM.ManagerSession;
+import raven.toast.Notifications;
 
 public class ControladorLogin implements ActionListener{
 
@@ -40,7 +41,9 @@ public class ControladorLogin implements ActionListener{
             // Validar login con las credenciales
             if (adminDAO.Login(cuenta, contrasenia)) {
                 // Si el login es exitoso, mostrar vista principal
-                JOptionPane.showMessageDialog(vista, "¡Login exitoso!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Te has logueado correctamente");
+                Notifications.getInstance().setJFrame(controladorPrincipal.getVista());
+                this.vista.dispose();
 				ManagerSession.setLogueado(true);
 				controladorPrincipal.verificarEstadoSesion();
 				controladorPrincipal.getVista().actualizarEstadoLogin(true);
@@ -48,7 +51,8 @@ public class ControladorLogin implements ActionListener{
                 vista.dispose(); // Cierra la ventana de login
             } else {
                 // Si el login falla
-                JOptionPane.showMessageDialog(vista, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+            	Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Credenciales incorrectas");
+            	Notifications.getInstance().setJFrame(controladorPrincipal.getVista());
             }
         }
 
