@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import model.ABM.ManagerSession;
+import raven.toast.Notifications;
 import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
@@ -33,8 +34,6 @@ public class ControladorPrincipal implements ActionListener{
 		verificarEstadoSesion();
 	}
 
-	
-
 	public VistaPrincipal getVista() {
 		return vista;
 	}
@@ -43,37 +42,19 @@ public class ControladorPrincipal implements ActionListener{
 		this.vista = vista;
 	}
 
-
-
-	@Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vista.getBtnModificar()) {
-            if (ManagerSession.estaLogueado()) {
-                JOptionPane.showMessageDialog(vista, "Accediendo a la opción de modificar.", "Modificar", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(vista, "Debe iniciar sesión primero.", "Error", JOptionPane.WARNING_MESSAGE);
-            }
-        }
-
-	
-
-}
-
 	private void actualizarEstadoModificar() {
-		vista.getBtnModificar().setEnabled(ManagerSession.estaLogueado());
-}
+		vista.getBtnModificar().setVisible(ManagerSession.estaLogueado());
+	}
 
 	public void verificarEstadoSesion() {
 		actualizarEstadoModificar();
-}
+	}
 
-
-
-
-
-
-
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

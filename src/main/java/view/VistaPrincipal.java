@@ -34,7 +34,6 @@ public class VistaPrincipal extends JFrame {
 	private JButton btnSalirCreditos;
 
 
-	
 	public VistaPrincipal(ControladorPrincipal controlador) {
 		this.setControlador(controlador);
 		setTitle("8 ESCALONES");
@@ -50,13 +49,13 @@ public class VistaPrincipal extends JFrame {
 		
 		//---PANELES (VENTANAS EXTRAS)
 		panelAyuda = new JPanel();
-		panelAyuda.setBounds(236, 53, 792, 574);
+		panelAyuda.setBounds(153, 40, 958, 601);
 		contentPane.add(panelAyuda);
 		panelAyuda.setLayout(null);
 		panelAyuda.setVisible(false);
 		
 		btnSalirAyuda = new JButton("Volver");
-		btnSalirAyuda.setBounds(564, 374, 89, 23);
+		btnSalirAyuda.setBounds(848, 550, 100, 40);
 		panelAyuda.add(btnSalirAyuda); 
 
 		
@@ -150,11 +149,9 @@ public class VistaPrincipal extends JFrame {
 		btnModificar = new JButton();
 		FlatSVGIcon iconModificar = new FlatSVGIcon("editar.svg", 30, 30);
 		btnModificar.setIcon(iconModificar);
-		btnModificar.setBounds(1069, 610, 55, 55);
-		btnModificar.setEnabled(false);
+		btnModificar.setBounds(182, 615, 55, 55);
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
-		FlatSVGIcon iconCambioTema = new FlatSVGIcon("cambiotema.svg", 30, 30);
 		
 		JLabel lblTitutlo = new JLabel("8 ESCALONES");
 		lblTitutlo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -214,8 +211,6 @@ public class VistaPrincipal extends JFrame {
 
 	public void actualizarEstadoLogin(boolean logueado) {
 		if (logueado) {
-			btnLogin.setIcon(new FlatSVGIcon("login_success.svg", 10, 10)); 
-			btnLogin.setBackground(new Color(0, 128, 0));
 			btnLogin.setEnabled(false); // Deshabilita el botón
 		} 
 	}
