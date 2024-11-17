@@ -10,7 +10,7 @@ import model.Tema;
 public class Escalon {
     private final Ronda estadoDeRonda; 
     private Tema tema;
-    private int escalon=1;
+    private int escalon=0;
     private final List<Participante> participantes = new ArrayList<>();
 
     public Escalon() {
