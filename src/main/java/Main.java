@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import model.*;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
+import model.Participante;
+import model.PreguntaAproximacion;
+import model.PreguntaOpcion;
+import model.Preguntas;
+import model.Tema;
 
 
 public class Main {
@@ -37,13 +41,13 @@ public class Main {
     System.out.println("Lista de Preguntas:");
     for (Preguntas pregunta : listaPreguntasOpcion) {
 
-      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+      System.out.println("Id pregunta "+pregunta.getId_pregunta() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
   
     System.out.println("Lista de Preguntas de aproximacion:");
     for (Preguntas pregunta : listaPreguntasAproximacion) {
 
-      System.out.println("Id pregunta "+pregunta.getId() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
+      System.out.println("Id pregunta "+pregunta.getId_pregunta() +", "+pregunta.getPregunta()+", Respuesta Correcta: "+pregunta.getRespuestaCorrecta()+", Tema ID: "+ pregunta.getIdTema());
     }
 
 

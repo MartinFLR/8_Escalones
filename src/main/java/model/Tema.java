@@ -1,39 +1,39 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import model.*;
 
 public class Tema {
-    private int id;
-    private String nombre;
-    private List<PreguntaOpcion> preguntasOp;
-    private List<PreguntaAproximacion> pregsAproximacion;
+    private int id_tema;
+    private String nombre_tema;
+    private List<PreguntaOpcion> preguntasOp = new ArrayList<>();
+    private List<PreguntaAproximacion> pregsAproximacion = new ArrayList<>();
     private List<Preguntas> preguntas;
     private int CantidadPreguntas;
 
 
     public Tema(String nombre, List<Preguntas> preguntas) {
-        this.nombre = nombre;
+        this.nombre_tema = nombre;
         this.preguntas = preguntas;
     }
 
     //Constructor que usa team ABM para generar un nuevo tema de manera local
     public Tema(String nombre){
-        this.nombre = nombre;
+        this.nombre_tema = nombre;
     }
 
     //Constructor que usa team ABM para traer de la bd un tema
     public Tema(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+        this.id_tema = id;
+        this.nombre_tema = nombre;
         this.CantidadPreguntas = 0;
     }
 
     public Tema( List<PreguntaAproximacion> pregsAproximacion, List<PreguntaOpcion> preguntas, String tema) {
         this.pregsAproximacion = pregsAproximacion;
         this.preguntasOp = preguntas;
-        this.nombre = tema;
+        this.nombre_tema = tema;
     }
 
 
@@ -51,13 +51,19 @@ public class Tema {
 
     //Getters y Setters
     public void setNombre(String nombreTema) {
-        this.nombre = nombreTema;
+        this.nombre_tema = nombreTema;
     }
     public List<Preguntas> getPreguntas() {
-        return preguntas;
+        return this.preguntas;
     }
     public void setPreguntasOp(List<PreguntaOpcion> preguntas) {
         this.preguntasOp = preguntas;
+    }
+    public void agregarPreguntaOp(PreguntaOpcion pregunta){
+        this.preguntasOp.add(pregunta);
+    }
+    public List<PreguntaOpcion> getPreguntasOp() {
+        return this.preguntasOp;
     }
     public List<PreguntaAproximacion> getPregsAproximacion() {
         return pregsAproximacion;
@@ -65,14 +71,17 @@ public class Tema {
     public void setPregsAproximacion(List<PreguntaAproximacion> pregsAproximacion) {
         this.pregsAproximacion = pregsAproximacion;
     }
+    public void agregarPreguntasAproximacion(PreguntaAproximacion pregunta){
+        this.pregsAproximacion.add(pregunta);
+    }
     public int getId() {
-        return id;
+        return id_tema;
     }
     public String getNombre() {
-        return nombre;
+        return nombre_tema;
     }
     public void setId(Integer id){
-        this.id = id;
+        this.id_tema = id;
     }
 
     public void setCantidadPreguntas(Integer Cantidad){

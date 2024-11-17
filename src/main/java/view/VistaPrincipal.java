@@ -1,39 +1,17 @@
 package view;
 
-import controller.ControladorPrincipal;
+import java.awt.Color;
+import java.awt.Font;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.EventQueue;
-
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
+import controller.ControladorPrincipal;
 
 public class VistaPrincipal extends JFrame {
 
@@ -54,6 +32,8 @@ public class VistaPrincipal extends JFrame {
 	private JPanel panelCreditos;
 	private JButton btnSalirAyuda;
 	private JButton btnSalirCreditos;
+
+
 	
 	public VistaPrincipal(ControladorPrincipal controlador) {
 		this.setControlador(controlador);
@@ -67,8 +47,8 @@ public class VistaPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		//---PANELES (VENTANAS EXTRAS)
 		
+		//---PANELES (VENTANAS EXTRAS)
 		panelAyuda = new JPanel();
 		panelAyuda.setBounds(236, 53, 792, 574);
 		contentPane.add(panelAyuda);
@@ -77,71 +57,113 @@ public class VistaPrincipal extends JFrame {
 		
 		btnSalirAyuda = new JButton("Volver");
 		btnSalirAyuda.setBounds(564, 374, 89, 23);
-		panelAyuda.add(btnSalirAyuda);
+		panelAyuda.add(btnSalirAyuda); 
 
 		
 		panelCreditos = new JPanel();
-		panelCreditos.setBounds(236, 53, 792, 574);
+		panelCreditos.setBounds(153, 40, 958, 601);
 		contentPane.add(panelCreditos);
 		panelCreditos.setLayout(null);
 		panelCreditos.setVisible(false);
 		
 		btnSalirCreditos = new JButton("Volver");
-		btnSalirCreditos.setBounds(564, 374, 89, 23);
+		btnSalirCreditos.setBounds(851, 552, 100, 40);
 		panelCreditos.add(btnSalirCreditos);
+
+		JLabel lblLogica = new JLabel("<html>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</html>");
+		lblLogica.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogica.setVerticalAlignment(SwingConstants.TOP);
+		lblLogica.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblLogica.setBounds(330, 151, 300, 399);
+		panelCreditos.add(lblLogica);
+		JLabel lblABM = new JLabel("<html>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</html>");
+		lblABM.setHorizontalAlignment(SwingConstants.CENTER);
+		lblABM.setVerticalAlignment(SwingConstants.TOP);
+		lblABM.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblABM.setBounds(20, 151, 300, 399);
+		panelCreditos.add(lblABM);
+		JLabel lblIGU = new JLabel("<html>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</html>");
+		lblIGU.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIGU.setVerticalAlignment(SwingConstants.TOP);
+		lblIGU.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblIGU.setBounds(648, 151, 300, 390);
+		panelCreditos.add(lblIGU);
+		JLabel lblCreditos = new JLabel("CREDITOS");
+		lblCreditos.setFont(new Font("Tahoma", Font.BOLD, 35));
+		lblCreditos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCreditos.setBounds(10, 11, 938, 72);
+		panelCreditos.add(lblCreditos);
+		lblCreditos.setIcon(new FlatSVGIcon("creditos.svg", 50, 50));
 		
 		
 		//---BOTONES PANTALLA PRINCIPAL
 		btnJugar = new JButton("JUGAR");
-		btnJugar.setBounds(1004, 191, 250, 60);
+		btnJugar.setBounds(52, 196, 250, 60);
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
-		btnJugar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnJugar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
+
 		btnOpciones = new JButton("OPCIONES");
-		btnOpciones.setBounds(1004, 262, 250, 60);		
+		btnOpciones.setBounds(52, 267, 250, 60);		
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
+		btnOpciones.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
-		BtnSalir = new JButton("SALIR");
-		BtnSalir.setBounds(1004, 394, 250, 60);
-		contentPane.add(BtnSalir);
-		BtnSalir.addActionListener(controlador);
 		
-		btnCreditos = new JButton("C");
-		btnCreditos.setBounds(1134, 610, 55, 55);
-		btnCreditos.addActionListener(controlador);
-		contentPane.add(btnCreditos);
-
-		
-		FlatSVGIcon icon = new FlatSVGIcon("login.svg", 10, 10);
-		btnLogin = new JButton();
-		btnLogin.setIcon(icon);
-		btnLogin.setBounds(1199, 610, 55, 55);
-		contentPane.add(btnLogin);
-		btnLogin.addActionListener(controlador);
-		
-		btnRanking = new JButton("RANKING");
-		btnRanking.setBounds(1004, 333, 120, 50);
+		btnRanking = new JButton("RANKING");		
+		btnRanking.setBounds(52, 338, 120, 50);
 		contentPane.add(btnRanking);
 		btnRanking.addActionListener(controlador);
+		btnRanking.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
 		
 		btnAyuda = new JButton("AYUDA");
-		btnAyuda.setBounds(1134, 333, 120, 50);
+		btnAyuda.setBounds(182, 338, 120, 50);
 		contentPane.add(btnAyuda);
 		btnAyuda.addActionListener(controlador);
+		btnAyuda.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
-		btnModificar = new JButton("M");
+		
+		BtnSalir = new JButton("SALIR");
+		BtnSalir.setBounds(52, 399, 250, 60);
+		contentPane.add(BtnSalir);
+		BtnSalir.addActionListener(controlador);
+		BtnSalir.setFont(new Font("Tahoma", Font.BOLD, 15));
+
+	
+		// BOTONES PEQUEÑOS
+		btnLogin = new JButton();
+		FlatSVGIcon iconLogin = new FlatSVGIcon("login.svg", 30, 30);
+		btnLogin.setIcon(iconLogin);
+		btnLogin.setBounds(52, 615, 55, 55);
+		contentPane.add(btnLogin);
+		btnLogin.addActionListener(controlador);
+	
+		btnCreditos = new JButton();
+		FlatSVGIcon iconCreditos = new FlatSVGIcon("creditos.svg", 30, 30);
+		btnCreditos.setIcon(iconCreditos);
+		btnCreditos.setBounds(117, 615, 55, 55);
+		btnCreditos.addActionListener(controlador);
+		contentPane.add(btnCreditos);
+		
+		btnModificar = new JButton();
+		FlatSVGIcon iconModificar = new FlatSVGIcon("editar.svg", 30, 30);
+		btnModificar.setIcon(iconModificar);
 		btnModificar.setBounds(1069, 610, 55, 55);
+		btnModificar.setEnabled(false);
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
+		FlatSVGIcon iconCambioTema = new FlatSVGIcon("cambiotema.svg", 30, 30);
 		
 		JLabel lblTitutlo = new JLabel("8 ESCALONES");
-		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitutlo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
 		lblTitutlo.setForeground(Color.CYAN);
-		lblTitutlo.setBounds(10, 11, 1244, 169);
+		lblTitutlo.setBounds(20, 16, 1244, 169);
 		contentPane.add(lblTitutlo);
+		
+		
 
 	}
 	
@@ -189,4 +211,18 @@ public class VistaPrincipal extends JFrame {
 	public JButton getBtnSalirAyuda() {
 		return btnSalirAyuda;
 	}
-}
+
+	public void actualizarEstadoLogin(boolean logueado) {
+		if (logueado) {
+			btnLogin.setIcon(new FlatSVGIcon("login_success.svg", 10, 10)); 
+			btnLogin.setBackground(new Color(0, 128, 0));
+			btnLogin.setEnabled(false); // Deshabilita el botón
+		} 
+	}
+	
+
+	}
+	
+
+
+

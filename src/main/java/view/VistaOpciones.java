@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSlider;
 import javax.swing.JButton;
-import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 
 public class VistaOpciones extends JFrame {
 
@@ -18,29 +18,49 @@ public class VistaOpciones extends JFrame {
 	private JPanel contentPane;
 	private ControladorOpciones c;
 	private JButton btnSalir;
-	private JLabel lblNewLabel;
+	private JSlider sliderMusica;
+	private JSlider sliderSonido;
 	
 	
 	public VistaOpciones(ControladorOpciones c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		setBounds(300, 200, 257, 328);
+		setBounds(300, 200, 300, 450);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
+		setResizable(false);
+		
+		sliderSonido = new JSlider();
+		sliderSonido.setBounds(41, 147, 218, 30);
+		contentPane.add(sliderSonido);
+		
+		sliderMusica = new JSlider();
+		sliderMusica.setBounds(41, 225, 218, 30);
+		contentPane.add(sliderMusica);
+		
 		
 		btnSalir = new JButton("Volver");
-		btnSalir.setBounds(158, 294, 89, 23);
+		btnSalir.setBounds(200, 409, 90, 30);
 		contentPane.add(btnSalir);
 		btnSalir.addActionListener(c);
 
-		lblNewLabel = new JLabel("Opciones");
-		lblNewLabel.setBounds(97, 11, 46, 14);
+		
+		JLabel lblNewLabel = new JLabel("Opciones");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
+		lblNewLabel.setBounds(10, 24, 280, 51);
 		contentPane.add(lblNewLabel);
-	
+		
+		JLabel lblNewLabel_1 = new JLabel("Musica");
+		lblNewLabel_1.setBounds(41, 122, 46, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Sonido");
+		lblNewLabel_2.setBounds(41, 200, 46, 14);
+		contentPane.add(lblNewLabel_2);
 		
 	}
 
