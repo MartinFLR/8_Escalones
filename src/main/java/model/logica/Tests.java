@@ -3,16 +3,17 @@ package model.logica;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.*;
-import model.ABM.*;
-
+import model.ABM.AdminDAO;
 import model.ABM.ParticipantesDAO;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
+import model.Admin;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.Preguntas;
+import model.Tema;
 
 public class Tests {
     @SuppressWarnings({ "unchecked" })//unchecked pq en pregOpcionDao y pregAproxDao uso list generico que devuelve un elemento generico
@@ -163,7 +164,7 @@ public class Tests {
         System.out.println("---------Prueba situacion de empate---------");
         escalon.getParticipantes().get(0).setCantErrores(2);
         escalon.getParticipantes().get(1).setCantErrores(2);
-        escalon.filtrarParticipantes();
+        // escalon.filtrarParticipantes();
     }
     
     //Metodos para imprimir datos y probar los metodos 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Participante;
-import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Tema;
 
