@@ -57,6 +57,7 @@ public class Participante {
         return respuestaParticipante;
     }
     public void setRespuestaParticipante(String respuestaParticipante) {
+        System.out.println("Participante "+ this.getNombre());
         System.out.println("Respuesta seteada desde controller: "+respuestaParticipante);
         this.respuestaParticipante = respuestaParticipante;
     }
