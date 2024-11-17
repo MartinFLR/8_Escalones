@@ -290,7 +290,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.escalon.subeEscalon();
             this.vista.setEscalonUso(this.escalon.getEscalon());
             esperandoRespuesta = false;
-            //Apago la vista solo para checkear
             return;
         }
         if (turnoJugador >= escalon.getParticipantes().size()) {
