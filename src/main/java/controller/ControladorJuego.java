@@ -30,23 +30,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista.setEscalonUso(0);
 		//Por default muestra el de el primer participante
 		poneNombres();
-		int nroParticipante = 0;
-		Participante participante = escalon.getParticipantes().get(nroParticipante);
-		mostrarPregunta(participante);
-		getBotonPresionado(participante);
+        Ronda estadoRonda = escalon.getEstadoDeRonda();
+        List<Participante> participantes = escalon.getParticipantes();
+		// this.rondaDePreguntas(estadoRonda, participantes);
 		//getjugadorNormal = devuelve PanelJugador[]
-
-		// for(Participante p: escalon.getParticipantes()){
-		// 	mostrarPregunta(p);
-		// 	getBotonPresionado(p);
-		// }
-		// this.escalon.getEstadoDeRonda().actualizaDatos();
-		// for(Participante p: escalon.getParticipantes()){
+			mostrarPregunta(participantes.get(0));
+			getBotonPresionado(participantes.get(0));
 			//Mostrar
 			// La cant errores
             // cant aciertos
             // Filtrar participantes
-		// }
 		// Subir escalon
 	}
 
@@ -54,12 +47,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
         PreguntaOpcion preg;
         String resp;
-        for (Participante participante:participantes){
-            for (int i = 0; i <2; i++) {
+        for (int i = 0; i <2; i++) {
+            for (Participante participante:participantes){
 				this.mostrarPregunta(participante);
 				preg=participante.getPreguntasParticipante().get(i);
-				//Si aca espera a que este la rta deberia funcionar todo 
 				this.getBotonPresionado(participante);
+				//Si aca espera a que este la rta deberia funcionar todo bien
 				resp=participante.getRespuestaParticipante();
 				if (preg.getRespuestaCorrecta().equals(resp)){
 					System.out.println("Respuesta correcta");
@@ -247,7 +240,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
 
 		panelParticipante.setRespondiendo();
-		this.vista.getLblJugador().setText(participante.getNombre());
 		this.vista.getLblprePregunta().setText(pregunta.getPregunta());
 		this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
 		this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
