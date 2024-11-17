@@ -34,6 +34,11 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
+    @Override
+    public void modificar(int id, PreguntaOpcion entidad) {
+
+    }
+
     public void crearPregunta(PreguntaOpcion nuevaPregunta, List<Respuesta> respuestas) {
         String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
                 + "VALUES (?, ?, ?)";
@@ -178,97 +183,73 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
     }
 
-    //aca Respuesta(objeto) se utiliza el constructor sin id_respuesta, que contiene la respuesta y si es correcta
-    private void modificarOpciones(int id_respuesta, Respuesta nuevaRespuesta, int idpregunta){
-        String sql = "UPDATE respuestas SET respuesta = ?, respuesta_correcta = ? WHERE id_respuesta = ? AND id_pregunta = ? ";
-        try(Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setString(1, nuevaRespuesta.getRespuesta());
-            pstmt.setBoolean(2, nuevaRespuesta.isRespuestaCorrecta());
-            pstmt.setInt(3, id_respuesta);
-            pstmt.setInt(4, idpregunta);
-            
-            int rowsAffected = pstmt.executeUpdate();
-            if(rowsAffected>0){
-                System.out.println("Se modificaron las respuestas de id_pregunta: " + idpregunta + " con exito" );
-            } else{
-                System.out.println("No se modificaron respuestas para id_pregunta: " + idpregunta);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al intentar modificar respuestas de id_pregunta: " + idpregunta + e.getMessage());
-        }
-    }
-
-    //aca nuevaPregunta deberia tener ya el arreglo de respuestas usando el constructor con arraylist de respuestas
-    public void modificar(int id_pregunta, PreguntaOpcion nuevaPregunta) {
-        String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
-
-        try (Connection connection = Database.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setString(1, nuevaPregunta.getPregunta());
-            statement.setInt(2, nuevaPregunta.getIdTema());
-            statement.setInt(3, id_pregunta);
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {// aca se modifican las respuestas para la pregunta
-                List<Integer> id_respuestas = buscaIdRespuestas(id_pregunta);
-                System.out.println("Pregunta modificada con éxito.");
-
-                for (Integer integer : id_respuestas) {
-                    modificarOpciones(integer, nuevaPregunta.getRespuesta(), id_pregunta);
-                }
-                
-            } else {
-                System.out.println("Pregunta no encontrada para modificar.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al modificar la pregunta: " + e.getMessage());
-        }
-    }
-
-//    public static void crearPregunta(String pregunta, int idTema, int idTipoPregunta) {
-//        String query = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
-//
-//        try (Connection connection = Database.getInstance().getConnection();
-//             PreparedStatement pstmt = connection.prepareStatement(query)) {
-//
-//            pstmt.setString(1, pregunta);
-//            pstmt.setInt(2, idTema);
-//            pstmt.setInt(3, idTipoPregunta);
+//    //aca Respuesta(objeto) se utiliza el constructor sin id_respuesta, que contiene la respuesta y si es correcta
+//    private void modificarOpciones(int id_respuesta, Respuesta nuevaRespuesta, int idpregunta){
+//        String sql = "UPDATE respuestas SET respuesta = ?, respuesta_correcta = ? WHERE id_respuesta = ? AND id_pregunta = ? ";
+//        try(Connection conn = Database.getInstance().getConnection();
+//        PreparedStatement pstmt = conn.prepareStatement(sql)){
+//            pstmt.setString(1, nuevaRespuesta.getRespuesta());
+//            pstmt.setBoolean(2, nuevaRespuesta.isRespuestaCorrecta());
+//            pstmt.setInt(3, id_respuesta);
+//            pstmt.setInt(4, idpregunta);
 //
 //            int rowsAffected = pstmt.executeUpdate();
-//
-//            if (rowsAffected > 0) {
-//                System.out.println("Pregunta creada exitosamente.");
-//            } else {
-//                System.out.println("No se pudo crear la pregunta.");
+//            if(rowsAffected>0){
+//                System.out.println("Se modificaron las respuestas de id_pregunta: " + idpregunta + " con exito" );
+//            } else{
+//                System.out.println("No se modificaron respuestas para id_pregunta: " + idpregunta);
 //            }
-//
 //        } catch (SQLException e) {
-//            System.err.println("Error al crear la pregunta: " + e.getMessage());
+//            System.out.println("Error al intentar modificar respuestas de id_pregunta: " + idpregunta + e.getMessage());
 //        }
 //    }
 
-// protected Boolean preguntaYaTieneOpciones(Preguntas pregunta) {
-//     int cantidad_opciones = 0;
-//     String query = " SELECT COUNT(id_respuesta) as Opciones FROM respuestas r JOIN preguntas p ON r.id_respuesta=p.id_respuesta WHERE p.id_pregunta = ?";
-//     try (Connection conn = Database.getInstance().getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(query)) {
-//         pstmt.setInt(1, pregunta.getId_pregunta());
-//         try (ResultSet rs = pstmt.executeQuery()) {
-//             if (rs.next()) {
-//                 cantidad_opciones = rs.getInt("Opciones");
-//             }
-//         }
-//     } catch (SQLException e) {
-//         System.out.println(e.getMessage());
-//     }
-//     if (cantidad_opciones >= 4) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
+    //aca nuevaPregunta deberia tener ya el arreglo de respuestas usando el constructor con arraylist de respuestas
+    public void modificarPregunta(int id,PreguntaOpcion entidad, List<Respuesta> respuestas) {
+        String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
+        String deleteRespuestas = "DELETE FROM respuestas WHERE id_pregunta = ?";
+        String insertRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
+
+        try (Connection connection = Database.getInstance().getConnection();
+             PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta);
+             PreparedStatement stmtDeleteRespuestas = connection.prepareStatement(deleteRespuestas);
+             PreparedStatement stmtInsertRespuesta = connection.prepareStatement(insertRespuesta)) {
+
+            connection.setAutoCommit(false);
+
+            // Actualizar la pregunta
+            stmtPregunta.setString(1, entidad.getPregunta());
+            stmtPregunta.setInt(2, entidad.getIdTema());
+            stmtPregunta.setInt(3, entidad.getId_pregunta());
+            stmtPregunta.executeUpdate();
+
+            // Eliminar respuestas antiguas
+            stmtDeleteRespuestas.setInt(1, entidad.getId_pregunta());
+            stmtDeleteRespuestas.executeUpdate();
+
+            // Insertar las nuevas respuestas
+            for (Respuesta respuesta : respuestas) {
+                stmtInsertRespuesta.setInt(1, entidad.getId_pregunta());
+                stmtInsertRespuesta.setString(2, respuesta.getRespuesta());
+                stmtInsertRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
+                stmtInsertRespuesta.addBatch();
+            }
+            stmtInsertRespuesta.executeBatch();
+
+            // Confirmar la transacción
+            connection.commit();
+
+            System.out.println("Pregunta y respuestas actualizadas exitosamente.");
+        } catch (SQLException e) {
+            try (Connection connection = Database.getInstance().getConnection()) {
+                connection.rollback();  // Revertir cambios en caso de error
+            } catch (SQLException ex) {
+                System.out.println("Error al revertir la transacción: " + ex.getMessage());
+            }
+            System.out.println("Error al modificar la pregunta: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
 }
