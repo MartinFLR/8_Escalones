@@ -163,7 +163,7 @@ public class Tests {
         System.out.println("---------Prueba situacion de empate---------");
         escalon.getParticipantes().get(0).setCantErrores(2);
         escalon.getParticipantes().get(1).setCantErrores(2);
-        escalon.filtrarParticipantes();
+        //escalon.filtrarParticipantes();
     }
     
     //Metodos para imprimir datos y probar los metodos 

@@ -43,4 +43,25 @@ public class AdminDAO {
         return admin1;
     }
 
+    public boolean Login(String cuenta, String contrasenia) {
+        boolean loginValido = false;
+        String query = "SELECT * FROM admin WHERE usuario = ? AND contrasenia = ?";
+        
+        try (Connection conn = Database.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+             
+            stmt.setString(1, cuenta);
+            stmt.setString(2, contrasenia);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    loginValido = true;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return loginValido;
+    }
+
 }

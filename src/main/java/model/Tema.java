@@ -1,14 +1,14 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import model.*;
 
 public class Tema {
     private int id_tema;
     private String nombre_tema;
-    private List<PreguntaOpcion> preguntasOp;
-    private List<PreguntaAproximacion> pregsAproximacion;
+    private List<PreguntaOpcion> preguntasOp = new ArrayList<>();
+    private List<PreguntaAproximacion> pregsAproximacion = new ArrayList<>();
     private List<Preguntas> preguntas;
     private int CantidadPreguntas;
 
@@ -54,16 +54,25 @@ public class Tema {
         this.nombre_tema = nombreTema;
     }
     public List<Preguntas> getPreguntas() {
-        return preguntas;
+        return this.preguntas;
     }
     public void setPreguntasOp(List<PreguntaOpcion> preguntas) {
         this.preguntasOp = preguntas;
+    }
+    public void agregarPreguntaOp(PreguntaOpcion pregunta){
+        this.preguntasOp.add(pregunta);
+    }
+    public List<PreguntaOpcion> getPreguntasOp() {
+        return this.preguntasOp;
     }
     public List<PreguntaAproximacion> getPregsAproximacion() {
         return pregsAproximacion;
     }
     public void setPregsAproximacion(List<PreguntaAproximacion> pregsAproximacion) {
         this.pregsAproximacion = pregsAproximacion;
+    }
+    public void agregarPreguntasAproximacion(PreguntaAproximacion pregunta){
+        this.pregsAproximacion.add(pregunta);
     }
     public int getId() {
         return id_tema;

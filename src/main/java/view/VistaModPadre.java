@@ -27,8 +27,7 @@ public abstract class VistaModPadre extends JFrame{
 	protected JTable table;
 	protected DefaultTableModel t;
 	
-	public VistaModPadre (ControladorModCategoria c) {
-		this.setC(c);
+	public VistaModPadre () {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 549, 431);
 		contentPane = new JPanel();
@@ -146,4 +145,5 @@ public abstract class VistaModPadre extends JFrame{
 	public JTextField getTextBuscador() {
 		return textBuscador;
 	}
+
 }

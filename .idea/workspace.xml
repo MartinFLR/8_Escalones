@@ -7,7 +7,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9e0e7d9-e1a0-4eb0-bc00-759bbf499a05" name="Changes" comment="" />
+    <list default="true" id="c9e0e7d9-e1a0-4eb0-bc00-759bbf499a05" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorJuego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorJuego.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorMenupausa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorMenupausa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/logica/Escalon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/logica/Escalon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/logica/TestJuego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/logica/TestJuego.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/componentes/PanelJugadorFinal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/componentes/PanelJugadorFinal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/componentes/PanelJugadorNormal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/componentes/PanelJugadorNormal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/componentes/PanelJugadorPadre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/componentes/PanelJugadorPadre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/ControladorCreacionJug.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Participante.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Tema.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +66,7 @@
     &quot;Application.TestJuego.executor&quot;: &quot;Run&quot;,
     &quot;Application.Tests.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;abm&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }

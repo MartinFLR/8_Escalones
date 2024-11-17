@@ -4,6 +4,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import controller.ControladorModCategoria;
 import controller.ControladorCreacionPreguntas;
+import controller.ControladorModPreguntas;
 import model.ABM.PreguntasDAO;
 import model.Preguntas;
 
@@ -13,8 +14,7 @@ public class VistaModPreguntas extends VistaModPadre {
 	private String numerocategoria;
 	private PreguntasDAO preguntasDAO = new PreguntasDAO();;
 
-	public VistaModPreguntas(ControladorModCategoria c, String id) {
-		super(c);
+	public VistaModPreguntas(ControladorModPreguntas c, String id) {
 		this.numerocategoria = id;
 		actualizarTabla();
 		setVisible(true);
