@@ -29,6 +29,15 @@
             <artifactId>flatlaf-extras</artifactId>
             <version>3.5.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>raven.toast</groupId>
+            <artifactId>swing-toast-notifications</artifactId>
+            <version>1.0.3</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/java/swing-toast-notifications-1.0.3.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>

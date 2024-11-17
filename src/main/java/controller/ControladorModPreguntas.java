@@ -24,6 +24,10 @@ public class ControladorModPreguntas {
     }
 
 
+
+
+
+
     public void setId_pregunta(int id_categoria) {
         this.id_categoria = id_categoria;
         System.out.println("Hola soy controladorMod Preguntas "+id_categoria);
