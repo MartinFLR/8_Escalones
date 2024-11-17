@@ -66,7 +66,13 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		setForeground(colorActivo);
 		panelErrores.setBackground(colorActivo);
 	}
-	
+	@Override
+	public void setEliminado(){
+		setBackground(colorEliminado);
+		panelErrores.setBackground(colorEliminado);
+		this.panelerror1.setVisible(false);
+		this.panelerror2.setVisible(false);
+	}
 }
 
 

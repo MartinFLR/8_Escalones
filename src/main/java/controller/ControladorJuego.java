@@ -286,11 +286,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
             //subeEscalon() aumenta el escalon, resetea los errores y aciertos y reparte preguntas
             int nroRonda = escalon.getEscalon()+1;
             System.out.println("Ronda " + nroRonda +" terminada");
+            this.filtrarParticipantes();
             this.escalon.subeEscalon();
             this.vista.setEscalonUso(this.escalon.getEscalon());
             esperandoRespuesta = false;
             //Apago la vista solo para checkear
-            this.filtrarParticipantes();
             return;
         }
         if (turnoJugador >= escalon.getParticipantes().size()) {
