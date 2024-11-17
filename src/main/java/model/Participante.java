@@ -18,10 +18,22 @@ public class Participante {
 
 //holaaa soy martin, usen el setImg para setear la imagen, asi no tenemos como 10 constructores :P
 
+<<<<<<< HEAD
     // Constructor sin id para crear el objeto desde local
     public Participante(String nombre) {
         this.nombre_participante = nombre;
         this.img = img;
+=======
+    //Constructores
+    public Participante(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    // Constructor sin id para agregar participantes
+    public Participante(String nombre) { //agregué imageIcon, entonces tuve que comentar los constructores en testJuego para que ande.
+        this.nombre = nombre;
+>>>>>>> 9e44d539b6a4ac923dfd0c0455acf447d5619467
     }
 
     // Constructor con id para cuando generamos los objetos desde bd
