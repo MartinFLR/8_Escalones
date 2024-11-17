@@ -95,7 +95,10 @@ public class Escalon {
             //Si solo hay uno, se elimina
             //despues de esto habria que sumar uno al numEscalon y repartir preguntas   
             this.eliminoParticipantes(participantesAEliminar, participantes);
+<<<<<<< HEAD
             this.subeEscalon();
+=======
+>>>>>>> parent of 5b74cf1 (Se rompio todo)
         }
     }
 
