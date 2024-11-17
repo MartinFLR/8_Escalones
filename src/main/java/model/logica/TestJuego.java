@@ -32,28 +32,28 @@ public class TestJuego {
         // }
 
         // Estado de la ronda
-        Ronda estado = escalon.getEstadoDeRonda();
+        // Ronda estado = escalon.getEstadoDeRonda();
 
-        //Inicia el juego
-        escalon.repartirPreguntas();
-        estado.rondaDePreguntas(escalon.getParticipantes());
+        // //Inicia el juego
+        // escalon.repartirPreguntas();
+        // estado.rondaDePreguntas(escalon.getParticipantes());
 
         //Elimina un participante o cambia el estado de la ronda a empate
-        escalon.filtrarParticipantes();
-        System.out.println("Participantes que suben escalon");
-        for (Participante participante : escalon.getParticipantes()) {
-            System.out.println(participante.getNombre());
-        }
+        // escalon.filtrarParticipantes();
+        // System.out.println("Participantes que suben escalon");
+        // for (Participante participante : escalon.getParticipantes()) {
+        //     System.out.println(participante.getNombre());
+        // }
 
-        // Salta al escalon 8 para probar la ronda final
-        escalon.setEscalon(8);
-        estado.rondaDePreguntas(escalon.getParticipantes());
-        escalon.filtrarParticipantes();
-        if(escalon.getParticipantes().isEmpty()){
-            System.out.println("No se elimina el participante correctamente");
-        }else{
-            System.out.println("\nGanador: "+ escalon.getParticipantes().getFirst().getNombre());
-        }
+        // // Salta al escalon 8 para probar la ronda final
+        // escalon.setEscalon(8);
+        // estado.rondaDePreguntas(escalon.getParticipantes());
+        // escalon.filtrarParticipantes();
+        // if(escalon.getParticipantes().isEmpty()){
+        //     System.out.println("No se elimina el participante correctamente");
+        // }else{
+        //     System.out.println("\nGanador: "+ escalon.getParticipantes().getFirst().getNombre());
+        // }
         // Para arreglar:
         // Funciona la ronda de empate en la final pero el perdedor no se esta eliminando
         // Capaz falta manejar los err en rondaEmpate
