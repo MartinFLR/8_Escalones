@@ -31,19 +31,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});
 		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
 		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
-		
-		vista.getBtnCambioTema().addActionListener(e -> {
-			 try {
-                 if (UIManager.getLookAndFeel() instanceof FlatLightLaf) {
-                     UIManager.setLookAndFeel(new FlatDarkLaf());
-                 } else {
-                     UIManager.setLookAndFeel(new FlatLightLaf());
-                 }
-                 SwingUtilities.updateComponentTreeUI(this.vista);
-             } catch (Exception ex) {
-                 ex.printStackTrace();
-             }
-		});
+	
 	}
 
 	

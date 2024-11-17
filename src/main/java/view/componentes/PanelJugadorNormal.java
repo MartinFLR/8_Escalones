@@ -25,8 +25,8 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		panelErrores = new JPanel();
 		add(panelErrores);
 		panelErrores.setBackground(colorActivo);
-		panelErrores.setLayout(new GridLayout(0, 2, 20, 20));
-		panelErrores.setBorder(new EmptyBorder(20, 20, 20, 20));
+		panelErrores.setLayout(new GridLayout(0, 2, 10, 10));
+		panelErrores.setBorder(new EmptyBorder(10, 20, 10, 20));
 		panelerror1 = new JPanel();
 		panelerror1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelerror1.setBackground(colorOriginal);
