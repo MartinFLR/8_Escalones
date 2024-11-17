@@ -7,5 +7,5 @@ import model.Tema;
 
 public interface EstadoRonda {
     //para que el estado pueda manejar la ronda de preguntas
-    public void actualizarDatos(Ronda ronda,List<Participante> participantes,Tema tema);
+    public void actualizarDatos(Ronda ronda,List<Participante> participantes,Escalon esc);
 }
