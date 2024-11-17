@@ -46,18 +46,18 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 	public void setError (Participante par) {
 			if (par.getPreguntasParticipante().size()==1)//si es tu primera respuesta respondida,osea que te queds responder otra (por eso el =1)setea e color del primer boton
 			{
-			panelerror1.setBackground(colorError);
-		} else {
 			panelerror2.setBackground(colorError);
+		} else {
+			panelerror1.setBackground(colorError);
 		}
 	}
 	
 	@Override
 	public void setAcierto(Participante par) {
 		if (par.getPreguntasParticipante().size()==1)
-{panelerror1.setBackground(colorAcierto);
+{panelerror2.setBackground(colorAcierto);
 		} else {
-			panelerror2.setBackground(colorAcierto);
+			panelerror1.setBackground(colorAcierto);
 		}
 	}
 	
