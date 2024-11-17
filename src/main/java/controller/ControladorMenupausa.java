@@ -1,5 +1,6 @@
 package controller;
 
+
 import view.VistaMenupausa;
 
 import java.awt.event.ActionEvent;
@@ -8,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class ControladorMenupausa implements ActionListener {
 
-	private VistaMenupausa vista;
+	private final VistaMenupausa vista;
 	
 	public ControladorMenupausa  () {
 		this.vista = new VistaMenupausa(this);
