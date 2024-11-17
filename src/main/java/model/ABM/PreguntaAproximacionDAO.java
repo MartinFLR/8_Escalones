@@ -1,6 +1,7 @@
 package model.ABM;
 
 import model.PreguntaAproximacion;
+import model.PreguntaOpcion;
 import model.Preguntas;
 import model.Respuesta;
 
@@ -25,13 +26,18 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 // Aquí puedes guardar la respuesta correcta en la tabla de respuestas
-                insertarRespuesta(generatedKeys.getInt(1),pregunta);
+                insertarRespuesta(generatedKeys.getInt(1), pregunta);
             }
             System.out.println("Pregunta de aproximación agregada exitosamente.");
 
         } catch (SQLException e) {
             System.out.println("Error al agregar la pregunta de aproximación: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void modificar(int id, PreguntaAproximacion entidad) {
+
     }
 
     public void crearPregunta(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
@@ -79,17 +85,14 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         }
     }
 
-
-
-
     private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
         String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
-        
+
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                
-                    pstmt.setInt(1,pregunta.getId_pregunta());
-                    pstmt.setString(2, pregunta.getRespuestaCorrecta());
+
+            pstmt.setInt(1, pregunta.getId_pregunta());
+            pstmt.setString(2, pregunta.getRespuestaCorrecta());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -134,16 +137,10 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         }
         return preguntas;
     }
-    
-
-
-
-
-
 
     public void eliminar(int id) {
         String query = "DELETE FROM preguntas WHERE id_pregunta = ?";
-    
+
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -156,50 +153,52 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         } catch (SQLException e) {
             System.err.println("Error al eliminar la pregunta: " + e.getMessage());
         }
-    
+
     }
 
-    
-    private void modificarRespuesta(PreguntaAproximacion pregunta){
-        String sql = "UPDATE respuestas SET respuesta_correcta = ? WHERE preguntas.id_pregunta = ?";
-        try (Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)){
-
-            pstmt.setString(1, pregunta.getRespuestaCorrecta());
-            pstmt.setInt(2, pregunta.getId_pregunta());
-
-            try(ResultSet rs = pstmt.executeQuery()){
-                if(rs.rowUpdated()){
-                    System.out.println("Respuesta modificada");
-                }else{
-                    System.out.println("No se pudo modificar la respuesta");
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    //si se modifica la pregunta por ley deben modificarse las respuesta(depende si cambia el contexto)
-    public void modificar(int id, PreguntaAproximacion nuevaPregunta) {
-        String query = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
+    public void modificarPregunta(int id, PreguntaAproximacion entidad, List<Respuesta> respuestas) {
+        String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
+        String deleteRespuestas = "DELETE FROM respuestas WHERE id_pregunta = ?";
+        String insertRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta);
+             PreparedStatement stmtDeleteRespuestas = connection.prepareStatement(deleteRespuestas);
+             PreparedStatement stmtInsertRespuesta = connection.prepareStatement(insertRespuesta)) {
 
-            statement.setString(1, nuevaPregunta.getPregunta());
-            statement.setInt(2, nuevaPregunta.getIdTema());
-            statement.setInt(3, id);
-            modificarRespuesta(nuevaPregunta);
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Pregunta de aproximación modificada con éxito.");
-            } else {
-                System.out.println("Pregunta no encontrada para modificar.");
+            connection.setAutoCommit(false);
+
+            // Actualizar la pregunta
+            stmtPregunta.setString(1, entidad.getPregunta());
+            stmtPregunta.setInt(2, entidad.getIdTema());
+            stmtPregunta.setInt(3, id);
+            stmtPregunta.executeUpdate();
+
+            // Eliminar respuestas antiguas
+            stmtDeleteRespuestas.setInt(1, entidad.getId_pregunta());
+            stmtDeleteRespuestas.executeUpdate();
+
+            // Insertar las nuevas respuestas
+            for (Respuesta respuesta : respuestas) {
+                stmtInsertRespuesta.setInt(1, entidad.getId_pregunta());
+                stmtInsertRespuesta.setString(2, respuesta.getRespuesta());
+                stmtInsertRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
+                stmtInsertRespuesta.addBatch();
             }
+            stmtInsertRespuesta.executeBatch();
+
+            // Confirmar la transacción
+            connection.commit();
+
+            System.out.println("Pregunta y respuestas actualizadas exitosamente.");
         } catch (SQLException e) {
-            System.err.println("Error al modificar la pregunta de aproximación: " + e.getMessage());
+            try (Connection connection = Database.getInstance().getConnection()) {
+                connection.rollback();  // Revertir cambios en caso de error
+            } catch (SQLException ex) {
+                System.out.println("Error al revertir la transacción: " + ex.getMessage());
+            }
+            System.out.println("Error al modificar la pregunta: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
-
