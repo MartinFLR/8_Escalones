@@ -12,6 +12,7 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 
 	protected JPanel panelerror1;
 	protected JPanel panelerror2;
+	protected boolean activo = true;
 
 	public PanelJugadorNormal() {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1));
@@ -72,5 +73,9 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		panelErrores.setBackground(colorEliminado);
 		this.panelerror1.setVisible(false);
 		this.panelerror2.setVisible(false);
+		this.activo = false;
+	}
+	public boolean isActivo(){
+		return this.activo;
 	}
 }
