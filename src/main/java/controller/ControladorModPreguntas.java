@@ -20,7 +20,8 @@ public class ControladorModPreguntas {
     private Integer id_categoria;
     private Integer id_pregunta;
 
-    public ControladorModPreguntas(){
+    public ControladorModPreguntas(int categoria){
+        this.id_categoria=categoria;
         this.vista = new VistaModPreguntas(this);
         this.vista.setVisible(true);
         botones();
@@ -98,5 +99,9 @@ public class ControladorModPreguntas {
     public void setId_pregunta(int id_categoria) {
         this.id_categoria = id_categoria;
         System.out.println("Hola soy controladorMod Preguntas "+id_categoria);
+    }
+
+    public Integer getId_categoria(){
+        return this.id_categoria;
     }
 }

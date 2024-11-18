@@ -62,8 +62,8 @@ public class ControladorModCategoria {
 
 							// Acción para editar la categoría
 							// En este caso, llamamos al método de editar categoría
-							ControladorModPreguntas controlador = new ControladorModPreguntas();
-							controlador.setId_pregunta(idCategoria);
+							 new ControladorModPreguntas(idCategoria);
+							//controlador.setId_pregunta(idCategoria);
 
 							System.out.println("hola");
 						} catch (NumberFormatException ex) {
@@ -194,12 +194,12 @@ public class ControladorModCategoria {
 		
 		vista.getBtnSalir().addActionListener(e -> {vista.setVisible(false);});
 		
-		vista.getBtnBuscar().addActionListener(e ->{
-			String texto = this.vista.getTextBuscador().getText();
-			System.out.println(texto);
-			ControladorModPreguntas controlador = new ControladorModPreguntas();
+		// vista.getBtnBuscar().addActionListener(e ->{
+		// 	String texto = this.vista.getTextBuscador().getText();
+		// 	System.out.println(texto);
+		// 	ControladorModPreguntas controlador = new ControladorModPreguntas();
 
-		});
+		// });
 	}
 	
 	//TABLA --capaz sirva para abtraccion 

@@ -59,7 +59,7 @@ public class ControladorCreacionPreguntas {
             Collections.shuffle(listaRespuestas);
 
             //necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
-            this.Añadirpregunta(pregunta, idTema, "Aproximacion", listaRespuestas);
+            this.Añadirpregunta(pregunta, idTema, "Opcion Multiple", listaRespuestas);
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
