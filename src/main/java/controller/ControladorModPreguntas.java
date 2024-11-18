@@ -25,7 +25,6 @@ public class ControladorModPreguntas {
     public ControladorModPreguntas(int categoria){
         this.id_categoria=categoria;
         this.vista = new VistaModPreguntas(this);
-        this.id_categoria = id_categoria;
         this.vista.setVisible(true);
         botones();
     }
@@ -36,6 +35,10 @@ public class ControladorModPreguntas {
             this.vista.getBtnEditar().setEnabled(true);
             this.vista.getBtnBorrar().setEnabled(true);
         });
+
+        this.vista.getBtnSalir().addActionListener(e->{
+            this.vista.setVisible(false);
+        });;
 
 // Si no vas a usar los ActionListeners de los botones de Borrar y Editar, quítalos o agrégales funcionalidad
         this.vista.getBtnBorrar().addActionListener(e -> {
