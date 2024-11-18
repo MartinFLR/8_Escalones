@@ -306,10 +306,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
             if (this.escalon.getEscalon()==8){
                 Ronda ronda =  this.escalon.getEstadoDeRonda();
                 ronda.setRondaFinal();
-                
-                ronda.actualizarDatos(this.escalon.getEstadoDeRonda(),this.escalon.getParticipantes(), escalon);
+                this.vista.getPanelFinal().setVisible(true);// setearia la vista final, no lo probe bien
+                ronda.actualizarDatos(ronda,this.escalon.getParticipantes(), escalon);
                 this.rondaDePreguntas(ronda,this.escalon.getParticipantes());
-                verificarRondaFinalYGanador(this.escalon.getParticipantes());//dentro de esto setearia la vista final
+                verificarRondaFinalYGanador(this.escalon.getParticipantes());
             }
             this.vista.setEscalonUso(this.escalon.getEscalon());
             esperandoRespuesta = false;
