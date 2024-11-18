@@ -10,7 +10,15 @@
     <list default="true" id="c9e0e7d9-e1a0-4eb0-bc00-759bbf499a05" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorCreacionPreguntas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorCreacionPreguntas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorModCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorModCategoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorModPreguntas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorModPreguntas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/ParticipantesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/ParticipantesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaAproximacionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaAproximacionDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaOpcionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaOpcionDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntasDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/TemasDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/TemasDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

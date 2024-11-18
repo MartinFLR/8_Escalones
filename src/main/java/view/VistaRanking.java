@@ -32,7 +32,7 @@ public class VistaRanking extends JFrame{
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setBounds(0, 0, 950, 600);
+		setBounds(0, 0, 800, 550);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -42,12 +42,12 @@ public class VistaRanking extends JFrame{
 		JLabel lblRanking = new JLabel("RANKING");
 		lblRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblRanking.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRanking.setBounds(22, 11, 905, 85);
+		lblRanking.setBounds(10, 11, 777, 85);
 		contentPane.add(lblRanking);
 		lblRanking.setIcon(new FlatSVGIcon("rankingColor.svg", 50, 50));
 		
 		btnSalir = new JButton("Volver");
-		btnSalir.setBounds(840, 549, 100, 40);
+		btnSalir.setBounds(690, 499, 100, 40);
 		contentPane.add(btnSalir);
 
 		//--- TABLA DE RANKING ---
@@ -58,13 +58,14 @@ public class VistaRanking extends JFrame{
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+		table.getColumnModel().getColumn(1).setPreferredWidth(400);
 	    table.getTableHeader().setReorderingAllowed(false);
 	    table.getTableHeader().setResizingAllowed(false);
 	    table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		table.setBounds(26, 53, 499, 255);
 		
 		JScrollPane sc = new JScrollPane();
-		sc.setBounds(22, 100, 905, 427);
+		sc.setBounds(10, 100, 780, 391);
 		sc.setViewportView(table);
 		contentPane.add(sc);
 		

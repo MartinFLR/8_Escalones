@@ -13,39 +13,40 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
 
     public void insertar(PreguntaAproximacion pregunta) {
-        String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
-
-        try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            pstmt.setString(1, pregunta.getPregunta());
-            pstmt.setInt(2, pregunta.getIdTema());
-            pstmt.setInt(3, 2); // Suponiendo que el id_tipopregunta es 2 para preguntas de aproximación, ajusta esto según sea necesario
-
-            pstmt.executeUpdate();
-            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                // Aquí puedes guardar la respuesta correcta en la tabla de respuestas
-                insertarRespuesta(generatedKeys.getInt(1), pregunta);
-            }
-            System.out.println("Pregunta de aproximación agregada exitosamente.");
-
-        } catch (SQLException e) {
-            System.out.println("Error al agregar la pregunta de aproximación: " + e.getMessage());
-        }
+//        String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
+//
+//        try (Connection connection = Database.getInstance().getConnection();
+//             PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+//
+//            pstmt.setString(1, pregunta.getPregunta());
+//            pstmt.setInt(2, pregunta.getIdTema());
+//            pstmt.setInt(3, 2); // Suponiendo que el id_tipopregunta es 2 para preguntas de aproximación, ajusta esto según sea necesario
+//
+//            pstmt.executeUpdate();
+//            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+//            if (generatedKeys.next()) {
+//
+//                insertarRespuesta(generatedKeys.getInt(1), pregunta);
+//            }
+//            System.out.println("Pregunta de aproximación agregada exitosamente.");
+//
+//        } catch (SQLException e) {
+//            System.out.println("Error al agregar la pregunta de aproximación: " + e.getMessage());
+//        }
     }
 
     @Override
     public void modificar(int id, PreguntaAproximacion entidad) {
-
+        //no tiene con estos parametros
     }
 
-    public void crearPregunta(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
+    //este es la posta
+    public void insertar(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
         String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
                 + "VALUES (?, ?, ?)";
 
         String queryRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) "
-                + "VALUES (?, ?, ?)"; // No incluimos id_respuesta
+                + "VALUES (?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta, Statement.RETURN_GENERATED_KEYS);
@@ -53,29 +54,25 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
             connection.setAutoCommit(false);
 
-            // Insertar la nueva pregunta
             stmtPregunta.setString(1, nuevaPregunta.getPregunta());
-            stmtPregunta.setInt(2, 2);  // id_tipopregunta debe ser válido
-            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());  // id_tema debe ser válido
+            stmtPregunta.setInt(2, 2);
+            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());
             stmtPregunta.executeUpdate();
 
-            // Obtener el ID de la pregunta recién insertada
+
             try (ResultSet rs = stmtPregunta.getGeneratedKeys()) {
                 if (rs.next()) {
-                    int idPregunta = rs.getInt(1);  // Obtener el ID de la nueva pregunta
+                    int idPregunta = rs.getInt(1);
 
-                    // Insertar las respuestas asociadas
                     for (Respuesta respuesta : respuestas) {
-                        stmtRespuesta.setInt(1, idPregunta);  // Establecer el ID de la pregunta
+                        stmtRespuesta.setInt(1, idPregunta);
                         stmtRespuesta.setString(2, respuesta.getRespuesta());
                         stmtRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
-                        stmtRespuesta.addBatch();  // Usamos batch para insertar varias respuestas
+                        stmtRespuesta.addBatch();
                     }
 
-                    // Ejecutar el batch para insertar todas las respuestas
                     stmtRespuesta.executeBatch();
 
-                    // Commit de la transacción
                     connection.commit();
                 }
             }
@@ -156,7 +153,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
     }
 
-    public void modificarPregunta(int id, PreguntaAproximacion entidad, List<Respuesta> respuestas) {
+    public void modificar(int id, PreguntaAproximacion entidad, List<Respuesta> respuestas) {
         String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ?, id_tipopregunta = ? WHERE id_pregunta = ?";
         String deleteRespuestas = "DELETE FROM respuestas WHERE id_pregunta = ?";
         String insertRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
@@ -202,5 +199,38 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             System.out.println("Error al modificar la pregunta: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    @Override
+    public List<PreguntaAproximacion> busqueda(String palabra, int id_tema) {
+        List<PreguntaAproximacion> palabras = new ArrayList<>();
+        String sql = "SELECT id_pregunta, pregunta, id_tema FROM preguntas "+
+                "WHERE TRANSLATE(LOWER(pregunta), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') "+"" +
+                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ?";
+        try (Connection conn = Database.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Verifica si la palabra no es nula
+            if (palabra == null) {
+                palabra = ""; // Evita problemas con null
+            }
+            pstmt.setString(1, "%" + palabra + "%");
+            pstmt.setInt(2, id_tema);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    palabras.add(new PreguntaAproximacion(
+                            rs.getInt("id_pregunta"),
+                            rs.getString("pregunta"),
+                            rs.getInt("id_tema")
+                    ));
+                    System.out.println("Búsqueda exitosa");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar: " + e.getMessage());
+        }
+        return palabras;
     }
 }

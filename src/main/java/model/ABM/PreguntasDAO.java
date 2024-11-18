@@ -2,29 +2,18 @@ package model.ABM;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
+import java.util.stream.Collectors;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Preguntas;
 import model.Respuesta;
 
 public class PreguntasDAO implements DAO<Preguntas>{
-
-    private ArrayList<Preguntas> preguntas = new ArrayList<>();
-
-    public void agregaPreguntas(Preguntas p){
-        this.preguntas.add(p);
-    }
-
-    public void recorrePreguntas(){
-        for (Preguntas p : preguntas) {
-            p.imprimirPregunta();
-        }
-    }
 
     @Override
     public List<Preguntas> buscarTodos() {
@@ -63,22 +52,20 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     @Override
     public void insertar(Preguntas entidad) {
-
-
-        
+        //no tiene
     }
 
-    public void crearPregunta(Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
+    public void insertar(Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
         String tipoPreg = preguntaObj.getTipo_preg();
         switch (tipoPreg) {
             case "Aproximacion": {
                 PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
-                preguntaAproximacionDAO.crearPregunta((PreguntaAproximacion) preguntaObj, listaRespuestas);
+                preguntaAproximacionDAO.insertar((PreguntaAproximacion) preguntaObj, listaRespuestas);
                 break;
             }
             case "Opcion multiple": {
                 PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
-                preguntaOpcionDAO.crearPregunta((PreguntaOpcion) preguntaObj, listaRespuestas);
+                preguntaOpcionDAO.insertar((PreguntaOpcion) preguntaObj, listaRespuestas);
                 break;
             }
             default: {
@@ -90,36 +77,20 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     @Override
     public void modificar(int id, Preguntas preguntaObj) {
-
-        switch (preguntaObj.getTipo_preg()) {
-            case "Aproximacion": {
-                PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
-
-                break;
-            }
-            case "Opcion multiple": {
-                PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
-
-                break;
-            }
-            default: {
-                System.out.println("Tipo de pregunta no reconocido: " );
-            }
-        }
-        
+        //no tiene
     }
 
-    public void modificarPregunta(int id, Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
+    public void modificar(int id, Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
 
         switch (preguntaObj.getTipo_preg()) {
             case "Aproximacion": {
                 PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
-                preguntaAproximacionDAO.modificarPregunta(id,(PreguntaAproximacion) preguntaObj,listaRespuestas);
+                preguntaAproximacionDAO.modificar(id,(PreguntaAproximacion) preguntaObj,listaRespuestas);
                 break;
             }
             case "Opcion multiple": {
                 PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
-                preguntaOpcionDAO.modificarPregunta(id,(PreguntaOpcion) preguntaObj, listaRespuestas);
+                preguntaOpcionDAO.modificar(id,(PreguntaOpcion) preguntaObj, listaRespuestas);
                 break;
             }
             default: {
@@ -129,22 +100,32 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     }
 
-    public static String buscaPregunta(String pregunta){
-        String palabra="";
-        String sql = "SELECT p.pregunta FROM preguntas p WHERE p.pregunta LIKE ?";
-        try(Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery()){
-            if(rs.next()){
-                palabra=rs.getString("p.pregunta");
-                System.out.println("Busqueda exitosa");
-            }
-        } catch (SQLException e) {
-           System.out.println("Error al buscar " + e.getMessage());
-        }
-        return palabra;
+    @Override
+    public List<Preguntas> busqueda(String palabra, int id_tema) {
+
+        PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
+        PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
+
+        List<PreguntaAproximacion> listaPreguntaAproximacion = preguntaAproximacionDAO.busqueda(palabra, id_tema);
+        List<PreguntaOpcion> listaPreguntaOp = preguntaOpcionDAO.busqueda(palabra, id_tema);
+        List<Preguntas> listaPreguntas = new ArrayList<>();
+
+        listaPreguntas.addAll(listaPreguntaOp);
+        listaPreguntas.addAll(listaPreguntaAproximacion);
+
+        eliminarRepetidos(listaPreguntas);
+
+        return listaPreguntas;
     }
 
-    
+    private void eliminarRepetidos(List<Preguntas> listaPreguntas) {
+        Set<Integer> seenIds = new HashSet<>();
+        List<Preguntas> listaSinDuplicados = listaPreguntas.stream()
+                .filter(pregunta -> seenIds.add(pregunta.getId_pregunta()))
+                .collect(Collectors.toList());
+        listaPreguntas.clear();
+        listaPreguntas.addAll(listaSinDuplicados);
+    }
+
 
 }

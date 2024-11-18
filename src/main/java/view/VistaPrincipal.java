@@ -48,14 +48,16 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		//---PANELES (VENTANAS EXTRAS)
+		
+		
 		panelAyuda = new JPanel();
-		panelAyuda.setBounds(153, 40, 958, 601);
+		panelAyuda.setBounds(232, 65, 800, 550);
 		contentPane.add(panelAyuda);
 		panelAyuda.setLayout(null);
 		panelAyuda.setVisible(false);
 		
 		btnSalirAyuda = new JButton("Volver");
-		btnSalirAyuda.setBounds(848, 550, 100, 40);
+		btnSalirAyuda.setBounds(673, 499, 100, 40);
 		panelAyuda.add(btnSalirAyuda); 
 		JLabel lblAyuda = new JLabel("<html>- Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.<br>"
 				+ "- Cada escalón tiene una temática que será elegida al azar antes de comenzar el juego y los jugadores se irán enterando si avanzan a ese escalón. <br>"
@@ -63,49 +65,49 @@ public class VistaPrincipal extends JFrame {
 				+ "- En caso de empate para eliminar a un participante se hará una pregunta de aproximación. <br>"
 				+ "- Una pregunta de aproximación es cuando los participantes tienen que dar una respuesta y gana quien se haya acercado más a la respuesta correcta, por ejemplo, si se pregunta cuándo fue el mundial que se realizó en Argentina y uno contesta 1970 y el otro 1982, el que se acerque más al valor correcto, que sería 1978, ganaría. Por cada escalón se harán dos rondas de preguntas.</html>");
 		lblAyuda.setVerticalAlignment(SwingConstants.TOP);
-		lblAyuda.setBounds(10, 96, 938, 443);
+		lblAyuda.setBounds(10, 96, 780, 392);
 		lblAyuda.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelAyuda.add(lblAyuda);
 		
 		JLabel lblTitulo = new JLabel("AYUDA");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblTitulo.setBounds(10, 11, 938, 74);
-		panelAyuda.add(lblTitulo);
+		lblTitulo.setBounds(10, 11, 780, 74);
+		panelAyuda.add(lblTitulo); 
 
 		
 		panelCreditos = new JPanel();
-		panelCreditos.setBounds(153, 40, 958, 601);
+		panelCreditos.setBounds(232, 65, 800, 550);
 		contentPane.add(panelCreditos);
 		panelCreditos.setLayout(null);
 		panelCreditos.setVisible(false);
 		
 		btnSalirCreditos = new JButton("Volver");
-		btnSalirCreditos.setBounds(851, 552, 100, 40);
+		btnSalirCreditos.setBounds(690, 499, 100, 40);
 		panelCreditos.add(btnSalirCreditos);
 
 		JLabel lblLogica = new JLabel("<html>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</html>");
 		lblLogica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogica.setVerticalAlignment(SwingConstants.TOP);
-		lblLogica.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblLogica.setBounds(330, 151, 300, 399);
+		lblLogica.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblLogica.setBounds(280, 151, 250, 388);
 		panelCreditos.add(lblLogica);
 		JLabel lblABM = new JLabel("<html>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</html>");
 		lblABM.setHorizontalAlignment(SwingConstants.CENTER);
 		lblABM.setVerticalAlignment(SwingConstants.TOP);
-		lblABM.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblABM.setBounds(20, 151, 300, 399);
+		lblABM.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblABM.setBounds(31, 151, 250, 388);
 		panelCreditos.add(lblABM);
 		JLabel lblIGU = new JLabel("<html>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</html>");
 		lblIGU.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIGU.setVerticalAlignment(SwingConstants.TOP);
-		lblIGU.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblIGU.setBounds(648, 151, 300, 390);
+		lblIGU.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblIGU.setBounds(540, 149, 250, 339);
 		panelCreditos.add(lblIGU);
 		JLabel lblCreditos = new JLabel("CREDITOS");
 		lblCreditos.setFont(new Font("Tahoma", Font.BOLD, 35));
 		lblCreditos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreditos.setBounds(10, 11, 938, 72);
+		lblCreditos.setBounds(10, 11, 780, 72);
 		panelCreditos.add(lblCreditos);
 		lblCreditos.setIcon(new FlatSVGIcon("creditos.svg", 50, 50));
 		

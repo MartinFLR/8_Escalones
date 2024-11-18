@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import java.awt.*;
 
 
-public class ControladorCreacionPreguntas {
+public class ControladorCreacionPreguntas{
 
     private VistaCreacionPreguntas vista;
     private Integer idTema;
@@ -26,21 +27,24 @@ public class ControladorCreacionPreguntas {
     private String incorrecta_2;
     private String incorrecta_3;
     private PreguntaOpcionDAO preguntaOpcionDAO;
+    private ControladorModPreguntas c;
 
-    public ControladorCreacionPreguntas(Integer idTema) {
+    public ControladorCreacionPreguntas(Integer idTema, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.vista.setVisible(true);
         this.botones();
         this.idTema = idTema;
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema);
+        this.c = c;
     }
-    public ControladorCreacionPreguntas( int idTema, Integer idPregunta) {
+    public ControladorCreacionPreguntas( int idTema, Integer idPregunta, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.idPregunta = idPregunta;
         this.idTema = idTema;
         this.vista.setVisible(true);
         this.botones();
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema+ "y mi idPregunta es: "+idPregunta);
+        this.c = c;
     }
 
 
@@ -66,12 +70,13 @@ public class ControladorCreacionPreguntas {
 
             if(idPregunta == null) {
                 System.out.println(preguntaOpcion.getPregunta());
-                preguntasDAO.crearPregunta(preguntaOpcion,listaRespuestas);
+                preguntasDAO.insertar(preguntaOpcion,listaRespuestas);
             }else{
                 System.out.println(preguntaOpcion.getPregunta());
-                preguntasDAO.modificarPregunta(idPregunta,preguntaOpcion,listaRespuestas);
+                preguntasDAO.modificar(idPregunta,preguntaOpcion,listaRespuestas);
             }
             this.vista.dispose();
+            c.getVista().actualizarTabla();
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -90,13 +95,14 @@ public class ControladorCreacionPreguntas {
 
             if(idPregunta == null) {
                 System.out.println(preguntaAproximacion.getPregunta());
-                preguntasDAO.crearPregunta(preguntaAproximacion,listaRespuestas);
+                preguntasDAO.insertar(preguntaAproximacion,listaRespuestas);
             }else{
                 System.out.println(preguntaAproximacion.getPregunta());
-                preguntasDAO.modificarPregunta(idPregunta,preguntaAproximacion,listaRespuestas);
+                preguntasDAO.modificar(idPregunta,preguntaAproximacion,listaRespuestas);
                 System.out.println("Este es mi idPregunta"+ idPregunta);
             }
             this.vista.dispose();
+            c.getVista().actualizarTabla();
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);
@@ -111,22 +117,4 @@ public class ControladorCreacionPreguntas {
         this.vista = vista;
     }
 
-    public void Añadirpregunta(String pregunta, int id_tema, String tipopregunta, List<Respuesta> listaRespuestas) {
-        PreguntasDAO preguntasDAO = new PreguntasDAO();
-        switch (tipopregunta) {
-            case ("Opcion Multiple"): {
-                PreguntaOpcion preguntaObjeto = new PreguntaOpcion(pregunta, id_tema);
-                preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
-                break;
-            }
-            case ("Aproximacion"): {
-                PreguntaAproximacion preguntaObjeto = new PreguntaAproximacion(pregunta, id_tema);
-                preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
-                break;
-            }
-
-        }
-
-
-    }
 }

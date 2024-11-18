@@ -2,13 +2,17 @@ package controller;
 
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.PreguntasDAO;
+import raven.toast.Notifications;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.Preguntas;
 import model.Respuesta;
 import view.VistaCreacionPreguntas;
 import view.VistaModPreguntas;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,13 +23,9 @@ public class ControladorModPreguntas {
     private VistaModPreguntas vista;
     private Integer id_categoria;
 
-    // public ControladorModPreguntas(int id_categoria){
-    //     this.vista = new VistaModPreguntas(this);
-
     public ControladorModPreguntas(int categoria){
         this.id_categoria=categoria;
         this.vista = new VistaModPreguntas(this);
-        this.id_categoria = id_categoria;
         this.vista.setVisible(true);
         botones();
     }
@@ -37,7 +37,10 @@ public class ControladorModPreguntas {
             this.vista.getBtnBorrar().setEnabled(true);
         });
 
-// Si no vas a usar los ActionListeners de los botones de Borrar y Editar, quítalos o agrégales funcionalidad
+        this.vista.getBtnSalir().addActionListener(e->{
+            this.vista.setVisible(false);
+        });;
+
         this.vista.getBtnBorrar().addActionListener(e -> {
             JDialog dialogoEliminar = new JDialog();
             dialogoEliminar.setSize(300, 150);
@@ -61,13 +64,16 @@ public class ControladorModPreguntas {
                         preguntasDAO.eliminar(idPregunta);
 
                         dialogoEliminar.dispose();
-                        JOptionPane.showMessageDialog(this.vista, "Pregunta eliminada");
+                        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Pregunta eliminada exitosamente");
+						Notifications.getInstance().setJFrame(vista);
                         this.vista.actualizarTabla();
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this.vista, "Error al convertir el ID de la pregunta a un número.", "Error", JOptionPane.ERROR_MESSAGE);
+                    	Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Error al convertir el ID de la pregunta a un número");
+						Notifications.getInstance().setJFrame(vista);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this.vista, "Por favor, seleccione una fila para eliminar.");
+                	Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Seleccione una p a eliminar");
+					Notifications.getInstance().setJFrame(vista);
                 }
             });
 
@@ -84,7 +90,7 @@ public class ControladorModPreguntas {
 
         this.vista.getBtnCrear().addActionListener(e -> {
             System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria);
-            new ControladorCreacionPreguntas(this.id_categoria);
+            new ControladorCreacionPreguntas(this.id_categoria, this);
             this.vista.actualizarTabla();
         });
 
@@ -92,19 +98,52 @@ public class ControladorModPreguntas {
             int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
             System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria +" y la idPregunta: "+idPregunta);
-            new ControladorCreacionPreguntas(this.id_categoria,idPregunta);
+            new ControladorCreacionPreguntas(this.id_categoria,idPregunta, this);
             this.vista.actualizarTabla();
         });
+        
+        this.vista.getTextBuscador().getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                actualizarBusqueda();
+            }
 
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                actualizarBusqueda();
+            }
 
-    }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                actualizarBusqueda();
+            }
 
-    public void setId_pregunta(int id_categoria) {
-        this.id_categoria = id_categoria;
-        System.out.println("Hola soy controladorMod Preguntas "+id_categoria);
+            private void actualizarBusqueda() {
+                String texto = vista.getTextBuscador().getText().trim();
+                buscarEnBaseDeDatos(texto);;
+            }
+
+            private void buscarEnBaseDeDatos(String texto) {
+                PreguntasDAO preg = new PreguntasDAO();
+                List<Preguntas> resultados = preg.busqueda(texto,id_categoria);
+
+                DefaultTableModel modeloTabla = (DefaultTableModel) getVista().getTable().getModel();
+                modeloTabla.setRowCount(0);
+
+                // Agregar las filas de los resultados
+                for (Preguntas pregunta : resultados) {
+                    Object[] fila = { pregunta.getId_pregunta(), pregunta.getPregunta(),pregunta.getTipo_preg(),pregunta.getIdTema() };
+                    modeloTabla.addRow(fila);
+                }
+            }
+        });
     }
 
     public Integer getId_categoria(){
         return this.id_categoria;
     }
+
+	public VistaModPreguntas getVista() {
+		return vista;
+	}
 }

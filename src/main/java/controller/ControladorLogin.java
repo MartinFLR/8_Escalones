@@ -43,16 +43,14 @@ public class ControladorLogin implements ActionListener{
                 // Si el login es exitoso, mostrar vista principal
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Te has logueado correctamente");
                 Notifications.getInstance().setJFrame(controladorPrincipal.getVista());
-                this.vista.dispose();
 				ManagerSession.setLogueado(true);
 				controladorPrincipal.verificarEstadoSesion();
 				controladorPrincipal.getVista().actualizarEstadoLogin(true);
-				
                 vista.dispose(); // Cierra la ventana de login
             } else {
                 // Si el login falla
             	Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Credenciales incorrectas");
-            	Notifications.getInstance().setJFrame(controladorPrincipal.getVista());
+            	Notifications.getInstance().setJFrame(this.vista);
             }
         }
 
