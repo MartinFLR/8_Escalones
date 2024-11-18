@@ -18,7 +18,6 @@ public class VistaModPreguntas extends VistaModPadre {
 		this.numerocategoria=c.getId_categoria();
 		actualizarTabla();
 		setVisible(true);
-		botones();
 	}
 
 	public void actualizarTabla() {
@@ -47,30 +46,6 @@ public class VistaModPreguntas extends VistaModPadre {
 		this.getTable().getColumnModel().getColumn(0).setPreferredWidth(0);
 	}
 
-	public void botones() {
-		// Si no vas a usar los ActionListeners de los botones de Borrar y Editar,
-		// quítalos o agrégales funcionalidad
-		this.getBtnBorrar().addActionListener(null);
-		this.getBtnCrear().addActionListener(e -> {
-			int filaSeleccionada = this.getTable().getSelectedRow();
-			if (filaSeleccionada != -1) { // Verifica que haya una fila seleccionada
-				// Obtén el ID o cualquier otro dato necesario de la fila seleccionada
-				Integer idPregunta = (Integer) this.getTable().getValueAt(filaSeleccionada, 0); // Asumiendo que la
-																								// columna 0 tiene el ID
-
-				// Pasa el ID o datos al controlador
-				new ControladorCreacionPreguntas(idPregunta);
-			} else {
-				// Muestra un mensaje si no se ha seleccionado ninguna fila
-				javax.swing.JOptionPane.showMessageDialog(this, "Por favor, selecciona una pregunta de la tabla.");
-			}
-		});
-		this.getBtnEditar().addActionListener(null);
-		this.getBtnSalir().addActionListener(e -> {
-			setVisible(false);
-			c.getVista().setVisible(true);
-		});
-	}
 
 	public DefaultTableModel getTablaNueva() {
 		return tablaNueva;

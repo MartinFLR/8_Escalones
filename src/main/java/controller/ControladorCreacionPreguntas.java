@@ -26,14 +26,14 @@ public class ControladorCreacionPreguntas {
     private String incorrecta_3;
     private PreguntaOpcionDAO preguntaOpcionDAO;
 
-    public ControladorCreacionPreguntas(int idTema) {
+    public ControladorCreacionPreguntas(Integer idTema) {
         this.vista = new VistaCreacionPreguntas(this);
         this.vista.setVisible(true);
         this.botones();
         this.idTema = idTema;
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema);
     }
-    public ControladorCreacionPreguntas( int idTema, int idPregunta) {
+    public ControladorCreacionPreguntas( int idTema, Integer idPregunta) {
         this.vista = new VistaCreacionPreguntas(this);
         this.idPregunta = idPregunta;
         this.idTema = idTema;
@@ -57,11 +57,19 @@ public class ControladorCreacionPreguntas {
             listaRespuestas.add(respuestaFake1);
             listaRespuestas.add(respuestaFake2);
             listaRespuestas.add(respuestaFake3);
-
             Collections.shuffle(listaRespuestas);
 
-            //necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
-            this.Añadirpregunta(pregunta, this.idTema, "Opcion Multiple", listaRespuestas);
+            PreguntaOpcion preguntaOpcion = new PreguntaOpcion(pregunta,idTema);
+
+            PreguntasDAO preguntasDAO = new PreguntasDAO();
+
+            if(idPregunta == null) {
+                System.out.println(preguntaOpcion.getPregunta());
+                preguntasDAO.crearPregunta(preguntaOpcion,listaRespuestas);
+            }else{
+                System.out.println(preguntaOpcion.getPregunta());
+                preguntasDAO.modificarPregunta(idPregunta,preguntaOpcion,listaRespuestas);
+            }
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -70,11 +78,24 @@ public class ControladorCreacionPreguntas {
 
 
         this.vista.getBtnAñadirAproximacion().addActionListener(e -> {
-            pregunta = getVista().getTxetPregunta().getText();
-            Respuesta respuestaCorrecta = new Respuesta(getVista().getTextPregunta().getText(), true);
+            pregunta = getVista().getTextPregunta().getText();
+            PreguntaAproximacion preguntaAproximacion = new PreguntaAproximacion(pregunta,idTema);
+
+            PreguntasDAO preguntasDAO = new PreguntasDAO();
+            Respuesta respuestaCorrecta = new Respuesta(getVista().getTextRespuestaAproximacion().getText(), true);
             List<Respuesta> listaRespuestas = new ArrayList<>();
             listaRespuestas.add(respuestaCorrecta);
-            this.Añadirpregunta(pregunta, this.idTema, "Aproximacion", listaRespuestas);
+
+
+
+            if(idPregunta == null) {
+                System.out.println(preguntaAproximacion.getPregunta());
+                preguntasDAO.crearPregunta(preguntaAproximacion,listaRespuestas);
+            }else{
+                System.out.println(preguntaAproximacion.getPregunta());
+                preguntasDAO.modificarPregunta(idPregunta,preguntaAproximacion,listaRespuestas);
+                System.out.println("Este es mi idPregunta"+ idPregunta);
+            }
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);

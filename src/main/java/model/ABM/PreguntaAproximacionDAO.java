@@ -157,7 +157,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
     }
 
     public void modificarPregunta(int id, PreguntaAproximacion entidad, List<Respuesta> respuestas) {
-        String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ? WHERE id_pregunta = ?";
+        String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ?, id_tipopregunta = ? WHERE id_pregunta = ?";
         String deleteRespuestas = "DELETE FROM respuestas WHERE id_pregunta = ?";
         String insertRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
 
@@ -171,16 +171,18 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
             // Actualizar la pregunta
             stmtPregunta.setString(1, entidad.getPregunta());
             stmtPregunta.setInt(2, entidad.getIdTema());
-            stmtPregunta.setInt(3, id);
+            stmtPregunta.setInt(3, 2);
+            stmtPregunta.setInt(4, id);
+
             stmtPregunta.executeUpdate();
 
             // Eliminar respuestas antiguas
-            stmtDeleteRespuestas.setInt(1, entidad.getId_pregunta());
+            stmtDeleteRespuestas.setInt(1, id);
             stmtDeleteRespuestas.executeUpdate();
 
             // Insertar las nuevas respuestas
             for (Respuesta respuesta : respuestas) {
-                stmtInsertRespuesta.setInt(1, entidad.getId_pregunta());
+                stmtInsertRespuesta.setInt(1, id);
                 stmtInsertRespuesta.setString(2, respuesta.getRespuesta());
                 stmtInsertRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
                 stmtInsertRespuesta.addBatch();
