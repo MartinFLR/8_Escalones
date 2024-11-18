@@ -30,4 +30,16 @@ public class Ronda {
         System.out.println("Estado: Ronda final");
         this.estadoRonda = new RondaFinal();
     }
+
+    void rondaDePreguntas(List<Participante> participantes) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    void rondaDePreguntas(List<Participante> participantes) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    void rondaDePreguntas(List<Participante> participantes) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -10,29 +10,30 @@ import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 public class TestJuego {
-//    @SuppressWarnings({ "unused", "unchecked" })
-//    public static void main(String[] args) {
-//        PreguntaOpcionDAO abmPregOp = new PreguntaOpcionDAO();
-//        TemasDAO abmTemas = new TemasDAO();
-//        ParticipantesDAO abmPart = new ParticipantesDAO();
-//        PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
-//        List<Participante> listaParticipantes = abmPart.buscarTodos();
-//        List<PreguntaOpcion> listaPreguntasOp = abmPregOp.buscarTodos();
-//        List<model.Tema> listaTemas = abmTemas.buscarTodos();
-//        List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
+    @SuppressWarnings({ "unused", "unchecked" })
+   public static void main(String[] args) {
+        PreguntaOpcionDAO abmPregOp = new PreguntaOpcionDAO();
+       TemasDAO abmTemas = new TemasDAO();
+      ParticipantesDAO abmPart = new ParticipantesDAO();
+      PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
+       List<Participante> listaParticipantes = abmPart.buscarTodos();
+        List<PreguntaOpcion> listaPreguntasOp = abmPregOp.buscarTodos();
+        List<model.Tema> listaTemas = abmTemas.buscarTodos();
+        List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
 //
-//        model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntasOp, "Tema 1");
-//        Escalon escalon = new Escalon();
-//        escalon.setTema(tema);
-//        //escalon.agregaParticipante(new Participante("Participante 1"));
-//        //escalon.agregaParticipante(new Participante("Participante 2"));
+      //model.Tema tema = new model.Tema (listaPreguntaAproximacion, listaPreguntasOp, "Tema 1");
+        Escalon escalon = new Escalon();
+        escalon.setTemas(listaTemas);
+        escalon.setTema(listaTemas.getFirst());
+        escalon.agregaParticipante(new Participante("Participante 1"));
+        escalon.agregaParticipante(new Participante("Participante 2"));
 //        //escalon.agregaParticipante(new Participante("Participante 3"));
 //        // for (model.Participante participante : listaParticipantes) {
 //        //     escalon.agregaParticipante(new model.Participante(participante.getNombre()));
 //        // }
 //
 //        // Estado de la ronda
-//        Ronda estado = escalon.getEstadoDeRonda();
+        Ronda estado = escalon.getEstadoDeRonda();
 //
 //        //Inicia el juego
 //        escalon.repartirPreguntas();
@@ -58,4 +59,8 @@ public class TestJuego {
 //        // Funciona la ronda de empate en la final pero el perdedor no se esta eliminando
 //        // Capaz falta manejar los err en rondaEmpate
 //    }
+
+escalon.setEscalon(8);
+estado.rondaDePreguntas(escalon.getParticipantes());
+}
 }

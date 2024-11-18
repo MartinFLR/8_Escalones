@@ -63,6 +63,11 @@ public abstract class PanelJugadorPadre extends JPanel{
 		this.lblimagenJugador.setIcon(img);
 	}
 
+	public void setCampeon() {
+		setBackground(colorAcierto);
+		setForeground(colorActivo);
+		panelErrores.setBackground(colorAcierto);
 
+	}
 
 }
