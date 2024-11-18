@@ -69,10 +69,10 @@ public class ControladorCreacionPreguntas {
 
             if(idPregunta == null) {
                 System.out.println(preguntaOpcion.getPregunta());
-                preguntasDAO.crearPregunta(preguntaOpcion,listaRespuestas);
+                preguntasDAO.insertar(preguntaOpcion,listaRespuestas);
             }else{
                 System.out.println(preguntaOpcion.getPregunta());
-                preguntasDAO.modificarPregunta(idPregunta,preguntaOpcion,listaRespuestas);
+                preguntasDAO.modificar(idPregunta,preguntaOpcion,listaRespuestas);
             }
             this.vista.dispose();
             c.getVista().actualizarTabla();
@@ -94,10 +94,10 @@ public class ControladorCreacionPreguntas {
 
             if(idPregunta == null) {
                 System.out.println(preguntaAproximacion.getPregunta());
-                preguntasDAO.crearPregunta(preguntaAproximacion,listaRespuestas);
+                preguntasDAO.insertar(preguntaAproximacion,listaRespuestas);
             }else{
                 System.out.println(preguntaAproximacion.getPregunta());
-                preguntasDAO.modificarPregunta(idPregunta,preguntaAproximacion,listaRespuestas);
+                preguntasDAO.modificar(idPregunta,preguntaAproximacion,listaRespuestas);
                 System.out.println("Este es mi idPregunta"+ idPregunta);
             }
             this.vista.dispose();
@@ -116,22 +116,4 @@ public class ControladorCreacionPreguntas {
         this.vista = vista;
     }
 
-    public void Añadirpregunta(String pregunta, int id_tema, String tipopregunta, List<Respuesta> listaRespuestas) {
-        PreguntasDAO preguntasDAO = new PreguntasDAO();
-        switch (tipopregunta) {
-            case ("Opcion Multiple"): {
-                PreguntaOpcion preguntaObjeto = new PreguntaOpcion(pregunta, id_tema);
-                preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
-                break;
-            }
-            case ("Aproximacion"): {
-                PreguntaAproximacion preguntaObjeto = new PreguntaAproximacion(pregunta, id_tema);
-                preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
-                break;
-            }
-
-        }
-
-
-    }
 }

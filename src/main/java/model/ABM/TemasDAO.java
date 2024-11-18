@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import model.Participante;
 import model.Tema;
 
 public class TemasDAO implements DAO<Tema> {

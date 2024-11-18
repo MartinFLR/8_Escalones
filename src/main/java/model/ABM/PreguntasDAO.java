@@ -2,24 +2,18 @@ package model.ABM;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import controller.ControladorModPreguntas;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Preguntas;
 import model.Respuesta;
 
 public class PreguntasDAO implements DAO<Preguntas>{
-
-    private ArrayList<Preguntas> preguntas = new ArrayList<>();
-    private ControladorModPreguntas c;
 
     @Override
     public List<Preguntas> buscarTodos() {
@@ -58,22 +52,20 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     @Override
     public void insertar(Preguntas entidad) {
-
-
-        
+        //no tiene
     }
 
-    public void crearPregunta(Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
+    public void insertar(Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
         String tipoPreg = preguntaObj.getTipo_preg();
         switch (tipoPreg) {
             case "Aproximacion": {
                 PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
-                preguntaAproximacionDAO.crearPregunta((PreguntaAproximacion) preguntaObj, listaRespuestas);
+                preguntaAproximacionDAO.insertar((PreguntaAproximacion) preguntaObj, listaRespuestas);
                 break;
             }
             case "Opcion multiple": {
                 PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
-                preguntaOpcionDAO.crearPregunta((PreguntaOpcion) preguntaObj, listaRespuestas);
+                preguntaOpcionDAO.insertar((PreguntaOpcion) preguntaObj, listaRespuestas);
                 break;
             }
             default: {
@@ -85,36 +77,20 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     @Override
     public void modificar(int id, Preguntas preguntaObj) {
-
-        switch (preguntaObj.getTipo_preg()) {
-            case "Aproximacion": {
-                PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
-
-                break;
-            }
-            case "Opcion multiple": {
-                PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
-
-                break;
-            }
-            default: {
-                System.out.println("Tipo de pregunta no reconocido: " );
-            }
-        }
-        
+        //no tiene
     }
 
-    public void modificarPregunta(int id, Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
+    public void modificar(int id, Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
 
         switch (preguntaObj.getTipo_preg()) {
             case "Aproximacion": {
                 PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
-                preguntaAproximacionDAO.modificarPregunta(id,(PreguntaAproximacion) preguntaObj,listaRespuestas);
+                preguntaAproximacionDAO.modificar(id,(PreguntaAproximacion) preguntaObj,listaRespuestas);
                 break;
             }
             case "Opcion multiple": {
                 PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
-                preguntaOpcionDAO.modificarPregunta(id,(PreguntaOpcion) preguntaObj, listaRespuestas);
+                preguntaOpcionDAO.modificar(id,(PreguntaOpcion) preguntaObj, listaRespuestas);
                 break;
             }
             default: {

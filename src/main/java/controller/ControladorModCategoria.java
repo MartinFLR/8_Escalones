@@ -14,7 +14,6 @@ import model.Tema;
 import model.ABM.TemasDAO;
 import view.VistaModPadre;
 import view.VistaModCategoria;
-import view.VistaModPreguntas;
 
 public class ControladorModCategoria {
 

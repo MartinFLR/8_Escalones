@@ -1,6 +1,5 @@
 package model.ABM;
 
-import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Respuesta;
 
@@ -22,8 +21,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
             pstmt.setString(1, entidad.getPregunta());
             pstmt.setInt(2, entidad.getIdTema());
-            pstmt.setInt(3, 1); // Suponiendo que el id_tipopregunta es 1 para preguntas de opción, ajusta esto
-                                // según sea necesario
+            pstmt.setInt(3, 1); //este es numero en bd de Pregunta opcion multiple
 
             pstmt.executeUpdate();
 
@@ -36,15 +34,15 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
     @Override
     public void modificar(int id, PreguntaOpcion entidad) {
-
+        //no tiene
     }
 
-    public void crearPregunta(PreguntaOpcion nuevaPregunta, List<Respuesta> respuestas) {
+    public void insertar(PreguntaOpcion nuevaPregunta, List<Respuesta> respuestas) {
         String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
                 + "VALUES (?, ?, ?)";
 
         String queryRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) "
-                + "VALUES (?, ?, ?)"; // No incluimos id_respuesta
+                + "VALUES (?, ?, ?)";
 
         try (Connection connection = Database.getInstance().getConnection();
              PreparedStatement stmtPregunta = connection.prepareStatement(queryPregunta, Statement.RETURN_GENERATED_KEYS);
@@ -52,29 +50,24 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
             connection.setAutoCommit(false);
 
-            // Insertar la nueva pregunta
             stmtPregunta.setString(1, nuevaPregunta.getPregunta());
-            stmtPregunta.setInt(2, 1);  // id_tipopregunta debe ser válido
-            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());  // id_tema debe ser válido
+            stmtPregunta.setInt(2, 1);  //
+            stmtPregunta.setInt(3, nuevaPregunta.getIdTema());  //
             stmtPregunta.executeUpdate();
 
-            // Obtener el ID de la pregunta recién insertada
             try (ResultSet rs = stmtPregunta.getGeneratedKeys()) {
                 if (rs.next()) {
-                    int idPregunta = rs.getInt(1);  // Obtener el ID de la nueva pregunta
+                    int idPregunta = rs.getInt(1);
 
-                    // Insertar las respuestas asociadas
                     for (Respuesta respuesta : respuestas) {
-                        stmtRespuesta.setInt(1, idPregunta);  // Establecer el ID de la pregunta
+                        stmtRespuesta.setInt(1, idPregunta);
                         stmtRespuesta.setString(2, respuesta.getRespuesta());
                         stmtRespuesta.setBoolean(3, respuesta.isRespuestaCorrecta());
-                        stmtRespuesta.addBatch();  // Usamos batch para insertar varias respuestas
+                        stmtRespuesta.addBatch();
                     }
 
-                    // Ejecutar el batch para insertar todas las respuestas
                     stmtRespuesta.executeBatch();
 
-                    // Commit de la transacción
                     connection.commit();
                 }
             }
@@ -82,7 +75,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             e.printStackTrace();
 
         }
-
     }
 
     public List<PreguntaOpcion> buscarTodos() {
@@ -96,7 +88,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                     WHERE p.id_tipopregunta = 1
                 ) subquery
                 ORDER BY subquery.id_pregunta, subquery.respuesta;
-                """; // Ordenamos por pregunta y respuesta para agrupar correctamente
+                """;
         
         try (Connection connection = Database.getInstance().getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(query);
@@ -111,11 +103,10 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                 String respuesta = resultSet.getString("respuesta");
                 boolean esCorrecta = resultSet.getBoolean("respuesta_correcta");
 
-                // Obtener o crear la pregunta en el mapa
+
                 PreguntaOpcion pregunta = preguntaMap.getOrDefault(idPregunta, 
                     new PreguntaOpcion(idPregunta, preguntaTexto, "", "", "","", null, idTema));
-    
-                // Asignar cada respuesta a una de las opciones A, B, C o D
+
                 if (pregunta.getOpcionA().isEmpty()) {
                     pregunta.setOpcionA(respuesta);
                 } else if (pregunta.getOpcionB().isEmpty()) {
@@ -126,16 +117,13 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                     pregunta.setOpcionD(respuesta);
                 }
 
-                // Si es la respuesta correcta, almacenarla
                 if (esCorrecta) {
                     pregunta.setRespuestaCorrecta(respuesta);
                 }
 
-                // Guardar o actualizar en el mapa
                 preguntaMap.put(idPregunta, pregunta);
             }
 
-            // Convertir el mapa en una lista
             preguntas.addAll(preguntaMap.values());
 
         } catch (SQLException e) {
@@ -162,7 +150,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-
     //busca respuestas para el id_pregunta, se usa para modificar las respuestas de id_pregunta
     private List<Integer> buscaIdRespuestas(int id_pregunta){
 
@@ -183,29 +170,8 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
     }
 
-//    //aca Respuesta(objeto) se utiliza el constructor sin id_respuesta, que contiene la respuesta y si es correcta
-//    private void modificarOpciones(int id_respuesta, Respuesta nuevaRespuesta, int idpregunta){
-//        String sql = "UPDATE respuestas SET respuesta = ?, respuesta_correcta = ? WHERE id_respuesta = ? AND id_pregunta = ? ";
-//        try(Connection conn = Database.getInstance().getConnection();
-//        PreparedStatement pstmt = conn.prepareStatement(sql)){
-//            pstmt.setString(1, nuevaRespuesta.getRespuesta());
-//            pstmt.setBoolean(2, nuevaRespuesta.isRespuestaCorrecta());
-//            pstmt.setInt(3, id_respuesta);
-//            pstmt.setInt(4, idpregunta);
-//
-//            int rowsAffected = pstmt.executeUpdate();
-//            if(rowsAffected>0){
-//                System.out.println("Se modificaron las respuestas de id_pregunta: " + idpregunta + " con exito" );
-//            } else{
-//                System.out.println("No se modificaron respuestas para id_pregunta: " + idpregunta);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Error al intentar modificar respuestas de id_pregunta: " + idpregunta + e.getMessage());
-//        }
-//    }
-
     //aca nuevaPregunta deberia tener ya el arreglo de respuestas usando el constructor con arraylist de respuestas
-    public void modificarPregunta(int id,PreguntaOpcion entidad, List<Respuesta> respuestas) {
+    public void modificar(int id,PreguntaOpcion entidad, List<Respuesta> respuestas) {
         String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ?, id_tipopregunta = ? WHERE id_pregunta = ?";
         String deleteRespuestas = "DELETE FROM respuestas WHERE id_pregunta = ?";
         String insertRespuesta = "INSERT INTO respuestas (id_pregunta, respuesta, respuesta_correcta) VALUES (?, ?, ?)";
@@ -224,11 +190,9 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             stmtPregunta.setInt(4, id);
             stmtPregunta.executeUpdate();
 
-            // Eliminar respuestas antiguas
             stmtDeleteRespuestas.setInt(1, id);
             stmtDeleteRespuestas.executeUpdate();
 
-            // Insertar las nuevas respuestas
             for (Respuesta respuesta : respuestas) {
                 stmtInsertRespuesta.setInt(1, id);
                 stmtInsertRespuesta.setString(2, respuesta.getRespuesta());
@@ -237,13 +201,12 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
             }
             stmtInsertRespuesta.executeBatch();
 
-            // Confirmar la transacción
             connection.commit();
 
             System.out.println("Pregunta y respuestas actualizadas exitosamente.");
         } catch (SQLException e) {
             try (Connection connection = Database.getInstance().getConnection()) {
-                connection.rollback();  // Revertir cambios en caso de error
+                connection.rollback();
             } catch (SQLException ex) {
                 System.out.println("Error al revertir la transacción: " + ex.getMessage());
             }
@@ -255,6 +218,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
     @Override
     public List<PreguntaOpcion> busqueda(String palabra, int id_tema) {
         List<PreguntaOpcion> palabras = new ArrayList<>();
+        //aca basicamente digo que no importa si tiene acento
         String sql = "SELECT id_pregunta, pregunta, id_tema FROM preguntas "+
                 "WHERE TRANSLATE(LOWER(pregunta), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') "+"" +
                 "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ?";
@@ -264,7 +228,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
 
             // Verifica si la palabra no es nula
             if (palabra == null) {
-                palabra = ""; // Evita problemas con null
+                palabra = "";
             }
             pstmt.setString(1, "%" + palabra + "%");
             pstmt.setInt(2, id_tema);
@@ -276,13 +240,11 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
                             rs.getString("pregunta"),
                             rs.getInt("id_tema")
                     ));
-                    // Usa un logger en lugar de System.out.println en producción
                     System.out.println("Búsqueda exitosa");
                 }
             }
 
         } catch (SQLException e) {
-            // Usa un logger en lugar de System.out.println en producción
             System.out.println("Error al buscar: " + e.getMessage());
         }
         return palabras;

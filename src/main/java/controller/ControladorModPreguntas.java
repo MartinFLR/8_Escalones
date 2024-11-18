@@ -22,9 +22,6 @@ public class ControladorModPreguntas {
     private VistaModPreguntas vista;
     private Integer id_categoria;
 
-    // public ControladorModPreguntas(int id_categoria){
-    //     this.vista = new VistaModPreguntas(this);
-
     public ControladorModPreguntas(int categoria){
         this.id_categoria=categoria;
         this.vista = new VistaModPreguntas(this);
@@ -43,7 +40,6 @@ public class ControladorModPreguntas {
             this.vista.setVisible(false);
         });;
 
-// Si no vas a usar los ActionListeners de los botones de Borrar y Editar, quítalos o agrégales funcionalidad
         this.vista.getBtnBorrar().addActionListener(e -> {
             JDialog dialogoEliminar = new JDialog();
             dialogoEliminar.setSize(300, 150);
@@ -127,7 +123,6 @@ public class ControladorModPreguntas {
                 PreguntasDAO preg = new PreguntasDAO();
                 List<Preguntas> resultados = preg.busqueda(texto,id_categoria);
 
-                // Obtener el modelo de la tabla y limpiar las filas existentes
                 DefaultTableModel modeloTabla = (DefaultTableModel) getVista().getTable().getModel();
                 modeloTabla.setRowCount(0);
 
@@ -138,11 +133,6 @@ public class ControladorModPreguntas {
                 }
             }
         });
-    }
-
-    public void setId_pregunta(int id_categoria) {
-        this.id_categoria = id_categoria;
-        System.out.println("Hola soy controladorMod Preguntas "+id_categoria);
     }
 
     public Integer getId_categoria(){
