@@ -65,9 +65,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 procesarRespuesta(e.getActionCommand());
             }
         });
-        this.vista.getBtnaproxEnviar().addActionListener(e -> {
-            procesarRespuestaAprox();
-        });
+        // this.vista.getBtnaproxEnviar().addActionListener(e -> {
+        //     if (esperandoRespuesta) {
+        //         procesarRespuestaAprox();
+        //     }
+        // });
     }
 //setea los colores del fondo para indicar de quien es el turno
     public void setColore(){
@@ -97,7 +99,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         double diferencia;
         Participante peorParticipante = null;
         List<Participante> empatados = new ArrayList<>();
-        preg.imprimirPregunta();
+        this.vista.getlblaproxPregunta().setText(preg.getPregunta());
 
         //recorre la lista de participantes y compara las respuestas de los participantes con la respuesta correcta
         for (model.Participante participante: participantes){
@@ -210,21 +212,20 @@ public class ControladorJuego implements ActionListener, KeyListener {
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
             // les envia la pregunta de aproximacion a todos los participantes empatados.
-			Tema tema = this.escalon.getTema();
-            PreguntaAproximacion preguntaAprox = tema.sacarPreguntaAprox();
-            for (Participante participante : participantesAEliminar) {
-                participante.setPregEmpate(preguntaAprox);
-            }
+			
 			Ronda ronda = this.escalon.getEstadoDeRonda();
 
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
-            ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+            ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
+            rondaEmpateTurnos(participantesAEliminar);
+
              // Repite la ronda de desempate hasta que quede uno
-            while(participantesAEliminar.size()>1){
-		    this.rondaEmpate(ronda, participantesAEliminar);
-            ronda.actualizarDatos(ronda, participantesAEliminar, tema);
-            }
+            // while(participantesAEliminar.size()>1){
+		    // this.rondaEmpate(ronda, participantesAEliminar);
+            // this.vista.getPanelAproximacion().setVisible(true);
+            // ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
+            // }
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();
         }else{
@@ -316,9 +317,28 @@ public class ControladorJuego implements ActionListener, KeyListener {
 			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
 		}
 	}
-    private void mostrarPreguntaEmpate(){
 
+
+    private void procesarRespuestaAprox(){
+        Participante participante = getParticipantesAEliminar().get(indiceEmpate);
+        participante.setRespuestaParticipanteEmpate(Double.valueOf(this.vista.getTxtaproxRespuesta().getSelectedText()));
+
+        this.vista.getDefTable().addRow(new Object[]{participante.getNombre(), participante.getRespuestaParticipante()});
+
+        indiceEmpate++;
+
+        if (indiceEmpate >= getParticipantesAEliminar().size()) {
+            indiceEmpate = 0;
+            this.rondaEmpate(escalon.getEstadoDeRonda(), getParticipantesAEliminar());
+        } else {
+            rondaEmpate(getParticipantesAEliminar());
+        }
     }
+
+
+
+
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
