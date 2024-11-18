@@ -11,10 +11,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorCreacionPreguntas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorCreacionPreguntas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/ControladorModPreguntas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ControladorModPreguntas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaAproximacionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaAproximacionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaOpcionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ABM/PreguntaOpcionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/VistaModPreguntas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/VistaModPreguntas.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

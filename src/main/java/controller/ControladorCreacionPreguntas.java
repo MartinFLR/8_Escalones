@@ -6,6 +6,7 @@ import model.PreguntaOpcion;
 import model.ABM.PreguntaOpcionDAO;
 import model.Respuesta;
 import view.VistaCreacionPreguntas;
+import view.VistaModPreguntas;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -70,6 +71,7 @@ public class ControladorCreacionPreguntas {
                 System.out.println(preguntaOpcion.getPregunta());
                 preguntasDAO.modificarPregunta(idPregunta,preguntaOpcion,listaRespuestas);
             }
+            this.vista.dispose();
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -86,8 +88,6 @@ public class ControladorCreacionPreguntas {
             List<Respuesta> listaRespuestas = new ArrayList<>();
             listaRespuestas.add(respuestaCorrecta);
 
-
-
             if(idPregunta == null) {
                 System.out.println(preguntaAproximacion.getPregunta());
                 preguntasDAO.crearPregunta(preguntaAproximacion,listaRespuestas);
@@ -96,6 +96,7 @@ public class ControladorCreacionPreguntas {
                 preguntasDAO.modificarPregunta(idPregunta,preguntaAproximacion,listaRespuestas);
                 System.out.println("Este es mi idPregunta"+ idPregunta);
             }
+            this.vista.dispose();
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);
