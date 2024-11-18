@@ -216,6 +216,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 participante.setPregEmpate(preguntaAprox);
             }
 			Ronda ronda = this.escalon.getEstadoDeRonda();
+
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
             ronda.actualizarDatos(ronda, participantesAEliminar, tema);
@@ -315,22 +316,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
 			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
 		}
 	}
+    private void mostrarPreguntaEmpate(){
 
-    private void procesarRespuestaAprox(){
-        Participante participante = getParticipantesAEliminar().get(indiceEmpate);
-        participante.setRespuestaParticipanteEmpate(Double.valueOf(this.vista.getTxtaproxRespuesta().getSelectedText()));
-
-        this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
-
-        indiceEmpate++;
-        actualizarVistaEmpate();
-    }
-
-    private void actualizarVistaEmpate(){
-        if (indiceEmpate < getParticipantesAEliminar().size()) {
-            Participante participante = getParticipantesAEliminar().get(indiceEmpate);
-            this.vista.getTxtaproxRespuesta().setText("");
-        }
     }
 	@Override
 	public void keyTyped(KeyEvent e) {
