@@ -18,11 +18,14 @@ public class ControladorModPreguntas {
 
     private VistaModPreguntas vista;
     private Integer id_categoria;
-    private Integer id_pregunta;
+
+    // public ControladorModPreguntas(int id_categoria){
+    //     this.vista = new VistaModPreguntas(this);
 
     public ControladorModPreguntas(int categoria){
         this.id_categoria=categoria;
         this.vista = new VistaModPreguntas(this);
+        this.id_categoria = id_categoria;
         this.vista.setVisible(true);
         botones();
     }
@@ -50,12 +53,12 @@ public class ControladorModPreguntas {
                 int filaSeleccionada = this.vista.getTable().getSelectedRow();
                 if (filaSeleccionada != -1) {
                     try {
-                        int idCategoria = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
-                        System.out.println(idCategoria);
+                        int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
+                        System.out.println(idPregunta);
 
                         PreguntasDAO preguntasDAO = new PreguntasDAO();
 
-                        preguntasDAO.eliminar(idCategoria);
+                        preguntasDAO.eliminar(idPregunta);
 
                         dialogoEliminar.dispose();
                         JOptionPane.showMessageDialog(this.vista, "Pregunta eliminada");
@@ -79,16 +82,16 @@ public class ControladorModPreguntas {
             dialogoEliminar.setVisible(true);
         });
 
-
         this.vista.getBtnCrear().addActionListener(e -> {
-            new ControladorCreacionPreguntas(id_categoria);
+            System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria);
+            new ControladorCreacionPreguntas(this.id_categoria);
         });
 
         this.vista.getBtnEditar().addActionListener(e -> {
             int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
-
-            new ControladorCreacionPreguntas(id_categoria,idPregunta);
+            System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria +" y la idPregunta: "+idPregunta);
+            new ControladorCreacionPreguntas(this.id_categoria,idPregunta);
         });
 
 

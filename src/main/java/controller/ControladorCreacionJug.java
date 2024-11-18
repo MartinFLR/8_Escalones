@@ -53,9 +53,6 @@ public class ControladorCreacionJug {
 					t.agregarPreguntasAproximacion(pregunta);
 				}
 			}
-			System.out.println("ID TEMA: " + t.getId() + "Tema: "+ t.getNombre());
-            System.out.println("Preguntas Opcion: " + t.getPreguntasOp().size());
-            System.out.println("Preguntas Aproximacion: " + t.getPregsAproximacion().size());
 		}
 	}
 	private void creaParticipantes(){

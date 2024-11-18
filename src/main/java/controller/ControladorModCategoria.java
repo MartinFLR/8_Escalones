@@ -194,12 +194,12 @@ public class ControladorModCategoria {
 		
 		vista.getBtnSalir().addActionListener(e -> {vista.setVisible(false);});
 		
-		// vista.getBtnBuscar().addActionListener(e ->{
-		// 	String texto = this.vista.getTextBuscador().getText();
-		// 	System.out.println(texto);
-		// 	ControladorModPreguntas controlador = new ControladorModPreguntas();
+		vista.getBtnBuscar().addActionListener(e ->{
+			String texto = this.vista.getTextBuscador().getText();
+			System.out.println(texto);
+			//ControladorModPreguntas controlador = new ControladorModPreguntas();
 
-		// });
+		 });
 	}
 	
 	//TABLA --capaz sirva para abtraccion 
