@@ -279,9 +279,15 @@ public class VistaJuego extends JFrame {
 	
 	
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
+
+	public JLabel getLblaproxPregunta() {return lblaproxPregunta;}
+	
 	
 	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
 	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
+
+
+
 }

@@ -211,9 +211,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 participante.setPregEmpate(preguntaAprox);
             }
 			Ronda ronda = this.escalon.getEstadoDeRonda();
+
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
             ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+            //this.vista.getLblaproxPregunta().setText(preguntaAprox.getPregunta()z);
             // Repite la ronda de desempate hasta que quede uno
             while(participantesAEliminar.size()>1){
 				this.rondaEmpate(ronda, participantesAEliminar);
@@ -312,8 +314,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
 			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
 		}
 	}
-    private void mostrarPreguntaEmpate(){
-
+    private void mostrarPreguntaEmpate(Participante participante){
+        PreguntaAproximacion pregAprox = participante.getPregEmpate();
+        this.vista.getLblaproxPregunta().setText(pregAprox.getPregunta());
     }
 	@Override
 	public void keyTyped(KeyEvent e) {
