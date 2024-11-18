@@ -6,6 +6,7 @@ import model.PreguntaOpcion;
 import model.ABM.PreguntaOpcionDAO;
 import model.Respuesta;
 import view.VistaCreacionPreguntas;
+import view.VistaModPreguntas;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,21 +26,24 @@ public class ControladorCreacionPreguntas {
     private String incorrecta_2;
     private String incorrecta_3;
     private PreguntaOpcionDAO preguntaOpcionDAO;
+    private ControladorModPreguntas c;
 
-    public ControladorCreacionPreguntas(int idTema) {
+    public ControladorCreacionPreguntas(Integer idTema, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.vista.setVisible(true);
         this.botones();
         this.idTema = idTema;
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema);
+        this.c = c;
     }
-    public ControladorCreacionPreguntas( int idTema, int idPregunta) {
+    public ControladorCreacionPreguntas( int idTema, Integer idPregunta, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.idPregunta = idPregunta;
         this.idTema = idTema;
         this.vista.setVisible(true);
         this.botones();
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema+ "y mi idPregunta es: "+idPregunta);
+        this.c = c;
     }
 
 
@@ -57,11 +61,21 @@ public class ControladorCreacionPreguntas {
             listaRespuestas.add(respuestaFake1);
             listaRespuestas.add(respuestaFake2);
             listaRespuestas.add(respuestaFake3);
-
             Collections.shuffle(listaRespuestas);
 
-            //necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
-            this.Añadirpregunta(pregunta, this.idTema, "Opcion Multiple", listaRespuestas);
+            PreguntaOpcion preguntaOpcion = new PreguntaOpcion(pregunta,idTema);
+
+            PreguntasDAO preguntasDAO = new PreguntasDAO();
+
+            if(idPregunta == null) {
+                System.out.println(preguntaOpcion.getPregunta());
+                preguntasDAO.insertar(preguntaOpcion,listaRespuestas);
+            }else{
+                System.out.println(preguntaOpcion.getPregunta());
+                preguntasDAO.modificar(idPregunta,preguntaOpcion,listaRespuestas);
+            }
+            this.vista.dispose();
+            c.getVista().actualizarTabla();
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -70,11 +84,24 @@ public class ControladorCreacionPreguntas {
 
 
         this.vista.getBtnAñadirAproximacion().addActionListener(e -> {
-            pregunta = getVista().getTxetPregunta().getText();
-            Respuesta respuestaCorrecta = new Respuesta(getVista().getTextPregunta().getText(), true);
+            pregunta = getVista().getTextPregunta().getText();
+            PreguntaAproximacion preguntaAproximacion = new PreguntaAproximacion(pregunta,idTema);
+
+            PreguntasDAO preguntasDAO = new PreguntasDAO();
+            Respuesta respuestaCorrecta = new Respuesta(getVista().getTextRespuestaAproximacion().getText(), true);
             List<Respuesta> listaRespuestas = new ArrayList<>();
             listaRespuestas.add(respuestaCorrecta);
-            this.Añadirpregunta(pregunta, this.idTema, "Aproximacion", listaRespuestas);
+
+            if(idPregunta == null) {
+                System.out.println(preguntaAproximacion.getPregunta());
+                preguntasDAO.insertar(preguntaAproximacion,listaRespuestas);
+            }else{
+                System.out.println(preguntaAproximacion.getPregunta());
+                preguntasDAO.modificar(idPregunta,preguntaAproximacion,listaRespuestas);
+                System.out.println("Este es mi idPregunta"+ idPregunta);
+            }
+            this.vista.dispose();
+            c.getVista().actualizarTabla();
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);
@@ -89,22 +116,4 @@ public class ControladorCreacionPreguntas {
         this.vista = vista;
     }
 
-    public void Añadirpregunta(String pregunta, int id_tema, String tipopregunta, List<Respuesta> listaRespuestas) {
-        PreguntasDAO preguntasDAO = new PreguntasDAO();
-        switch (tipopregunta) {
-            case ("Opcion Multiple"): {
-                PreguntaOpcion preguntaObjeto = new PreguntaOpcion(pregunta, id_tema);
-                preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
-                break;
-            }
-            case ("Aproximacion"): {
-                PreguntaAproximacion preguntaObjeto = new PreguntaAproximacion(pregunta, id_tema);
-                preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
-                break;
-            }
-
-        }
-
-
-    }
 }

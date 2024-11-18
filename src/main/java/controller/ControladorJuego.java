@@ -225,34 +225,31 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
-            ronda.setRondaDeEmpate(participantesAEliminar);
-            ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon);
-            // Repite la ronda de desempate hasta que quede uno
-            while(participantesAEliminar.size()>1){
-				this.rondaEmpate(ronda, participantesAEliminar);
-                ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon);
-            }
-            this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
-            ronda.setRondaNormal();
+            
+            // ronda.setRondaDeEmpate(participantesAEliminar);
+            // ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+            // // Repite la ronda de desempate hasta que quede uno
+            // while(participantesAEliminar.size()>1){
+			// 	this.rondaEmpate(ronda, participantesAEliminar);
+            //     ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+            // }
+            // this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
+            // ronda.setRondaNormal();
         }else{
             //Si solo hay uno, se elimina
-            //despues de esto habria que sumar uno al numEscalon y repartir preguntas 
-            if(participantesAEliminar.isEmpty()){
-                System.out.println("No hay participantes a eliminar");
-            }else{
-                System.out.println("Se elimina el participante "+ participantesAEliminar.getFirst().getNombre());  
-                Participante participante = participantesAEliminar.getFirst();
-                //Para ver la posicion en el panel recupero el indice que ocupa en la lista
-                int indice = this.escalon.getParticipantes().indexOf(participante);
-                this.setColore();
-                this.vista.getJugadorNormal().get(indice).setEliminado();
-                this.escalon.eliminaParticipante(participante);
-                Ronda estado = this.escalon.getEstadoDeRonda();
-                estado.setRondaNormal();
-                escalon.setTema(tematema);
-                estado.actualizarDatos(estado, escalon.getParticipantes(), this.escalon);
-                this.rondaDePreguntas(estado, escalon.getParticipantes());
-            }
+            System.out.println("Se elimina el participante "+ participantesAEliminar.getFirst().getNombre());  
+            Participante participante = participantesAEliminar.getFirst();
+            //Para ver la posicion en el panel recupero el indice que ocupa en la lista
+            int indice = this.escalon.getParticipantes().indexOf(participante);
+            this.setColore();
+            this.vista.getJugadorNormal().get(indice).setEliminado();
+            this.vista.getJugadorNormal().remove(indice);
+            this.escalon.eliminaParticipante(participante);
+            Ronda estado = this.escalon.getEstadoDeRonda();
+            estado.setRondaNormal();
+            escalon.setTema();
+            estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
+            this.rondaDePreguntas(estado, escalon.getParticipantes());
         }
     }
 
@@ -265,8 +262,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void mostrarPregunta(Participante participante){
         //Podemos usar .remove() para sacar la preg y que no se repita
         PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
-        int nroParticipante = escalon.getParticipantes().indexOf(participante);
-        PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
+        int posParticipante = escalon.getParticipantes().indexOf(participante);
+        PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(posParticipante);
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         //panelParticipante.setRespondiendo();
         this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
@@ -278,15 +275,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
     private void procesarRespuesta(String respuesta){
         Participante participante = escalon.getParticipantes().get(turnoJugador);
+        int posParticipante = escalon.getParticipantes().indexOf(participante);
         participante.setRespuestaParticipante(respuesta);
-
         if (!participante.getPreguntasParticipante().isEmpty()) {
             PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst(); 
             if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
-                this.vista.getJugadorNormal().get(turnoJugador).setAcierto(participante);
+                this.vista.getJugadorNormal().get(posParticipante).setAcierto(participante);
                 participante.sumaAcierto();
             } else {
-                this.vista.getJugadorNormal().get(turnoJugador).setError(participante);
+                this.vista.getJugadorNormal().get(posParticipante).setError(participante);
                 participante.sumaError();
             }
             participante.getPreguntasParticipante().remove(0);
@@ -313,14 +310,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             this.vista.setEscalonUso(this.escalon.getEscalon());
             esperandoRespuesta = false;
-            for (Participante p : this.escalon.getParticipantes()) {
-                System.out.println("Reseteando px: "+p.getNombre());
-                int posicion = this.escalon.getParticipantes().indexOf(p);
-                this.vista.getJugadorNormal().get(posicion).setResetErrores();
+            for (PanelJugadorNormal panelJugadorNormal : this.vista.getJugadorNormal()) {
+                if(panelJugadorNormal.isActivo()){
+                panelJugadorNormal.setResetErrores();
+                }
             }
             mostrarPreguntaActual();
             return;
         }
+
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;  
         }

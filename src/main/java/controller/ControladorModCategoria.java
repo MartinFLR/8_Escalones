@@ -14,7 +14,6 @@ import model.Tema;
 import model.ABM.TemasDAO;
 import view.VistaModPadre;
 import view.VistaModCategoria;
-import view.VistaModPreguntas;
 
 public class ControladorModCategoria {
 
@@ -62,7 +61,8 @@ public class ControladorModCategoria {
 
 							// Acción para editar la categoría
 							// En este caso, llamamos al método de editar categoría
-							ControladorModPreguntas controlador = new ControladorModPreguntas(idCategoria);
+							 new ControladorModPreguntas(idCategoria);
+							//controlador.setId_pregunta(idCategoria);
 
 							System.out.println("hola");
 						} catch (NumberFormatException ex) {
@@ -198,7 +198,7 @@ public class ControladorModCategoria {
 			System.out.println(texto);
 			//ControladorModPreguntas controlador = new ControladorModPreguntas();
 
-		});
+		 });
 	}
 	
 	//TABLA --capaz sirva para abtraccion 
