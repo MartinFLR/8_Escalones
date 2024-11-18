@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import java.awt.*;
 
 
-public class ControladorCreacionPreguntas {
+public class ControladorCreacionPreguntas{
 
     private VistaCreacionPreguntas vista;
     private Integer idTema;

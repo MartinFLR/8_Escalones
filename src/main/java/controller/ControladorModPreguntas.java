@@ -2,6 +2,7 @@ package controller;
 
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.PreguntasDAO;
+import raven.toast.Notifications;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Preguntas;
@@ -63,13 +64,16 @@ public class ControladorModPreguntas {
                         preguntasDAO.eliminar(idPregunta);
 
                         dialogoEliminar.dispose();
-                        JOptionPane.showMessageDialog(this.vista, "Pregunta eliminada");
+                        Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Pregunta eliminada exitosamente");
+						Notifications.getInstance().setJFrame(vista);
                         this.vista.actualizarTabla();
                     } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this.vista, "Error al convertir el ID de la pregunta a un número.", "Error", JOptionPane.ERROR_MESSAGE);
+                    	Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Error al convertir el ID de la pregunta a un número");
+						Notifications.getInstance().setJFrame(vista);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this.vista, "Por favor, seleccione una fila para eliminar.");
+                	Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Seleccione una p a eliminar");
+					Notifications.getInstance().setJFrame(vista);
                 }
             });
 
