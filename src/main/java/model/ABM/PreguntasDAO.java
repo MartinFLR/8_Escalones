@@ -2,6 +2,7 @@ package model.ABM;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,22 @@ public class PreguntasDAO implements DAO<Preguntas>{
             }
         }
 
+    }
+
+    public static String buscaPregunta(String pregunta){
+        String palabra="";
+        String sql = "SELECT p.pregunta FROM preguntas p WHERE p.pregunta LIKE ?";
+        try(Connection conn = Database.getInstance().getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery()){
+            if(rs.next()){
+                palabra=rs.getString("p.pregunta");
+                System.out.println("Busqueda exitosa");
+            }
+        } catch (SQLException e) {
+           System.out.println("Error al buscar " + e.getMessage());
+        }
+        return palabra;
     }
 
     
