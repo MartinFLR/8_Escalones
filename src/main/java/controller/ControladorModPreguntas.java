@@ -87,7 +87,7 @@ public class ControladorModPreguntas {
 
         this.vista.getBtnCrear().addActionListener(e -> {
             System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria);
-            new ControladorCreacionPreguntas(this.id_categoria);
+            new ControladorCreacionPreguntas(this.id_categoria, this);
             this.vista.actualizarTabla();
         });
 
@@ -95,7 +95,7 @@ public class ControladorModPreguntas {
             int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
             System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria +" y la idPregunta: "+idPregunta);
-            new ControladorCreacionPreguntas(this.id_categoria,idPregunta);
+            new ControladorCreacionPreguntas(this.id_categoria,idPregunta, this);
             this.vista.actualizarTabla();
         });
 
@@ -110,4 +110,8 @@ public class ControladorModPreguntas {
     public Integer getId_categoria(){
         return this.id_categoria;
     }
+
+	public VistaModPreguntas getVista() {
+		return vista;
+	}
 }

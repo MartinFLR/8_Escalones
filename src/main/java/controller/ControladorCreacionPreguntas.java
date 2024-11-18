@@ -26,21 +26,24 @@ public class ControladorCreacionPreguntas {
     private String incorrecta_2;
     private String incorrecta_3;
     private PreguntaOpcionDAO preguntaOpcionDAO;
+    private ControladorModPreguntas c;
 
-    public ControladorCreacionPreguntas(Integer idTema) {
+    public ControladorCreacionPreguntas(Integer idTema, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.vista.setVisible(true);
         this.botones();
         this.idTema = idTema;
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema);
+        this.c = c;
     }
-    public ControladorCreacionPreguntas( int idTema, Integer idPregunta) {
+    public ControladorCreacionPreguntas( int idTema, Integer idPregunta, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.idPregunta = idPregunta;
         this.idTema = idTema;
         this.vista.setVisible(true);
         this.botones();
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema+ "y mi idPregunta es: "+idPregunta);
+        this.c = c;
     }
 
 
@@ -72,6 +75,7 @@ public class ControladorCreacionPreguntas {
                 preguntasDAO.modificarPregunta(idPregunta,preguntaOpcion,listaRespuestas);
             }
             this.vista.dispose();
+            c.getVista().actualizarTabla();
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -97,6 +101,7 @@ public class ControladorCreacionPreguntas {
                 System.out.println("Este es mi idPregunta"+ idPregunta);
             }
             this.vista.dispose();
+            c.getVista().actualizarTabla();
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);
