@@ -141,12 +141,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("El ganador es: " + participante1.getNombre());
                         //aca iria la vista de winner
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
                         panelParFinal.setCampeon();
+                        panelParFinal2.setEliminado();
                         //deberia saltar una ultima vista con dialog campeon
                     } else if (aciertos2 > aciertos1) {
                         System.out.println("El ganador es: " + participante2.getNombre());
-                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(1);
-                        panelParFinal.setCampeon();
+                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
+                        panelParFinal2.setCampeon();
+                        panelParFinal.setEliminado();
                         //aca iria la vista de winner
                           //deberia saltar una ultima vista con dialog campeon y que salte al inicio
                     }
