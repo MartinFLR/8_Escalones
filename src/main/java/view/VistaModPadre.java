@@ -58,6 +58,7 @@ public abstract class VistaModPadre extends JFrame{
 		panel.add(textBuscador);
 		textBuscador.setColumns(10);
 		
+		
 		FlatSVGIcon iconEliminar = new FlatSVGIcon("eliminar.svg", 20, 20);
 		btnBorrar = new JButton("Eliminar");
 		btnBorrar.setBounds(672, 1, 100, 40);
