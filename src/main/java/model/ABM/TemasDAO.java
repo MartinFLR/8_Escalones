@@ -137,5 +137,11 @@ public class TemasDAO implements DAO<Tema> {
             return false;
         }
     }
+
+	@Override
+	public List<Tema> busqueda(String palabra) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

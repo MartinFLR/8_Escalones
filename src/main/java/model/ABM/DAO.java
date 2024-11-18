@@ -13,6 +13,7 @@ public interface DAO<T> {
     void eliminar(int id);
     //T buscarPorId(int id);
     List<T> buscarTodos();
+    List<T> busqueda(String palabra);
 
     //  static List<String> obtenerNombresColumnas(Connection conexion, String nombreTabla) throws SQLException {
     //     List<String> columnas = new ArrayList<>();

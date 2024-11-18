@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.ControladorModPreguntas;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.Preguntas;
@@ -15,6 +16,7 @@ import model.Respuesta;
 public class PreguntasDAO implements DAO<Preguntas>{
 
     private ArrayList<Preguntas> preguntas = new ArrayList<>();
+    private ControladorModPreguntas c;
 
     public void agregaPreguntas(Preguntas p){
         this.preguntas.add(p);
@@ -129,21 +131,22 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     }
 
-    public static String buscaPregunta(String pregunta){
-        String palabra="";
-        String sql = "SELECT p.pregunta FROM preguntas p WHERE p.pregunta LIKE ?";
-        try(Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery()){
-            if(rs.next()){
-                palabra=rs.getString("p.pregunta");
-                System.out.println("Busqueda exitosa");
-            }
-        } catch (SQLException e) {
-           System.out.println("Error al buscar " + e.getMessage());
-        }
-        return palabra;
+    @Override
+    public List<Preguntas> busqueda(String palabra) {
+
+        PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
+        PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
+
+        List<PreguntaAproximacion> listaPreguntaAproximacion = preguntaAproximacionDAO.busqueda(palabra);
+        List<PreguntaOpcion> listaPreguntaOp = preguntaOpcionDAO.busqueda(palabra);
+        List<Preguntas> listaPreguntas = new ArrayList<>();
+
+        listaPreguntas.addAll(listaPreguntaOp);
+        listaPreguntas.addAll(listaPreguntaAproximacion);
+
+        return listaPreguntas;
     }
+
 
     
 

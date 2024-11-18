@@ -153,5 +153,11 @@ public class ParticipantesDAO implements DAO<Participante> {
             return false;
         }
     }
+
+		@Override
+		public List<Participante> busqueda(String palabra) {
+			// TODO Auto-generated method stub
+			return null;
+		}
     
 }

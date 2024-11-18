@@ -4,11 +4,14 @@ import model.ABM.PreguntaOpcionDAO;
 import model.ABM.PreguntasDAO;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.Preguntas;
 import model.Respuesta;
 import view.VistaCreacionPreguntas;
 import view.VistaModPreguntas;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,8 +101,43 @@ public class ControladorModPreguntas {
             new ControladorCreacionPreguntas(this.id_categoria,idPregunta, this);
             this.vista.actualizarTabla();
         });
+        
+        this.vista.getTextBuscador().getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                actualizarBusqueda();
+            }
 
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                actualizarBusqueda();
+            }
 
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                actualizarBusqueda();
+            }
+
+            private void actualizarBusqueda() {
+                String texto = vista.getTextBuscador().getText().trim();
+                buscarEnBaseDeDatos(texto);;
+            }
+
+            private void buscarEnBaseDeDatos(String texto) {
+                PreguntasDAO preg = new PreguntasDAO();
+                List<Preguntas> resultados = preg.busqueda(texto);
+
+                // Obtener el modelo de la tabla y limpiar las filas existentes
+                DefaultTableModel modeloTabla = (DefaultTableModel) getVista().getTable().getModel();
+                modeloTabla.setRowCount(0);
+
+                // Agregar las filas de los resultados
+                for (Preguntas pregunta : resultados) {
+                    Object[] fila = { pregunta.getId_pregunta(), pregunta.getPregunta() };
+                    modeloTabla.addRow(fila);
+                }
+            }
+        });
     }
 
     public void setId_pregunta(int id_categoria) {
