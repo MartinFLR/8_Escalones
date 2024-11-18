@@ -57,6 +57,21 @@ public class VistaPrincipal extends JFrame {
 		btnSalirAyuda = new JButton("Volver");
 		btnSalirAyuda.setBounds(848, 550, 100, 40);
 		panelAyuda.add(btnSalirAyuda); 
+		JLabel lblAyuda = new JLabel("<html>- Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.<br>"
+				+ "- Cada escalón tiene una temática que será elegida al azar antes de comenzar el juego y los jugadores se irán enterando si avanzan a ese escalón. <br>"
+				+ "- Las preguntas realizadas a cada participante se harán de forma aleatoria y del tipo multiple choice para responder. <br>"
+				+ "- En caso de empate para eliminar a un participante se hará una pregunta de aproximación. <br>"
+				+ "- Una pregunta de aproximación es cuando los participantes tienen que dar una respuesta y gana quien se haya acercado más a la respuesta correcta, por ejemplo, si se pregunta cuándo fue el mundial que se realizó en Argentina y uno contesta 1970 y el otro 1982, el que se acerque más al valor correcto, que sería 1978, ganaría. Por cada escalón se harán dos rondas de preguntas.</html>");
+		lblAyuda.setVerticalAlignment(SwingConstants.TOP);
+		lblAyuda.setBounds(10, 96, 938, 443);
+		lblAyuda.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelAyuda.add(lblAyuda);
+		
+		JLabel lblTitulo = new JLabel("AYUDA");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblTitulo.setBounds(10, 11, 938, 74);
+		panelAyuda.add(lblTitulo);
 
 		
 		panelCreditos = new JPanel();

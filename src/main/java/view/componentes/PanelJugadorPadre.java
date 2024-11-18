@@ -27,6 +27,8 @@ public abstract class PanelJugadorPadre extends JPanel{
 		lblnombreJugador = new JLabel("NOMBRE");
 		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblnombreJugador);
+		
+		this.lblnombreJugador.setForeground(new Color(37, 36, 34));
 	}
 
 
@@ -38,9 +40,6 @@ public abstract class PanelJugadorPadre extends JPanel{
 	public void setRespondiendo() {
 		setBackground(colorRespondiendo);
 		panelErrores.setBackground(colorRespondiendo);
-		//Cambie el color de la letra para mejorar el contraste
-		//Capaz cuando pase a responder otro, haya que revertir esto
-		this.lblnombreJugador.setForeground(Color.BLACK);
 	}
 
 	public void setActivo() {

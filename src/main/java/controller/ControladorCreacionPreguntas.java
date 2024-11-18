@@ -31,6 +31,7 @@ public class ControladorCreacionPreguntas {
         this.vista.setVisible(true);
         this.botones();
         this.idTema = idTema;
+        System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema);
     }
     public ControladorCreacionPreguntas( int idTema, int idPregunta) {
         this.vista = new VistaCreacionPreguntas(this);
@@ -38,6 +39,7 @@ public class ControladorCreacionPreguntas {
         this.idTema = idTema;
         this.vista.setVisible(true);
         this.botones();
+        System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema+ "y mi idPregunta es: "+idPregunta);
     }
 
 
@@ -59,7 +61,7 @@ public class ControladorCreacionPreguntas {
             Collections.shuffle(listaRespuestas);
 
             //necesitamos un get para saber el tipo de pregunta, pongo aproximacion de prueba nomas
-            this.Añadirpregunta(pregunta, idTema, "Aproximacion", listaRespuestas);
+            this.Añadirpregunta(pregunta, this.idTema, "Opcion Multiple", listaRespuestas);
         });
 
         this.vista.getBtnCancelar().addActionListener(e -> {
@@ -72,7 +74,7 @@ public class ControladorCreacionPreguntas {
             Respuesta respuestaCorrecta = new Respuesta(getVista().getTextPregunta().getText(), true);
             List<Respuesta> listaRespuestas = new ArrayList<>();
             listaRespuestas.add(respuestaCorrecta);
-            this.Añadirpregunta(pregunta, idTema, "Aproximacion", listaRespuestas);
+            this.Añadirpregunta(pregunta, this.idTema, "Aproximacion", listaRespuestas);
         });
         this.vista.getBtnVolverAproximacion().addActionListener(e->{
             this.vista.setVisible(false);
@@ -93,10 +95,12 @@ public class ControladorCreacionPreguntas {
             case ("Opcion Multiple"): {
                 PreguntaOpcion preguntaObjeto = new PreguntaOpcion(pregunta, id_tema);
                 preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
+                break;
             }
             case ("Aproximacion"): {
                 PreguntaAproximacion preguntaObjeto = new PreguntaAproximacion(pregunta, id_tema);
                 preguntasDAO.crearPregunta(preguntaObjeto, listaRespuestas);
+                break;
             }
 
         }
