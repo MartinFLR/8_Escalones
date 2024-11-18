@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -38,11 +41,11 @@ public abstract class VistaModPadre extends JFrame{
 		setUndecorated(true);
 		
 		btnSalir = new JButton("Volver");
-		btnSalir.setBounds(434, 358, 89, 23);
+		btnSalir.setBounds(439, 380, 100, 40);
 		contentPane.add(btnSalir);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 513, 36);
+		panel.setBounds(18, 11, 513, 36);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -69,9 +72,6 @@ public abstract class VistaModPadre extends JFrame{
 		btnBuscar.setBounds(154, 10, 35, 21);
 		panel.add(btnBuscar);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 58, 513, 292);
-		contentPane.add(panel_1);
 		
 		String cabeza [] = {"ID", "Categoria", "Cantidad de preguntas"};
 		t = new DefaultTableModel(null, cabeza);
@@ -85,12 +85,11 @@ public abstract class VistaModPadre extends JFrame{
 	    table.getTableHeader().setResizingAllowed(false);
 		table.getSelectionModel();
 		table.setBounds(10, 58, 513, 292);
-		panel_1.add(table);
 		
 		JScrollPane sp = new JScrollPane();
-		sp.setBounds(10, 58, 513, 292);
+		sp.setBounds(15, 58, 519, 306);
 		sp.setViewportView(table);
-		panel_1.add(sp);
+		contentPane.add(sp);
 
 		
 	}
