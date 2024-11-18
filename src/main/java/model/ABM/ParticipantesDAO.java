@@ -155,7 +155,7 @@ public class ParticipantesDAO implements DAO<Participante> {
     }
 
 		@Override
-		public List<Participante> busqueda(String palabra) {
+		public List<Participante> busqueda(String palabra,int id_tema) {
 			// TODO Auto-generated method stub
 			return null;
 		}

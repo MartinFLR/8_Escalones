@@ -253,25 +253,38 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
     }
     
     @Override
-    public List<PreguntaOpcion> busqueda(String palabra) {
+    public List<PreguntaOpcion> busqueda(String palabra, int id_tema) {
+        List<PreguntaOpcion> palabras = new ArrayList<>();
+        String sql = "SELECT id_pregunta, pregunta, id_tema FROM preguntas "+
+                "WHERE TRANSLATE(LOWER(pregunta), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') "+"" +
+                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ?";
 
-        List<PreguntaOpcion>palabras = new ArrayList<>();
-        String sql = "SELECT id_pregunta, pregunta, id_Tema FROM preguntas WHERE pregunta LIKE ?";
-        try(Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)){
-        pstmt.setString(1, "%"+palabra+"%");
-            try(ResultSet rs = pstmt.executeQuery()){
-                while(rs.next()){
-                    palabras.add(new PreguntaOpcion(rs.getInt("id_pregunta"), rs.getString("pregunta"), rs.getInt("id_tema") ));
-                    System.out.println("Busqueda exitosa");
+        try (Connection conn = Database.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Verifica si la palabra no es nula
+            if (palabra == null) {
+                palabra = ""; // Evita problemas con null
+            }
+            pstmt.setString(1, "%" + palabra + "%");
+            pstmt.setInt(2, id_tema);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    palabras.add(new PreguntaOpcion(
+                            rs.getInt("id_pregunta"),
+                            rs.getString("pregunta"),
+                            rs.getInt("id_tema")
+                    ));
+                    // Usa un logger en lugar de System.out.println en producción
+                    System.out.println("Búsqueda exitosa");
                 }
             }
 
         } catch (SQLException e) {
-                  System.out.println("Error al buscar " + e.getMessage());
+            // Usa un logger en lugar de System.out.println en producción
+            System.out.println("Error al buscar: " + e.getMessage());
         }
         return palabras;
     }
-
-
-}
+    }

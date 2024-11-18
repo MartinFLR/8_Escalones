@@ -139,7 +139,7 @@ public class TemasDAO implements DAO<Tema> {
     }
 
 	@Override
-	public List<Tema> busqueda(String palabra) {
+	public List<Tema> busqueda(String palabra, int id_categoria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

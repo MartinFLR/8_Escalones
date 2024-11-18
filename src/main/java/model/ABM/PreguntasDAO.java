@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import controller.ControladorModPreguntas;
 import model.PreguntaAproximacion;
@@ -17,16 +20,6 @@ public class PreguntasDAO implements DAO<Preguntas>{
 
     private ArrayList<Preguntas> preguntas = new ArrayList<>();
     private ControladorModPreguntas c;
-
-    public void agregaPreguntas(Preguntas p){
-        this.preguntas.add(p);
-    }
-
-    public void recorrePreguntas(){
-        for (Preguntas p : preguntas) {
-            p.imprimirPregunta();
-        }
-    }
 
     @Override
     public List<Preguntas> buscarTodos() {
@@ -132,22 +125,31 @@ public class PreguntasDAO implements DAO<Preguntas>{
     }
 
     @Override
-    public List<Preguntas> busqueda(String palabra) {
+    public List<Preguntas> busqueda(String palabra, int id_tema) {
 
         PreguntaOpcionDAO preguntaOpcionDAO = new PreguntaOpcionDAO();
         PreguntaAproximacionDAO preguntaAproximacionDAO = new PreguntaAproximacionDAO();
 
-        List<PreguntaAproximacion> listaPreguntaAproximacion = preguntaAproximacionDAO.busqueda(palabra);
-        List<PreguntaOpcion> listaPreguntaOp = preguntaOpcionDAO.busqueda(palabra);
+        List<PreguntaAproximacion> listaPreguntaAproximacion = preguntaAproximacionDAO.busqueda(palabra, id_tema);
+        List<PreguntaOpcion> listaPreguntaOp = preguntaOpcionDAO.busqueda(palabra, id_tema);
         List<Preguntas> listaPreguntas = new ArrayList<>();
 
         listaPreguntas.addAll(listaPreguntaOp);
         listaPreguntas.addAll(listaPreguntaAproximacion);
 
+        eliminarRepetidos(listaPreguntas);
+
         return listaPreguntas;
     }
 
+    private void eliminarRepetidos(List<Preguntas> listaPreguntas) {
+        Set<Integer> seenIds = new HashSet<>();
+        List<Preguntas> listaSinDuplicados = listaPreguntas.stream()
+                .filter(pregunta -> seenIds.add(pregunta.getId_pregunta()))
+                .collect(Collectors.toList());
+        listaPreguntas.clear();
+        listaPreguntas.addAll(listaSinDuplicados);
+    }
 
-    
 
 }

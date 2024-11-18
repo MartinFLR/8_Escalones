@@ -125,7 +125,7 @@ public class ControladorModPreguntas {
 
             private void buscarEnBaseDeDatos(String texto) {
                 PreguntasDAO preg = new PreguntasDAO();
-                List<Preguntas> resultados = preg.busqueda(texto);
+                List<Preguntas> resultados = preg.busqueda(texto,id_categoria);
 
                 // Obtener el modelo de la tabla y limpiar las filas existentes
                 DefaultTableModel modeloTabla = (DefaultTableModel) getVista().getTable().getModel();
@@ -133,7 +133,7 @@ public class ControladorModPreguntas {
 
                 // Agregar las filas de los resultados
                 for (Preguntas pregunta : resultados) {
-                    Object[] fila = { pregunta.getId_pregunta(), pregunta.getPregunta() };
+                    Object[] fila = { pregunta.getId_pregunta(), pregunta.getPregunta(),pregunta.getTipo_preg(),pregunta.getIdTema() };
                     modeloTabla.addRow(fila);
                 }
             }
