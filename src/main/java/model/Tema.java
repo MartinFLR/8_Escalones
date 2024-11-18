@@ -44,8 +44,16 @@ public class Tema {
         
     }
     
-    public PreguntaAproximacion sacarPreguntaAprox(){
-        Random random= new Random();
+    //public PreguntaAproximacion sacarPreguntaAprox(){
+    //    Random random= new Random();
+    //    return this.pregsAproximacion.remove(random.nextInt(0, this.pregsAproximacion.size()));
+    //}
+
+    public PreguntaAproximacion sacarPreguntaAprox() {
+        if (this.pregsAproximacion.isEmpty()) {
+            throw new IllegalStateException("No hay más preguntas de aproximación disponibles.");
+        }
+        Random random = new Random();
         return this.pregsAproximacion.remove(random.nextInt(0, this.pregsAproximacion.size()));
     }
 

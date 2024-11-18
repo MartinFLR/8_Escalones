@@ -284,8 +284,8 @@ public class VistaJuego extends JFrame {
 	public void setBtnpreRespuesta1(BotonPregunta btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
 	public void setBtnpreRespuesta3(BotonPregunta btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
 	public void setBtnpreRespuesta4(BotonPregunta btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
-	
-	
+
+	public JLabel getlblaproxPregunta() {return lblaproxPregunta;}
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
 	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
@@ -293,6 +293,7 @@ public class VistaJuego extends JFrame {
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 
 	public JPanel getPanelFinal() {return panelFinal;}
+
 	
 	
 	

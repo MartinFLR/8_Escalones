@@ -20,6 +20,7 @@ import view.componentes.PanelJugadorNormal;
 public class ControladorJuego implements ActionListener, KeyListener {
 	private final VistaJuego vista;
 	private final Escalon escalon;
+    private int indiceEmpate = 0;
     private int turnoJugador = 0;
     private boolean esperandoRespuesta = false;
 	
@@ -63,6 +64,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
             if (esperandoRespuesta) {
                 procesarRespuesta(e.getActionCommand());
             }
+        });
+        this.vista.getBtnaproxEnviar().addActionListener(e -> {
+            procesarRespuestaAprox();
         });
     }
 //setea los colores del fondo para indicar de quien es el turno
@@ -213,16 +217,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
-            
-            // ronda.setRondaDeEmpate(participantesAEliminar);
-            // ronda.actualizarDatos(ronda, participantesAEliminar, tema);
-            // // Repite la ronda de desempate hasta que quede uno
-            // while(participantesAEliminar.size()>1){
-			// 	this.rondaEmpate(ronda, participantesAEliminar);
-            //     ronda.actualizarDatos(ronda, participantesAEliminar, tema);
-            // }
-            // this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
-            // ronda.setRondaNormal();
+            ronda.setRondaDeEmpate(participantesAEliminar);
+            ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+             // Repite la ronda de desempate hasta que quede uno
+            while(participantesAEliminar.size()>1){
+		    this.rondaEmpate(ronda, participantesAEliminar);
+            ronda.actualizarDatos(ronda, participantesAEliminar, tema);
+            }
+            this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
+            ronda.setRondaNormal();
         }else{
             //Si solo hay uno, se elimina
             System.out.println("Se elimina el participante "+ participantesAEliminar.getFirst().getNombre());  
@@ -305,14 +308,29 @@ public class ControladorJuego implements ActionListener, KeyListener {
         esperandoRespuesta = false;
         mostrarPreguntaActual();
     }
+
 	private void poneNombres(){
 		for (int i = 0; i < 9; i++) {
 			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
 			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
 		}
 	}
-    private void mostrarPreguntaEmpate(){
 
+    private void procesarRespuestaAprox(){
+        Participante participante = getParticipantesAEliminar().get(indiceEmpate);
+        participante.setRespuestaParticipanteEmpate(Double.valueOf(this.vista.getTxtaproxRespuesta().getSelectedText()));
+
+        this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
+
+        indiceEmpate++;
+        actualizarVistaEmpate();
+    }
+
+    private void actualizarVistaEmpate(){
+        if (indiceEmpate < getParticipantesAEliminar().size()) {
+            Participante participante = getParticipantesAEliminar().get(indiceEmpate);
+            this.vista.getTxtaproxRespuesta().setText("");
+        }
     }
 	@Override
 	public void keyTyped(KeyEvent e) {
