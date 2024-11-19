@@ -25,7 +25,7 @@ public class VistaOpciones extends JFrame {
 	public VistaOpciones(ControladorOpciones c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(300, 200, 300, 450);
+		setBounds(300, 200, 300, 400);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -43,7 +43,7 @@ public class VistaOpciones extends JFrame {
 		
 		
 		btnSalir = new JButton("Volver");
-		btnSalir.setBounds(200, 409, 90, 30);
+		btnSalir.setBounds(200, 359, 90, 30);
 		contentPane.add(btnSalir);
 		btnSalir.addActionListener(c);
 

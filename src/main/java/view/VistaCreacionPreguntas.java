@@ -3,15 +3,21 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
+import java.text.NumberFormat;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
+
+import com.formdev.flatlaf.FlatClientProperties;
 
 import controller.ControladorCreacionPreguntas;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTabbedPane;
 
 public class VistaCreacionPreguntas extends JFrame{
@@ -30,7 +36,7 @@ public class VistaCreacionPreguntas extends JFrame{
 	private JPanel panelOpcion;
 	private JPanel panelAproximacion;
 	private JTextField textPregunta;
-	private JTextField textRespuestaAproximacion;
+	private JFormattedTextField textRespuestaAproximacion;
 	private JButton btnVolverAproximacion;
 	private JButton btnAñadirAproximacion;
 
@@ -47,7 +53,7 @@ public class VistaCreacionPreguntas extends JFrame{
 		setUndecorated(true);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 428, 258);
+		tabbedPane.setBounds(0, 0, 444, 297);
 		contentPane.add(tabbedPane);
 
 		panelOpcion = new JPanel();
@@ -59,81 +65,93 @@ public class VistaCreacionPreguntas extends JFrame{
 
 		//REGUNTA APROXIMACION
 
-		JLabel lblPreguntaAprox = new JLabel("Ingrese la pregunta de aproximacion:");
-		lblPreguntaAprox.setBounds(10, 11, 228, 14);
+		JLabel lblPreguntaAprox = new JLabel("Pregunta:");
+		lblPreguntaAprox.setBounds(10, 9, 228, 14);
 		panelAproximacion.add(lblPreguntaAprox);
 
 		textPregunta = new JTextField();
-		textPregunta.setBounds(10, 36, 361, 20);
+		textPregunta.setBounds(10, 27, 410, 30);
+		textPregunta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la pregunta de aproximación");
 		panelAproximacion.add(textPregunta);
 		textPregunta.setColumns(10);
 
-		JLabel lblRespuestaAproximacion = new JLabel("Ingrese la respuesta:");
-		lblRespuestaAproximacion.setBounds(10, 67, 176, 14);
+		JLabel lblRespuestaAproximacion = new JLabel("Respuesta:");
+		lblRespuestaAproximacion.setBounds(10, 72, 176, 14);
 		panelAproximacion.add(lblRespuestaAproximacion);
 
-		textRespuestaAproximacion = new JTextField();
-		textRespuestaAproximacion.setBounds(10, 92, 86, 20);
+		NumberFormat formatoNumero = NumberFormat.getIntegerInstance();
+        NumberFormatter formateador = new NumberFormatter(formatoNumero);
+        formateador.setAllowsInvalid(false);
+        formateador.setMinimum(0);
+        formateador.setMaximum(10000000); 
+		textRespuestaAproximacion = new JFormattedTextField(formateador);
+		textRespuestaAproximacion.setBounds(10, 88, 230, 30);
+		textRespuestaAproximacion.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la respuesta numérica");
 		panelAproximacion.add(textRespuestaAproximacion);
 		textRespuestaAproximacion.setColumns(10);
 
 		btnVolverAproximacion = new JButton("Volver");
-		btnVolverAproximacion.setBounds(334, 200, 89, 23);
+		btnVolverAproximacion.setBounds(354, 235, 75, 23);
 		panelAproximacion.add(btnVolverAproximacion);
 
 		btnAñadirAproximacion = new JButton("Añadir");
-		btnAñadirAproximacion.setBounds(244, 200, 89, 23);
+		btnAñadirAproximacion.setBounds(273, 235, 75, 23);
 		panelAproximacion.add(btnAñadirAproximacion);
 		panelOpcion.setLayout(null);
 
 		//PREGUNTA OPCION
 
-		JLabel lblPregunta = new JLabel("Ingrese la pregunta:");
+		JLabel lblPregunta = new JLabel("Pregunta:");
 		lblPregunta.setBounds(10, 8, 186, 14);
 		panelOpcion.add(lblPregunta);
 
 		txetPregunta = new JTextField();
-		txetPregunta.setBounds(10, 22, 328, 20);
+		txetPregunta.setBounds(10, 27, 410, 30);
 		txetPregunta.setColumns(10);
+		txetPregunta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la pregunta de opciones");
 		panelOpcion.add(txetPregunta);
 
 
-		JLabel lblRespuestaCorrecta = new JLabel("Ingrese la respuesta correcta:");
-		lblRespuestaCorrecta.setBounds(10, 53, 186, 14);
+		JLabel lblRespuestaCorrecta = new JLabel("Respuesta correcta:");
+		lblRespuestaCorrecta.setBounds(10, 68, 186, 20);
 		panelOpcion.add(lblRespuestaCorrecta);
 
 		textRespuestaCorrecta = new JTextField();
-		textRespuestaCorrecta.setBounds(10, 67, 169, 20);
+		textRespuestaCorrecta.setBounds(10, 88, 230, 30);
 		textRespuestaCorrecta.setColumns(10);
+		textRespuestaCorrecta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la respuesta correcta");
 		panelOpcion.add(textRespuestaCorrecta);
 
 
-		JLabel lblRespuestaIncorrecta = new JLabel("Ingrese las respuestas incorrectas:");
-		lblRespuestaIncorrecta.setBounds(10, 98, 268, 14);
+		JLabel lblRespuestaIncorrecta = new JLabel("Respuestas incorrectas");
+		lblRespuestaIncorrecta.setBounds(10, 129, 268, 14);
 		panelOpcion.add(lblRespuestaIncorrecta);
 
 		textIncorrecta_1 = new JTextField();
-		textIncorrecta_1.setBounds(10, 112, 169, 20);
+		textIncorrecta_1.setBounds(10, 144, 230, 30);
 		textIncorrecta_1.setColumns(10);
+		textIncorrecta_1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la respuesta incorrecta");
 		panelOpcion.add(textIncorrecta_1);
-
-		textIncorrecta_3 = new JTextField();
-		textIncorrecta_3.setBounds(10, 143, 169, 20);
-		textIncorrecta_3.setColumns(10);
-		panelOpcion.add(textIncorrecta_3);
-
-
+		
 		textIncorrecta_2 = new JTextField();
-		textIncorrecta_2.setBounds(10, 174, 169, 20);
+		textIncorrecta_2.setBounds(10, 226, 230, 30);
 		textIncorrecta_2.setColumns(10);
+		textIncorrecta_2.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la respuesta incorrecta");
 		panelOpcion.add(textIncorrecta_2);
 
+		textIncorrecta_3 = new JTextField();
+		textIncorrecta_3.setBounds(10, 185, 230, 30);
+		textIncorrecta_3.setColumns(10);
+		textIncorrecta_3.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la respuesta incorrecta");
+		panelOpcion.add(textIncorrecta_3);
+		
+
 		btnAñadirOpcion = new JButton("Añadir");
-		btnAñadirOpcion.setBounds(271, 200, 75, 23);
+		btnAñadirOpcion.setBounds(273, 235, 75, 23);
 		panelOpcion.add(btnAñadirOpcion);
 
 		btnVolverOpcion = new JButton("Volver");
-		btnVolverOpcion.setBounds(348, 200, 75, 23);
+		btnVolverOpcion.setBounds(354, 235, 75, 23);
 		panelOpcion.add(btnVolverOpcion);
 
 	}
