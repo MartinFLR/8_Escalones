@@ -28,7 +28,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.escalon = escalon;
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
-        this.vista.getPanelAproximacion().setVisible(false);
+        this.vista.getPanelAproximacion().setVisible(true);
         this.vista.getPanelFinal().setVisible(false);
 		this.vista.setEscalonUso(this.escalon.getEscalon());
 		//Por default muestra el de el primer participante
@@ -65,11 +65,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 procesarRespuesta(e.getActionCommand());
             }
         });
-        // this.vista.getBtnaproxEnviar().addActionListener(e -> {
-        //     if (esperandoRespuesta) {
-        //         procesarRespuestaAprox();
-        //     }
-        // });
     }
 //setea los colores del fondo para indicar de quien es el turno
     public void setColore(){
@@ -212,7 +207,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
             // les envia la pregunta de aproximacion a todos los participantes empatados.
-			
+			this.vista.getPanelAproximacion().setVisible(true);
 			Ronda ronda = this.escalon.getEstadoDeRonda();
 
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
@@ -221,11 +216,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
             rondaEmpateTurnos(participantesAEliminar);
 
              // Repite la ronda de desempate hasta que quede uno
-            // while(participantesAEliminar.size()>1){
-		    // this.rondaEmpate(ronda, participantesAEliminar);
+            //while(participantesAEliminar.size()>1){
+		    //this.rondaEmpate(ronda, participantesAEliminar);
+            //rondaEmpateTurnos(participantesAEliminar);
             // this.vista.getPanelAproximacion().setVisible(true);
             // ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
-            // }
+            //}
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();
         }else{
@@ -318,24 +314,37 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		}
 	}
 
+      private void rondaEmpateTurnos(List<Participante> participantesEmpate){
+          System.out.println("Ejecutnando ronda empate turnos");
+          this.vista.getPanelAproximacion().setVisible(true);
 
-    private void procesarRespuestaAprox(){
-        Participante participante = getParticipantesAEliminar().get(indiceEmpate);
-        participante.setRespuestaParticipanteEmpate(Double.valueOf(this.vista.getTxtaproxRespuesta().getSelectedText()));
+          Participante participante = participantesEmpate.get(indiceEmpate);
+          PreguntaAproximacion preguntaEmpate = participante.getPregEmpate();
 
-        this.vista.getDefTable().addRow(new Object[]{participante.getNombre(), participante.getRespuestaParticipante()});
+          this.vista.getlblaproxPregunta().setText(preguntaEmpate.getPregunta());
 
-        indiceEmpate++;
+          this.vista.getBtnaproxEnviar().addActionListener(e -> {
+              try {
+                  participante.setRespuestaParticipanteEmpate(Double.valueOf((this.vista.getTxtaproxRespuesta().getSelectedText())));
+                  this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
+                  indiceEmpate++;
+                  if (indiceEmpate >= participantesEmpate.size()) {
+                      rondaEmpate(this.escalon.getEstadoDeRonda(), participantesEmpate);
+                      indiceEmpate = 0;
+                  } else {
+                      actualizarVistaEmpate();
+                      rondaEmpateTurnos(participantesEmpate);
+                  }
+  
+              } catch (NumberFormatException ex) {
+                  System.out.println("Excepcion");
+              }
+          });
+      }
 
-        if (indiceEmpate >= getParticipantesAEliminar().size()) {
-            indiceEmpate = 0;
-            this.rondaEmpate(escalon.getEstadoDeRonda(), getParticipantesAEliminar());
-        } else {
-            rondaEmpate(getParticipantesAEliminar());
-        }
-    }
-
-
+      private void actualizarVistaEmpate(){
+        this.vista.getTxtaproxRespuesta().setText("");
+      }
 
 
 
