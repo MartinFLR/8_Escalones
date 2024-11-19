@@ -34,12 +34,4 @@ public class Ronda {
     void rondaDePreguntas(List<Participante> participantes) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    void rondaDePreguntas(List<Participante> participantes) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    void rondaDePreguntas(List<Participante> participantes) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

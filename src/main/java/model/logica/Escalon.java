@@ -65,7 +65,7 @@ public class Escalon {
     
 
     //Getters y setters
-    public void setTema(Tema  tema1) {
+    public void setTema() {
         Random random = new Random();
         int indice = random.nextInt(0, this.getTemas().size());
         this.tema = this.getTemas().remove(indice);

@@ -37,7 +37,7 @@ public class ControladorCreacionJug {
 		this.vista.setVisible(true);
 		this.escalon = new Escalon();
 		escalon.setTemas(listaTemas);
-		escalon.setTema(tematema);
+		escalon.setTema();
 		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
 	}
 
