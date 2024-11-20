@@ -14,6 +14,7 @@ import model.Tema;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import view.VistaJuego;
+import view.componentes.PanelJugadorFinal;
 import view.componentes.PanelJugadorNormal;
 
 
@@ -78,9 +79,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 int nroParticipante = escalon.getParticipantes().indexOf(participante);
                 PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
                 panelParticipante.setActivo(); 
-            }
-            
-            }
+            }}
+
 	//Rondas
 	public void rondaDePreguntas(Ronda ronda,List<Participante> participantes){
         mostrarPreguntaActual();
@@ -129,50 +129,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	}
 	public void rondaFinal(Ronda ronda,List<Participante> participantes){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
-        PreguntaOpcion preg;
-        String resp;
-        Integer cantPreguntasRestantes = 10;        
-        for (int i = 0; i < 10; i++){ 
-            System.out.println("Pregunta "+(i+1));
-            //Esta linea se puede eliminar despues, es para mostrar la preg por consola
-            participantes.getFirst().getPreguntasParticipante().get(i).imprimirPregunta();
-            for (Participante participante:participantes) {
-                preg=participante.getPreguntasParticipante().get(i);
-                // Cuando integremos con igu sacamos el scanner
-                resp=participante.getRespuestaParticipante();
-                System.out.println("Participante: "+participante.getNombre() + " Ingrese la respuesta correcta: (a, b, c, d)");
-                if (preg.getRespuestaCorrecta().equals(resp)){
-                    participante.sumaAcierto();
-                }else {
-                    participante.sumaError();
-                    }
-                }
-                cantPreguntasRestantes--;
-
-                //Verifica si uno de los dos participantes ya no tiene posiblidad de remontar y termina la ronda final.
-                if (participantes.getFirst().getCantAciertos() > participantes.getLast().getCantAciertos() + cantPreguntasRestantes
-                || participantes.getLast().getCantAciertos() > participantes.getFirst().getCantAciertos() + cantPreguntasRestantes ) {
-                    if(participantes.getFirst().getCantAciertos() > participantes.getLast().getCantAciertos()){
-                        System.out.println("Ganador: "+participantes.getFirst().getNombre());
-                    }else{
-                        System.out.println("Ganador: "+participantes.getLast().getNombre());
-                    }
-                    break;
-            }
-            // Verifica si ambos participantes tienen la misma cantAciertos y no hay pregs restantes
-            System.out.println("Cant aciertos participante 1: "+participantes.getFirst().getCantAciertos());
-            System.out.println("Cant aciertos participante 2: "+participantes.getLast().getCantAciertos());
-            if (cantPreguntasRestantes == 0 
-            && participantes.getFirst().getCantAciertos() == participantes.getLast().getCantAciertos()) {
-                System.out.println("Pasa a ronda de empate\n");
-                //Aca esta el problema donde no se manda la pregunta de desempate
-                // En caso de la rondaNormal se manda desde Escalon
-                // dentro de metodo filtrarParticipantes
-                ronda.setRondaDeEmpate(participantes);
-                return;
-            }
-        }
-	}
+            
+            mostrarPreguntaActual();
+            esperandoRespuesta = true;
+    } 
 	
 	//Metodos para filtrar y eliminar participantes
 	private List<Participante> getParticipantesAEliminar() {
@@ -235,18 +195,168 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.escalon.eliminaParticipante(participante);
             Ronda estado = this.escalon.getEstadoDeRonda();
             estado.setRondaNormal();
+            System.out.println("esta terminando el escalon: "+this.escalon.getEscalon());
             escalon.setTema();
+            
             estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
             this.rondaDePreguntas(estado, escalon.getParticipantes());
         }
     }
 
     //Procesar preguntas y respuestas
+    
     private void mostrarPreguntaActual(){
         Participante participante = escalon.getParticipantes().get(turnoJugador);
-        mostrarPregunta(participante);
+        if (this.escalon.getEscalon()!=7){
+        mostrarPregunta(participante);} else {
+            
+            mostrarPreguntaFinal(participante);
+
+            
+        }
         esperandoRespuesta = true;  // Estamos esperando la respuesta
     }
+
+    private void inicializarActionListenersFinal(){
+
+        this.vista.getBtnpreRespuesta1().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuestaFinal(e.getActionCommand());
+            }
+        });
+        this.vista.getBtnpreRespuesta2().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuestaFinal(e.getActionCommand());
+            }
+        });
+        this.vista.getBtnpreRespuesta3().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuestaFinal(e.getActionCommand());
+            }
+        });
+        this.vista.getBtnpreRespuesta4().addActionListener(e -> {
+            if (esperandoRespuesta) {
+                procesarRespuestaFinal(e.getActionCommand());
+            }
+        });
+
+    }  private void procesarRespuestaFinal(String respuesta){
+        /*Participante participante = escalon.getParticipantes().get(turnoJugador);
+        int posParticipante = escalon.getParticipantes().indexOf(participante);
+        participante.setRespuestaParticipante(respuesta);
+
+        if (!participante.getPreguntasParticipante().isEmpty()) {
+            PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst(); 
+            if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
+                this.vista.getJugadorFinal().get(posParticipante).setAcierto(participante);
+                participante.sumaAcierto();
+            } else {
+                this.vista.getJugadorFinal().get(posParticipante).setError(participante);
+                participante.sumaError();
+            }
+            participante.getPreguntasParticipante().remove(0);
+        }
+        turnoJugador++;
+        
+
+        //Si es el turno del ultimo y no tiene mas preguntas, termina la ronda y sube escalon
+        //Deberia repartir preguntas para el proximo escalon y filtrar participantes
+        if (turnoJugador == escalon.getParticipantes().size() && participante.getPreguntasParticipante().isEmpty()) {
+            //subeEscalon() aumenta el escalon, resetea los errores y aciertos y reparte preguntas
+            int nroRonda = escalon.getEscalon()+1;
+            System.out.println("fin del juego");
+            //aca iria vista fin del juego o el menu de inicio
+        }}*/
+        Participante participante = escalon.getParticipantes().get(turnoJugador);
+        int posParticipante = escalon.getParticipantes().indexOf(participante);
+    
+        // Establece la respuesta del participante
+        participante.setRespuestaParticipante(respuesta);
+    
+        // Si el participante tiene preguntas pendientes
+        if (!participante.getPreguntasParticipante().isEmpty()) {
+            PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst();
+    
+            // Compara la respuesta dada con la correcta
+            if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
+                // Si es correcta, marca el acierto
+                this.vista.getJugadorFinal().get(posParticipante).setAcierto(participante);
+                participante.sumaAcierto();
+            } else {
+                // Si es incorrecta, marca el error
+                this.vista.getJugadorFinal().get(posParticipante).setError(participante);
+                participante.sumaError();
+            }
+    
+            // Elimina la pregunta que ya fue respondida
+            participante.getPreguntasParticipante().remove(0);
+        }
+    
+        // Avanza al siguiente jugador
+        turnoJugador++;
+    
+        // Si se terminó la ronda final y todos los jugadores han respondido
+        if (turnoJugador == escalon.getParticipantes().size() && participante.getPreguntasParticipante().isEmpty()) {
+            // Se termina la ronda y se calcula el ganador
+            System.out.println("Fin del juego");
+    
+            // Aquí podrías llamar al método que evalúa los resultados de la ronda final
+            verificarRondaFinalYGanador(escalon.getParticipantes());
+        }
+    
+        // Resetea el turno si es el último jugador
+        if (turnoJugador >= escalon.getParticipantes().size()) {
+            turnoJugador = 0;
+        }
+    
+        // Muestra la siguiente pregunta para el siguiente turno
+        mostrarPreguntaFinal(escalon.getParticipantes().get(turnoJugador));
+    }
+        
+        private void mostrarPreguntaFinal(Participante participante){
+        //Podemos usar .remove() para sacar la preg y que no se repita
+        
+        PreguntaOpcion pregunta = participante.getPreguntasParticipante().removeFirst();
+        int posParticipante = escalon.getParticipantes().indexOf(participante);
+    
+        PanelJugadorFinal panelParticipante = this.vista.getJugadorFinal().get(posParticipante);
+        System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
+        
+        this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
+        this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
+        this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
+        this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
+        }
+
+        public void verificarRondaFinalYGanador(List<Participante> participantes) {
+        List<Participante> participantesFinales = this.escalon.getParticipantes();
+        Participante participante1 = participantesFinales.get(0);
+        Participante participante2 = participantesFinales.get(1);       
+        int aciertos1 = participante1.getCantAciertos();
+        int aciertos2 = participante2.getCantAciertos();
+            if (aciertos1!=aciertos2 && aciertos1!=0 && aciertos2!=0 ) {
+                    if (aciertos1 > aciertos2) {//  ganador
+                        System.out.println("El ganador es: " + participante1.getNombre());
+                        //aca iria la vista de winner
+                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
+                        panelParFinal.setCampeon();
+                        panelParFinal2.setEliminado();
+                        //deberia saltar una ultima vista con dialog campeon
+                    } else if (aciertos2 > aciertos1) {
+                        System.out.println("El ganador es: " + participante2.getNombre());
+                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
+                        panelParFinal2.setCampeon();
+                        panelParFinal.setEliminado();
+                        //aca iria la vista de winner
+                          //deberia saltar una ultima vista con dialog campeon y que salte al inicio
+                    }
+            }  else{
+                Ronda ronda= this.escalon.getEstadoDeRonda();
+                ronda.setRondaDeEmpate(participantesFinales);}}
+        
     private void mostrarPregunta(Participante participante){
         //Podemos usar .remove() para sacar la preg y que no se repita
         PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
@@ -261,6 +371,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
         
     }
+
     private void procesarRespuesta(String respuesta){
         Participante participante = escalon.getParticipantes().get(turnoJugador);
         int posParticipante = escalon.getParticipantes().indexOf(participante);
@@ -287,24 +398,48 @@ public class ControladorJuego implements ActionListener, KeyListener {
             turnoJugador = 0;
             this.filtrarParticipantes();
             this.escalon.subeEscalon();
+            System.out.println("empezara el escalon: "+this.escalon.getEscalon());
             this.vista.setEscalonUso(this.escalon.getEscalon());
             esperandoRespuesta = false;
+            if (this.escalon.getEscalon()==7){
+                if (turnoJugador >= escalon.getParticipantes().size()) {
+                    turnoJugador = 0; }
+            setColore();
+            esperandoRespuesta = false;
+                Ronda ronda =  this.escalon.getEstadoDeRonda();
+                
+                ronda.setRondaFinal();
+                System.out.println("ronda final");
+                for (PanelJugadorNormal jn: this.vista.getJugadorNormal() ){
+                jn.setVisible(false);
+            }
+                this.vista.getPanelFinal().setVisible(true);// setearia la vista de la final
+                /*PanelJugadorFinal panelPartFinal= this.vista.getJugadorFinal().get(posParticipante);
+                panelPartFinal.setVisible(true);*/
+                ronda.actualizarDatos(ronda,this.escalon.getParticipantes(), this.escalon.getTema());
+                this.rondaFinal(ronda, this.escalon.getParticipantes());
+                inicializarActionListenersFinal();
+                verificarRondaFinalYGanador(this.escalon.getParticipantes());
+            }
             for (PanelJugadorNormal panelJugadorNormal : this.vista.getJugadorNormal()) {
                 if(panelJugadorNormal.isActivo()){
                 panelJugadorNormal.setResetErrores();
                 }
-            }
             mostrarPreguntaActual();
-            return;
+            //return;
         }
-
+    }
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;  
         }
         setColore();
         esperandoRespuesta = false;
         mostrarPreguntaActual();
+
+        
     }
+
+
 	private void poneNombres(){
 		for (int i = 0; i < 9; i++) {
 			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());

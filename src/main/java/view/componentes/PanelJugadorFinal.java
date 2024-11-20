@@ -34,6 +34,10 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 
 	}
 
+	public void setCampeon(){
+		setBackground(colorActivo);
+	}
+	
 	@Override
 	public void setError(Participante par) {
 		for (JPanel panel: errores) {

@@ -40,12 +40,13 @@ public class Escalon {
     public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
         //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
         this.escalon++;
+         System.out.println("subo escalonnnn");
         this.resetAciertosyErrores();
-        if (this.escalon==8){
+       /* if (this.escalon==8){
             this.repartirPreguntasFinal();
-            this.estadoDeRonda.setRondaFinal();
+            this.estadoDeRonda.setRondaFinal();*/
         }
-    }
+    
     public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
         //Saca los participantes que perdieron de la lista de participantes que siguen en juego
         for (Participante par: participantesAEliminar){
