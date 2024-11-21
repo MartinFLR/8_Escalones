@@ -13,11 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import javax.swing.JComboBox;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -78,6 +80,7 @@ public class VistaCreacionJug extends JFrame{
 			this.comboboxImg.add(new JComboBox(imagenes));
 			this.comboboxImg.get(i).setPreferredSize(new Dimension(110, 90));
 			this.comboboxImg.get(i).setMaximumRowCount(5);		
+			this.comboboxImg.get(i).setCursor(new Cursor(HAND_CURSOR));
 			gbc.gridx = 0; 
 	        gbc.gridy = 0; 
 	        gbc.gridwidth = 1; 
@@ -117,7 +120,8 @@ public class VistaCreacionJug extends JFrame{
 		
 		btnJugar = new JButton("Jugar");
 		btnJugar.setFont(new Font("Tahome", Font.BOLD, 18));
-		btnJugar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		btnJugar.setCursor(new Cursor(HAND_CURSOR));
+		btnJugar.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
 		btnJugar.setBounds(1149, 617, 105, 53);
 		contentPane.add(btnJugar);
 		

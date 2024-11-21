@@ -6,7 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
 import javax.swing.JLabel;
+
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JSlider;
 import javax.swing.JButton;
@@ -42,8 +47,11 @@ public class VistaOpciones extends JFrame {
 		contentPane.add(sliderMusica);
 		
 		
-		btnSalir = new JButton("Volver");
-		btnSalir.setBounds(200, 359, 90, 30);
+		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
+		btnSalir.setBounds(190, 349, 100, 40);
+		btnSalir.setCursor(new Cursor(HAND_CURSOR));
+		btnSalir.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 13));
 		contentPane.add(btnSalir);
 		btnSalir.addActionListener(c);
 

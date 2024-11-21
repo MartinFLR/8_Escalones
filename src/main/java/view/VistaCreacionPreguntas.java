@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.text.NumberFormat;
 
 import javax.swing.JLabel;
@@ -92,10 +93,12 @@ public class VistaCreacionPreguntas extends JFrame{
 
 		btnVolverAproximacion = new JButton("Volver");
 		btnVolverAproximacion.setBounds(354, 235, 75, 23);
+		btnVolverAproximacion.setCursor(new Cursor(HAND_CURSOR));
 		panelAproximacion.add(btnVolverAproximacion);
 
 		btnAñadirAproximacion = new JButton("Añadir");
 		btnAñadirAproximacion.setBounds(273, 235, 75, 23);
+		btnAñadirAproximacion.setCursor(new Cursor(HAND_CURSOR));
 		panelAproximacion.add(btnAñadirAproximacion);
 		panelOpcion.setLayout(null);
 
@@ -148,10 +151,12 @@ public class VistaCreacionPreguntas extends JFrame{
 
 		btnAñadirOpcion = new JButton("Añadir");
 		btnAñadirOpcion.setBounds(273, 235, 75, 23);
+		btnAñadirOpcion.setCursor(new Cursor(HAND_CURSOR));
 		panelOpcion.add(btnAñadirOpcion);
 
 		btnVolverOpcion = new JButton("Volver");
 		btnVolverOpcion.setBounds(354, 235, 75, 23);
+		btnVolverOpcion.setCursor(new Cursor(HAND_CURSOR));
 		panelOpcion.add(btnVolverOpcion);
 
 	}

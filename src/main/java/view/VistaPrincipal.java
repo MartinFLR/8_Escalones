@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import controller.ControladorPrincipal;
@@ -55,9 +57,12 @@ public class VistaPrincipal extends JFrame {
 		contentPane.add(panelAyuda);
 		panelAyuda.setLayout(null);
 		panelAyuda.setVisible(false);
-		
-		btnSalirAyuda = new JButton("Volver");
+	
+		btnSalirAyuda = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalirAyuda.setBounds(673, 499, 100, 40);
+		btnSalirAyuda.setCursor(new Cursor(HAND_CURSOR));
+		btnSalirAyuda.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalirAyuda.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panelAyuda.add(btnSalirAyuda); 
 		JLabel lblAyuda = new JLabel("<html>- Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.<br>"
 				+ "- Cada escalón tiene una temática que será elegida al azar antes de comenzar el juego y los jugadores se irán enterando si avanzan a ese escalón. <br>"
@@ -82,8 +87,11 @@ public class VistaPrincipal extends JFrame {
 		panelCreditos.setLayout(null);
 		panelCreditos.setVisible(false);
 		
-		btnSalirCreditos = new JButton("Volver");
+		btnSalirCreditos = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalirCreditos.setBounds(690, 499, 100, 40);
+		btnSalirCreditos.setCursor(new Cursor(HAND_CURSOR));
+		btnSalirCreditos.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalirCreditos.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panelCreditos.add(btnSalirCreditos);
 
 		JLabel lblLogica = new JLabel("<html>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</html>");
@@ -109,19 +117,21 @@ public class VistaPrincipal extends JFrame {
 		lblCreditos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCreditos.setBounds(10, 11, 780, 72);
 		panelCreditos.add(lblCreditos);
-		lblCreditos.setIcon(new FlatSVGIcon("creditos.svg", 50, 50));
+		lblCreditos.setIcon(new FlatSVGIcon("groups_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 50, 50));
 		
 		
 		//---BOTONES PANTALLA PRINCIPAL
 		btnJugar = new JButton("JUGAR");
 		btnJugar.setBounds(52, 196, 250, 60);
+		btnJugar.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
 		btnJugar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
 
 		btnOpciones = new JButton("OPCIONES");
-		btnOpciones.setBounds(52, 267, 250, 60);		
+		btnOpciones.setBounds(52, 267, 250, 60);	
+		btnOpciones.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
 		btnOpciones.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -129,6 +139,7 @@ public class VistaPrincipal extends JFrame {
 		
 		btnRanking = new JButton("RANKING");		
 		btnRanking.setBounds(52, 338, 120, 50);
+		btnRanking.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnRanking);
 		btnRanking.addActionListener(controlador);
 		btnRanking.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -136,6 +147,7 @@ public class VistaPrincipal extends JFrame {
 		
 		btnAyuda = new JButton("AYUDA");
 		btnAyuda.setBounds(182, 338, 120, 50);
+		btnAyuda.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnAyuda);
 		btnAyuda.addActionListener(controlador);
 		btnAyuda.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -143,6 +155,7 @@ public class VistaPrincipal extends JFrame {
 		
 		BtnSalir = new JButton("SALIR");
 		BtnSalir.setBounds(52, 399, 250, 60);
+		BtnSalir.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(BtnSalir);
 		BtnSalir.addActionListener(controlador);
 		BtnSalir.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -150,23 +163,26 @@ public class VistaPrincipal extends JFrame {
 	
 		// BOTONES PEQUEÑOS
 		btnLogin = new JButton();
-		FlatSVGIcon iconLogin = new FlatSVGIcon("login.svg", 30, 30);
+		FlatSVGIcon iconLogin = new FlatSVGIcon("login_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 30, 30);
 		btnLogin.setIcon(iconLogin);
 		btnLogin.setBounds(52, 615, 55, 55);
+		btnLogin.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnLogin);
 		btnLogin.addActionListener(controlador);
 	
 		btnCreditos = new JButton();
-		FlatSVGIcon iconCreditos = new FlatSVGIcon("creditos.svg", 30, 30);
+		FlatSVGIcon iconCreditos = new FlatSVGIcon("groups_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 30, 30);
 		btnCreditos.setIcon(iconCreditos);
 		btnCreditos.setBounds(117, 615, 55, 55);
+		btnCreditos.setCursor(new Cursor(HAND_CURSOR));
 		btnCreditos.addActionListener(controlador);
 		contentPane.add(btnCreditos);
 		
 		btnModificar = new JButton();
-		FlatSVGIcon iconModificar = new FlatSVGIcon("editar.svg", 30, 30);
+		FlatSVGIcon iconModificar = new FlatSVGIcon("edit_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 30, 30);
 		btnModificar.setIcon(iconModificar);
 		btnModificar.setBounds(182, 615, 55, 55);
+		btnModificar.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
 		

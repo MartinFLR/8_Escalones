@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -43,8 +44,11 @@ public abstract class VistaModPadre extends JFrame{
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		
-		btnSalir = new JButton("Volver");
+		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalir.setBounds(690, 499, 100, 40);
+		btnSalir.setCursor(new Cursor(HAND_CURSOR));
+		btnSalir.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 13));
 		contentPane.add(btnSalir);
 		
 		JPanel panel = new JPanel();
@@ -55,25 +59,32 @@ public abstract class VistaModPadre extends JFrame{
 		textBuscador = new JTextField();
 		textBuscador.setBounds(0, 1, 345, 40);
 		textBuscador.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Buscar");
+		textBuscador.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("search_24dp_999999_FILL0_wght400_GRAD0_opsz24.svg"));
+
 		panel.add(textBuscador);
 		textBuscador.setColumns(10);
 		
-		
-		FlatSVGIcon iconEliminar = new FlatSVGIcon("eliminar.svg", 20, 20);
+		FlatSVGIcon iconEliminar = new FlatSVGIcon("delete_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20);
 		btnBorrar = new JButton("Eliminar");
+		btnBorrar.setIcon(iconEliminar);
 		btnBorrar.setBounds(672, 1, 100, 40);
+		btnBorrar.setCursor(new Cursor(HAND_CURSOR));
 		btnBorrar.setEnabled(false);
 		panel.add(btnBorrar);
 		
-		FlatSVGIcon iconEditar= new FlatSVGIcon("editar.svg", 20, 20);
+		FlatSVGIcon iconEditar= new FlatSVGIcon("edit_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20);
 		btnEditar = new JButton("Editar");
+		btnEditar.setIcon(iconEditar);
+		btnEditar.setCursor(new Cursor(HAND_CURSOR));
 		btnEditar.setBounds(562, 1, 100, 40);
 		btnEditar.setEnabled(false);
 		panel.add(btnEditar);
 		
-		FlatSVGIcon iconCrear = new FlatSVGIcon("crear.svg", 20, 20);
+		FlatSVGIcon iconCrear = new FlatSVGIcon("add_circle_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20);
 		btnCrear = new JButton("Crear");
+		btnCrear.setIcon(iconCrear);
 		btnCrear.setBounds(452, 1, 100, 40);
+		btnCrear.setCursor(new Cursor(HAND_CURSOR));
 		panel.add(btnCrear);
 		
 		
@@ -96,6 +107,8 @@ public abstract class VistaModPadre extends JFrame{
 		
 		JScrollPane sp = new JScrollPane();
 		sp.setBounds(12, 58, 775, 430);
+		sp.putClientProperty(FlatClientProperties.SCROLL_BAR_SHOW_BUTTONS, true);
+		sp.putClientProperty(FlatClientProperties.SCROLL_PANE_SMOOTH_SCROLLING, true);
 		sp.setViewportView(table);
 		contentPane.add(sp);
 
