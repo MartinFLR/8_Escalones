@@ -127,7 +127,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(695, 11, 571, 359);
+		panelAproximacion.setBounds(695, 0, 571, 351);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -188,7 +188,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelPregunta = new JPanel();
-		panelPregunta.setBounds(89, 11, 542, 359);
+		panelPregunta.setBounds(95, 0, 542, 351);
 		contentPane.add(panelPregunta);
 	
 		panelPregunta.setLayout(null);
@@ -229,7 +229,7 @@ public class VistaJuego extends JFrame {
 		//
 			
 		panelFinal = new JPanel();		
-		panelFinal.setBounds(85, 367, 1181, 131);
+		panelFinal.setBounds(85, 353, 1181, 154);
 		contentPane.add(panelFinal);
 		GridLayout gridLayoutFinal = new GridLayout (2, 1);
 		gridLayoutFinal.setHgap(10); 

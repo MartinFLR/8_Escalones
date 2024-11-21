@@ -30,7 +30,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista = new VistaJuego(this);
 		this.vista.setVisible(true);
         this.vista.getPanelAproximacion().setVisible(true);
-        this.vista.getPanelFinal().setVisible(false);
+        this.vista.getPanelFinal().setVisible(true);
 		this.vista.setEscalonUso(this.escalon.getEscalon());
 		//Por default muestra el de el primer participante
 		poneNombres();
