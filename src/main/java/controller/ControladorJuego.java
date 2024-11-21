@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ import java.util.List;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
-import model.Tema;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import view.VistaJuego;
@@ -47,24 +47,50 @@ public class ControladorJuego implements ActionListener, KeyListener {
 
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
             if (esperandoRespuesta) {
-                procesarRespuesta(e.getActionCommand());
+            procesarRespuesta(e.getActionCommand());
             }
         });
         this.vista.getBtnpreRespuesta2().addActionListener(e -> {
             if (esperandoRespuesta) {
-                procesarRespuesta(e.getActionCommand());
+            procesarRespuesta(e.getActionCommand());
             }
         });
         this.vista.getBtnpreRespuesta3().addActionListener(e -> {
             if (esperandoRespuesta) {
-                procesarRespuesta(e.getActionCommand());
+            procesarRespuesta(e.getActionCommand());
             }
         });
         this.vista.getBtnpreRespuesta4().addActionListener(e -> {
             if (esperandoRespuesta) {
-                procesarRespuesta(e.getActionCommand());
+            procesarRespuesta(e.getActionCommand());
             }
         });
+        
+        KeyAdapter keyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_A:
+                        vista.getBtnpreRespuesta1().doClick();
+                        break;
+                    case KeyEvent.VK_B:
+                        vista.getBtnpreRespuesta2().doClick();
+                        break;
+                    case KeyEvent.VK_C:
+                        vista.getBtnpreRespuesta3().doClick();
+                        break;
+                    case KeyEvent.VK_D:
+                        vista.getBtnpreRespuesta4().doClick();
+                        break;
+                }
+            }
+        };
+
+        this.vista.getBtnpreRespuesta1().addKeyListener(keyListener);
+        this.vista.getBtnpreRespuesta2().addKeyListener(keyListener);
+        this.vista.getBtnpreRespuesta3().addKeyListener(keyListener);
+        this.vista.getBtnpreRespuesta4().addKeyListener(keyListener);
+    
     }
 //setea los colores del fondo para indicar de quien es el turno
     public void setColore(){
@@ -87,7 +113,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         mostrarPreguntaActual();
         esperandoRespuesta = true;
 	}
-	public void rondaEmpate(Ronda ronda,List<Participante> participantes){
+	public void rondaEmpate(Ronda ronda, List<Participante> participantes){
 		PreguntaAproximacion preg = participantes.get(0).getPregEmpate();
         Double respuestaCorrecta = Double.valueOf(preg.getRespuestaCorrecta());
         double respMasLejana = 0;
@@ -222,6 +248,17 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // this.vista.getPanelAproximacion().setVisible(true);
             // ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
             //}
+            Thread hilo = new Thread(() -> {
+                while (getParticipantesAEliminar().size() > 1) {
+                    esperandoRespuesta = true;
+                }
+            });
+            hilo.start();
+            try {
+                hilo.join(); // Espera a que el hilo termine
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();
         }else{
@@ -256,13 +293,17 @@ public class ControladorJuego implements ActionListener, KeyListener {
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         panelParticipante.setRespondiendo();
         this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
-        this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
-        this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
-        this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
-        this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
+        this.vista.getBtnpreRespuesta1().setText("A) "+pregunta.getOpcionA());
+        this.vista.getBtnpreRespuesta2().setText("B) "+pregunta.getOpcionB());
+        this.vista.getBtnpreRespuesta3().setText("C) "+pregunta.getOpcionC());
+        this.vista.getBtnpreRespuesta4().setText("D) "+pregunta.getOpcionD());
         
     }
     private void procesarRespuesta(String respuesta){
+        //La respuesta viene con un formato "A) " o "B) "
+        //Elimina los primeros 3 caracteres antes de hacer las comparaciones
+        respuesta = respuesta.substring(3);
+
         Participante participante = escalon.getParticipantes().get(turnoJugador);
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         participante.setRespuestaParticipante(respuesta);
