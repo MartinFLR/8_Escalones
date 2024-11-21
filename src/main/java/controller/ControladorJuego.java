@@ -211,17 +211,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // this.vista.getPanelAproximacion().setVisible(true);
             // ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
             //}
-            Thread hilo = new Thread(() -> {
-                while (getParticipantesAEliminar().size() > 1) {
-                    esperandoRespuesta = true;
-                }
-            });
-            hilo.start();
-            try {
-                hilo.join(); // Espera a que el hilo termine
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             this.escalon.getParticipantes().remove(participantesAEliminar.getFirst());
             ronda.setRondaNormal();
         }else{
