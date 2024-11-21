@@ -97,8 +97,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         preg.imprimirPregunta();
 
         //recorre la lista de participantes y compara las respuestas de los participantes con la respuesta correcta
-        for (model.Participante participante: participantes){
-            System.out.println("Respuesta del participante: " + participante.getNombre());	
+        for (model.Participante participante: participantes){	
             Double respuestaParticipante = participante.getRespuestaParticipanteEmpate();
             
             //Calcula la diferencia entre la respuesta correcta y la respuesta del participante
@@ -343,7 +342,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         System.out.println("Posparticipantepos "+ posParticipante);
         PanelJugadorFinal panelParticipante = this.vista.getJugadorFinal().get(posParticipante);
-        System.out.println("cantidad de preguntas en el arreglo de la final " +participante.getPreguntas().size());
+        System.out.println("ID pregunta"+pregunta.getId_pregunta());
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         System.out.println("flag2 + "+ esperandoRespuesta);
         this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
