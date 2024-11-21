@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -18,6 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
+
+import com.formdev.flatlaf.FlatClientProperties;
 
 import controller.ControladorJuego;
 import view.componentes.BotonPregunta;
@@ -192,18 +195,22 @@ public class VistaJuego extends JFrame {
 
 		btnpreRespuesta1.setBounds(10, 189, 230, 70);
 		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta1);
 		
 		btnpreRespuesta2.setBounds(302, 189, 230, 70);
 		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta2);
 		
 		btnpreRespuesta3.setBounds(10, 278, 230, 70);
 		btnpreRespuesta3.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta3.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta3);
 
 		btnpreRespuesta4.setBounds(302, 278, 230, 70);
 		btnpreRespuesta4.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta4.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta4);
 		
 		JPanel panel = new JPanel();
@@ -284,8 +291,8 @@ public class VistaJuego extends JFrame {
 	public void setBtnpreRespuesta1(BotonPregunta btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
 	public void setBtnpreRespuesta3(BotonPregunta btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
 	public void setBtnpreRespuesta4(BotonPregunta btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
-	
-	
+
+	public JLabel getlblaproxPregunta() {return lblaproxPregunta;}
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
 	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
@@ -293,6 +300,7 @@ public class VistaJuego extends JFrame {
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 
 	public JPanel getPanelFinal() {return panelFinal;}
+
 	
 	
 	

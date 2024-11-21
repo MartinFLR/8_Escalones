@@ -9,12 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -44,10 +46,13 @@ public class VistaRanking extends JFrame{
 		lblRanking.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRanking.setBounds(10, 11, 777, 85);
 		contentPane.add(lblRanking);
-		lblRanking.setIcon(new FlatSVGIcon("rankingColor.svg", 50, 50));
+		lblRanking.setIcon(new FlatSVGIcon("star_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 50, 50));
 		
-		btnSalir = new JButton("Volver");
+		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalir.setBounds(690, 499, 100, 40);
+		btnSalir.setCursor(new Cursor(HAND_CURSOR));
+		btnSalir.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 13));
 		contentPane.add(btnSalir);
 
 		//--- TABLA DE RANKING ---
@@ -66,6 +71,8 @@ public class VistaRanking extends JFrame{
 		
 		JScrollPane sc = new JScrollPane();
 		sc.setBounds(10, 100, 780, 391);
+		sc.putClientProperty(FlatClientProperties.SCROLL_BAR_SHOW_BUTTONS, true);
+		sc.putClientProperty(FlatClientProperties.SCROLL_PANE_SMOOTH_SCROLLING, true);
 		sc.setViewportView(table);
 		contentPane.add(sc);
 		
