@@ -24,7 +24,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private int indiceEmpate = 0;
     private int turnoJugador = 0;
     private boolean esperandoRespuesta = false;
-    
+    private int  indiceActualPar=0;
 
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
@@ -50,23 +50,47 @@ public class ControladorJuego implements ActionListener, KeyListener {
 
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
             if (esperandoRespuesta) {
-            procesarRespuesta(e.getActionCommand());
+            if (this.escalon.getEscalon()==7 && turnoJugador == indiceActualPar){
+                procesarRespuestaFinal(e.getActionCommand());
+            }else  if(this.escalon.getEscalon()<7){
+                procesarRespuesta(e.getActionCommand());
+            System.out.println("marcaNormal");
             }
+            } 
+            System.out.println( "escalon nro: "+this.escalon.getEscalon()+"turno jugadr:" +turnoJugador + "turno escalon: " +indiceActualPar);
         });
         this.vista.getBtnpreRespuesta2().addActionListener(e -> {
             if (esperandoRespuesta) {
-            procesarRespuesta(e.getActionCommand());
-            }
+                if (this.escalon.getEscalon()==7 && turnoJugador == indiceActualPar){
+                    procesarRespuestaFinal(e.getActionCommand());
+                }else if(this.escalon.getEscalon()<7) {
+                    procesarRespuesta(e.getActionCommand());
+                    System.out.println( "escalon nro: "+this.escalon.getEscalon());
+                System.out.println("marcaNormal");
+                }
+                }
+                System.out.println( "escalon nro: "+this.escalon.getEscalon()+"turno jugadr: " +turnoJugador + "turno escalon: " +indiceActualPar);
         });
         this.vista.getBtnpreRespuesta3().addActionListener(e -> {
             if (esperandoRespuesta) {
-            procesarRespuesta(e.getActionCommand());
-            }
+                if (this.escalon.getEscalon()==7 && turnoJugador == indiceActualPar){
+                    procesarRespuestaFinal(e.getActionCommand());
+                }else  if(this.escalon.getEscalon()<7) {
+                    procesarRespuesta(e.getActionCommand());
+                System.out.println("marcaNormal");
+                }
+                }
+                System.out.println( "escalon nro: "+this.escalon.getEscalon()+"turno jugadr:" +turnoJugador + "turno escalon: " +indiceActualPar);
         });
         this.vista.getBtnpreRespuesta4().addActionListener(e -> {
             if (esperandoRespuesta) {
-            procesarRespuesta(e.getActionCommand());
-            }
+                if (this.escalon.getEscalon()==7 && turnoJugador ==  indiceActualPar){
+                    procesarRespuestaFinal(e.getActionCommand());
+                }else  if(this.escalon.getEscalon()<7) {
+                    procesarRespuesta(e.getActionCommand());
+                System.out.println("marcaNormal");
+                }
+                } System.out.println( "escalon nro: "+this.escalon.getEscalon()+"turno jugadr:" +turnoJugador + "turno escalon: " +indiceActualPar);
         });
         
         KeyAdapter keyListener = new KeyAdapter() {
@@ -155,7 +179,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             System.out.println("Participante a eliminar: "+peorParticipante.getNombre());
         }
 	}
-   
 	public void rondaFinal(Ronda ronda,List<Participante> participantes){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
         mostrarPreguntaActual();
@@ -251,41 +274,72 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void inicializarActionListenersFinal(){
 
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
-            if (esperandoRespuesta) {
+            if (esperandoRespuesta && turnoJugador ==  indiceActualPar) {
+                
                 procesarRespuestaFinal(e.getActionCommand());
-                esperandoRespuesta=false;
                 System.out.println("marca");
+               // esperandoRespuesta=false;
             }
         });
         this.vista.getBtnpreRespuesta2().addActionListener(e -> {
-            if (esperandoRespuesta) {
+            if (esperandoRespuesta && turnoJugador ==  indiceActualPar) {
                 procesarRespuestaFinal(e.getActionCommand());
-                esperandoRespuesta=false;
                 System.out.println("marca");
+            //    esperandoRespuesta=false;
+                
             }
         });
         this.vista.getBtnpreRespuesta3().addActionListener(e -> {
-            if (esperandoRespuesta) {
+            if (esperandoRespuesta && turnoJugador == indiceActualPar) {
+                
                 procesarRespuestaFinal(e.getActionCommand());
-                esperandoRespuesta=false;
                 System.out.println("marca");
+               // esperandoRespuesta=false;
+                
             }
         });
         this.vista.getBtnpreRespuesta4().addActionListener(e -> {
-            if (esperandoRespuesta) {
+            if (esperandoRespuesta && turnoJugador ==  indiceActualPar) {
+                
                 procesarRespuestaFinal(e.getActionCommand());
-                esperandoRespuesta=false;
-                System.out.println("marca");
+             //   esperandoRespuesta=false;
+                
             }
         });
+        KeyAdapter keyListener = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_A:
+                        vista.getBtnpreRespuesta1().doClick();
+                        break;
+                    case KeyEvent.VK_B:
+                        vista.getBtnpreRespuesta2().doClick();
+                        break;
+                    case KeyEvent.VK_C:
+                        vista.getBtnpreRespuesta3().doClick();
+                        break;
+                    case KeyEvent.VK_D:
+                        vista.getBtnpreRespuesta4().doClick();
+                        break;
+                }
+            }
+        };
 
-    }  private void procesarRespuestaFinal(String respuesta){
+        this.vista.getBtnpreRespuesta1().addKeyListener(keyListener);
+        this.vista.getBtnpreRespuesta2().addKeyListener(keyListener);
+        this.vista.getBtnpreRespuesta3().addKeyListener(keyListener);
+        this.vista.getBtnpreRespuesta4().addKeyListener(keyListener);
+    }   
+    private void procesarRespuestaFinal(String respuesta){
+        esperandoRespuesta=false;
         Participante participante = escalon.getParticipantes().get(turnoJugador);
-        int posParticipante = escalon.getParticipantes().indexOf(participante);
+        //int posParticipante = escalon.getParticipantes().indexOf(participante);   
+        int posParticipante=indiceActualPar;
         participante.setRespuestaParticipante(respuesta);//no se actualiza la respuesta y toma la del anterior. ej: jug1 responde 25, se pone que este responde 25 tmb.
         PanelJugadorFinal pj= this.vista.getJugadorFinal().get(turnoJugador);
         if (!participante.getPreguntasParticipante().isEmpty()) {
-            PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst(); 
+            PreguntaOpcion preguntaActual =participante.getPreguntasParticipante().removeFirst();
             if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
                 this.vista.getJugadorFinal().get(posParticipante).setAcierto(participante);
                 participante.sumaAcierto();
@@ -295,43 +349,30 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 participante.sumaError();
                 //pj.setError(participante);
             }
-            participante.getPreguntasParticipante().removeFirst();
+            //participante.getPreguntasParticipante().removeFirst();
             System.out.println("Preguntas para el participante dsps de sacar: " + participante.getPreguntasParticipante().size());
         }
         turnoJugador++;
-        
+        if (turnoJugador< escalon.getParticipantes().size()){
+            indiceActualPar= turnoJugador;
+        }else if (turnoJugador>= escalon.getParticipantes().size()) {
+            indiceActualPar=0;
+        }
         //Si es el turno del ultimo y no tiene mas preguntas, termina la ronda y sube escalon
-        //Deberia repartir preguntas para el proximo escalon y filtrar participantes
         if (turnoJugador == escalon.getParticipantes().size() && participante.getPreguntasParticipante().isEmpty()) {
-            //subeEscalon() aumenta el escalon, resetea los errores y aciertos y reparte preguntas
-            int nroRonda = escalon.getEscalon()+1;
             System.out.println("fin del juego");
-
             verificarRondaFinalYGanador( escalon.getParticipantes());
             //aca iria vista fin del juego o el menu de inicio
         }
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;  
+            System.out.println("vuelve a 0 el tj");
         }
             System.out.println("flag + "+ esperandoRespuesta);
             esperandoRespuesta=false;
-            mostrarPreguntaActual(); 
-
-            /*while (!todosLosJugadoresHanRespondido()) {
-                Participante participanteActual = participantes.get(turnoJugador);
-                mostrarPregunta(participanteActual);
-                esperandoRespuesta(participanteActual);
-                // Avanzamos al siguiente jugador
-                turnoJugador = (turnoJugador + 1) % participantes.size();
-            }
-            // Al final de la ronda, podemos mostrar el ganador
-            mostrarResultado();*/
+            while (esperandoRespuesta==false){
+            mostrarPreguntaActual(); }
         }
-    
-        
-        
-        
-    
         private void mostrarPreguntaFinal(Participante participante){
         //Podemos usar .remove() para sacar la preg y que no se repita
         
@@ -401,7 +442,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         //La respuesta viene con un formato "A) " o "B) "
         //Elimina los primeros 3 caracteres antes de hacer las comparaciones
         respuesta = respuesta.substring(3);
-
         Participante participante = escalon.getParticipantes().get(turnoJugador);
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         participante.setRespuestaParticipante(respuesta);
@@ -417,7 +457,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
             participante.getPreguntasParticipante().remove(0);
         }
         turnoJugador++;
-
+        if (turnoJugador< escalon.getParticipantes().size()){
+            indiceActualPar= turnoJugador;
+        }else if (turnoJugador>= escalon.getParticipantes().size()) {
+            indiceActualPar=0;
+        }
+        
         //Si es el turno del ultimo y no tiene mas preguntas, termina la ronda y sube escalon
         //Deberia repartir preguntas para el proximo escalon y filtrar participantes
         if (turnoJugador == escalon.getParticipantes().size() && participante.getPreguntasParticipante().isEmpty()) {
@@ -441,7 +486,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             if (this.escalon.getEscalon()==7){
                 if (turnoJugador >= escalon.getParticipantes().size()) {
-                    turnoJugador = 0; }
+                    turnoJugador = 0;
+                indiceActualPar=0; }
             
                     //esperandoRespuesta=false;
                 Ronda ronda =  this.escalon.getEstadoDeRonda();
@@ -450,6 +496,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 for (PanelJugadorNormal jn: this.vista.getJugadorNormal() ){
                 jn.setVisible(false);
             }
+                this.vista.getPanelAproximacion().setVisible(false);
                 this.vista.getPanelFinal().setVisible(true);// setearia la vista de la final
                 //PanelJugadorFinal panelPartFinal= this.vista.getJugadorFinal().get(posParticipante);
                 for (PanelJugadorFinal pjf: this.vista.getJugadorFinal()){
@@ -466,7 +513,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
     if(this.escalon.getEscalon()<7){
         if (turnoJugador >= escalon.getParticipantes().size()) {
-            turnoJugador = 0;  
+            turnoJugador = 0;
+            indiceActualPar=0;
         }
         setColore();
         esperandoRespuesta = false;
@@ -482,37 +530,37 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		}
 	}
 
-      private void rondaEmpateTurnos(List<Participante> participantesEmpate){
-          System.out.println("Ejecutnando ronda empate turnos");
-          this.vista.getPanelAproximacion().setVisible(true);
+    private void rondaEmpateTurnos(List<Participante> participantesEmpate){
+        System.out.println("Ejecutnando ronda empate turnos");
+        this.vista.getPanelAproximacion().setVisible(true);
 
-          Participante participante = participantesEmpate.get(indiceEmpate);
-          PreguntaAproximacion preguntaEmpate = participante.getPregEmpate();
+        Participante participante = participantesEmpate.get(indiceEmpate);
+        PreguntaAproximacion preguntaEmpate = participante.getPregEmpate();
 
-          this.vista.getlblaproxPregunta().setText(preguntaEmpate.getPregunta());
+        this.vista.getlblaproxPregunta().setText(preguntaEmpate.getPregunta());
 
-          this.vista.getBtnaproxEnviar().addActionListener(e -> {
-              try {
-                  participante.setRespuestaParticipanteEmpate(Double.valueOf((this.vista.getTxtaproxRespuesta().getSelectedText())));
-                  this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
-                  indiceEmpate++;
-                  if (indiceEmpate >= participantesEmpate.size()) {
-                      rondaEmpate(this.escalon.getEstadoDeRonda(), participantesEmpate);
-                      indiceEmpate = 0;
-                  } else {
-                      actualizarVistaEmpate();
-                      rondaEmpateTurnos(participantesEmpate);
-                  }
-  
-              } catch (NumberFormatException ex) {
-                  System.out.println("Excepcion");
-              }
-          });
-      }
+        this.vista.getBtnaproxEnviar().addActionListener(e -> {
+            try {
+                participante.setRespuestaParticipanteEmpate(Double.valueOf((this.vista.getTxtaproxRespuesta().getSelectedText())));
+                this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
+                indiceEmpate++;
+                if (indiceEmpate >= participantesEmpate.size()) {
+                    rondaEmpate(this.escalon.getEstadoDeRonda(), participantesEmpate);
+                    indiceEmpate = 0;
+                } else {
+                    actualizarVistaEmpate();
+                    rondaEmpateTurnos(participantesEmpate);
+                }
 
-      private void actualizarVistaEmpate(){
-        this.vista.getTxtaproxRespuesta().setText("");
-      }
+            } catch (NumberFormatException ex) {
+                System.out.println("Excepcion");
+            }
+        });
+    }
+
+    private void actualizarVistaEmpate(){
+    this.vista.getTxtaproxRespuesta().setText("");
+    }
 
 
 
