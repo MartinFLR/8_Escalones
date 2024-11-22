@@ -36,8 +36,9 @@ public class ControladorCreacionJug {
 		this.agregarPreguntasATemas(listaTemas, listaPreguntasOp, listaPreguntaAproximacion);
 		this.vista.setVisible(true);
 		this.escalon = new Escalon();
-		escalon.setTemas(listaTemas);
-		escalon.setTema();
+		this.escalon.setTemas(listaTemas);
+		System.out.println("temas: " + escalon.getTemas().size());
+		this.escalon.setTema();
 		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
 	}
 
@@ -64,6 +65,6 @@ public class ControladorCreacionJug {
 			participante.setNombre("jugador " + i);
 		}
 		escalon.repartirPreguntas();
-		new ControladorJuego(escalon);
+		new ControladorJuego(this.escalon);
 	}
 }

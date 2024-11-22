@@ -13,7 +13,7 @@ public class Escalon {
     private Tema tema;
     private int escalon=0;
     private final List<Participante> participantes = new ArrayList<>();
-    private List<Tema> temas = new ArrayList<>(); 
+    private List<Tema> temas;
 
     public Escalon() {
         //Crea la instancia de la ronda y setea por defecto ronda normal
@@ -40,7 +40,6 @@ public class Escalon {
     public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
         //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
         this.escalon++;
-         System.out.println("subo escalonnnn");
         this.resetAciertosyErrores();
        /* if (this.escalon==8){
             this.repartirPreguntasFinal();
@@ -68,10 +67,9 @@ public class Escalon {
     //Getters y setters
     public void setTema() {
         Random random = new Random();
-        int indice = random.nextInt(0, this.getTemas().size());
+        int indice = random.nextInt(this.getTemas().size());
         this.tema = this.getTemas().remove(indice);
         System.out.println("Tema asignado: "+this.tema.getNombre());
-        System.out.println("ID TEMA: "+this.tema.getId());
     }
     public Tema getTema() {
         return this.tema;
