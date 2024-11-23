@@ -41,6 +41,11 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>imagenes</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

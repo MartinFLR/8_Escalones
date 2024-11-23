@@ -456,7 +456,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnaproxEnviar().addActionListener(e->{
             if(esperandoRespuesta){
                 procesarRespuestaEmpate(this.vista.getTxtaproxRespuesta().getText());
-                
             }
         });
         
