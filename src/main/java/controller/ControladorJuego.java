@@ -172,7 +172,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.rondaFinal(this.escalon.getParticipantes());
     }
     private void manejarRondaNormal() {
-        if (turnoJugador >= escalon.getParticipantes().size()) {
+        if (turnoJugador == escalon.getParticipantes().size()) {
             turnoJugador = 0;
             indiceActualPar = 0;
         }
@@ -238,6 +238,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Double resParseada = Double.valueOf(respuesta);
         participante.setRespuestaParticipanteEmpate(resParseada);
         this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
+        this.vista.getTxtaproxRespuesta().setText("");
         siguienteTurnoEmpate();
     }
     private void siguienteTurnoEmpate(){
@@ -538,6 +539,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
                     System.out.println("marcaNormal");
                     }
                     } System.out.println( "escalon nro: "+this.escalon.getEscalon()+"turno jugadr:" +turnoJugador + "turno escalon: " +indiceActualPar);
+            });
+            this.vista.getBtnaproxEnviar().addActionListener(e->{
+                if(esperandoRespuesta){
+                    procesarRespuestaEmpate(this.vista.getTxtaproxRespuesta().getText());
+                    
+                }
             });
             
             KeyAdapter keyListener = new KeyAdapter() {
