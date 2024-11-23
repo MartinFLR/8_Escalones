@@ -7,14 +7,13 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import model.Tema;
 import model.ABM.TemasDAO;
+import raven.toast.Notifications;
 import view.VistaModPadre;
 import view.VistaModCategoria;
-import view.VistaModPreguntas;
 
 public class ControladorModCategoria {
 
@@ -62,12 +61,13 @@ public class ControladorModCategoria {
 
 							// Acción para editar la categoría
 							// En este caso, llamamos al método de editar categoría
-							ControladorModPreguntas controlador = new ControladorModPreguntas();
-							controlador.setId_pregunta(idCategoria);
+							 new ControladorModPreguntas(idCategoria);
+							//controlador.setId_pregunta(idCategoria);
 
 							System.out.println("hola");
 						} catch (NumberFormatException ex) {
-							JOptionPane.showMessageDialog(vista, "Error al convertir el ID de la categoría a un número.", "Error", JOptionPane.ERROR_MESSAGE);
+							Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Error al convertir el ID de la categoría a un número");
+							Notifications.getInstance().setJFrame(vista);
 						}
 					}
 				}
@@ -95,18 +95,21 @@ public class ControladorModCategoria {
 						temasDAO.eliminar(idCategoria);
 
 						dialogoEliminar.dispose();
-						JOptionPane.showMessageDialog(this.vista, "Categoria eliminada");
+						Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Categoría eliminada exitosamente");
+						Notifications.getInstance().setJFrame(vista);
 
 						// Actualiza la tabla para reflejar los cambios
 						cargarTemasTablas();
 					} catch (NumberFormatException ex) {
-						JOptionPane.showMessageDialog(this.vista, "Error al convertir el ID de la categoría a un número.", "Error", JOptionPane.ERROR_MESSAGE);
+						Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Error al convertir el ID de la categoría a un número");
+						Notifications.getInstance().setJFrame(vista);
 					}
 				} else {
-					JOptionPane.showMessageDialog(this.vista, "Por favor, seleccione una fila para eliminar.");
+					Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Seleccione una categoría a eliminar");
+					Notifications.getInstance().setJFrame(vista);
 				}
 			});
-
+			
 
 			btnSalir.addActionListener(ev -> {
 				dialogoEliminar.setVisible(false);
@@ -140,11 +143,13 @@ public class ControladorModCategoria {
 					if (!nuevoNombre.isEmpty()) {
 						Tema tema = new Tema(nuevoNombre);
 						temasDAO.modificar(idCategoria,tema);
-						JOptionPane.showMessageDialog(dialogoEditar, "Categoria editada!");
+						Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Categoría editada exitosamente");
+						Notifications.getInstance().setJFrame(vista);
 						cargarTemasTablas();
 						dialogoEditar.dispose();
 					} else {
-						JOptionPane.showMessageDialog(dialogoEditar, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+						Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Ingrese un nombre de categoría valida");
+						Notifications.getInstance().setJFrame(vista);
 					}
 				});
 
@@ -156,7 +161,8 @@ public class ControladorModCategoria {
 				dialogoEditar.add(btnCancelar);
 				dialogoEditar.setVisible(true);
 			} else {
-				JOptionPane.showMessageDialog(vista, "Seleccione una categoría para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Seleccione una categoría a editar");
+				Notifications.getInstance().setJFrame(vista);
 			}
 		});
 		
@@ -178,10 +184,12 @@ public class ControladorModCategoria {
 		            System.out.println("Categoría ingresada: " + categoria);
 					Tema tema = new Tema(categoria);
 					temasDAO.insertar(tema);
-					JOptionPane.showMessageDialog(dialogoCategoria, "Categoria creada!");
+					Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Categoría creada exitosamente");
+					Notifications.getInstance().setJFrame(vista);
 		            dialogoCategoria.dispose(); 
 		        } else {
-		            JOptionPane.showMessageDialog(dialogoCategoria, "Por favor, ingrese una categoría válida.");
+		        	Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Ingrese un nombre de categoría valida");
+		        	Notifications.getInstance().setJFrame(vista);
 		        }
 				cargarTemasTablas();
 		    });
@@ -193,13 +201,6 @@ public class ControladorModCategoria {
 			});
 		
 		vista.getBtnSalir().addActionListener(e -> {vista.setVisible(false);});
-		
-		vista.getBtnBuscar().addActionListener(e ->{
-			String texto = this.vista.getTextBuscador().getText();
-			System.out.println(texto);
-			ControladorModPreguntas controlador = new ControladorModPreguntas();
-
-		});
 	}
 	
 	//TABLA --capaz sirva para abtraccion 

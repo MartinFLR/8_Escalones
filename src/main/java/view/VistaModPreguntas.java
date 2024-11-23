@@ -9,16 +9,15 @@ import model.ABM.PreguntasDAO;
 import model.Preguntas;
 
 public class VistaModPreguntas extends VistaModPadre {
-	private String encabezado[] = {"ID", "Preguntas"};
+	private String encabezado[] = { "ID", "Preguntas" };
 	private DefaultTableModel tablaNueva = new DefaultTableModel(null, encabezado);
-	private String numerocategoria;
+	private int numerocategoria;
 	private PreguntasDAO preguntasDAO = new PreguntasDAO();;
 
-	public VistaModPreguntas(ControladorModPreguntas c, String id) {
-		this.numerocategoria = id;
+	public VistaModPreguntas(ControladorModPreguntas c) {
+		this.numerocategoria=c.getId_categoria();
 		actualizarTabla();
 		setVisible(true);
-		botones();
 	}
 
 	public void actualizarTabla() {
@@ -29,9 +28,12 @@ public class VistaModPreguntas extends VistaModPadre {
 
 		// Agregar filas a la tabla desde la lista de preguntas
 		for (Preguntas pregunta : listaPreguntas) {
-			// Asegúrate de que los métodos getId_pregunta() y getPregunta() existan en la clase Preguntas
-			Object[] row = {pregunta.getId_pregunta(), pregunta.getPregunta()};
-			tablaNueva.addRow(row);
+			// Asegúrate de que los métodos getId_pregunta() y getPregunta() existan en la
+			// clase Preguntas
+			if(pregunta.getIdTema()==this.numerocategoria){
+				Object[] row = { pregunta.getId_pregunta(), pregunta.getPregunta() };
+				tablaNueva.addRow(row);
+			}
 		}
 
 		// Establecer el modelo de la tabla actualizado
@@ -44,18 +46,6 @@ public class VistaModPreguntas extends VistaModPadre {
 		this.getTable().getColumnModel().getColumn(0).setPreferredWidth(0);
 	}
 
-	public void botones() {
-		// Si no vas a usar los ActionListeners de los botones de Borrar y Editar, quítalos o agrégales funcionalidad
-		this.getBtnBorrar().addActionListener(null);
-		this.getBtnCrear().addActionListener(e -> {
-			new ControladorCreacionPreguntas(numerocategoria);
-		});
-		this.getBtnEditar().addActionListener(null);
-		this.getBtnSalir().addActionListener(e -> {
-			setVisible(false);
-			c.getVista().setVisible(true);
-		});
-	}
 
 	public DefaultTableModel getTablaNueva() {
 		return tablaNueva;
@@ -65,7 +55,11 @@ public class VistaModPreguntas extends VistaModPadre {
 		this.tablaNueva = tablaNueva;
 	}
 
-	public String getNumcategoria() {
+	public Integer getNumcategoria() {
 		return this.numerocategoria;
+	}
+
+	public void setNumCategoria(int cat){
+		this.numerocategoria=cat;
 	}
 }

@@ -2,6 +2,7 @@ package model.logica;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import model.Participante;
 import model.PreguntaOpcion;
@@ -10,8 +11,9 @@ import model.Tema;
 public class Escalon {
     private final Ronda estadoDeRonda; 
     private Tema tema;
-    private int escalon=1;
+    private int escalon=0;
     private final List<Participante> participantes = new ArrayList<>();
+    private List<Tema> temas;
 
     public Escalon() {
         //Crea la instancia de la ronda y setea por defecto ronda normal
@@ -25,7 +27,6 @@ public class Escalon {
             }
         }
     }
-
     private void repartirPreguntasFinal(){
         System.out.println("Reparte preguntas final");
         //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
@@ -36,23 +37,21 @@ public class Escalon {
             }
         }
     }
-    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
+        //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
         this.escalon++;
         this.resetAciertosyErrores();
-        if (this.escalon==8){
+       /* if (this.escalon==8){
             this.repartirPreguntasFinal();
-            this.estadoDeRonda.setRondaFinal();
+            this.estadoDeRonda.setRondaFinal();*/
         }
-    }
     
-
     public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
         //Saca los participantes que perdieron de la lista de participantes que siguen en juego
         for (Participante par: participantesAEliminar){
             participantes.remove(par);
         }
     }
-
     public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
@@ -60,17 +59,17 @@ public class Escalon {
     public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
     }
-
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
-        for (Participante par: participantes ){
-        par.setCantErrores(0);
-        par.setCantAciertos(0);
-    }}
+
+    }
     
 
     //Getters y setters
-    public void setTema(Tema tema) {
-        this.tema = tema;
+    public void setTema() {
+        Random random = new Random();
+        int indice = random.nextInt(this.getTemas().size());
+        this.tema = this.getTemas().remove(indice);
+        System.out.println("Tema asignado: "+this.tema.getNombre());
     }
     public Tema getTema() {
         return this.tema;
@@ -93,8 +92,13 @@ public class Escalon {
     public List<Participante> getParticipantes() {
         return this.participantes;
     }
-
     public Ronda getEstadoDeRonda() {
         return this.estadoDeRonda;
+    }
+    public List<Tema> getTemas() {
+        return this.temas;
+    }
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
     }
 }

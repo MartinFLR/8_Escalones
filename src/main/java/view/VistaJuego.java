@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -10,8 +13,14 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.NumberFormatter;
+
+import com.formdev.flatlaf.FlatClientProperties;
 
 import controller.ControladorJuego;
 import view.componentes.BotonPregunta;
@@ -30,7 +39,7 @@ public class VistaJuego extends JFrame {
 	private BotonPregunta btnpreRespuesta1 = new BotonPregunta();
 	private BotonPregunta btnpreRespuesta2 = new BotonPregunta();;
 	private BotonPregunta btnpreRespuesta3 = new BotonPregunta();;
-	private BotonPregunta btnpreRespuesta4 = new BotonPregunta();;
+	private BotonPregunta btnpreRespuesta4 = new BotonPregunta();
 	
 	private JPanel panelAproximacion;
 	private JButton btnaproxEnviar;
@@ -38,9 +47,10 @@ public class VistaJuego extends JFrame {
 	
 	private JPanel panelColumna;
 	private JPanel panelJugadores;
-	private JTable table;
-	private JLabel lblJuez;
-	private JLabel lblJugador;
+	
+	private JLabel lblaproxPregunta;
+	private JLabel lblaproxRespuesta;
+	private DefaultTableModel defTable;
 	
 	private JPanel panelFinal;
 	
@@ -48,11 +58,14 @@ public class VistaJuego extends JFrame {
 	private ArrayList<PanelEscalon> escalones = new ArrayList<PanelEscalon>();
 	private ArrayList<PanelJugadorNormal> jugadorNormal = new ArrayList<PanelJugadorNormal>();
 	private ArrayList<PanelJugadorFinal> jugadorFinal = new ArrayList<PanelJugadorFinal>();
+	
+	
 
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
 		setTitle("8 ESCALONES");
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -81,18 +94,6 @@ public class VistaJuego extends JFrame {
 		}
 		// Cambia el color del primer escalon por default
 		this.escalones.getFirst().setcolorUso();
-
-		//
-		// PANEL JUGADORES (FINAL)
-		//
-		
-		panelFinal = new JPanel();
-		panelFinal.setBounds(95, 370, 1181, 131);
-		contentPane.add(panelFinal);
-		GridLayout gridLayoutFinal = new GridLayout (2, 1);
-		gridLayoutFinal.setHgap(10); 
-		gridLayoutFinal.setVgap(20); 
-		panelFinal.setLayout(gridLayoutFinal);
 		
 		for (int i = 0; i < 2; i++) {
 			this.jugadorFinal.add(new PanelJugadorFinal());
@@ -118,18 +119,7 @@ public class VistaJuego extends JFrame {
 			this.jugadorNormal.add(new PanelJugadorNormal());
 			panelJugadores.add(this.jugadorNormal.get(i));
 		}
-		
-		//
-		// PANEL INFORMATIVOS
-		//
-		
-		lblJuez = new JLabel("Nombre JUEZ");
-		lblJuez.setBounds(627, 38, 71, 56);
-		contentPane.add(lblJuez);
-		
-		lblJugador = new JLabel("Nombre JUGADOR");
-		lblJugador.setBounds(616, 89, 97, 56);
-		contentPane.add(lblJugador);
+	
 		
 		//---------------------Panel Principal----------------------------------
 		//
@@ -137,52 +127,119 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(695, 11, 571, 359);
+		panelAproximacion.setBounds(695, 0, 571, 351);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
 		btnaproxEnviar = new JButton("ENVIAR");
-		btnaproxEnviar.setBounds(48, 316, 142, 47);
+		btnaproxEnviar.setBounds(48, 247, 142, 47);
 		panelAproximacion.add(btnaproxEnviar);
+		btnaproxEnviar.setBackground(new Color(222, 226, 230));
+		btnaproxEnviar.setForeground(new Color(37, 36, 34));
 		
+		NumberFormat formatoNumero = NumberFormat.getIntegerInstance();
+        NumberFormatter formateador = new NumberFormatter(formatoNumero);
+        formateador.setAllowsInvalid(false);
+        formateador.setMinimum(0);
+        formateador.setMaximum(10000000); 
 		txtaproxRespuesta = new JFormattedTextField();
-		txtaproxRespuesta.setBounds(48, 257, 142, 48);
+		txtaproxRespuesta.setBounds(48, 188, 142, 48);
 		panelAproximacion.add(txtaproxRespuesta);
+		txtaproxRespuesta.setBackground(new Color(222, 226, 230));
+		txtaproxRespuesta.setForeground(new Color(37, 36, 34));
 
+		String[] column = {"Jugador", "Respuesta"};
+		defTable = new DefaultTableModel(null,column);
+		JTable table = new JTable(defTable);
+		table.setBounds(214, 188, 347, 118);
+	    table.getTableHeader().setReorderingAllowed(false);
+	    table.getTableHeader().setResizingAllowed(false);
+		JScrollPane sc = new JScrollPane();
+		sc.setBounds(214, 191, 347, 115);
+		sc.setViewportView(table);
+		panelAproximacion.add(sc);
 		
-		table = new JTable();
-		table.setBounds(229, 209, 196, 149);
-		panelAproximacion.add(table);
+		JPanel panelPregunta = new JPanel();
+		panelPregunta.setBackground(new Color(222, 226, 230));
+		panelPregunta.setBounds(10, 11, 551, 167);
+		panelPregunta.setBackground(new Color(222, 226, 230));
+		panelAproximacion.add(panelPregunta);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(239, 368, 179, 43);
-		panelAproximacion.add(lblNewLabel);
+		lblaproxPregunta = new JLabel();
+		lblaproxPregunta.setVerticalAlignment(SwingConstants.CENTER);
+		lblaproxPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblaproxPregunta.setForeground(new Color(37, 36, 34));
+		lblaproxPregunta.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		panelPregunta.add(lblaproxPregunta);
+		
+		JPanel panelCorrecto = new JPanel();
+		panelCorrecto.setBounds(214, 317, 347, 31);
+		panelAproximacion.add(panelCorrecto);
+		lblaproxRespuesta = new JLabel();
+		lblaproxRespuesta.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblaproxRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblaproxRespuesta.setVerticalAlignment(SwingConstants.CENTER);
+		lblaproxRespuesta.setForeground(new Color(37, 36, 34));
+		panelCorrecto.add(lblaproxRespuesta);
+		panelCorrecto.setBackground(new Color(222, 226, 230));
 		
 		//
 		// PANEL PREGUNTA
 		//
 
 		panelPregunta = new JPanel();
-		panelPregunta.setBounds(89, 11, 542, 359);
+		panelPregunta.setBounds(95, 0, 542, 351);
 		contentPane.add(panelPregunta);
 	
 		panelPregunta.setLayout(null);
-		
-		btnpreRespuesta1.setBounds(10, 239, 187, 55);
+
+		btnpreRespuesta1.setBounds(10, 189, 230, 70);
+		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta1);
 		
-		btnpreRespuesta2.setBounds(243, 239, 187, 55);
+		btnpreRespuesta2.setBounds(302, 189, 230, 70);
+		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta2);
 		
-		btnpreRespuesta3.setBounds(10, 313, 187, 55);
+		btnpreRespuesta3.setBounds(10, 278, 230, 70);
+		btnpreRespuesta3.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta3.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta3);
-	
-		btnpreRespuesta4.setBounds(243, 313, 187, 55);
+
+		btnpreRespuesta4.setBounds(302, 278, 230, 70);
+		btnpreRespuesta4.setForeground(new Color(37, 36, 34));
+		btnpreRespuesta4.setCursor(new Cursor(HAND_CURSOR));
 		panelPregunta.add(btnpreRespuesta4);
 		
-		lblprePregunta = new JLabel("New label");
-		lblprePregunta.setBounds(10, 98, 420, 131);
-		panelPregunta.add(lblprePregunta);
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 522, 167);
+		panel.setBackground(new Color(222, 226, 230));
+		panelPregunta.add(panel);		
+		lblprePregunta = new JLabel();
+		lblprePregunta.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblprePregunta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblprePregunta.setVerticalAlignment(SwingConstants.CENTER);
+		lblprePregunta.setForeground(new Color(37, 36, 34));
+		panel.add(lblprePregunta);		
+		
+		//
+		// PANEL JUGADORES (FINAL)
+		//
+			
+		panelFinal = new JPanel();		
+		panelFinal.setBounds(85, 353, 1181, 154);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		for (int i = 0; i < 2; i++) {
+			panelFinal.add(this.jugadorFinal.get(i));
+		}
+		
 		
 		
 
@@ -219,17 +276,9 @@ public class VistaJuego extends JFrame {
 	public void setC(ControladorJuego c) {this.c = c;}
 	
 	
-	public JTable getTable() {return table;}
-	public void setTable(JTable table) {this.table = table;}
+	public DefaultTableModel getDefTable() {return defTable;}
+	public void setDefTable(DefaultTableModel defTable) {this.defTable = defTable;}
 
-	public JLabel getLblJuez() {return lblJuez;}
-	public void setLblJuez(JLabel lblJuez) {this.lblJuez = lblJuez;}
-	
-	public JLabel getLblJugador() {return lblJugador;}
-	public void setLblJugador(JLabel lblJugador) {this.lblJugador = lblJugador;}
-	
-	
-	
 	public JPanel getPanelPregunta() {return panelPregunta;}
 	public JLabel getLblprePregunta() {return lblprePregunta;}
 	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
@@ -242,12 +291,17 @@ public class VistaJuego extends JFrame {
 	public void setBtnpreRespuesta1(BotonPregunta btnpreRespuesta1) {this.btnpreRespuesta1 = btnpreRespuesta1;}
 	public void setBtnpreRespuesta3(BotonPregunta btnpreRespuesta3) {this.btnpreRespuesta3 = btnpreRespuesta3;}
 	public void setBtnpreRespuesta4(BotonPregunta btnpreRespuesta4) {this.btnpreRespuesta4 = btnpreRespuesta4;}
-	
-	
+
+	public JLabel getlblaproxPregunta() {return lblaproxPregunta;}
 	public JPanel getPanelAproximacion() {return panelAproximacion;}
-	
 	public JButton getBtnaproxEnviar() {return btnaproxEnviar;}
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
 	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
+
+	public JPanel getPanelFinal() {return panelFinal;}
+
+	
+	
+	
 }

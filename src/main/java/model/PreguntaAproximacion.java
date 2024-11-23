@@ -15,6 +15,10 @@ public class PreguntaAproximacion extends Preguntas{
         this.respuesta_correcta = respuesta_correcta;
     }
     
+    public PreguntaAproximacion(int id, String pregunta, int id_tema) {
+        super(id, pregunta, "Aproximacion", id_tema);
+    }
+    
     //Metodos
     @Override
     public void imprimirPregunta(){

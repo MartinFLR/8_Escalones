@@ -63,6 +63,10 @@ public class PreguntaOpcion extends Preguntas {
         this.opcion_d = string3;
         this.respuesta_correcta = (String) object;
     }
+    
+    public PreguntaOpcion(int id, String pregunta, int id_tema) {
+        super(id, pregunta, "Opcion multiple", id_tema);
+    }
 
     //Metodos
     @Override
