@@ -67,10 +67,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
             panelParticipante.setRespondiendo();
             
             this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
-            this.vista.getBtnpreRespuesta1().setText("A) " + pregunta.getOpcionA());
-            this.vista.getBtnpreRespuesta2().setText("B) " + pregunta.getOpcionB());
-            this.vista.getBtnpreRespuesta3().setText("C) " + pregunta.getOpcionC());
-            this.vista.getBtnpreRespuesta4().setText("D) " + pregunta.getOpcionD());
+            this.vista.getBtnpreRespuesta1().setText("1) " + pregunta.getOpcionA());
+            this.vista.getBtnpreRespuesta2().setText("2) " + pregunta.getOpcionB());
+            this.vista.getBtnpreRespuesta3().setText("3) " + pregunta.getOpcionC());
+            this.vista.getBtnpreRespuesta4().setText("4) " + pregunta.getOpcionD());
         } else {
             mostrarPreguntaFinal(participante);
         }
@@ -227,6 +227,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         PreguntaAproximacion pregunta = participante.getPregEmpate();
         this.vista.getlblaproxPregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getTxtaproxRespuesta().requestFocusInWindow();
         setColores();
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         this.vista.getJugadorNormal().get(posParticipante).setRespondiendo();
@@ -418,7 +419,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void inicializarActionListeners(){
 
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
-            if (esperandoRespuesta) {
+            if (esperandoRespuesta ) {
                 if (this.escalon.getEscalon()==7 ){
                     procesarRespuestaFinal(e.getActionCommand(),escalon.getParticipantes().get(turnoJugador));
                 }else  if(this.escalon.getEscalon()<7){
@@ -454,35 +455,45 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
         });
         this.vista.getBtnaproxEnviar().addActionListener(e->{
-            if(esperandoRespuesta){
+            if(esperandoRespuesta && huboEmpate){
                 procesarRespuestaEmpate(this.vista.getTxtaproxRespuesta().getText());
             }
         });
         
         KeyAdapter keyListener = new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_A:
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_1, KeyEvent.VK_NUMPAD1 -> {
+                    if (!huboEmpate) {
                         vista.getBtnpreRespuesta1().doClick();
-                        break;
-                    case KeyEvent.VK_B:
-                        vista.getBtnpreRespuesta2().doClick();
-                        break;
-                    case KeyEvent.VK_C:
-                        vista.getBtnpreRespuesta3().doClick();
-                        break;
-                    case KeyEvent.VK_D:
-                        vista.getBtnpreRespuesta4().doClick();
-                        break;
+                    }
                 }
+                case KeyEvent.VK_2, KeyEvent.VK_NUMPAD2 -> {
+                    if (!huboEmpate) {
+                        vista.getBtnpreRespuesta2().doClick();
+                    }
+                }
+                case KeyEvent.VK_3, KeyEvent.VK_NUMPAD3 -> {
+                    if (!huboEmpate) {
+                        vista.getBtnpreRespuesta3().doClick();
+                    }
+                }
+                case KeyEvent.VK_4, KeyEvent.VK_NUMPAD4 -> {
+                    if (!huboEmpate) {
+                        vista.getBtnpreRespuesta4().doClick();
+                    }
+                }
+                case KeyEvent.VK_ENTER -> vista.getBtnaproxEnviar().doClick();
             }
-        };
+        }
+    };
 
         this.vista.getBtnpreRespuesta1().addKeyListener(keyListener);
         this.vista.getBtnpreRespuesta2().addKeyListener(keyListener);
         this.vista.getBtnpreRespuesta3().addKeyListener(keyListener);
         this.vista.getBtnpreRespuesta4().addKeyListener(keyListener);
+        this.vista.getTxtaproxRespuesta().addKeyListener(keyListener);
     }
     private void setColores(){
     //Setea los colores del fondo para indicar de quien es el turno
