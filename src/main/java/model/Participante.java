@@ -62,7 +62,6 @@ public class Participante {
         return respuestaParticipante;
     }
     public void setRespuestaParticipante(String respuestaParticipante) {
-        System.out.println("Participante "+ this.getNombre()+": "+respuestaParticipante);
         this.respuestaParticipante = respuestaParticipante;
     }
     public List<PreguntaOpcion> getPreguntasParticipante(){
