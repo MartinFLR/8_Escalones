@@ -246,6 +246,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         turnoJugador++;
         if(turnoJugador == getParticipantesAEliminar().size()){
             rondaEmpate(getParticipantesAEliminar());
+            huboEmpate = false;
             manejarFinDeRonda();
         } else {
             esperandoRespuesta = true;
