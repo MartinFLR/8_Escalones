@@ -142,7 +142,7 @@ public class VistaJuego extends JFrame {
         formateador.setAllowsInvalid(false);
         formateador.setMinimum(0);
         formateador.setMaximum(10000000); 
-		txtaproxRespuesta = new JFormattedTextField(formateador);
+		txtaproxRespuesta = new JFormattedTextField();
 		txtaproxRespuesta.setBounds(48, 188, 142, 48);
 		panelAproximacion.add(txtaproxRespuesta);
 		txtaproxRespuesta.setBackground(new Color(222, 226, 230));
