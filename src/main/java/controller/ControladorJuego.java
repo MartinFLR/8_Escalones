@@ -168,7 +168,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         }
 
         ronda.actualizarDatos(ronda, this.escalon.getParticipantes(), this.escalon.getTema());
-        inicializarActionListeners();
+        
         this.rondaFinal(this.escalon.getParticipantes());
     }
     private void manejarRondaNormal() {
@@ -267,8 +267,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
     
     private void procesarRespuestaFinal(String respuesta,Participante participante){
-        //esperandoRespuesta=false;
-        //Participante participante = escalon.getParticipantes().get(turnoJugador);
+        
         int posParticipante = escalon.getParticipantes().indexOf(participante);   
         participante.setRespuestaParticipante(respuesta);//no se actualiza la respuesta y toma la del anterior. ej: jug1 responde 25, se pone que este responde 25 tmb.
         //PanelJugadorFinal pj= this.vista.getJugadorFinal().get(turnoJugador);
@@ -286,18 +285,31 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
                 System.out.println("flag + "+ esperandoRespuesta);
                 esperandoRespuesta=false;
-                /*if (esperandoRespuesta==false){
-                mostrarPreguntaActual();}*/
+                //if (esperandoRespuesta==false){
+                //mostrarPreguntaActual();}
         } 
+        if (!respuesta.equals(preguntaActual.getRespuestaCorrecta())){
+            this.vista.getJugadorFinal().get(indiceActualPar).setError(participante);
+            participante.sumaError();
+            System.out.println("                              . sumo acierto");
+            turnoJugador++;
+        participante.getPreguntasParticipante().remove(0);
+        System.out.println("Preguntas para el participante dsps de sacar: " + participante.getPreguntasParticipante().size());
+        if (turnoJugador >= escalon.getParticipantes().size()) {
+            turnoJugador = 0;  
+        }
+            System.out.println("flag + "+ esperandoRespuesta);
+            esperandoRespuesta=false;}
         if (turnoJugador == escalon.getParticipantes().size() && participante.getPreguntasParticipante().isEmpty()) {
             System.out.println("fin del juego");
             verificarRondaFinalYGanador( escalon.getParticipantes());
             //aca iria vista fin del juego o el menu de inicio
         }mostrarPreguntaActual();
         }
-        
+        /* 
         if (esperandoRespuesta==false){
-            mostrarPreguntaActual();} //si no anda sacar a la mierdas
+            mostrarPreguntaActual();} */
+            //si no anda sacar a la mierdas
         //Si es el turno del ultimo y no tiene mas preguntas, termina la ronda y sube escalon
         }
         private void mostrarPreguntaFinal(Participante participante){
