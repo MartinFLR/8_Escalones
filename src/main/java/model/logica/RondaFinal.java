@@ -22,7 +22,7 @@ public class RondaFinal implements EstadoRonda {
                     participante.getPreguntasParticipante().removeFirst();
                 }}
                 
-                for (int i=0;i<10;i++){//le asigna 20 preguntas a los participantes
+                for (int i=0;i<9;i++){//le asigna 20 preguntas a los participantes
                 participante.setPreguntasParticipante(tema.sacarPreguntaOp());
                 }
         }

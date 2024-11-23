@@ -50,6 +50,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 
 	//Metodos para la ronda normal
 	private void rondaDePreguntas(List<Participante> participantes){
+        
         mostrarPreguntaActual();
         esperandoRespuesta = true;
 	}
@@ -166,7 +167,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
         for (PanelJugadorFinal pjf : this.vista.getJugadorFinal()) {
             pjf.setVisible(true);
         }
-
+        for (Participante par:  this.escalon.getParticipantes()){
+            par.setCantAciertos(0);
+            par.setCantErrores(0);
+        }
+       
         ronda.actualizarDatos(ronda, this.escalon.getParticipantes(), this.escalon.getTema());
         
         this.rondaFinal(this.escalon.getParticipantes());
@@ -290,16 +295,23 @@ public class ControladorJuego implements ActionListener, KeyListener {
             participante.sumaError();
             turnoJugador++;
         participante.getPreguntasParticipante().remove(0);
+        
+            esperandoRespuesta=false;}
+
+        
+        }
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;  
+        } 
+            if (!this.escalon.getParticipantes().get(turnoJugador).getPreguntasParticipante().isEmpty()){
+                System.out.println(participante.getNombre()+" " +participante.getCantAciertos()); 
+                mostrarPreguntaActual();
+            }else { // Se ha dado una vuelta completa, todos respondieron
+                    verificarRondaFinalYGanador();
+                }
         }
-            esperandoRespuesta=false;}
-        if (turnoJugador == escalon.getParticipantes().size() && participante.getPreguntasParticipante().isEmpty()) {
-            verificarRondaFinalYGanador( escalon.getParticipantes());
-            //aca iria vista fin del juego o el menu de inicio
-        }mostrarPreguntaActual();
-        }
-    }
+        
+    
     private void mostrarPreguntaFinal(Participante participante){
         //Podemos usar .remove() para sacar la preg y que no se repita
         
@@ -317,7 +329,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
         
         }
-    private void verificarRondaFinalYGanador(List<Participante> participantes) {
+    private void verificarRondaFinalYGanador() {
         
         List<Participante> participantesFinales = this.escalon.getParticipantes();
         Participante participante1 = participantesFinales.get(0);
@@ -325,7 +337,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
         int aciertos1 = participante1.getCantAciertos();
         int aciertos2 = participante2.getCantAciertos();
             if (aciertos1!=aciertos2 && (aciertos1!=0 || aciertos2!=0 )) {
+                if(aciertos1!=aciertos2){
                     if (aciertos1 > aciertos2) {//  ganador
+                        System.out.println("cantidad aciertos juador 0 "+ aciertos1);
+                        System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante1.getNombre());
                         //aca iria la vista de winner
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
@@ -334,6 +349,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         panelParFinal2.setEliminado();
                         //deberia saltar una ultima vista con dialog campeon
                     } else if (aciertos2 > aciertos1) {
+                        System.out.println("cantidad aciertos juador 0 "+ aciertos1);
+                        System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante2.getNombre());
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
                         PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
@@ -341,10 +358,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         panelParFinal.setEliminado();
                         //aca iria la vista de winner
                           //deberia saltar una ultima vista con dialog campeon y que salte al inicio
-                    }
-            }  /*else{
-                Ronda ronda= this.escalon.getEstadoDeRonda();
-                ronda.setRondaDeEmpate(participantesFinales);}*/}
+                    }}
+            }  else if (aciertos1==aciertos2){
+                
+                escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
+            escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
+            this.vista.getPanelAproximacion().setVisible(true);
+            setActivosEmpatados();
+            mostrarPreguntaEmpate();
+            }}
 	private void poneNombres(){
         for (int i = 0; i < 9; i++) {
 			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
