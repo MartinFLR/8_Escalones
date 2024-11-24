@@ -133,8 +133,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.filtrarParticipantes();
 
         this.escalon.subeEscalon();
-        this.vista.setEscalonUso(this.escalon.getEscalon());
-        esperandoRespuesta = false;
+        if(this.escalon.getEscalon() <= 7 ){
+            this.vista.setEscalonUso(this.escalon.getEscalon());
+        }
+       esperandoRespuesta = false;
 
         if (this.escalon.getEscalon() != 7) {
             for (PanelJugadorNormal panelJugadorNormal : this.vista.getJugadorNormal()) {
@@ -336,6 +338,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante participante2 = participantesFinales.get(1);       
         int aciertos1 = participante1.getCantAciertos();
         int aciertos2 = participante2.getCantAciertos();
+        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
             if (aciertos1!=aciertos2 && (aciertos1!=0 || aciertos2!=0 )) {
                 if(aciertos1!=aciertos2){
                     if (aciertos1 > aciertos2) {//  ganador
@@ -343,8 +347,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante1.getNombre());
                         //aca iria la vista de winner
-                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
-                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
+                      /*   PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);*/
                         panelParFinal.setCampeon();
                         panelParFinal2.setEliminado();
                         //deberia saltar una ultima vista con dialog campeon
@@ -352,20 +356,25 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante2.getNombre());
-                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
-                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
+                        /*  PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
+                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1); */
                         panelParFinal2.setCampeon();
                         panelParFinal.setEliminado();
                         //aca iria la vista de winner
                           //deberia saltar una ultima vista con dialog campeon y que salte al inicio
                     }}
             }  else if (aciertos1==aciertos2){
-                
+                huboEmpate = true;
                 escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
             escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
+            //int indiceGanador= this.escalon.getParticipantes().indexOf(this);
+            /*this.vista.getJugadorFinal().get( 0).setCampeon();
+            System.out.println("El ganador es: " + this.escalon.getParticipantes().getFirst().getNombre());
+            }if (this.escalon.getParticipantes().size()>1){
+                System.out.println("no elimino a " + this.escalon.getParticipantes().get(1).getNombre());  */
             }}
 	private void poneNombres(){
         for (int i = 0; i < 9; i++) {
@@ -428,12 +437,14 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.vista.getJugadorNormal().get(indice).setEliminado();
             this.vista.getJugadorNormal().remove(indice);
             this.escalon.eliminaParticipante(participante);
+            System.out.println("elimino a :"+ participante.getNombre());
             this.vista.getPanelAproximacion().setVisible(false);
+            if (this.escalon.getEscalon()<7){
             Ronda estado = this.escalon.getEstadoDeRonda();
             estado.setRondaNormal();
             escalon.setTema();
             estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
-            this.rondaDePreguntas(escalon.getParticipantes());
+            this.rondaDePreguntas(escalon.getParticipantes());}
         }
     }
 
