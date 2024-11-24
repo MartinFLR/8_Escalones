@@ -65,7 +65,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             System.out.println("Respuesta correcta: " + pregunta.getRespuestaCorrecta());
             panelParticipante.setRespondiendo();
             
-            this.vista.getLblprePregunta().setText("<html><div style='width: 450px;'>" + pregunta.getPregunta() + "</div></html>");
+            this.vista.getLblprePregunta().setText("<html><div style='width: 450px; text-align: center;margin-left: 85px;'>" + pregunta.getPregunta() + "</div></html>");
             this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
             this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
             this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
@@ -233,6 +233,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void mostrarPreguntaEmpate(){
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         PreguntaAproximacion pregunta = participante.getPregEmpate();
+        this.vista.getPanelPregunta().setVisible(false);
         this.vista.getlblaproxPregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getTxtaproxRespuesta().requestFocusInWindow();
         setColores();
@@ -254,6 +255,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
         if(turnoJugador == getParticipantesAEliminar().size()){
             rondaEmpate(getParticipantesAEliminar());
             huboEmpate = false;
+            this.vista.getPanelAproximacion().setVisible(false);
+            this.vista.getPanelPregunta().setVisible(true);
             manejarFinDeRonda();
         } else {
             esperandoRespuesta = true;
@@ -446,7 +449,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
 
     //Procesar preguntas y respuestas
     private void inicializarActionListeners(){
-
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
             if (esperandoRespuesta ) {
                 if (this.escalon.getEscalon()==7 ){

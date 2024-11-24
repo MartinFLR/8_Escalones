@@ -19,12 +19,10 @@ public class ControladorLogin implements ActionListener{
 	private VistaLogin vista;
 	private AdminDAO adminDAO;
 	private ControladorPrincipal controladorPrincipal;
-
 	
-
 	public ControladorLogin (ControladorPrincipal controladorPrincipal) {
 		this.controladorPrincipal = controladorPrincipal;
-		this.vista = new VistaLogin(this);
+		this.vista = new VistaLogin();
 		this.vista.setVisible(true);
 		this.adminDAO = new AdminDAO();
 
@@ -77,6 +75,7 @@ public class ControladorLogin implements ActionListener{
 		});
 	}
 
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == vista.getBtnLogin()) {
