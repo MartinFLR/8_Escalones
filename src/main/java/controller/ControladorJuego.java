@@ -129,19 +129,23 @@ public class ControladorJuego implements ActionListener, KeyListener {
         turnoJugador = 0;
         this.filtrarParticipantes();
 
-        this.escalon.subeEscalon();
+        
         this.vista.getDefTable().setNumRows(0);
-        this.vista.setEscalonUso(this.escalon.getEscalon());
+        if (this.escalon.getEscalon() != 7){
+        this.escalon.subeEscalon();
+        this.vista.setEscalonUso(this.escalon.getEscalon());}
         esperandoRespuesta = false;
 
         if (this.escalon.getEscalon() != 7) {
+            
+            this.vista.setEscalonUso(this.escalon.getEscalon());
             for (PanelJugadorNormal panelJugadorNormal : this.vista.getJugadorNormal()) {
                 if (panelJugadorNormal.isActivo()) {
                 panelJugadorNormal.setResetErrores();
                 }
             }
             this.rondaDePreguntas(escalon.getParticipantes());
-        } else {
+        } else if (this.escalon.getEscalon() == 7){
             manejarRondaFinal();
         }
     }
@@ -357,8 +361,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                           //deberia saltar una ultima vista con dialog campeon y que salte al inicio
                     }}
             }  else if (aciertos1==aciertos2){
-                
-                escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
+            huboEmpate=true;
+            escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
             escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
@@ -407,6 +411,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
             // les envia la pregunta de aproximacion a todos los participantes empatados.
+            this.vista.getPanelPregunta().setVisible(false);
         	this.vista.getPanelAproximacion().setVisible(true);
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             huboEmpate = true;
@@ -422,15 +427,20 @@ public class ControladorJuego implements ActionListener, KeyListener {
             //Para ver la posicion en el panel recupero el indice que ocupa en la lista
             int indice = this.escalon.getParticipantes().indexOf(participante);
             this.setColores();
-            this.vista.getJugadorNormal().get(indice).setEliminado();
-            this.vista.getJugadorNormal().remove(indice);
-            this.escalon.eliminaParticipante(participante);
-            this.vista.getPanelAproximacion().setVisible(false);
-            Ronda estado = this.escalon.getEstadoDeRonda();
-            estado.setRondaNormal();
+            if (this.escalon.getEscalon()<7){
+                this.vista.getJugadorNormal().get(indice).setEliminado();
+                this.vista.getJugadorNormal().remove(indice);
+                Ronda estado = this.escalon.getEstadoDeRonda();
+                estado.setRondaNormal();
             escalon.setTema();
             estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
             this.rondaDePreguntas(escalon.getParticipantes());
+            }
+            this.escalon.eliminaParticipante(participante);
+            this.vista.getPanelAproximacion().setVisible(false);
+            this.vista.getPanelPregunta().setVisible(true);
+           
+            
         }
     }
 
