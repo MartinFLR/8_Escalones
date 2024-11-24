@@ -115,12 +115,28 @@ public class VistaJuego extends JFrame {
 		panelJugadores.setLayout(gridLayoutJugador);
 		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
 		for (int i = 0; i < 9; i++) {
 			this.jugadorNormal.add(new PanelJugadorNormal());
 			panelJugadores.add(this.jugadorNormal.get(i));
 		}
-	
+		
+		//
+		// PANEL JUGADORES (FINAL)
+		//
+		
+		panelFinal = new JPanel();		
+		panelFinal.setBounds(85, 477, 1181, 206);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		for (int i = 0; i < 2; i++) {
+			panelFinal.add(this.jugadorFinal.get(i));
+		}
+		
+		
 		
 		//---------------------Panel Principal----------------------------------
 		//
@@ -128,7 +144,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(695, 0, 571, 351);
+		panelAproximacion.setBounds(95, 11, 1159, 450);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -184,12 +200,14 @@ public class VistaJuego extends JFrame {
 		panelCorrecto.add(lblaproxRespuesta);
 		panelCorrecto.setBackground(new Color(222, 226, 230));
 		
+		panelAproximacion.setVisible(false);
+		
 		//
 		// PANEL PREGUNTA
 		//
 
 		panelPregunta_1 = new JPanel();
-		panelPregunta_1.setBounds(95, 0, 542, 351);
+		panelPregunta_1.setBounds(95, 11, 1159, 450);
 		contentPane.add(panelPregunta_1);
 	
 		panelPregunta_1.setLayout(null);
@@ -224,24 +242,6 @@ public class VistaJuego extends JFrame {
 		lblprePregunta.setVerticalAlignment(SwingConstants.CENTER);
 		lblprePregunta.setForeground(new Color(37, 36, 34));
 		panel.add(lblprePregunta);		
-		
-		//
-		// PANEL JUGADORES (FINAL)
-		//
-			
-		panelFinal = new JPanel();		
-		panelFinal.setBounds(85, 353, 1181, 154);
-		contentPane.add(panelFinal);
-		GridLayout gridLayoutFinal = new GridLayout (2, 1);
-		gridLayoutFinal.setHgap(10); 
-		gridLayoutFinal.setVgap(20); 
-		panelFinal.setLayout(gridLayoutFinal);
-		
-		for (int i = 0; i < 2; i++) {
-			panelFinal.add(this.jugadorFinal.get(i));
-		}
-		
-		
 		
 
 		
