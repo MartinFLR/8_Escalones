@@ -133,6 +133,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.filtrarParticipantes();
 
         this.escalon.subeEscalon();
+        this.vista.getDefTable().setNumRows(0);
         this.vista.setEscalonUso(this.escalon.getEscalon());
         esperandoRespuesta = false;
 
@@ -171,7 +172,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             par.setCantAciertos(0);
             par.setCantErrores(0);
         }
-       
         ronda.actualizarDatos(ronda, this.escalon.getParticipantes(), this.escalon.getTema());
         
         this.rondaFinal(this.escalon.getParticipantes());
