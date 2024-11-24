@@ -19,6 +19,9 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		setLayout(new GridLayout(0, 1, 0, 0));
 		setBackground(colorActivo);
 
+		add(lblimagenJugador);
+		add(lblnombreJugador);
+		
 		panelErrores = new JPanel();
 		add(panelErrores);
 		panelErrores.setBackground(colorActivo);
@@ -73,8 +76,14 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		panelErrores.setBackground(colorEliminado);
 		this.panelerror1.setVisible(false);
 		this.panelerror2.setVisible(false);
-		this.activo = false;
+		this.activo = false;	
 	}
+	
+	public void setPaso() {
+		this.panelerror1.setVisible(false);
+		this.panelerror2.setVisible(false);
+	}
+	
 	public boolean isActivo(){
 		return this.activo;
 	}

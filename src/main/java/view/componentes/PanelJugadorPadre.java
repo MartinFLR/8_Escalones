@@ -22,11 +22,10 @@ public abstract class PanelJugadorPadre extends JPanel{
 
 	public PanelJugadorPadre() {
 		lblimagenJugador = new JLabel(imgJugador);
-		add(lblimagenJugador);
 
-		lblnombreJugador = new JLabel("NOMBRE");
+		lblnombreJugador = new JLabel();
 		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblnombreJugador);
+		lblnombreJugador.setForeground(new Color(37, 36, 34));
 		
 		this.lblnombreJugador.setForeground(new Color(37, 36, 34));
 	}

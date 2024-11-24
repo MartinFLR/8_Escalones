@@ -20,11 +20,13 @@ public class PanelEscalon extends JPanel{
 		setBackground(colorOriginal);
 		JLabel lblNumeroEscalon = new JLabel(String.valueOf(num));
 		lblNumeroEscalon.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumeroEscalon.setFont(new Font("Trebuchet MS", Font.PLAIN, 75));
+		lblNumeroEscalon.setFont(new Font("Trebuchet MS", Font.PLAIN, 60));
+		lblNumeroEscalon.setForeground(new Color(37, 36, 34));
 		add(lblNumeroEscalon, BorderLayout.CENTER);
 		
-		lblTema = new JLabel("ESCALON");
+		lblTema = new JLabel();
 		lblTema.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTema.setForeground(new Color(37, 36, 34));
 		add(lblTema, BorderLayout.SOUTH);
 		
 		setBackground(null);

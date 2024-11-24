@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -63,6 +66,7 @@ public class VistaJuego extends JFrame {
 	private JButton btnGanadorContinuar;
 	private JLabel lblGanadorTexto;
 	private JLabel lblGanadorImagen;
+	private JScrollPane sc;
 	
 	
 	public VistaJuego(ControladorJuego c) {
@@ -156,7 +160,7 @@ public class VistaJuego extends JFrame {
 		contentPane.add(panelFinal);
 		GridLayout gridLayoutFinal = new GridLayout (2, 1);
 		gridLayoutFinal.setHgap(10); 
-		gridLayoutFinal.setVgap(20); 
+		gridLayoutFinal.setVgap(10); 
 		panelFinal.setLayout(gridLayoutFinal);
 		
 		for (int i = 0; i < 2; i++) {
@@ -169,55 +173,59 @@ public class VistaJuego extends JFrame {
 		//
 		// PANEL APROXIMACION
 		//
-
+		
 		panelAproximacion = new JPanel();
 		panelAproximacion.setBounds(95, 11, 1159, 450);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
-		btnaproxEnviar = new JButton("ENVIAR");
-		btnaproxEnviar.setBounds(48, 247, 142, 47);
+		btnaproxEnviar = new JButton("CONFIRMAR");
+		btnaproxEnviar.setBounds(282, 306, 170, 65);
 		panelAproximacion.add(btnaproxEnviar);
 		btnaproxEnviar.setBackground(new Color(222, 226, 230));
 		btnaproxEnviar.setForeground(new Color(37, 36, 34));
 		
 		NumberFormat formatoNumero = NumberFormat.getIntegerInstance();
+		formatoNumero.setGroupingUsed(false);
         NumberFormatter formateador = new NumberFormatter(formatoNumero);
         formateador.setAllowsInvalid(false);
         formateador.setMinimum(0);
         formateador.setMaximum(10000000); 
 		txtaproxRespuesta = new JFormattedTextField();
-		txtaproxRespuesta.setBounds(48, 188, 142, 48);
+		txtaproxRespuesta.setBounds(282, 230, 170, 65);
 		panelAproximacion.add(txtaproxRespuesta);
 		txtaproxRespuesta.setBackground(new Color(222, 226, 230));
 		txtaproxRespuesta.setForeground(new Color(37, 36, 34));
+		txtaproxRespuesta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, formateador);
 
 		String[] column = {"Jugador", "Respuesta"};
 		defTable = new DefaultTableModel(null,column);
 		JTable table = new JTable(defTable);
 		table.setBounds(214, 188, 347, 118);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setPreferredWidth(50);
+	    table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 	    table.getTableHeader().setReorderingAllowed(false);
 	    table.getTableHeader().setResizingAllowed(false);
-		JScrollPane sc = new JScrollPane();
-		sc.setBounds(214, 191, 347, 115);
+		sc = new JScrollPane();
+		sc.setBounds(500, 220, 418, 160);
 		sc.setViewportView(table);
 		panelAproximacion.add(sc);
 		
 		JPanel panelPregunta = new JPanel();
 		panelPregunta.setBackground(new Color(222, 226, 230));
-		panelPregunta.setBounds(10, 11, 551, 167);
-		panelPregunta.setBackground(new Color(222, 226, 230));
+		panelPregunta.setBounds(239, 11, 680, 190);
 		panelAproximacion.add(panelPregunta);
 		
 		lblaproxPregunta = new JLabel();
 		lblaproxPregunta.setVerticalAlignment(SwingConstants.CENTER);
 		lblaproxPregunta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblaproxPregunta.setForeground(new Color(37, 36, 34));
-		lblaproxPregunta.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblaproxPregunta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelPregunta.add(lblaproxPregunta);
 		
 		JPanel panelCorrecto = new JPanel();
-		panelCorrecto.setBounds(214, 317, 347, 31);
+		panelCorrecto.setBounds(500, 391, 418, 48);
 		panelAproximacion.add(panelCorrecto);
 		lblaproxRespuesta = new JLabel();
 		lblaproxRespuesta.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -233,45 +241,47 @@ public class VistaJuego extends JFrame {
 		// PANEL PREGUNTA
 		//
 
+		
 		panelPregunta_1 = new JPanel();
 		panelPregunta_1.setBounds(95, 11, 1159, 450);
 		contentPane.add(panelPregunta_1);
 	
 		panelPregunta_1.setLayout(null);
 
-		btnpreRespuesta1.setBounds(10, 189, 230, 70);
+		btnpreRespuesta1.setBounds(620, 228, 280, 100);
 		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
+		btnpreRespuesta1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelPregunta_1.add(btnpreRespuesta1);
 		
-		btnpreRespuesta2.setBounds(302, 189, 230, 70);
+		btnpreRespuesta2.setBounds(260, 228, 280, 100);
 		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
+		btnpreRespuesta2.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelPregunta_1.add(btnpreRespuesta2);
 		
-		btnpreRespuesta3.setBounds(10, 278, 230, 70);
+		btnpreRespuesta3.setBounds(260, 339, 280, 100);
 		btnpreRespuesta3.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta3.setCursor(new Cursor(HAND_CURSOR));
+		btnpreRespuesta3.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelPregunta_1.add(btnpreRespuesta3);
 
-		btnpreRespuesta4.setBounds(302, 278, 230, 70);
+		btnpreRespuesta4.setBounds(620, 339, 280, 100);
 		btnpreRespuesta4.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta4.setCursor(new Cursor(HAND_CURSOR));
+		btnpreRespuesta4.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelPregunta_1.add(btnpreRespuesta4);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 522, 167);
+		panel.setBounds(239, 11, 680, 190);
 		panel.setBackground(new Color(222, 226, 230));
+		panel.setLayout(null);
 		panelPregunta_1.add(panel);		
 		lblprePregunta = new JLabel();
-		lblprePregunta.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblprePregunta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprePregunta.setVerticalAlignment(SwingConstants.CENTER);
+		lblprePregunta.setBounds(0,0, 680, 190);
+		lblprePregunta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblprePregunta.setForeground(new Color(37, 36, 34));
 		panel.add(lblprePregunta);		
-		
-
-		
 	}
 	
 	//GET DE LOS ESCALONES
@@ -302,6 +312,14 @@ public class VistaJuego extends JFrame {
 
 	public ControladorJuego getC() {return c;}
 	public void setC(ControladorJuego c) {this.c = c;}
+	
+	// GET PANEL DEL GANADOR
+	public void setGanadorNombre(String nombre) {
+		lblGanadorTexto.setText("¡Felicidades, has ganado "+nombre+"!");
+	}
+	public void setGanadorImagen(ImageIcon img) {
+		lblGanadorImagen.setIcon(img);
+	}
 	
 	public JPanel getPanelGanador() {return panelGanador;}
 	public JButton getBtnGanadorContinuar() {return btnGanadorContinuar;}
