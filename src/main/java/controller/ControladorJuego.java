@@ -236,11 +236,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getJugadorNormal().get(posParticipante).setRespondiendo();
         esperandoRespuesta = true;
     }
-    private void procesarRespuestaEmpate(String respuesta){
+    private void procesarRespuestaEmpate(Double respuesta){
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         indiceEmpate = escalon.getParticipantes().indexOf(participante);
-        Double resParseada = Double.valueOf(respuesta);
-        participante.setRespuestaParticipanteEmpate(resParseada);
+        participante.setRespuestaParticipanteEmpate(respuesta);
         this.vista.getDefTable().addRow(new Object[]{participante.getNombre(),participante.getRespuestaParticipanteEmpate()});
         this.vista.getTxtaproxRespuesta().setText("");
         siguienteTurnoEmpate();
@@ -474,9 +473,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 }
             }
         });
+
         this.vista.getBtnaproxEnviar().addActionListener(e->{
             if(esperandoRespuesta && huboEmpate){
-                procesarRespuestaEmpate(this.vista.getTxtaproxRespuesta().getText());
+                try{
+                    Double ResParse = Double.valueOf(this.vista.getTxtaproxRespuesta().getText());
+                procesarRespuestaEmpate(ResParse);
+                }catch(NumberFormatException e1){
+                    System.out.println("Error, ingrese un numero " + e1.getMessage());
+                }
             }
         });
         
