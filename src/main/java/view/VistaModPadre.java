@@ -47,7 +47,7 @@ public abstract class VistaModPadre extends JFrame{
 		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalir.setBounds(690, 499, 100, 40);
 		btnSalir.setCursor(new Cursor(HAND_CURSOR));
-		btnSalir.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalir.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_BORDERLESS);
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 13));
 		contentPane.add(btnSalir);
 		

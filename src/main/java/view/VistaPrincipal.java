@@ -61,7 +61,7 @@ public class VistaPrincipal extends JFrame {
 		btnSalirAyuda = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalirAyuda.setBounds(673, 499, 100, 40);
 		btnSalirAyuda.setCursor(new Cursor(HAND_CURSOR));
-		btnSalirAyuda.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalirAyuda.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_BORDERLESS);
 		btnSalirAyuda.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panelAyuda.add(btnSalirAyuda); 
 		JLabel lblAyuda = new JLabel("<html>- Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.<br>"
@@ -90,7 +90,7 @@ public class VistaPrincipal extends JFrame {
 		btnSalirCreditos = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalirCreditos.setBounds(690, 499, 100, 40);
 		btnSalirCreditos.setCursor(new Cursor(HAND_CURSOR));
-		btnSalirCreditos.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
+		btnSalirCreditos.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_BORDERLESS);
 		btnSalirCreditos.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panelCreditos.add(btnSalirCreditos);
 

@@ -29,6 +29,9 @@ public class ControladorLogin implements ActionListener{
 
 		this.vista.getBtnLogin().addActionListener(this);
 		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
+		
+		this.vista.getBtnOlvidoContrasenia().addActionListener(e -> {this.vista.getPanelCambio().setVisible(true);});
+		this.vista.getBtnCambioSalir().addActionListener(e -> {this.vista.getPanelCambio().setVisible(false);});
 	}
 
 	@Override
