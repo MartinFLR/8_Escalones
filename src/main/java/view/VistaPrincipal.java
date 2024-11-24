@@ -198,7 +198,7 @@ public class VistaPrincipal extends JFrame {
 		contentPane.add(lblTitutlo);
 		
 		JLabel background = new JLabel();
-		ImageIcon gif = new ImageIcon("C:\\Users\\lg950\\OneDrive\\Documentos\\GitHub\\8_Escalones2\\8_Escalones\\imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
+		ImageIcon gif = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
 		background.setBounds(0,0,1280, 720);
         Image scaledImage = gif.getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT);
         ImageIcon  scaledGif= new ImageIcon(scaledImage);
