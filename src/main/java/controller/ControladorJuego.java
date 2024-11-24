@@ -34,6 +34,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		this.vista.setEscalonUso(this.escalon.getEscalon());
 		//Por default muestra el de el primer participante
 		poneNombres();
+        poneNombresEscalones();
         
         inicializarActionListeners();
         this.rondaDePreguntas(this.escalon.getParticipantes());
@@ -42,7 +43,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Cant aciertos
             // Filtrar participantes
 		    // Subir escalon
-
 	}
 
 
@@ -234,7 +234,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         PreguntaAproximacion pregunta = participante.getPregEmpate();
         this.vista.getPanelPregunta().setVisible(false);
-        this.vista.getlblaproxPregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getlblaproxPregunta().setText("<html><div style='width: 300px;margin-top:47px;text-align:center'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getTxtaproxRespuesta().requestFocusInWindow();
         setColores();
         int posParticipante = escalon.getParticipantes().indexOf(participante);
@@ -326,7 +326,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         
         esperandoRespuesta=true;
-        this.vista.getLblprePregunta().setText("<html><div style='width: 300px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getLblprePregunta().setText("<html><div style='width: 300px; text-align: center;margin-left: 150px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
         this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
         this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
@@ -546,7 +546,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(nroParticipante) ;
                 panelParticipante.setActivo(); 
             }}
-    
+    private void poneNombresEscalones(){
+        this.vista.getEscalones().getFirst().getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTema().getNombre() + "</div></html>");
+        for(int i = 0; i < 7; i++){
+            System.out.println("tema "+i+" "+this.escalon.getTemas().get(i).getNombre());
+            if(i==0){
+            }else{
+                this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTemas().get(i-1).getNombre() + "</div></html>");
+            }
+        }
+    }
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
