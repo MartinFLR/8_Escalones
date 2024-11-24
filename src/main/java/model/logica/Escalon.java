@@ -60,7 +60,10 @@ public class Escalon {
         this.participantes.remove(participante);
     }
     public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
-
+        for (Participante participante : participantes) {
+            participante.setCantAciertos(0);
+            participante.setCantErrores(0);
+        }
     }
     
 

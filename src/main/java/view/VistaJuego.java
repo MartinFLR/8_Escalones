@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import controller.ControladorJuego;
 import view.componentes.BotonPregunta;
@@ -34,11 +35,10 @@ public class VistaJuego extends JFrame {
 	private JPanel contentPane;
 	private ControladorJuego c;
 
-	private JPanel panelPregunta;
 	private JLabel lblprePregunta;
 	private BotonPregunta btnpreRespuesta1 = new BotonPregunta();
-	private BotonPregunta btnpreRespuesta2 = new BotonPregunta();;
-	private BotonPregunta btnpreRespuesta3 = new BotonPregunta();;
+	private BotonPregunta btnpreRespuesta2 = new BotonPregunta();
+	private BotonPregunta btnpreRespuesta3 = new BotonPregunta();
 	private BotonPregunta btnpreRespuesta4 = new BotonPregunta();
 	
 	private JPanel panelAproximacion;
@@ -58,9 +58,13 @@ public class VistaJuego extends JFrame {
 	private ArrayList<PanelEscalon> escalones = new ArrayList<PanelEscalon>();
 	private ArrayList<PanelJugadorNormal> jugadorNormal = new ArrayList<PanelJugadorNormal>();
 	private ArrayList<PanelJugadorFinal> jugadorFinal = new ArrayList<PanelJugadorFinal>();
+	private JPanel panelPregunta_1;
+	private JPanel panelGanador;
+	private JButton btnGanadorContinuar;
+	private JLabel lblGanadorTexto;
+	private JLabel lblGanadorImagen;
 	
 	
-
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
 		setTitle("8 ESCALONES");
@@ -75,6 +79,30 @@ public class VistaJuego extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
+		//
+		// PANEL GANADOR
+		//
+		
+		panelGanador = new JPanel();
+		panelGanador.setBounds(422, 154, 419, 324);
+		contentPane.add(panelGanador);
+		panelGanador.setLayout(null);
+		
+		lblGanadorImagen = new JLabel("New label");
+		lblGanadorImagen.setBounds(90, 11, 219, 113);
+		panelGanador.add(lblGanadorImagen);
+		
+		lblGanadorTexto = new JLabel("New label");
+		lblGanadorTexto.setBounds(10, 137, 399, 126);
+		panelGanador.add(lblGanadorTexto);
+		
+		btnGanadorContinuar = new JButton("New button");
+		btnGanadorContinuar.setBounds(165, 290, 89, 23);
+		btnGanadorContinuar.setCursor(new Cursor(HAND_CURSOR));
+		panelGanador.add(btnGanadorContinuar);
+		
+		panelGanador.setVisible(false);
+		
 		//
 		// PANEL COLUMNAS
 		//
@@ -114,12 +142,28 @@ public class VistaJuego extends JFrame {
 		panelJugadores.setLayout(gridLayoutJugador);
 		panelJugadores.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		// PANELES CON LOS JUGADORES HAY QUE SETEAR LA IMAGEN
 		for (int i = 0; i < 9; i++) {
 			this.jugadorNormal.add(new PanelJugadorNormal());
 			panelJugadores.add(this.jugadorNormal.get(i));
 		}
-	
+		
+		//
+		// PANEL JUGADORES (FINAL)
+		//
+		
+		panelFinal = new JPanel();		
+		panelFinal.setBounds(85, 477, 1181, 206);
+		contentPane.add(panelFinal);
+		GridLayout gridLayoutFinal = new GridLayout (2, 1);
+		gridLayoutFinal.setHgap(10); 
+		gridLayoutFinal.setVgap(20); 
+		panelFinal.setLayout(gridLayoutFinal);
+		
+		for (int i = 0; i < 2; i++) {
+			panelFinal.add(this.jugadorFinal.get(i));
+		}
+		
+		panelFinal.setVisible(false);
 		
 		//---------------------Panel Principal----------------------------------
 		//
@@ -127,7 +171,7 @@ public class VistaJuego extends JFrame {
 		//
 
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(695, 0, 571, 351);
+		panelAproximacion.setBounds(95, 11, 1159, 450);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -182,65 +226,49 @@ public class VistaJuego extends JFrame {
 		lblaproxRespuesta.setForeground(new Color(37, 36, 34));
 		panelCorrecto.add(lblaproxRespuesta);
 		panelCorrecto.setBackground(new Color(222, 226, 230));
+
+		panelAproximacion.setVisible(false);
 		
 		//
 		// PANEL PREGUNTA
 		//
 
-		panelPregunta = new JPanel();
-		panelPregunta.setBounds(95, 0, 542, 351);
-		contentPane.add(panelPregunta);
+		panelPregunta_1 = new JPanel();
+		panelPregunta_1.setBounds(95, 11, 1159, 450);
+		contentPane.add(panelPregunta_1);
 	
-		panelPregunta.setLayout(null);
+		panelPregunta_1.setLayout(null);
 
 		btnpreRespuesta1.setBounds(10, 189, 230, 70);
 		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
-		panelPregunta.add(btnpreRespuesta1);
+		panelPregunta_1.add(btnpreRespuesta1);
 		
 		btnpreRespuesta2.setBounds(302, 189, 230, 70);
 		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
-		panelPregunta.add(btnpreRespuesta2);
+		panelPregunta_1.add(btnpreRespuesta2);
 		
 		btnpreRespuesta3.setBounds(10, 278, 230, 70);
 		btnpreRespuesta3.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta3.setCursor(new Cursor(HAND_CURSOR));
-		panelPregunta.add(btnpreRespuesta3);
+		panelPregunta_1.add(btnpreRespuesta3);
 
 		btnpreRespuesta4.setBounds(302, 278, 230, 70);
 		btnpreRespuesta4.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta4.setCursor(new Cursor(HAND_CURSOR));
-		panelPregunta.add(btnpreRespuesta4);
+		panelPregunta_1.add(btnpreRespuesta4);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 11, 522, 167);
 		panel.setBackground(new Color(222, 226, 230));
-		panelPregunta.add(panel);		
+		panelPregunta_1.add(panel);		
 		lblprePregunta = new JLabel();
 		lblprePregunta.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblprePregunta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblprePregunta.setVerticalAlignment(SwingConstants.CENTER);
 		lblprePregunta.setForeground(new Color(37, 36, 34));
 		panel.add(lblprePregunta);		
-		
-		//
-		// PANEL JUGADORES (FINAL)
-		//
-			
-		panelFinal = new JPanel();		
-		panelFinal.setBounds(85, 353, 1181, 154);
-		contentPane.add(panelFinal);
-		GridLayout gridLayoutFinal = new GridLayout (2, 1);
-		gridLayoutFinal.setHgap(10); 
-		gridLayoutFinal.setVgap(20); 
-		panelFinal.setLayout(gridLayoutFinal);
-		
-		for (int i = 0; i < 2; i++) {
-			panelFinal.add(this.jugadorFinal.get(i));
-		}
-		
-		
 		
 
 		
@@ -275,11 +303,15 @@ public class VistaJuego extends JFrame {
 	public ControladorJuego getC() {return c;}
 	public void setC(ControladorJuego c) {this.c = c;}
 	
-	
+	public JPanel getPanelGanador() {return panelGanador;}
+	public JButton getBtnGanadorContinuar() {return btnGanadorContinuar;}
+	public JLabel getLblGanadorTexto() {return lblGanadorTexto;}
+	public JLabel getLblGanadorImagen() {return lblGanadorImagen;}
+
 	public DefaultTableModel getDefTable() {return defTable;}
 	public void setDefTable(DefaultTableModel defTable) {this.defTable = defTable;}
 
-	public JPanel getPanelPregunta() {return panelPregunta;}
+	public JPanel getPanelPregunta() {return panelPregunta_1;}
 	public JLabel getLblprePregunta() {return lblprePregunta;}
 	public void setLblprePregunta(JLabel lblprePregunta) {this.lblprePregunta = lblprePregunta;}
 
@@ -300,8 +332,4 @@ public class VistaJuego extends JFrame {
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 
 	public JPanel getPanelFinal() {return panelFinal;}
-
-	
-	
-	
 }
