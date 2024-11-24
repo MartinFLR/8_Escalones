@@ -248,13 +248,13 @@ public class VistaJuego extends JFrame {
 	
 		panelPregunta_1.setLayout(null);
 
-		btnpreRespuesta1.setBounds(620, 228, 280, 100);
+		btnpreRespuesta1.setBounds(260, 228, 280, 100);
 		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
 		btnpreRespuesta1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panelPregunta_1.add(btnpreRespuesta1);
 		
-		btnpreRespuesta2.setBounds(260, 228, 280, 100);
+		btnpreRespuesta2.setBounds(620, 228, 280, 100);
 		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
 		btnpreRespuesta2.setFont(new Font("Tahoma", Font.BOLD, 16));

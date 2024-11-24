@@ -79,6 +79,12 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		this.activo = false;	
 	}
 	
+	public void setAvanzo(){
+		this.panelerror1.setVisible(false);
+		this.panelerror2.setVisible(false);
+		this.activo = false;	
+	}
+	
 	public void setPaso() {
 		this.panelerror1.setVisible(false);
 		this.panelerror2.setVisible(false);

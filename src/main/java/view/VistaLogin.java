@@ -24,7 +24,6 @@ import java.awt.Color;
 public class VistaLogin extends JFrame{
 	
 	private JPanel contentPane;
-	private ControladorLogin c;
 	private JButton btnSalir;
 	private JTextField txtCuenta;
 	private JPasswordField txtContrasenia;
@@ -36,10 +35,8 @@ public class VistaLogin extends JFrame{
 	private JPasswordField txtContraseniaNueva2;
 	private JPanel panelCambio;
 	private JButton btnOlvidoContrasenia;
-
-
-	public VistaLogin (ControladorLogin c) {
-		this.setC(c);
+	
+	public VistaLogin () {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(300, 200, 450, 400);
@@ -161,22 +158,9 @@ public class VistaLogin extends JFrame{
 		txtContrasenia.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("lock_24dp_999999_FILL0_wght400_GRAD0_opsz24.svg", 18, 18));
 		txtContrasenia.setBounds(65, 192, 320, 40);
 		contentPane.add(txtContrasenia);
-	
-		
-		
-		
-		
-		
-		
-		
+
 	}
     
-	public ControladorLogin getC() {
-		return c;
-	}
-	public void setC(ControladorLogin c) {
-		this.c = c;
-	}
 
 	public JButton getBtnSalir() {
 		return btnSalir;

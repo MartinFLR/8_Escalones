@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import controller.ControladorPrincipal;
+import javax.swing.ImageIcon;
 
 public class VistaPrincipal extends JFrame {
 
@@ -62,11 +64,15 @@ public class VistaPrincipal extends JFrame {
 		btnSalirAyuda.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_BORDERLESS);
 		btnSalirAyuda.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panelAyuda.add(btnSalirAyuda); 
-		JLabel lblAyuda = new JLabel("<html>- Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.<br>"
+		JLabel lblAyuda = new JLabel("<html>"
+				+ "<body style='width: 580px; text-align: justify;'>"
+				+ "- Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.<br>"
 				+ "- Cada escalón tiene una temática que será elegida al azar antes de comenzar el juego y los jugadores se irán enterando si avanzan a ese escalón. <br>"
 				+ "- Las preguntas realizadas a cada participante se harán de forma aleatoria y del tipo multiple choice para responder. <br>"
 				+ "- En caso de empate para eliminar a un participante se hará una pregunta de aproximación. <br>"
-				+ "- Una pregunta de aproximación es cuando los participantes tienen que dar una respuesta y gana quien se haya acercado más a la respuesta correcta, por ejemplo, si se pregunta cuándo fue el mundial que se realizó en Argentina y uno contesta 1970 y el otro 1982, el que se acerque más al valor correcto, que sería 1978, ganaría. Por cada escalón se harán dos rondas de preguntas.</html>");
+				+ "- Una pregunta de aproximación es cuando los participantes tienen que dar una respuesta y gana quien se haya acercado más a la respuesta correcta, por ejemplo, si se pregunta cuándo fue el mundial que se realizó en Argentina y uno contesta 1970 y el otro 1982, el que se acerque más al valor correcto, que sería 1978, ganaría. Por cada escalón se harán dos rondas de preguntas"
+				+ "</body></html>");
+		lblAyuda.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAyuda.setVerticalAlignment(SwingConstants.TOP);
 		lblAyuda.setBounds(10, 96, 780, 392);
 		lblAyuda.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -92,19 +98,19 @@ public class VistaPrincipal extends JFrame {
 		panelCreditos.add(btnSalirCreditos);
 
 		
-		JLabel lblLogica = new JLabel("<html>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</html>");
+		JLabel lblLogica = new JLabel("<html><span style='font-size: 22px;'>LOGICA</span><br><span>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</span></html>");
 		lblLogica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogica.setVerticalAlignment(SwingConstants.TOP);
 		lblLogica.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLogica.setBounds(280, 151, 250, 388);
 		panelCreditos.add(lblLogica);
-		JLabel lblABM = new JLabel("<html>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</html>");
+		JLabel lblABM = new JLabel("<html><span style='font-size: 22px;'>ABM</span><br><span>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</span></html>");
 		lblABM.setHorizontalAlignment(SwingConstants.CENTER);
 		lblABM.setVerticalAlignment(SwingConstants.TOP);
 		lblABM.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblABM.setBounds(31, 151, 250, 388);
 		panelCreditos.add(lblABM);
-		JLabel lblIGU = new JLabel("<html>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</html>");
+		JLabel lblIGU = new JLabel("<html><span style='font-size: 22px;'>IGU</span><br><span>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</span></html>");
 		lblIGU.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIGU.setVerticalAlignment(SwingConstants.TOP);
 		lblIGU.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -120,7 +126,7 @@ public class VistaPrincipal extends JFrame {
 		
 		//---BOTONES PANTALLA PRINCIPAL
 		btnJugar = new JButton("JUGAR");
-		btnJugar.setBounds(52, 196, 250, 60);
+		btnJugar.setBounds(507, 196, 250, 60);
 		btnJugar.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
@@ -128,7 +134,7 @@ public class VistaPrincipal extends JFrame {
 		
 
 		btnOpciones = new JButton("OPCIONES");
-		btnOpciones.setBounds(52, 267, 250, 60);	
+		btnOpciones.setBounds(507, 267, 250, 60);	
 		btnOpciones.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
@@ -136,7 +142,7 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		btnRanking = new JButton("RANKING");		
-		btnRanking.setBounds(52, 338, 120, 50);
+		btnRanking.setBounds(507, 338, 120, 50);
 		btnRanking.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnRanking);
 		btnRanking.addActionListener(controlador);
@@ -144,7 +150,7 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		btnAyuda = new JButton("AYUDA");
-		btnAyuda.setBounds(182, 338, 120, 50);
+		btnAyuda.setBounds(637, 338, 120, 50);
 		btnAyuda.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnAyuda);
 		btnAyuda.addActionListener(controlador);
@@ -152,7 +158,7 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		BtnSalir = new JButton("SALIR");
-		BtnSalir.setBounds(52, 399, 250, 60);
+		BtnSalir.setBounds(507, 399, 250, 60);
 		BtnSalir.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(BtnSalir);
 		BtnSalir.addActionListener(controlador);
@@ -185,14 +191,21 @@ public class VistaPrincipal extends JFrame {
 		btnModificar.addActionListener(controlador);
 		
 		JLabel lblTitutlo = new JLabel("8 ESCALONES");
-		lblTitutlo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
 		lblTitutlo.setForeground(Color.CYAN);
 		lblTitutlo.setBounds(20, 16, 1244, 169);
 		contentPane.add(lblTitutlo);
 		
+		JLabel background = new JLabel();
+		ImageIcon gif = new ImageIcon("C:\\Users\\lg950\\OneDrive\\Documentos\\GitHub\\8_Escalones2\\8_Escalones\\imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
+		background.setBounds(0,0,1280, 720);
+        Image scaledImage = gif.getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT);
+        ImageIcon  scaledGif= new ImageIcon(scaledImage);
+        background.setIcon(scaledGif);
+		contentPane.add(background);
 		
-
+        
 	}
 	
 	public ControladorPrincipal getControlador() {

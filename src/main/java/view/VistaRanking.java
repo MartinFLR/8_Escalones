@@ -70,7 +70,7 @@ public class VistaRanking extends JFrame{
 		table.setBounds(26, 53, 499, 255);
 		
 		JScrollPane sc = new JScrollPane();
-		sc.setBounds(10, 100, 780, 391);
+		sc.setBounds(17, 87, 765, 388);
 		sc.putClientProperty(FlatClientProperties.SCROLL_BAR_SHOW_BUTTONS, true);
 		sc.putClientProperty(FlatClientProperties.SCROLL_PANE_SMOOTH_SCROLLING, true);
 		sc.setViewportView(table);

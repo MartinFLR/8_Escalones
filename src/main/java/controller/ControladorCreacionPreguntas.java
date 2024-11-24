@@ -32,6 +32,7 @@ public class ControladorCreacionPreguntas{
     public ControladorCreacionPreguntas(Integer idTema, ControladorModPreguntas c) {
         this.vista = new VistaCreacionPreguntas(this);
         this.vista.setVisible(true);
+        this.vista.setLocationRelativeTo(null);
         this.botones();
         this.idTema = idTema;
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema);
@@ -42,6 +43,7 @@ public class ControladorCreacionPreguntas{
         this.idPregunta = idPregunta;
         this.idTema = idTema;
         this.vista.setVisible(true);
+        this.vista.setLocationRelativeTo(null);
         this.botones();
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema+ "y mi idPregunta es: "+idPregunta);
         this.c = c;
