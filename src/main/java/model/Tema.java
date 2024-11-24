@@ -39,7 +39,10 @@ public class Tema {
 
     // devuelve una pregunta random
     public PreguntaOpcion sacarPreguntaOp(){
-        Random random= new Random();
+        if (this.preguntasOp.isEmpty()) {
+            throw new IllegalArgumentException("No hay mas preguntas disponibles");
+        }
+        Random random = new Random();
         return this.preguntasOp.remove(random.nextInt(0, this.preguntasOp.size()));
         
     }
