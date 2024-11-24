@@ -98,19 +98,19 @@ public class VistaPrincipal extends JFrame {
 		panelCreditos.add(btnSalirCreditos);
 
 		
-		JLabel lblLogica = new JLabel("<html>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</html>");
+		JLabel lblLogica = new JLabel("<html><span style='font-size: 22px;'>LOGICA</span><br><span>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</span></html>");
 		lblLogica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogica.setVerticalAlignment(SwingConstants.TOP);
 		lblLogica.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLogica.setBounds(280, 151, 250, 388);
 		panelCreditos.add(lblLogica);
-		JLabel lblABM = new JLabel("<html>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</html>");
+		JLabel lblABM = new JLabel("<html><span style='font-size: 22px;'>ABM</span><br><span>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</span></html>");
 		lblABM.setHorizontalAlignment(SwingConstants.CENTER);
 		lblABM.setVerticalAlignment(SwingConstants.TOP);
 		lblABM.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblABM.setBounds(31, 151, 250, 388);
 		panelCreditos.add(lblABM);
-		JLabel lblIGU = new JLabel("<html>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</html>");
+		JLabel lblIGU = new JLabel("<html><span style='font-size: 22px;'>IGU</span><br><span>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</span></html>");
 		lblIGU.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIGU.setVerticalAlignment(SwingConstants.TOP);
 		lblIGU.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -198,10 +198,10 @@ public class VistaPrincipal extends JFrame {
 		contentPane.add(lblTitutlo);
 		
 		JLabel background = new JLabel();
-		ImageIcon gif = new ImageIcon("C:\\Users\\lg950\\OneDrive\\Documentos\\GitHub\\8_Escalones2\\8_Escalones\\imagenes\\8e6f64217df3d96711e200bf1432fceb.gif");
+		ImageIcon gif = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
 		background.setBounds(0,0,1280, 720);
         Image scaledImage = gif.getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT);
-        ImageIcon scaledGif = new ImageIcon(scaledImage);
+        ImageIcon  scaledGif= new ImageIcon(scaledImage);
         background.setIcon(scaledGif);
 		contentPane.add(background);
 		
