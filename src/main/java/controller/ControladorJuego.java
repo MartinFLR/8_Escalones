@@ -98,7 +98,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             indiceEmpate = escalon.getParticipantes().indexOf(getParticipantesAEliminar().getFirst());
             escalon.getEstadoDeRonda().setRondaDeEmpate(getParticipantesAEliminar());
             escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(), getParticipantesAEliminar(), escalon.getTema());
-            this.vista.getPanelPregunta().setVisible(false);
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
@@ -362,7 +361,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 
                 escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
             escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
-            this.vista.getPanelPregunta().setVisible(false);
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
@@ -410,7 +408,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
             // les envia la pregunta de aproximacion a todos los participantes empatados.
-			this.vista.getPanelPregunta().setVisible(false);
         	this.vista.getPanelAproximacion().setVisible(true);
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             huboEmpate = true;

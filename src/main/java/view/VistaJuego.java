@@ -59,9 +59,12 @@ public class VistaJuego extends JFrame {
 	private ArrayList<PanelJugadorNormal> jugadorNormal = new ArrayList<PanelJugadorNormal>();
 	private ArrayList<PanelJugadorFinal> jugadorFinal = new ArrayList<PanelJugadorFinal>();
 	private JPanel panelPregunta_1;
+	private JPanel panelGanador;
+	private JButton btnGanadorContinuar;
+	private JLabel lblGanadorTexto;
+	private JLabel lblGanadorImagen;
 	
 	
-
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
 		setTitle("8 ESCALONES");
@@ -76,6 +79,30 @@ public class VistaJuego extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
+		//
+		// PANEL GANADOR
+		//
+		
+		panelGanador = new JPanel();
+		panelGanador.setBounds(422, 154, 419, 324);
+		contentPane.add(panelGanador);
+		panelGanador.setLayout(null);
+		
+		lblGanadorImagen = new JLabel("New label");
+		lblGanadorImagen.setBounds(90, 11, 219, 113);
+		panelGanador.add(lblGanadorImagen);
+		
+		lblGanadorTexto = new JLabel("New label");
+		lblGanadorTexto.setBounds(10, 137, 399, 126);
+		panelGanador.add(lblGanadorTexto);
+		
+		btnGanadorContinuar = new JButton("New button");
+		btnGanadorContinuar.setBounds(165, 290, 89, 23);
+		btnGanadorContinuar.setCursor(new Cursor(HAND_CURSOR));
+		panelGanador.add(btnGanadorContinuar);
+		
+		panelGanador.setVisible(false);
+		
 		//
 		// PANEL COLUMNAS
 		//
@@ -136,7 +163,7 @@ public class VistaJuego extends JFrame {
 			panelFinal.add(this.jugadorFinal.get(i));
 		}
 		
-		
+		panelFinal.setVisible(false);
 		
 		//---------------------Panel Principal----------------------------------
 		//
@@ -199,7 +226,7 @@ public class VistaJuego extends JFrame {
 		lblaproxRespuesta.setForeground(new Color(37, 36, 34));
 		panelCorrecto.add(lblaproxRespuesta);
 		panelCorrecto.setBackground(new Color(222, 226, 230));
-		
+
 		panelAproximacion.setVisible(false);
 		
 		//
@@ -276,7 +303,11 @@ public class VistaJuego extends JFrame {
 	public ControladorJuego getC() {return c;}
 	public void setC(ControladorJuego c) {this.c = c;}
 	
-	
+	public JPanel getPanelGanador() {return panelGanador;}
+	public JButton getBtnGanadorContinuar() {return btnGanadorContinuar;}
+	public JLabel getLblGanadorTexto() {return lblGanadorTexto;}
+	public JLabel getLblGanadorImagen() {return lblGanadorImagen;}
+
 	public DefaultTableModel getDefTable() {return defTable;}
 	public void setDefTable(DefaultTableModel defTable) {this.defTable = defTable;}
 
@@ -301,8 +332,4 @@ public class VistaJuego extends JFrame {
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 
 	public JPanel getPanelFinal() {return panelFinal;}
-
-	
-	
-	
 }
