@@ -2,7 +2,6 @@ package model.logica;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import model.Participante;
 import model.PreguntaOpcion;
@@ -69,9 +68,7 @@ public class Escalon {
 
     //Getters y setters
     public void setTema() {
-        Random random = new Random();
-        int indice = random.nextInt(this.getTemas().size());
-        this.tema = this.getTemas().remove(indice);
+        this.tema = this.getTemas().removeFirst();
         System.out.println("Tema asignado: "+this.tema.getNombre());
     }
     public Tema getTema() {

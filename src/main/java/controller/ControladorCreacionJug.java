@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -14,7 +15,6 @@ import model.PreguntaOpcion;
 import model.Tema;
 import model.logica.Escalon;
 import view.VistaCreacionJug;
-
 public class ControladorCreacionJug {
 
 	private final VistaCreacionJug vista;
@@ -36,6 +36,7 @@ public class ControladorCreacionJug {
 		this.agregarPreguntasATemas(listaTemas, listaPreguntasOp, listaPreguntaAproximacion);
 		this.vista.setVisible(true);
 		this.escalon = new Escalon();
+		Collections.shuffle(listaTemas);
 		this.escalon.setTemas(listaTemas);
 		System.out.println("temas: " + escalon.getTemas().size());
 		this.escalon.setTema();

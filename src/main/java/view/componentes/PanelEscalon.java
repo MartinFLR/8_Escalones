@@ -1,12 +1,13 @@
 package view.componentes;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class PanelEscalon extends JPanel{
 	
@@ -49,6 +50,10 @@ public class PanelEscalon extends JPanel{
 	public void setcolorFinal() {
 		setBackground(colorFinal);
 	}
+
+    public JLabel getLblTema() {
+        return this.lblTema;
+    }
 	
 	
 }
