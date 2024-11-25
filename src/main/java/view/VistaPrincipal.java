@@ -51,7 +51,7 @@ public class VistaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		//---PANELES (VENTANAS EXTRAS)
-		/* 
+		
 		panelAyuda = new JPanel();
 		panelAyuda.setBounds(232, 65, 800, 550);
 		contentPane.add(panelAyuda);
@@ -122,7 +122,7 @@ public class VistaPrincipal extends JFrame {
 		lblCreditos.setBounds(10, 11, 780, 72);
 		panelCreditos.add(lblCreditos);
 		lblCreditos.setIcon(new FlatSVGIcon("groups_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 50, 50));
-		*/
+		
 		
 		//---BOTONES PANTALLA PRINCIPAL
 		btnJugar = new JButton("JUGAR");
