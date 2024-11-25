@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import model.Participante;
+import model.Tema;
 import model.ABM.ParticipantesDAO;
 import raven.toast.Notifications;
 import view.VistaRanking;
@@ -74,8 +75,56 @@ public class ControladorRanking implements ActionListener{
 			dialogoEliminar.setVisible(true);
 		});
 
+		vista.getBtnModificarRanking().addActionListener(e -> {
+			int filaSeleccionada = vista.getTable().getSelectedRow();
+			if (filaSeleccionada != -1) {
+				int idParticipante = Integer.parseInt(vista.getTable().getValueAt(filaSeleccionada, 0).toString());
+				String nombreActual = vista.getTable().getValueAt(filaSeleccionada, 1).toString();
+
+				JDialog dialogoEditar = new JDialog();
+				dialogoEditar.setSize(400, 200);
+				dialogoEditar.setLayout(new GridLayout(4, 1));
+				dialogoEditar.setLocationRelativeTo(null);
+				dialogoEditar.setModal(true);
+
+				JLabel lblNombre = new JLabel("Editar nombre de el participante:");
+				JTextField txtNombre = new JTextField(nombreActual);
+				JButton btnAceptar = new JButton("Aceptar");
+				JButton btnCancelar = new JButton("Cancelar");
+
+				btnAceptar.addActionListener(ev -> {
+					String nuevoNombre = txtNombre.getText().trim();
+					if (validarTexto(nuevoNombre)) {
+						Participante participante = new Participante(nuevoNombre);
+						participantesDAO.modificar(idParticipante,participante);
+						Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Categoría editada exitosamente");
+						Notifications.getInstance().setJFrame(vista);
+						this.rellenarTablas();
+						dialogoEditar.dispose();
+					} else {
+						Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_CENTER, "Ingrese un nombre de Participante valido");
+						Notifications.getInstance().setJFrame(vista);
+					}
+				});
+
+				btnCancelar.addActionListener(ev -> dialogoEditar.dispose());
+
+				dialogoEditar.add(lblNombre);
+				dialogoEditar.add(txtNombre);
+				dialogoEditar.add(btnAceptar);
+				dialogoEditar.add(btnCancelar);
+				dialogoEditar.setVisible(true);
+			} else {
+				Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Seleccione una Participante a editar");
+				Notifications.getInstance().setJFrame(vista);
+			}
+		});
+
+
 		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
 	}
+
+	
 
 
 	@Override
@@ -83,7 +132,7 @@ public class ControladorRanking implements ActionListener{
 	}
 	
 	public void rellenarTablas() {
-		List<Participante> participantes = ParticipantesDAO.Ranking();
+		List<Participante> participantes = participantesDAO.ranking();
 		getVista().getDefTableModel().setRowCount(0);
 
 
@@ -107,6 +156,10 @@ public class ControladorRanking implements ActionListener{
 
 	public void setVista(VistaRanking vista) {
 		this.vista = vista;
+	}
+
+	private boolean validarTexto(String texto) {
+		return texto != null && !texto.isEmpty() && texto.matches("[a-zA-Z ]+");
 	}
 
 }

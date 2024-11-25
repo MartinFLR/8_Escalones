@@ -125,5 +125,8 @@ public class VistaRanking extends JFrame{
 		return btnEliminarRanking;
 	}
 	
+	public JButton getBtnModificarRanking(){
+		return btnModificarRanking;
+	}
 	
 }

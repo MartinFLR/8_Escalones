@@ -13,7 +13,7 @@ import model.PreguntaOpcion;
 import model.Preguntas;
 import model.Respuesta;
 
-public class PreguntasDAO implements DAO<Preguntas>{
+public class PreguntasDAO implements DAOPreguntas<Preguntas>{
 
     @Override
     public List<Preguntas> buscarTodos() {
@@ -50,11 +50,6 @@ public class PreguntasDAO implements DAO<Preguntas>{
         
     }
 
-    @Override
-    public void insertar(Preguntas entidad) {
-        //no tiene
-    }
-
     public void insertar(Preguntas preguntaObj, List<Respuesta> listaRespuestas) {
         String tipoPreg = preguntaObj.getTipo_preg();
         switch (tipoPreg) {
@@ -72,12 +67,6 @@ public class PreguntasDAO implements DAO<Preguntas>{
                 System.out.println("Tipo de pregunta no reconocido: " + tipoPreg);
             }
         }
-    }
-
-
-    @Override
-    public void modificar(int id, Preguntas preguntaObj) {
-        //no tiene
     }
 
     public void modificar(int id, Preguntas preguntaObj, List<Respuesta> listaRespuestas) {

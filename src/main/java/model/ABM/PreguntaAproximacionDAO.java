@@ -9,36 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
-
-
-    public void insertar(PreguntaAproximacion pregunta) {
-//        String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
-//
-//        try (Connection connection = Database.getInstance().getConnection();
-//             PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-//
-//            pstmt.setString(1, pregunta.getPregunta());
-//            pstmt.setInt(2, pregunta.getIdTema());
-//            pstmt.setInt(3, 2); // Suponiendo que el id_tipopregunta es 2 para preguntas de aproximación, ajusta esto según sea necesario
-//
-//            pstmt.executeUpdate();
-//            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-//            if (generatedKeys.next()) {
-//
-//                insertarRespuesta(generatedKeys.getInt(1), pregunta);
-//            }
-//            System.out.println("Pregunta de aproximación agregada exitosamente.");
-//
-//        } catch (SQLException e) {
-//            System.out.println("Error al agregar la pregunta de aproximación: " + e.getMessage());
-//        }
-    }
-
-    @Override
-    public void modificar(int id, PreguntaAproximacion entidad) {
-        //no tiene con estos parametros
-    }
+public class PreguntaAproximacionDAO implements DAOPreguntas<PreguntaAproximacion> {
 
     //este es la posta
     public void insertar(PreguntaAproximacion nuevaPregunta, List<Respuesta> respuestas) {
@@ -79,21 +50,6 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }
-    }
-
-    private void insertarRespuesta(int idPregunta, PreguntaAproximacion pregunta) {
-        String sql = "INSERT INTO respuestas (id_pregunta, respuesta_correcta) VALUES (?, ?)";
-
-        try (Connection connection = Database.getInstance().getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
-
-            pstmt.setInt(1, pregunta.getId_pregunta());
-            pstmt.setString(2, pregunta.getRespuestaCorrecta());
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error al agregar la respuesta: " + e.getMessage());
         }
     }
 
@@ -153,6 +109,7 @@ public class PreguntaAproximacionDAO implements DAO<PreguntaAproximacion> {
 
     }
 
+    @Override
     public void modificar(int id, PreguntaAproximacion entidad, List<Respuesta> respuestas) {
         String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ?, id_tipopregunta = ? WHERE id_pregunta = ?";
         String deleteRespuestas = "DELETE FROM respuestas WHERE id_pregunta = ?";

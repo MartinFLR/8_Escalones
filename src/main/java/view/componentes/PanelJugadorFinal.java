@@ -36,7 +36,7 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 			panelErrores.add(this.errores.get(i));
 		}
 		GridBagConstraints gbc = new GridBagConstraints();
-
+		
 		gbc.gridx=0;
 		gbc.gridy=0;
 		gbc.insets= new Insets(0,5,5,5);
@@ -49,10 +49,10 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 
 		gbc.gridx=1;
 		gbc.gridy=0;
-		gbc.gridheight=8;
-		gbc.gridwidth=2;
 		add(panelErrores, gbc);
 		
+		lblimagenJugador.setForeground(Color.black);
+		lblnombreJugador.setForeground(Color.black);
 	}
 
 	public void setCampeon(){
