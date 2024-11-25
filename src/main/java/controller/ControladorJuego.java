@@ -65,8 +65,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		colorEscalon.put(7, new Color(255, 215, 0));
 		for (int i = 0; i < 8; i++) {
             if (this.escalon.getEscalon() == i) {
-                this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
-                this.vista.getEscalones().get(i).setcolorUso();
+                this.vista.getEscalones().get(i).getLblNumeroEscalon().setForeground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).getLblTema().setForeground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).setBackground(Color.white);
             }else{
                 this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
                 this.vista.getEscalones().get(i).setcolorNoUso();
