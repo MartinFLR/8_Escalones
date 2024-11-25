@@ -12,9 +12,7 @@ out/
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+
 
 ### NetBeans ###
 /nbproject/private/
@@ -29,3 +27,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 /target/
+.idea/workspace.xml
+/bin/

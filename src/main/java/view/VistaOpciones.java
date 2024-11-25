@@ -6,62 +6,82 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
 import javax.swing.JLabel;
+
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JSlider;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class VistaOpciones extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private ControladorOpciones c;
-	private JSlider slider;
-	private JButton btnAyuda;
-	private JButton btnCreditos;
+	private JButton btnSalir;
+	private JSlider sliderMusica;
+	private JSlider sliderSonido;
 	
 	
 	public VistaOpciones(ControladorOpciones c) {
 		this.setC(c);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(300, 200, 450, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(300, 200, 300, 400);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
+		setResizable(false);
 		
-		JLabel lblNewLabel = new JLabel("OPCIONES");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(174, 11, 137, 14);
+		sliderSonido = new JSlider();
+		sliderSonido.setBounds(41, 147, 218, 30);
+		contentPane.add(sliderSonido);
+		
+		sliderMusica = new JSlider();
+		sliderMusica.setBounds(41, 225, 218, 30);
+		contentPane.add(sliderMusica);
+		
+		
+		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
+		btnSalir.setBounds(190, 349, 100, 40);
+		btnSalir.setCursor(new Cursor(HAND_CURSOR));
+		btnSalir.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_BORDERLESS);
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 13));
+		contentPane.add(btnSalir);
+		btnSalir.addActionListener(c);
+
+		
+		JLabel lblNewLabel = new JLabel("Opciones");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
+		lblNewLabel.setBounds(10, 24, 280, 51);
 		contentPane.add(lblNewLabel);
 		
-		slider = new JSlider();
-		slider.setBounds(10, 80, 200, 26);
-		contentPane.add(slider);
-		
-		JLabel lblNewLabel_1 = new JLabel("volumen");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(10, 55, 122, 14);
+		JLabel lblNewLabel_1 = new JLabel("Musica");
+		lblNewLabel_1.setBounds(41, 122, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		btnAyuda = new JButton("AYUDA");
-		btnAyuda.setBounds(152, 137, 114, 39);
-		contentPane.add(btnAyuda);
+		JLabel lblNewLabel_2 = new JLabel("Sonido");
+		lblNewLabel_2.setBounds(41, 200, 46, 14);
+		contentPane.add(lblNewLabel_2);
 		
-		btnCreditos = new JButton("Creditos");
-		btnCreditos.setBounds(152, 206, 111, 44);
-		contentPane.add(btnCreditos);
 	}
 
 
 	public ControladorOpciones getC() {
 		return c;
 	}
-
-
 	public void setC(ControladorOpciones c) {
 		this.c = c;
+	}
+
+
+	public JButton getBtnSalir() {
+		return btnSalir;
 	}
 }

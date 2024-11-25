@@ -3,65 +3,102 @@ package model.logica;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Escalon implements Observable {
-    @SuppressWarnings("unused")
-    private String pregunta;
-    private String resCorrecta;
+import model.Participante;
+import model.PreguntaOpcion;
+import model.Tema;
+
+public class Escalon {
+    private final Ronda estadoDeRonda; 
     private Tema tema;
     private int escalon=0;
-
     private final List<Participante> participantes = new ArrayList<>();
+    private List<Tema> temas;
 
-    public Escalon(String pregunta, String resCorrecta) {
-        this.pregunta = pregunta;
-        this. resCorrecta = resCorrecta;
-        this.escalon++;
-
+    public Escalon() {
+        //Crea la instancia de la ronda y setea por defecto ronda normal
+        this.estadoDeRonda = new Ronda();
     }
-
-    public void setTema(Tema tema) {
-        //Aca puede sacar info de la base de datos para setear
-        this.tema = tema;
-        this.notificaParticipantes(tema.getPreguntas());
-    }
-    
     public void repartirPreguntas(){
-        for (Participante participante : participantes) {
-            for (int i = 0; i <2; i++) {
-            participante.setPreguntasParticipante(tema.sacarPregunta());
-        }}
-    }
-    
-    public void filtrarParticipantes(){
-        for (Participante participante : participantes) {
-            if (participante.verificoCantIntentos()){   
-                this.participantes.remove(participante);
+        for (Participante participante : this.getParticipantes()) {
+            for (int i = 0; i < 2; i++) {
+                PreguntaOpcion pregunta = this.tema.sacarPreguntaOp();
+                participante.setPreguntasParticipante(pregunta);
             }
         }
     }
-
-    public void Ronda(){
-        
-    }
-
-    @Override
-    public void notificaParticipantes(List<model.Pregunta> preguntas) {
-        
-        for (Participante participante : participantes) {
-
-            participante.update();
-            //Actualizar el parametro que recibe update 
+    private void repartirPreguntasFinal(){
+        System.out.println("Reparte preguntas final");
+        //Hay que ver como repartir preguntas intercaladas (ej: 2 preguntas de Literatura, 2 preguntas de Deportes, etc.)
+        for (int i = 0; i < 10; i++) {
+            PreguntaOpcion pregunta = this.tema.sacarPreguntaOp();
+            for (Participante participante : participantes) {
+                participante.setPreguntasParticipante(pregunta);
+            }
         }
     }
-
-    @Override
-    public void agregaParticipante(model.logica.Participante participante) {
+    public void subeEscalon(){//incrementa en uno,a menos q sea el ultimo esc. Resetea los errores y aciertos
+        //faltaria que cambie el tema automaticamente,capaz cn la lista de temas.
+        this.escalon++;
+        this.resetAciertosyErrores();
+       /* if (this.escalon==8){
+            this.repartirPreguntasFinal();
+            this.estadoDeRonda.setRondaFinal();*/
+        }
+    
+    public void eliminoParticipantes(List<Participante> participantesAEliminar,List<Participante> participantes){ 
+        //Saca los participantes que perdieron de la lista de participantes que siguen en juego
+        for (Participante par: participantesAEliminar){
+            participantes.remove(par);
+        }
+    }
+    public void agregaParticipante(model.Participante participante) {
         this.participantes.add(participante);
         
     }
-
-    @Override
-    public void eliminaParticipante(model.logica.Participante participante) {
+    public void eliminaParticipante(model.Participante participante) {
         this.participantes.remove(participante);
+    }
+    public void resetAciertosyErrores(){ //Resetea los aciertos y errores del participante, para cuando cambia el escalon
+        for (Participante participante : participantes) {
+            participante.setCantAciertos(0);
+            participante.setCantErrores(0);
+        }
+    }
+    
+
+    //Getters y setters
+    public void setTema() {
+        this.tema = this.getTemas().removeFirst();
+        System.out.println("Tema asignado: "+this.tema.getNombre());
+    }
+    public Tema getTema() {
+        return this.tema;
+    }
+    public int getEscalon() {
+        return this.escalon;
+    }
+    public void setEscalon(int escalon) {
+        this.escalon = escalon;
+        if (this.escalon==8){
+            //Esto asigna a priori dos preguntas para eventuales empates
+            //Estaria bueno poder asignar la lista de preguntas de empate a los participantes
+            for (Participante participante : participantes) {
+                participante.setPregEmpate(this.tema.sacarPreguntaAprox());
+            }
+            this.repartirPreguntasFinal();
+            this.estadoDeRonda.setRondaFinal();
+        }
+    }
+    public List<Participante> getParticipantes() {
+        return this.participantes;
+    }
+    public Ronda getEstadoDeRonda() {
+        return this.estadoDeRonda;
+    }
+    public List<Tema> getTemas() {
+        return this.temas;
+    }
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
     }
 }
