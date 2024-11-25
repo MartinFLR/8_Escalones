@@ -31,11 +31,11 @@ public class Tests {
         //preguntas por tipo y general, se puede usar la general directamente con addAll que agrega las dos listas en una, despues si quieren ver de un tipo hacen un if o switch
         List<PreguntaAproximacion> listaPreguntaAproximacion = abmPregAprox.buscarTodos();
         List<PreguntaOpcion> listaPreguntaOp = abmPregOpcion.buscarTodos();
-        List<Preguntas> listaPreguntas = new ArrayList<>();
-        List<Participante> top10 = ParticipantesDAO.Ranking();
+        //List<Preguntas> listaPreguntas = new ArrayList<>();
+        //List<Participante> top10 = ParticipantesDAO.Ranking();
 
-        listaPreguntas.addAll(listaPreguntaAproximacion);
-        listaPreguntas.addAll(listaPreguntaOp);
+//        listaPreguntas.addAll(listaPreguntaAproximacion);
+//        listaPreguntas.addAll(listaPreguntaOp);
 
         AdminDAO adminDAO = new AdminDAO();
         Admin admin = new Admin("aldo","pancho");
@@ -61,12 +61,12 @@ public class Tests {
             System.out.println("Veces ganadas: " + p.getVecesGanadas());
         }
 
-        System.out.println("Top 10 participantes: ");
-        System.out.println("Nombre            Veces Ganadas");
-        for (Participante participante : top10) {
-            System.out.println(participante.getNombre()+ "       " + participante.getVecesGanadas());
-
-        }
+//        System.out.println("Top 10 participantes: ");
+//        System.out.println("Nombre            Veces Ganadas");
+//        for (Participante participante : top10) {
+//            System.out.println(participante.getNombre()+ "       " + participante.getVecesGanadas());
+//
+//        }
 
 
 
