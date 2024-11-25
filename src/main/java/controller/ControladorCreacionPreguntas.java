@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import java.awt.*;
 
 
@@ -51,65 +53,79 @@ public class ControladorCreacionPreguntas{
 
 
     public void botones() {
-        this.vista.getBtnAñadir().addActionListener(e -> {
-            pregunta = getVista().getTxetPregunta().getText();
+    this.vista.getBtnAñadir().addActionListener(e -> {
+        // Obtener texto de los campos
+        pregunta = getVista().getTxetPregunta().getText();
+        String respuestaCorrectaTexto = getVista().getTextRespuestaCorrecta().getText();
+        String respuestaFake1Texto = getVista().getTextIncorrecta_1().getText();
+        String respuestaFake2Texto = getVista().getTextIncorrecta_2().getText();
+        String respuestaFake3Texto = getVista().getTextIncorrecta_3().getText();
 
-            Respuesta respuestaCorrecta = new Respuesta(getVista().getTextRespuestaCorrecta().getText(), true);
-            Respuesta respuestaFake1 = new Respuesta(getVista().getTextIncorrecta_1().getText(), false);
-            Respuesta respuestaFake2 = new Respuesta(getVista().getTextIncorrecta_2().getText(), false);
-            Respuesta respuestaFake3 = new Respuesta(getVista().getTextIncorrecta_3().getText(), false);
+        // Validar campos vacíos
+        if (pregunta.trim().isEmpty() || respuestaCorrectaTexto.trim().isEmpty() ||
+            respuestaFake1Texto.trim().isEmpty() || respuestaFake2Texto.trim().isEmpty() ||
+            respuestaFake3Texto.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(vista, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            List<Respuesta> listaRespuestas = new ArrayList<>();
-            listaRespuestas.add(respuestaCorrecta);
-            listaRespuestas.add(respuestaFake1);
-            listaRespuestas.add(respuestaFake2);
-            listaRespuestas.add(respuestaFake3);
-            Collections.shuffle(listaRespuestas);
+        // Crear objetos de respuesta
+        Respuesta respuestaCorrecta = new Respuesta(respuestaCorrectaTexto, true);
+        Respuesta respuestaFake1 = new Respuesta(respuestaFake1Texto, false);
+        Respuesta respuestaFake2 = new Respuesta(respuestaFake2Texto, false);
+        Respuesta respuestaFake3 = new Respuesta(respuestaFake3Texto, false);
 
-            PreguntaOpcion preguntaOpcion = new PreguntaOpcion(pregunta,idTema);
+        List<Respuesta> listaRespuestas = new ArrayList<>();
+        listaRespuestas.add(respuestaCorrecta);
+        listaRespuestas.add(respuestaFake1);
+        listaRespuestas.add(respuestaFake2);
+        listaRespuestas.add(respuestaFake3);
+        Collections.shuffle(listaRespuestas);
 
-            PreguntasDAO preguntasDAO = new PreguntasDAO();
+        PreguntaOpcion preguntaOpcion = new PreguntaOpcion(pregunta, idTema);
+        PreguntasDAO preguntasDAO = new PreguntasDAO();
 
-            if(idPregunta == null) {
-                System.out.println(preguntaOpcion.getPregunta());
-                preguntasDAO.insertar(preguntaOpcion,listaRespuestas);
-            }else{
-                System.out.println(preguntaOpcion.getPregunta());
-                preguntasDAO.modificar(idPregunta,preguntaOpcion,listaRespuestas);
-            }
-            this.vista.dispose();
-            c.getVista().actualizarTabla();
-        });
+        // Insertar o modificar pregunta
+        if (idPregunta == null) {
+            preguntasDAO.insertar(preguntaOpcion, listaRespuestas);
+        } else {
+            preguntasDAO.modificar(idPregunta, preguntaOpcion, listaRespuestas);
+        }
+        this.vista.dispose();
+        c.getVista().actualizarTabla();
+    });
 
-        this.vista.getBtnCancelar().addActionListener(e -> {
-            this.vista.setVisible(false);
-        });
+    this.vista.getBtnCancelar().addActionListener(e -> this.vista.setVisible(false));
 
+    this.vista.getBtnAñadirAproximacion().addActionListener(e -> {
+        pregunta = getVista().getTextPregunta().getText();
+        String respuestaCorrectaTexto = getVista().getTextRespuestaAproximacion().getText();
 
-        this.vista.getBtnAñadirAproximacion().addActionListener(e -> {
-            pregunta = getVista().getTextPregunta().getText();
-            PreguntaAproximacion preguntaAproximacion = new PreguntaAproximacion(pregunta,idTema);
+        // Validar campos vacíos
+        if (pregunta.trim().isEmpty() || respuestaCorrectaTexto.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(vista, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            PreguntasDAO preguntasDAO = new PreguntasDAO();
-            Respuesta respuestaCorrecta = new Respuesta(getVista().getTextRespuestaAproximacion().getText(), true);
-            List<Respuesta> listaRespuestas = new ArrayList<>();
-            listaRespuestas.add(respuestaCorrecta);
+        PreguntaAproximacion preguntaAproximacion = new PreguntaAproximacion(pregunta, idTema);
+        PreguntasDAO preguntasDAO = new PreguntasDAO();
+        Respuesta respuestaCorrecta = new Respuesta(respuestaCorrectaTexto, true);
 
-            if(idPregunta == null) {
-                System.out.println(preguntaAproximacion.getPregunta());
-                preguntasDAO.insertar(preguntaAproximacion,listaRespuestas);
-            }else{
-                System.out.println(preguntaAproximacion.getPregunta());
-                preguntasDAO.modificar(idPregunta,preguntaAproximacion,listaRespuestas);
-                System.out.println("Este es mi idPregunta"+ idPregunta);
-            }
-            this.vista.dispose();
-            c.getVista().actualizarTabla();
-        });
-        this.vista.getBtnVolverAproximacion().addActionListener(e->{
-            this.vista.setVisible(false);
-        });
-    }
+        List<Respuesta> listaRespuestas = new ArrayList<>();
+        listaRespuestas.add(respuestaCorrecta);
+
+        if (idPregunta == null) {
+            preguntasDAO.insertar(preguntaAproximacion, listaRespuestas);
+        } else {
+            preguntasDAO.modificar(idPregunta, preguntaAproximacion, listaRespuestas);
+        }
+        this.vista.dispose();
+        c.getVista().actualizarTabla();
+    });
+
+    this.vista.getBtnVolverAproximacion().addActionListener(e -> this.vista.setVisible(false));
+}
+
 
     public VistaCreacionPreguntas getVista() {
         return vista;

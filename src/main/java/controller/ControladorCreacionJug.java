@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import model.PreguntaOpcion;
 import model.Tema;
 import model.logica.Escalon;
 import view.VistaCreacionJug;
+
 public class ControladorCreacionJug {
 
 	private final VistaCreacionJug vista;
@@ -36,7 +38,7 @@ public class ControladorCreacionJug {
 		this.agregarPreguntasATemas(listaTemas, listaPreguntasOp, listaPreguntaAproximacion);
 		this.vista.setVisible(true);
 		this.escalon = new Escalon();
-		Collections.shuffle(listaTemas);
+		Collections.shuffle((listaTemas));
 		this.escalon.setTemas(listaTemas);
 		System.out.println("temas: " + escalon.getTemas().size());
 		this.escalon.setTema();
@@ -57,15 +59,21 @@ public class ControladorCreacionJug {
 			}
 		}
 	}
-	private void creaParticipantes(){
-
+	private void creaParticipantes() {
 		for (int i = 0; i < 9; i++) {
-			Participante participante = new Participante(this.vista.getTxtJugador().get(i).getText());
+			String nombreJugador = this.vista.getTxtJugador().get(i).getText();
+			// Si el texto es nulo o está vacío, asignar nombre predeterminado
+			if (nombreJugador == null || nombreJugador.trim().isEmpty()) {
+				nombreJugador = "jugador " + (i + 1);
+			}
+	
+			Participante participante = new Participante(nombreJugador);
 			participante.setImg((ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
 			escalon.agregaParticipante(participante);
-			participante.setNombre("jugador " + i);
 		}
+	
 		escalon.repartirPreguntas();
 		new ControladorJuego(this.escalon);
 	}
+
 }

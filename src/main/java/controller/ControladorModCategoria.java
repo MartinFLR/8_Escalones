@@ -140,7 +140,7 @@ public class ControladorModCategoria {
 
 				btnAceptar.addActionListener(ev -> {
 					String nuevoNombre = txtNombre.getText().trim();
-					if (!nuevoNombre.isEmpty()) {
+					if (validarTexto(nuevoNombre)) {
 						Tema tema = new Tema(nuevoNombre);
 						temasDAO.modificar(idCategoria,tema);
 						Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_CENTER, "Categoría editada exitosamente");
@@ -180,7 +180,7 @@ public class ControladorModCategoria {
 
 		    btnAceptar.addActionListener(ev -> {
 		        String categoria = txtCategoria.getText();
-		        if (!categoria.isEmpty()) {
+		        if (validarTexto(categoria)) {
 		            System.out.println("Categoría ingresada: " + categoria);
 					Tema tema = new Tema(categoria);
 					temasDAO.insertar(tema);
@@ -212,6 +212,11 @@ public class ControladorModCategoria {
 		this.vista.getTable().setModel(modeloNuevo);
 	}
 	*/ // posiblemente se tenga que usar
+	
+	private boolean validarTexto(String texto) {
+		return texto != null && !texto.isEmpty() && texto.matches("[a-zA-Z ]+");
+	}
+
 	
 	public VistaModPadre getVista() {
 		return vista;
