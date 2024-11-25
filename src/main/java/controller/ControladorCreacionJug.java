@@ -1,10 +1,7 @@
 package controller;
 
 
-import java.awt.Color;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -23,7 +20,7 @@ public class ControladorCreacionJug {
 
 	private final VistaCreacionJug vista;
 	private final Escalon escalon;
-	private HashMap<Integer, Color> colorEscalon = new HashMap<Integer, Color>();
+	
 	
 	public ControladorCreacionJug () {
 		this.vista = new VistaCreacionJug(this);
@@ -36,6 +33,7 @@ public class ControladorCreacionJug {
 		TemasDAO abmTemas = new TemasDAO();
 		List<Tema> listaTemas = abmTemas.buscarTodos();
 
+		
 		//Agrega las preguntas a los temas por id
 		//Hay que usar esto cuando tengamos como minimo 18preg por tema 
 		this.agregarPreguntasATemas(listaTemas, listaPreguntasOp, listaPreguntaAproximacion);
@@ -43,19 +41,13 @@ public class ControladorCreacionJug {
 		this.escalon = new Escalon();
 		Collections.shuffle((listaTemas));
 		this.escalon.setTemas(listaTemas);
-		System.out.println("temas: " + escalon.getTemas().size());
+		int indice = 0;
+		for(Tema t : listaTemas){
+			System.out.println(t.getNombre()+ indice);
+			indice++;
+		}
 		this.escalon.setTema();
 		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
-		
-		colorEscalon.put(0, new Color(138, 43, 226));
-		colorEscalon.put(1, new Color(0, 150, 75));
-		colorEscalon.put(2, new Color(30, 144,255));
-		colorEscalon.put(3, new Color(30, 144, 255));
-		colorEscalon.put(4, new Color(255, 105, 180));
-		colorEscalon.put(5, new Color(255, 140, 0));
-		colorEscalon.put(6, new Color(255, 69, 0));
-		colorEscalon.put(7, new Color(255, 215, 0));
-
 	}
 
 	private void agregarPreguntasATemas(List<Tema> listaTemas, List<PreguntaOpcion> listaPreguntasOp, List<PreguntaAproximacion> listaPreguntaAproximacion){

@@ -1,19 +1,23 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.Tema;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import view.VistaJuego;
+import view.componentes.PanelEscalon;
 import view.componentes.PanelJugadorFinal;
 import view.componentes.PanelJugadorNormal;
 
@@ -28,6 +32,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private boolean huboEmpate=false;
     private boolean nuevaRondaFinal=true;
     private List<String> respuestasJugador;
+    private HashMap<Integer, Color> colorEscalon = new HashMap<Integer, Color>();
 
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
@@ -37,6 +42,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		//Por default muestra el de el primer participante
 		poneNombres();
         poneNombresEscalones();
+        poneColoresAEscalones();
         
         inicializarActionListeners();
         this.rondaDePreguntas(this.escalon.getParticipantes());
@@ -47,7 +53,20 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		    // Subir escalon
 	}
 
-
+    private void poneColoresAEscalones(){
+        //Agrega colores a los escalones
+		colorEscalon.put(0, new Color(138, 43, 226));
+		colorEscalon.put(1, new Color(0, 150, 75));
+		colorEscalon.put(2, new Color(30, 144,255));
+		colorEscalon.put(3, new Color(0, 35, 255));
+		colorEscalon.put(4, new Color(255, 105, 180));
+		colorEscalon.put(5, new Color(255, 140, 0));
+		colorEscalon.put(6, new Color(255, 69, 0));
+		colorEscalon.put(7, new Color(255, 215, 0));
+		for (int i = 0; i < 8; i++) {
+			this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
+		}
+    }
 	//Metodos para la ronda normal
 	private void rondaDePreguntas(List<Participante> participantes){
         
@@ -63,6 +82,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
             int posParticipante = escalon.getParticipantes().indexOf(participante);
             PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(posParticipante);
+            System.out.println("Tema: "+escalon.getTema().getNombre());
             System.out.println("Pregunta ID: "+pregunta.getId_pregunta());
             System.out.println("Pregunta: "+ pregunta.getPregunta());
             System.out.println("Respuesta correcta: " + pregunta.getRespuestaCorrecta());
@@ -515,6 +535,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
             ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
+            
             // Aca hay que meter la logica a la ronda de empate, aunque capaz no hace falta
             // mostrarPreguntaEmpate()
         }else{
@@ -640,12 +661,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 panelParticipante.setActivo(); 
             }}
     private void poneNombresEscalones(){
-        this.vista.getEscalones().getFirst().getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTema().getNombre() + "</div></html>");
-        for(int i = 0; i < 7; i++){
-            System.out.println("tema "+i+" "+this.escalon.getTemas().get(i).getNombre());
-            this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTemas().get(i).getNombre() + "</div></html>");
+        this.vista.getEscalones().getFirst().getLblTema().setText(this.escalon.getTema().getNombre());
+        int indice=0;
+        for (int i = 1; i < 7; i++) {
+            this.vista.getEscalones().get(i).getLblTema().setText(this.escalon.getTemas().get(indice).getNombre());
+            indice++;
         }
-        this.vista.getEscalones().getLast().setcolorFinal();
     }
 	@Override
 	public void keyTyped(KeyEvent e) {
