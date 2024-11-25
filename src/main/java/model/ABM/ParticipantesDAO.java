@@ -98,13 +98,13 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public void modificarVecesGanadas(String nombreParticipante, Integer cantidad) {
+    public void modificarVecesGanadas(String nombreParticipante) {
 
         String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, cantidad);
+            pstmt.setInt(1, 1);
             pstmt.setString(2, nombreParticipante);
 
             pstmt.executeUpdate();
