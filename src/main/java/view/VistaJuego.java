@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -67,6 +68,8 @@ public class VistaJuego extends JFrame {
 	private JLabel lblGanadorImagen;
 	private JScrollPane sc;
 	
+	private ImageIcon backgroundGanador;
+	
 	
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -82,6 +85,10 @@ public class VistaJuego extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
+		ImageIcon bg = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
+        Image scaledBackground = bg.getImage().getScaledInstance(450,450,Image.SCALE_DEFAULT);
+        backgroundGanador = new ImageIcon(scaledBackground);
+
 		//
 		// PANEL GANADOR
 		//
@@ -92,10 +99,12 @@ public class VistaJuego extends JFrame {
 		panelGanador.setLayout(null);
 		
 		lblGanadorImagen = new JLabel("");
+		lblGanadorImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGanadorImagen.setBounds(150, 11, 150, 150);
 		panelGanador.add(lblGanadorImagen);
 		
 		lblGanadorTexto = new JLabel("New label");
+		lblGanadorTexto.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblGanadorTexto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGanadorTexto.setBounds(10, 193, 430, 159);
 		panelGanador.add(lblGanadorTexto);
@@ -104,6 +113,13 @@ public class VistaJuego extends JFrame {
 		btnGanadorContinuar.setBounds(168, 399, 120, 40);
 		btnGanadorContinuar.setCursor(new Cursor(HAND_CURSOR));
 		panelGanador.add(btnGanadorContinuar);
+		
+		ImageIcon gif = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
+        Image scaledImage = gif.getImage().getScaledInstance(450,450,Image.SCALE_DEFAULT);
+        ImageIcon scaledGif = new ImageIcon(scaledImage);
+		JLabel background = new JLabel(scaledGif);
+		background.setBounds(0, 0, 450, 450);
+		panelGanador.add(background);
 		
 		panelGanador.setVisible(false);
 		
@@ -156,7 +172,7 @@ public class VistaJuego extends JFrame {
 		//
 		
 		panelFinal = new JPanel();		
-		panelFinal.setBounds(85, 477, 1181, 206);
+		panelFinal.setBounds(85, 508, 1181, 175);
 		contentPane.add(panelFinal);
 		GridLayout gridLayoutFinal = new GridLayout (2, 1);
 		gridLayoutFinal.setHgap(10); 
@@ -175,7 +191,7 @@ public class VistaJuego extends JFrame {
 		//
 		
 		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(95, 11, 1159, 450);
+		panelAproximacion.setBounds(95, 11, 1159, 486);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
@@ -232,7 +248,7 @@ public class VistaJuego extends JFrame {
 
 		
 		panelPregunta_1 = new JPanel();
-		panelPregunta_1.setBounds(95, 11, 1159, 450);
+		panelPregunta_1.setBounds(95, 11, 1159, 486);
 		contentPane.add(panelPregunta_1);
 	
 		panelPregunta_1.setLayout(null);
@@ -274,6 +290,12 @@ public class VistaJuego extends JFrame {
 	}
 	
 	//GET DE LOS ESCALONES
+	public void setBackgroundGanador() {
+		JLabel lblBackground = new JLabel(backgroundGanador);
+		lblBackground.setBounds(0, 0, 1280, 720);
+		contentPane.add(lblBackground);
+	}
+	
 	public JPanel getPanelColumna() {
 		return panelColumna;
 	}	

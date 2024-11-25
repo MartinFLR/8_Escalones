@@ -72,38 +72,30 @@ public class ParticipantesDAO implements DAO<Participante> {
 
     @Override
     public void modificar(int id, Participante nuevoParticipante) {
-
         String sql = "UPDATE participantes SET nombre = ? WHERE id = ?";
-
         if (nuevoParticipante == null || nuevoParticipante.getNombre() == null || nuevoParticipante.getNombre().trim().isEmpty()) {
             System.out.println("El nombre del participante no puede ser vacío.");
             return;
         }
-
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Establecemos los parámetros de la consulta
             pstmt.setString(1, nuevoParticipante.getNombre());
             pstmt.setInt(2, id);
 
-            // Ejecutamos la actualización
             int filasActualizadas = pstmt.executeUpdate();
 
-            // Verificamos si alguna fila fue actualizada
             if (filasActualizadas > 0) {
                 System.out.println("Participante modificado con éxito.");
             } else {
                 System.out.println("No se encontró el participante con ID: " + id);
             }
         } catch (SQLException e) {
-            // Imprimir el error detallado si algo falla
             System.err.println("Error al modificar participante: " + e.getMessage());
         }
     }
 
     public void modificarVecesGanadas(Participante participante) {
-
         String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -118,7 +110,7 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public static List<Participante> Ranking(){
+    public List<Participante> ranking(){
         List<Participante> top10participantes = new ArrayList<>();
         String sql = "SELECT * FROM participantes GROUP BY nombre,id, veces_ganadas ORDER BY veces_ganadas DESC LIMIT 20;";
         {
@@ -129,7 +121,6 @@ public class ParticipantesDAO implements DAO<Participante> {
             while(rs.next()){
                 top10participantes.add(new Participante(rs.getInt("id"),rs.getString("nombre"), rs.getInt("veces_ganadas")));
             }
-            
         } catch (SQLException e) {
            System.out.println("Error al formar ranking: " + e.getMessage());
         }
@@ -137,7 +128,6 @@ public class ParticipantesDAO implements DAO<Participante> {
     }
     return top10participantes;
     }
-
         public Boolean existeParticipante(Participante participante) {
         String query = "SELECT * FROM participantes WHERE nombre = ?";
 
