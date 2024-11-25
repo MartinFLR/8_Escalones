@@ -251,6 +251,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
             for (Participante participante : empatados) {
                 System.out.println(participante.getNombre());
             }
+            huboEmpate = true;
+            Ronda ronda = this.escalon.getEstadoDeRonda();
+            ronda.actualizarDatos(ronda, participantes, this.escalon.getTema());
         } else if (peorParticipante != null) {
             peorParticipante.sumaError();
             participantes.add(peorParticipante);
@@ -309,10 +312,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         }
     }
 
-    private void repiteEmpate(){
-        turnoJugador = 0;
-    }
-    
     //Metodos para la ronda final
     private void rondaFinal(List<Participante> participantes){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
