@@ -60,6 +60,8 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 
 	@Override
 	public void setResetErrores () {
+		panelerror1.setVisible(true);
+		panelerror2.setVisible(true);
 		panelerror1.setBackground(colorOriginal);
 		panelerror2.setBackground(colorOriginal);
 	}
@@ -74,12 +76,6 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 	public void setEliminado(){
 		setBackground(colorEliminado);
 		panelErrores.setBackground(colorEliminado);
-		this.panelerror1.setVisible(false);
-		this.panelerror2.setVisible(false);
-		this.activo = false;	
-	}
-	
-	public void setAvanzo(){
 		this.panelerror1.setVisible(false);
 		this.panelerror2.setVisible(false);
 		this.activo = false;	

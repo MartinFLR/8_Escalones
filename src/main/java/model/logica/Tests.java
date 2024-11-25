@@ -21,7 +21,7 @@ public class Tests {
         ParticipantesDAO abmPart = new ParticipantesDAO();
         //inserta participante y modifica, martin ya esta en la bdd
         //abmPart.insertar(new Participante("Martin"));
-        abmPart.modificarVecesGanadas("Martin",2);
+        //abmPart.modificarVecesGanadas("Martin",2);
         PreguntaAproximacionDAO abmPregAprox = new PreguntaAproximacionDAO();
         PreguntaOpcionDAO abmPregOpcion = new PreguntaOpcionDAO();
 
