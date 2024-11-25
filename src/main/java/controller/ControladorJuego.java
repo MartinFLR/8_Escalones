@@ -151,6 +151,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
         } else if (this.escalon.getEscalon() == 7){
             if (nuevaRondaFinal){
                 manejarRondaFinal();
+            }else{
+                huboEmpate=false;
+                empateFinal();
             }
     }}
     private void manejarRondaFinal() {
@@ -373,7 +376,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
                     respuestasJugador.set(i, null);  // Limpiamos las respuestas
                     System.out.println("Respuestas actuales despues de nullear: " + respuestasJugador);
                 }
-        
+                if (turnoJugador >= escalon.getParticipantes().size()) {
+                    turnoJugador = 0;
+                }
                 if (!this.escalon.getParticipantes().get(turnoJugador).getPreguntasParticipante().isEmpty()) {
                     mostrarPreguntaActual();
                 } else {
@@ -406,7 +411,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         
         }
     private void verificarRondaFinalYGanador() {
-        
         List<Participante> participantesFinales = this.escalon.getParticipantes();
         Participante participante1 = participantesFinales.get(0);
         Participante participante2 = participantesFinales.get(1);       
@@ -423,6 +427,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
                         //panelParFinal.setCampeon();
                         //panelParFinal2.setEliminado();
+                        this.vista.setGanadorNombre(this.escalon.getParticipantes().getFirst().getNombre());
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
@@ -431,6 +436,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante2.getNombre());
+                        this.vista.setGanadorNombre(this.escalon.getParticipantes().get(1).getNombre());
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
                         PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
                         //panelParFinal2.setCampeon();
@@ -439,7 +445,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
                         //aca iria la vista de winner
-                          //deberia saltar una ultima vista con dialog campeon y que salte al inicio
+                        //deberia saltar una ultima vista con dialog campeon y que salte al inicio
                     }}
             }  else if (aciertos1==aciertos2){
             for (Participante par: participantesFinales){
@@ -452,14 +458,17 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
-            if (this.escalon.getParticipantes().size()<2 & huboEmpate==false){
-                System.out.println("hay uno solo. el ganador");
-                
-                this.vista.getPanelGanador().setVisible(true);
-                this.vista.getPanelPregunta().setVisible(false);
-                this.vista.getPanelFinal().setVisible(false);
-            }
+            
+            
             }}
+            private void empateFinal(){
+                if (huboEmpate==false){
+                    this.vista.setGanadorNombre(this.escalon.getParticipantes().getFirst().getNombre());
+                    this.vista.getPanelGanador().setVisible(true);
+                    this.vista.getPanelPregunta().setVisible(false);
+                    this.vista.getPanelFinal().setVisible(false);
+                }
+            }
 	private void poneNombres(){
         for (int i = 0; i < 9; i++) {
 			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
@@ -533,6 +542,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.rondaDePreguntas(escalon.getParticipantes());
             }
             this.escalon.eliminaParticipante(participante);
+            
             this.vista.getPanelAproximacion().setVisible(false);
             this.vista.getPanelPregunta().setVisible(true);
            
