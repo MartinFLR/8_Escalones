@@ -406,6 +406,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
         
         }
+
+        private void agregaGanador(Participante participanteGg){
+            ParticipantesDAO pGanador = new ParticipantesDAO();
+            if(pGanador.existeParticipante(participanteGg)){
+                pGanador.modificarVecesGanadas(participanteGg);
+            }else{
+                pGanador.insertar(participanteGg);
+                pGanador.modificarVecesGanadas(participanteGg);
+            }
+        }
     private void verificarRondaFinalYGanador() {
         List<Participante> participantesFinales = this.escalon.getParticipantes();
         Participante participante1 = participantesFinales.get(0);
@@ -418,7 +428,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante1.getNombre());
-                        
+                        //agregaganador o modifica veces ganadas:
+                        agregaGanador(participante1);
                         //aca iria la vista de winner
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
                         PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
@@ -433,6 +444,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante2.getNombre());
+                        //agregaganador o modifica veces ganadas:
+                        agregaGanador(participante2);
                         this.vista.setGanadorNombre(this.escalon.getParticipantes().get(1).getNombre());
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
                         PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
@@ -461,6 +474,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void empateFinal(){
         if (huboEmpate==false){
             this.vista.setGanadorNombre(this.escalon.getParticipantes().getFirst().getNombre());
+            agregaGanador(this.escalon.getParticipantes().getFirst());
             this.vista.getPanelGanador().setVisible(true);
             this.vista.getPanelPregunta().setVisible(false);
             this.vista.getPanelFinal().setVisible(false);

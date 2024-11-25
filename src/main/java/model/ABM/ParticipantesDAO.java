@@ -17,17 +17,21 @@ public class ParticipantesDAO implements DAO<Participante> {
         if (!existeParticipante(participante)) {
             try (Connection conn = Database.getInstance().getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                 
                 pstmt.setString(1, participante.getNombre());
-
-                pstmt.executeUpdate();
-                System.out.println("Participante agregado con éxito.");
+                
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Participante agregado con éxito.");
+                }
             } catch (SQLException e) {
                 System.err.println("Error al agregar participante: " + e.getMessage());
             }
-        }else{
-            System.out.println("El participante ya existe, elige otro nombre");
+        } else {
+            System.out.println("El participante ya existe, elige otro nombre.");
         }
     }
+    
 
     @Override
     public List<Participante> buscarTodos() {
@@ -98,14 +102,14 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public void modificarVecesGanadas(String nombreParticipante) {
+    public void modificarVecesGanadas(Participante participante) {
 
         String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, 1);
-            pstmt.setString(2, nombreParticipante);
+            pstmt.setString(2, participante.getNombre());
 
             pstmt.executeUpdate();
             System.out.println("Veces ganadas modificada con exito");
@@ -116,7 +120,7 @@ public class ParticipantesDAO implements DAO<Participante> {
 
     public static List<Participante> Ranking(){
         List<Participante> top10participantes = new ArrayList<>();
-        String sql = "SELECT p.nombre, p.veces_ganadas FROM participantes p GROUP BY p.nombre, p.veces_ganadas ORDER BY p.veces_ganadas DESC LIMIT 10;";
+        String sql = "SELECT p.nombre, p.veces_ganadas FROM participantes p GROUP BY p.nombre, p.veces_ganadas ORDER BY p.veces_ganadas DESC LIMIT 20;";
         {
         try (Connection conn = Database.getInstance().getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -134,7 +138,7 @@ public class ParticipantesDAO implements DAO<Participante> {
     return top10participantes;
     }
 
-        private Boolean existeParticipante(Participante participante) {
+        public Boolean existeParticipante(Participante participante) {
         String query = "SELECT * FROM participantes WHERE nombre = ?";
 
         try (Connection conn = Database.getInstance().getConnection();
