@@ -16,6 +16,7 @@ import model.PreguntaOpcion;
 import model.ABM.ParticipantesDAO;
 import model.logica.Escalon;
 import model.logica.Ronda;
+import raven.toast.Notifications;
 import view.VistaJuego;
 import view.componentes.PanelJugadorFinal;
 import view.componentes.PanelJugadorNormal;
@@ -122,6 +123,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
         if(turnoJugador == escalon.getParticipantes().size()
         && getParticipantesAEliminar().size()>1
         && participante.getPreguntasParticipante().isEmpty()){
+            Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"Ronda de Aproximación");
+            Notifications.getInstance().setJFrame(vista);
             huboEmpate = true;
             turnoJugador = 0;
             indiceEmpate = escalon.getParticipantes().indexOf(getParticipantesAEliminar().getFirst());
@@ -323,7 +326,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         for(Participante participante:escalon.getParticipantes()){
             int index = escalon.getParticipantes().indexOf(participante);
             if(!getParticipantesAEliminar().contains(participante)){
-                this.vista.getJugadorNormal().get(index).setResetErrores();
+                this.vista.getJugadorNormal().get(index).setPaso();
             }
         }
     }
@@ -516,6 +519,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // les envia la pregunta de aproximacion a todos los participantes empatados.
             this.vista.getPanelPregunta().setVisible(false);
         	this.vista.getPanelAproximacion().setVisible(true);
+            
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             huboEmpate = true;
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
@@ -540,10 +544,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.rondaDePreguntas(escalon.getParticipantes());
             }
             this.escalon.eliminaParticipante(participante);
-            
+            Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"Ha sido eliminado: " + participante.getNombre());
+            Notifications.getInstance().setJFrame(vista);
             this.vista.getPanelAproximacion().setVisible(false);
             this.vista.getPanelPregunta().setVisible(true);
-           
+            
             
         }
     }
