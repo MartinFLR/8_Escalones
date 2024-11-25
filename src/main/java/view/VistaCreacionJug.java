@@ -3,6 +3,7 @@ package view;
 import controller.ControladorCreacionJug;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -67,6 +68,8 @@ public class VistaCreacionJug extends JFrame{
 
 		
 		// LOGICA DE IMAGENES
+		
+		
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlack.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlue.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerCyan.png"));
@@ -77,12 +80,7 @@ public class VistaCreacionJug extends JFrame{
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
 		
-		ImageIcon gif = new ImageIcon("imagenes\\pinguim-penguin.gif");
-        Image scaledImage = gif.getImage().getScaledInstance(64,64,Image.SCALE_DEFAULT);
-        ImageIcon scaledGif = new ImageIcon(scaledImage);
-        
-        this.imagenes.add(scaledGif);
-		
+
 		for (int i = 0; i < 9; i++) {
 			this.paneles.add(new JPanel(new GridBagLayout()));
 			this.paneles.get(i).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
