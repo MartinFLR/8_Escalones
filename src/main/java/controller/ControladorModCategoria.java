@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import model.Tema;
 import model.ABM.TemasDAO;
@@ -62,6 +63,7 @@ public class ControladorModCategoria {
 							// Acción para editar la categoría
 							// En este caso, llamamos al método de editar categoría
 							 new ControladorModPreguntas(idCategoria);
+							 vista.setVisible(false);
 							//controlador.setId_pregunta(idCategoria);
 
 							System.out.println("hola");
@@ -200,18 +202,34 @@ public class ControladorModCategoria {
 		    dialogoCategoria.setVisible(true);
 			});
 		
-		vista.getBtnSalir().addActionListener(e -> {vista.setVisible(false);});
+		vista.getBtnSalir().addActionListener(e -> {todasCategoriasCon20Preguntas();});
 	}
 	
-	//TABLA --capaz sirva para abtraccion 
-	/*
-	public void tablaueva() { //aca pondria el las lista pregunta
-		DefaultTableModel modeloNuevo = new DefaultTableModel();
-		modeloNuevo.addColumn("ID");
-		modeloNuevo.addColumn("Pregunta");
-		this.vista.getTable().setModel(modeloNuevo);
-	}
-	*/ // posiblemente se tenga que usar
+	public void todasCategoriasCon20Preguntas() {
+        DefaultTableModel modelo = vista.getT();
+        boolean cumplen = true;
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Object valor = modelo.getValueAt(i, 2); 
+            int cantidadPreguntas;
+            try {
+                cantidadPreguntas = Integer.parseInt(valor.toString());
+            } catch (NumberFormatException e) {
+                cantidadPreguntas = 0; //
+            }
+            if (cantidadPreguntas < 20) {
+				cumplen = false;
+            } 
+        } 
+        
+        if (cumplen) {
+			vista.setVisible(false);
+		} else {
+			Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Todas la categoria deben tener 20 preguntas");
+			Notifications.getInstance().setJFrame(vista);
+		}
+    }
+	
 	
 	private boolean validarTexto(String texto) {
 		return texto != null && !texto.isEmpty() && texto.matches("[a-zA-Z ]+");

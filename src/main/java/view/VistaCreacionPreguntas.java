@@ -24,7 +24,7 @@ import javax.swing.JTabbedPane;
 public class VistaCreacionPreguntas extends JFrame{
 
 	private JPanel contentPane;
-	private JTextField txetPregunta;
+	private JTextField textPreguntaOpcion;
 	private JTextField textRespuestaCorrecta;
 	private JTextField textIncorrecta_1;
 	private JTextField textIncorrecta_3;
@@ -36,7 +36,7 @@ public class VistaCreacionPreguntas extends JFrame{
 	private JTabbedPane tabbedPane;
 	private JPanel panelOpcion;
 	private JPanel panelAproximacion;
-	private JTextField textPregunta;
+	private JTextField textPreguntaAproximacion;
 	private JFormattedTextField textRespuestaAproximacion;
 	private JButton btnVolverAproximacion;
 	private JButton btnAñadirAproximacion;
@@ -70,11 +70,11 @@ public class VistaCreacionPreguntas extends JFrame{
 		lblPreguntaAprox.setBounds(10, 9, 228, 14);
 		panelAproximacion.add(lblPreguntaAprox);
 
-		textPregunta = new JTextField();
-		textPregunta.setBounds(10, 27, 410, 30);
-		textPregunta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la pregunta de aproximación");
-		panelAproximacion.add(textPregunta);
-		textPregunta.setColumns(10);
+		textPreguntaAproximacion = new JTextField();
+		textPreguntaAproximacion.setBounds(10, 27, 410, 30);
+		textPreguntaAproximacion.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la pregunta de aproximación");
+		panelAproximacion.add(textPreguntaAproximacion);
+		textPreguntaAproximacion.setColumns(10);
 
 		JLabel lblRespuestaAproximacion = new JLabel("Respuesta:");
 		lblRespuestaAproximacion.setBounds(10, 72, 176, 14);
@@ -108,11 +108,11 @@ public class VistaCreacionPreguntas extends JFrame{
 		lblPregunta.setBounds(10, 8, 186, 14);
 		panelOpcion.add(lblPregunta);
 
-		txetPregunta = new JTextField();
-		txetPregunta.setBounds(10, 27, 410, 30);
-		txetPregunta.setColumns(10);
-		txetPregunta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la pregunta de opciones");
-		panelOpcion.add(txetPregunta);
+		textPreguntaOpcion = new JTextField();
+		textPreguntaOpcion.setBounds(10, 27, 410, 30);
+		textPreguntaOpcion.setColumns(10);
+		textPreguntaOpcion.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Ingrese la pregunta de opciones");
+		panelOpcion.add(textPreguntaOpcion);
 
 
 		JLabel lblRespuestaCorrecta = new JLabel("Respuesta correcta:");
@@ -178,9 +178,7 @@ public class VistaCreacionPreguntas extends JFrame{
 	public JButton getBtnCancelar() {
 		return btnVolverOpcion;
 	}
-	public JTextField getTxetPregunta() {
-		return txetPregunta;
-	}
+	
 	public JTextField getTextRespuestaCorrecta() {
 		return textRespuestaCorrecta;
 	}
@@ -193,9 +191,7 @@ public class VistaCreacionPreguntas extends JFrame{
 	public JTextField getTextIncorrecta_2() {
 		return textIncorrecta_2;
 	}
-	public JTextField getTextPregunta() {
-		return textPregunta;
-	}
+	
 	public JTextField getTextRespuestaAproximacion() {
 		return textRespuestaAproximacion;
 	}
@@ -204,6 +200,12 @@ public class VistaCreacionPreguntas extends JFrame{
 	}
 	public JButton getBtnAñadirAproximacion() {
 		return btnAñadirAproximacion;
+	}
+	public JTextField getTextPreguntaOpcion() {
+		return textPreguntaOpcion;
+	}
+	public JTextField getTextPreguntaAproximacion() {
+		return textPreguntaAproximacion;
 	}
 
 

@@ -22,6 +22,8 @@ public class ControladorModPreguntas {
 
     private VistaModPreguntas vista;
     private Integer id_categoria;
+    private String pregunta = null;
+    private String tipoPregunta = null;
 
     public ControladorModPreguntas(int categoria){
         this.id_categoria=categoria;
@@ -37,9 +39,7 @@ public class ControladorModPreguntas {
             this.vista.getBtnBorrar().setEnabled(true);
         });
 
-        this.vista.getBtnSalir().addActionListener(e->{
-            this.vista.setVisible(false);
-        });;
+        this.vista.getBtnSalir().addActionListener(e->{preguntas();});
 
         this.vista.getBtnBorrar().addActionListener(e -> {
             JDialog dialogoEliminar = new JDialog();
@@ -97,6 +97,8 @@ public class ControladorModPreguntas {
         this.vista.getBtnEditar().addActionListener(e -> {
             int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
+            pregunta = this.vista.getTable().getValueAt(filaSeleccionada, 1).toString();
+            tipoPregunta = this.vista.getTable().getValueAt(filaSeleccionada, 2).toString();
             System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria +" y la idPregunta: "+idPregunta);
             new ControladorCreacionPreguntas(this.id_categoria,idPregunta, this);
             this.vista.actualizarTabla();
@@ -138,6 +140,31 @@ public class ControladorModPreguntas {
             }
         });
     }
+    
+    public void preguntas() {
+        DefaultTableModel modelo = vista.getTablaNueva();
+        int aproximacion = 0, opcion = 0;
+        
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+			Object tipoPregunta = modelo.getValueAt(i, 2);
+			String preg = tipoPregunta.toString();
+
+			if (preg == "Aproximacion") {
+				aproximacion++;
+			} else if (preg == "Opcion multiple") {
+				opcion++;
+			}
+		}
+        if (aproximacion < 18 && opcion < 2 ) { //si no cumple
+			Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Tiene que tener 18 de Opcion y 2 de Aproximacion");
+			Notifications.getInstance().setJFrame(vista);
+		} else {
+			this.vista.setVisible(false);
+			new ControladorModCategoria();
+		}
+        
+    }
+
 
     public Integer getId_categoria(){
         return this.id_categoria;
@@ -146,4 +173,13 @@ public class ControladorModPreguntas {
 	public VistaModPreguntas getVista() {
 		return vista;
 	}
+
+	public String getPregunta() {
+		return pregunta;
+	}
+
+	public String getTipoPregunta() {
+		return tipoPregunta;
+	}
+
 }

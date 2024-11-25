@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
@@ -49,13 +50,15 @@ public class ControladorCreacionPreguntas{
         this.botones();
         System.out.println("Hola soy ControladorCreacionPreguntas, mi idTema es: "+ idTema+ "y mi idPregunta es: "+idPregunta);
         this.c = c;
+        this.mostrarCampos();
     }
 
 
     public void botones() {
+    	
     this.vista.getBtnAñadir().addActionListener(e -> {
         // Obtener texto de los campos
-        pregunta = getVista().getTxetPregunta().getText();
+        pregunta = getVista().getTextPreguntaOpcion().getText();
         String respuestaCorrectaTexto = getVista().getTextRespuestaCorrecta().getText();
         String respuestaFake1Texto = getVista().getTextIncorrecta_1().getText();
         String respuestaFake2Texto = getVista().getTextIncorrecta_2().getText();
@@ -98,7 +101,7 @@ public class ControladorCreacionPreguntas{
     this.vista.getBtnCancelar().addActionListener(e -> this.vista.setVisible(false));
 
     this.vista.getBtnAñadirAproximacion().addActionListener(e -> {
-        pregunta = getVista().getTextPregunta().getText();
+        pregunta = getVista().getTextPreguntaAproximacion().getText();
         String respuestaCorrectaTexto = getVista().getTextRespuestaAproximacion().getText();
 
         // Validar campos vacíos
@@ -121,10 +124,21 @@ public class ControladorCreacionPreguntas{
         }
         this.vista.dispose();
         c.getVista().actualizarTabla();
-    });
-
+        });
     this.vista.getBtnVolverAproximacion().addActionListener(e -> this.vista.setVisible(false));
-}
+
+    }
+    
+    
+    public void mostrarCampos() {    	
+    	if ( getC().getTipoPregunta() == "Aproximacion") {
+    		getVista().getTextPreguntaAproximacion().setText(getC().getPregunta());
+		} else if (getC().getTipoPregunta() == "Opcion multiple") {
+			getVista().getTextPreguntaOpcion().setText(getC().getPregunta());
+		}
+    }
+
+    
 
 
     public VistaCreacionPreguntas getVista() {
@@ -134,5 +148,8 @@ public class ControladorCreacionPreguntas{
     public void setVista(VistaCreacionPreguntas vista) {
         this.vista = vista;
     }
+	public ControladorModPreguntas getC() {
+		return c;
+	}
 
 }
