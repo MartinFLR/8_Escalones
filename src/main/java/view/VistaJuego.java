@@ -52,7 +52,6 @@ public class VistaJuego extends JFrame {
 	private JPanel panelJugadores;
 	
 	private JLabel lblaproxPregunta;
-	private JLabel lblaproxRespuesta;
 	private DefaultTableModel defTable;
 	
 	private JPanel panelFinal;
@@ -223,17 +222,6 @@ public class VistaJuego extends JFrame {
 		lblaproxPregunta.setForeground(new Color(37, 36, 34));
 		lblaproxPregunta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panelPregunta.add(lblaproxPregunta);
-		
-		JPanel panelCorrecto = new JPanel();
-		panelCorrecto.setBounds(500, 391, 418, 48);
-		panelAproximacion.add(panelCorrecto);
-		lblaproxRespuesta = new JLabel();
-		lblaproxRespuesta.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblaproxRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblaproxRespuesta.setVerticalAlignment(SwingConstants.CENTER);
-		lblaproxRespuesta.setForeground(new Color(37, 36, 34));
-		panelCorrecto.add(lblaproxRespuesta);
-		panelCorrecto.setBackground(new Color(222, 226, 230));
 
 		panelAproximacion.setVisible(false);
 		
