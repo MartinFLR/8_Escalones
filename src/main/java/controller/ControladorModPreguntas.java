@@ -28,6 +28,7 @@ public class ControladorModPreguntas {
         this.vista = new VistaModPreguntas(this);
         this.vista.setVisible(true);
         botones();
+  
     }
 
     public void botones() {
@@ -95,7 +96,7 @@ public class ControladorModPreguntas {
         });
 
         this.vista.getBtnEditar().addActionListener(e -> {
-            int filaSeleccionada = this.vista.getTable().getSelectedRow();
+        	int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
             System.out.println("Estoy llamando al COntroladorCreacionPreguntas con el idCategoria:"+ id_categoria +" y la idPregunta: "+idPregunta);
             new ControladorCreacionPreguntas(this.id_categoria,idPregunta, this);

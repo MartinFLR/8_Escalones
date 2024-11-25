@@ -87,20 +87,21 @@ public class VistaJuego extends JFrame {
 		//
 		
 		panelGanador = new JPanel();
-		panelGanador.setBounds(422, 154, 419, 324);
+		panelGanador.setBounds(407, 115, 450, 450);
 		contentPane.add(panelGanador);
 		panelGanador.setLayout(null);
 		
 		lblGanadorImagen = new JLabel("");
-		lblGanadorImagen.setBounds(90, 11, 219, 113);
+		lblGanadorImagen.setBounds(150, 11, 150, 150);
 		panelGanador.add(lblGanadorImagen);
 		
 		lblGanadorTexto = new JLabel("New label");
-		lblGanadorTexto.setBounds(10, 137, 399, 126);
+		lblGanadorTexto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGanadorTexto.setBounds(10, 193, 430, 159);
 		panelGanador.add(lblGanadorTexto);
 		
-		btnGanadorContinuar = new JButton("Continuar");
-		btnGanadorContinuar.setBounds(165, 290, 89, 23);
+		btnGanadorContinuar = new JButton("SALIR");
+		btnGanadorContinuar.setBounds(168, 399, 120, 40);
 		btnGanadorContinuar.setCursor(new Cursor(HAND_CURSOR));
 		panelGanador.add(btnGanadorContinuar);
 		

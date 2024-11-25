@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -20,6 +21,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import javax.swing.JComboBox;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -75,16 +77,23 @@ public class VistaCreacionJug extends JFrame{
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
 		
+		ImageIcon gif = new ImageIcon("imagenes\\pinguim-penguin.gif");
+        Image scaledImage = gif.getImage().getScaledInstance(64,64,Image.SCALE_DEFAULT);
+        ImageIcon scaledGif = new ImageIcon(scaledImage);
+        
+        this.imagenes.add(scaledGif);
+		
 		for (int i = 0; i < 9; i++) {
 			this.paneles.add(new JPanel(new GridBagLayout()));
 			this.paneles.get(i).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
 			GridBagConstraints gbc = new GridBagConstraints();
 			panelCreacion.add(this.paneles.get(i));
 			
-			this.comboboxImg.add(new JComboBox(imagenes));
+			this.comboboxImg.add(new JComboBox<>(imagenes));
 			this.comboboxImg.get(i).setPreferredSize(new Dimension(110, 90));
 			this.comboboxImg.get(i).setMaximumRowCount(5);		
 			this.comboboxImg.get(i).setCursor(new Cursor(HAND_CURSOR));
+					
 			gbc.gridx = 0; 
 	        gbc.gridy = 0; 
 	        gbc.gridwidth = 1; 

@@ -13,9 +13,14 @@ import javax.swing.JLabel;
 
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Image;
+import java.util.Vector;
+
 import javax.swing.JSlider;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
 
 public class VistaOpciones extends JFrame {
 
@@ -46,7 +51,6 @@ public class VistaOpciones extends JFrame {
 		sliderMusica.setBounds(41, 225, 218, 30);
 		contentPane.add(sliderMusica);
 		
-		
 		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalir.setBounds(190, 349, 100, 40);
 		btnSalir.setCursor(new Cursor(HAND_CURSOR));
@@ -54,7 +58,6 @@ public class VistaOpciones extends JFrame {
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 13));
 		contentPane.add(btnSalir);
 		btnSalir.addActionListener(c);
-
 		
 		JLabel lblNewLabel = new JLabel("Opciones");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -69,7 +72,7 @@ public class VistaOpciones extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Sonido");
 		lblNewLabel_2.setBounds(41, 200, 46, 14);
 		contentPane.add(lblNewLabel_2);
-		
+	
 	}
 
 
