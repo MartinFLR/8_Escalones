@@ -618,9 +618,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
                     Double ResParse = Double.valueOf(this.vista.getTxtaproxRespuesta().getText());
                 procesarRespuestaEmpate(ResParse);
                 }catch(NumberFormatException e1){
+                    Notifications.getInstance().show(Notifications.Type.ERROR,Notifications.Location.TOP_CENTER,"Dato invalido, ingresar un numero.");
+                    Notifications.getInstance().setJFrame(vista);
                     System.out.println("Error, ingrese un numero " + e1.getMessage());
                 }
             }
+        });
+
+        this.vista.getBtnGanadorContinuar().addActionListener(e->{
+            new ControladorPrincipal();
         });
         
         KeyAdapter keyListener = new KeyAdapter() {
