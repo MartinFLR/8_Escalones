@@ -9,7 +9,7 @@ import model.ABM.PreguntasDAO;
 import model.Preguntas;
 
 public class VistaModPreguntas extends VistaModPadre {
-	private String encabezado[] = { "ID", "Preguntas" };
+	private String encabezado[] = { "ID", "Preguntas", "Tipo pregunta" };
 	private DefaultTableModel tablaNueva = new DefaultTableModel(null, encabezado);
 	private int numerocategoria;
 	private PreguntasDAO preguntasDAO = new PreguntasDAO();;
@@ -44,6 +44,7 @@ public class VistaModPreguntas extends VistaModPadre {
 		this.getTable().getColumnModel().getColumn(0).setMaxWidth(0);
 		this.getTable().getColumnModel().getColumn(0).setMinWidth(0);
 		this.getTable().getColumnModel().getColumn(0).setPreferredWidth(0);
+		this.getTable().getColumnModel().getColumn(1).setPreferredWidth(580);
 	}
 
 

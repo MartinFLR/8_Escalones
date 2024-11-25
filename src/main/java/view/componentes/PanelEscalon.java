@@ -51,6 +51,10 @@ public class PanelEscalon extends JPanel{
 		setBackground(colorFinal);
 	}
 
+	public void setColorEscalon (Color color) {
+		setBackground(color);
+	}
+	
     public JLabel getLblTema() {
         return this.lblTema;
     }

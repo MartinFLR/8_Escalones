@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,6 +26,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Label;
 
@@ -59,6 +61,8 @@ public class VistaCreacionJug extends JFrame{
 		panelCreacion.setBounds(10, 11, 1244, 595);
 		panelCreacion.setLayout(gridlayout);
 		contentPane.add(panelCreacion);
+		
+
 		
 		// LOGICA DE IMAGENES
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlack.png"));
@@ -124,7 +128,6 @@ public class VistaCreacionJug extends JFrame{
 		btnJugar.putClientProperty( FlatClientProperties.BUTTON_TYPE, FlatClientProperties.BUTTON_TYPE_ROUND_RECT);
 		btnJugar.setBounds(1149, 617, 105, 53);
 		contentPane.add(btnJugar);
-		
 		
 	}
 
