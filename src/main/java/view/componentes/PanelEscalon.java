@@ -13,13 +13,14 @@ public class PanelEscalon extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private JLabel lblTema;
+	private JLabel lblNumeroEscalon;
 	private Color colorOriginal = Color.white, colorUso = new Color(253, 201, 33), colorFinal = new Color(253, 201, 33);
 	
 	public PanelEscalon(Integer num) {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		setLayout(new BorderLayout());
 		setBackground(colorOriginal);
-		JLabel lblNumeroEscalon = new JLabel(String.valueOf(num));
+		lblNumeroEscalon = new JLabel(String.valueOf(num));
 		lblNumeroEscalon.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumeroEscalon.setFont(new Font("Trebuchet MS", Font.PLAIN, 60));
 		lblNumeroEscalon.setForeground(new Color(37, 36, 34));
@@ -41,10 +42,14 @@ public class PanelEscalon extends JPanel{
 	// -- SET DE LOS COLORES EN USO DEL ESCALON EN PARTICULAR
 	public void setcolorUso () {
 		setBackground(colorUso);
+		lblNumeroEscalon.setForeground(new Color(255,255,255));
+		lblTema.setForeground(new Color(255,255,255));
 	}
 	
 	public void setcolorNoUso () {
-		setBackground(colorOriginal);
+		//setBackground(colorOriginal);
+		lblNumeroEscalon.setForeground(new Color(37, 36, 34));
+		lblTema.setForeground(new Color(37, 36, 34));
 	}
 	
 	public void setcolorFinal() {
@@ -58,6 +63,11 @@ public class PanelEscalon extends JPanel{
     public JLabel getLblTema() {
         return this.lblTema;
     }
+
+	public JLabel getLblNumeroEscalon(){
+		return this.lblNumeroEscalon;
+	}
+
 	
 	
 }

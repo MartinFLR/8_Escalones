@@ -13,6 +13,7 @@ import java.util.List;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.ABM.ParticipantesDAO;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import view.VistaJuego;
@@ -23,6 +24,7 @@ import view.componentes.PanelJugadorNormal;
 public class ControladorJuego implements ActionListener, KeyListener {
 	private final VistaJuego vista;
 	private final Escalon escalon;
+    private ParticipantesDAO participantesDAO;
     private int indiceEmpate = 0;
     private int turnoJugador = 0;
     private boolean esperandoRespuesta = false;
@@ -62,12 +64,19 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		colorEscalon.put(6, new Color(255, 69, 0));
 		colorEscalon.put(7, new Color(255, 215, 0));
 		for (int i = 0; i < 8; i++) {
-			this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
+            if (this.escalon.getEscalon() == i) {
+                this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).setcolorUso();
+            }else{
+                this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).setcolorNoUso();
+            }
 		}
     }
 	//Metodos para la ronda normal
 	private void rondaDePreguntas(List<Participante> participantes){
         
+        poneColoresAEscalones();
         mostrarPreguntaActual();
         esperandoRespuesta = true;
 	}
@@ -294,6 +303,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             if(participantes.size()>1){
                 huboEmpate = true;
                 turnoJugador=0;
+                setActivosEmpatados();
                 this.vista.getDefTable().setNumRows(0);
                 this.vista.getPanelAproximacion().setVisible(true);
                 this.vista.getPanelPregunta().setVisible(false);
@@ -321,6 +331,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     //Metodos para la ronda final
     private void rondaFinal(List<Participante> participantes){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
+        poneColoresAEscalones();
         this.respuestasJugador = new ArrayList<>(escalon.getParticipantes().size());
         // Inicializamos la lista con un tamaño igual al número de participantes.
         for (int i = 0; i < escalon.getParticipantes().size(); i++) {
@@ -407,6 +418,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante1.getNombre());
+                        
                         //aca iria la vista de winner
                         PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
                         PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
