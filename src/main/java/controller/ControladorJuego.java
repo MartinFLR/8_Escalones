@@ -271,6 +271,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
         }
     }
+
+    private void repiteEmpate(){
+        turnoJugador = 0;
+    }
     
     //Metodos para la ronda final
     private void rondaFinal(List<Participante> participantes){
@@ -396,6 +400,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
         }
 
+        if (maxErrores == 0) {
+            for (Participante participante : escalon.getParticipantes()) {
+                participantesAEliminar.add(participante);
+            }
+        }
+
         // If there is only one participant with the maximum errors, return only that participant
         if (participantesAEliminar.size() > 1) {
             List<Participante> maxErroresParticipantes = new ArrayList<>();
@@ -406,7 +416,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             return maxErroresParticipantes;
         }
-
         return participantesAEliminar;
     }
     private void filtrarParticipantes(){
