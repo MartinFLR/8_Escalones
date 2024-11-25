@@ -13,6 +13,7 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 	protected JPanel panelerror1;
 	protected JPanel panelerror2;
 	protected boolean activo = true;
+	protected Color colorPaso = new Color(167, 201, 87);
 
 	public PanelJugadorNormal() {
 		setBorder(new LineBorder(new Color(0, 0, 0), 1));
@@ -60,6 +61,10 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 
 	@Override
 	public void setResetErrores () {
+		setBackground(colorOriginal);
+		panelErrores.setBackground(colorOriginal);
+		panelerror1.setVisible(true);
+		panelerror2.setVisible(true);
 		panelerror1.setBackground(colorOriginal);
 		panelerror2.setBackground(colorOriginal);
 	}
@@ -79,15 +84,11 @@ public class PanelJugadorNormal extends PanelJugadorPadre {
 		this.activo = false;	
 	}
 	
-	public void setAvanzo(){
-		this.panelerror1.setVisible(false);
-		this.panelerror2.setVisible(false);
-		this.activo = false;	
-	}
-	
 	public void setPaso() {
 		this.panelerror1.setVisible(false);
 		this.panelerror2.setVisible(false);
+		setBackground(colorPaso);
+		panelErrores.setBackground(colorPaso);
 	}
 	
 	public boolean isActivo(){

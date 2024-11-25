@@ -21,15 +21,11 @@ public class VistaModPreguntas extends VistaModPadre {
 	}
 
 	public void actualizarTabla() {
-		// Limpiar el modelo de la tabla antes de agregar nuevas filas
 		List<Preguntas> listaPreguntas = preguntasDAO.buscarTodos();
 
-		tablaNueva.setRowCount(0); // Limpia las filas existentes
+		tablaNueva.setRowCount(0);
 
-		// Agregar filas a la tabla desde la lista de preguntas
 		for (Preguntas pregunta : listaPreguntas) {
-			// Asegúrate de que los métodos getId_pregunta() y getPregunta() existan en la
-			// clase Preguntas
 			if(pregunta.getIdTema()==this.numerocategoria){
 				Object[] row = { pregunta.getId_pregunta(), pregunta.getPregunta(), pregunta.getTipo_preg() };
 				tablaNueva.addRow(row);

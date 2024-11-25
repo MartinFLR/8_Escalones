@@ -11,31 +11,7 @@ import java.util.Map;
 
 
 
-public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
-
-    public void insertar(PreguntaOpcion entidad) {
-        String sql = "INSERT INTO preguntas (pregunta, id_tema, id_tipopregunta) VALUES (?, ?, ?)";
-
-        try (Connection connection = Database.getInstance().getConnection();
-                PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            pstmt.setString(1, entidad.getPregunta());
-            pstmt.setInt(2, entidad.getIdTema());
-            pstmt.setInt(3, 1); //este es numero en bd de Pregunta opcion multiple
-
-            pstmt.executeUpdate();
-
-            System.out.println("Pregunta agregada exitosamente.");
-
-        } catch (SQLException e) {
-            System.out.println("Error al agregar la pregunta: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void modificar(int id, PreguntaOpcion entidad) {
-        //no tiene
-    }
+public class PreguntaOpcionDAO implements DAOPreguntas<PreguntaOpcion> {
 
     public void insertar(PreguntaOpcion nuevaPregunta, List<Respuesta> respuestas) {
         String queryPregunta = "INSERT INTO preguntas (pregunta, id_tipopregunta, id_tema) "
@@ -150,26 +126,6 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         }
     }
 
-    //busca respuestas para el id_pregunta, se usa para modificar las respuestas de id_pregunta
-    private List<Integer> buscaIdRespuestas(int id_pregunta){
-
-        List<Integer> respuestas = new ArrayList<>();
-        String sql = "SELECT r.id_respuesta FROM respuestas r JOIN preguntas p ON p.id_pregunta=r.id_pregunta WHERE p.id_pregunta = ? ";
-        try(Connection conn = Database.getInstance().getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setInt(1, id_pregunta);
-            try(ResultSet rs = pstmt.executeQuery()){
-                while(rs.next()){
-                    respuestas.add(rs.getInt("id_respuesta"));
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("No se pudo encontrar respuestas para id_pregunta: " + id_pregunta + e.getMessage() );
-        }
-        return respuestas;
-
-    }
-
     //aca nuevaPregunta deberia tener ya el arreglo de respuestas usando el constructor con arraylist de respuestas
     public void modificar(int id,PreguntaOpcion entidad, List<Respuesta> respuestas) {
         String queryPregunta = "UPDATE preguntas SET pregunta = ?, id_tema = ?, id_tipopregunta = ? WHERE id_pregunta = ?";
@@ -221,7 +177,7 @@ public class PreguntaOpcionDAO implements DAO<PreguntaOpcion> {
         //aca basicamente digo que no importa si tiene acento
         String sql = "SELECT id_pregunta, pregunta, id_tema FROM preguntas "+
                 "WHERE TRANSLATE(LOWER(pregunta), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') "+"" +
-                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ?";
+                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ? AND id_tipopregunta = 1";
 
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

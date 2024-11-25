@@ -30,6 +30,7 @@ public class ControladorModPreguntas {
         this.vista = new VistaModPreguntas(this);
         this.vista.setVisible(true);
         botones();
+  
     }
 
     public void botones() {
@@ -95,7 +96,7 @@ public class ControladorModPreguntas {
         });
 
         this.vista.getBtnEditar().addActionListener(e -> {
-            int filaSeleccionada = this.vista.getTable().getSelectedRow();
+        	int filaSeleccionada = this.vista.getTable().getSelectedRow();
             int idPregunta = Integer.parseInt(this.vista.getTable().getValueAt(filaSeleccionada, 0).toString());
             pregunta = this.vista.getTable().getValueAt(filaSeleccionada, 1).toString();
             tipoPregunta = this.vista.getTable().getValueAt(filaSeleccionada, 2).toString();

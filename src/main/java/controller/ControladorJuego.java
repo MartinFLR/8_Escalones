@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import model.ABM.ParticipantesDAO;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.logica.Escalon;
 import model.logica.Ronda;
+import raven.toast.Notifications;
 import view.VistaJuego;
 import view.componentes.PanelJugadorFinal;
 import view.componentes.PanelJugadorNormal;
@@ -23,10 +25,10 @@ import view.componentes.PanelJugadorNormal;
 public class ControladorJuego implements ActionListener, KeyListener {
 	private final VistaJuego vista;
 	private final Escalon escalon;
+    private ParticipantesDAO participantesDAO;
     private int indiceEmpate = 0;
     private int turnoJugador = 0;
     private boolean esperandoRespuesta = false;
-    private int  indiceActualPar=0;
     private boolean huboEmpate=false;
     private boolean nuevaRondaFinal=true;
     private List<String> respuestasJugador;
@@ -43,7 +45,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         poneColoresAEscalones();
         
         inicializarActionListeners();
-        this.rondaDePreguntas(this.escalon.getParticipantes());
+        this.rondaDePreguntas();
         //Mostrar en la vista
 			// La cant errores
             // Cant aciertos
@@ -62,12 +64,20 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		colorEscalon.put(6, new Color(255, 69, 0));
 		colorEscalon.put(7, new Color(255, 215, 0));
 		for (int i = 0; i < 8; i++) {
-			this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
+            if (this.escalon.getEscalon() == i) {
+                this.vista.getEscalones().get(i).getLblNumeroEscalon().setForeground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).getLblTema().setForeground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).setBackground(Color.white);
+            }else{
+                this.vista.getEscalones().get(i).setBackground(colorEscalon.get(i));
+                this.vista.getEscalones().get(i).setcolorNoUso();
+            }
 		}
     }
 	//Metodos para la ronda normal
-	private void rondaDePreguntas(List<Participante> participantes){
+	private void rondaDePreguntas(){
         
+        poneColoresAEscalones();
         mostrarPreguntaActual();
         esperandoRespuesta = true;
 	}
@@ -103,21 +113,19 @@ public class ControladorJuego implements ActionListener, KeyListener {
         procesarPregunta(participante, posParticipante, respuesta);
 
         turnoJugador++;
-        if (turnoJugador < escalon.getParticipantes().size()) {
-                indiceActualPar = turnoJugador;
-            } else {
-                indiceActualPar = 0;
-            }
+        
 
         // Actualiza la flag de huboEmpate para que no continue el flujo del juego
         if(turnoJugador == escalon.getParticipantes().size()
         && getParticipantesAEliminar().size()>1
         && participante.getPreguntasParticipante().isEmpty()){
+            Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"Ronda de Aproximación");
+            Notifications.getInstance().setJFrame(vista);
             huboEmpate = true;
             turnoJugador = 0;
             indiceEmpate = escalon.getParticipantes().indexOf(getParticipantesAEliminar().getFirst());
             escalon.getEstadoDeRonda().setRondaDeEmpate(getParticipantesAEliminar());
-            escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(), getParticipantesAEliminar(), escalon.getTema());
+            escalon.getEstadoDeRonda().actualizarDatos(getParticipantesAEliminar(), escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
@@ -164,7 +172,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 panelJugadorNormal.setResetErrores();
                 }
             }
-            this.rondaDePreguntas(escalon.getParticipantes());
+            this.rondaDePreguntas();
         } else if (this.escalon.getEscalon() == 7){
             if (nuevaRondaFinal){
                 manejarRondaFinal();
@@ -176,7 +184,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void manejarRondaFinal() {
         if (turnoJugador >= escalon.getParticipantes().size()) {
             turnoJugador = 0;
-            indiceActualPar = 0;
+        
         }
 
         Ronda ronda = this.escalon.getEstadoDeRonda();
@@ -198,14 +206,13 @@ public class ControladorJuego implements ActionListener, KeyListener {
             par.setCantAciertos(0);
             par.setCantErrores(0);
         }
-        ronda.actualizarDatos(ronda, this.escalon.getParticipantes(), this.escalon.getTema());
+        ronda.actualizarDatos(this.escalon.getParticipantes(), this.escalon.getTema());
         
-        this.rondaFinal(this.escalon.getParticipantes());
+        this.rondaFinal();
     }
     private void manejarRondaNormal() {
         if (turnoJugador == escalon.getParticipantes().size()) {
             turnoJugador = 0;
-            indiceActualPar = 0;
         }
         setColores();
         esperandoRespuesta = false;
@@ -249,7 +256,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             huboEmpate = true;
             Ronda ronda = this.escalon.getEstadoDeRonda();
-            ronda.actualizarDatos(ronda, participantes, this.escalon.getTema());
+            ronda.actualizarDatos(participantes, this.escalon.getTema());
         } else if (peorParticipante != null) {
             peorParticipante.sumaError();
             participantes.add(peorParticipante);
@@ -267,7 +274,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
         if (this.escalon.getEscalon()<7){
             this.vista.getJugadorNormal().get(posParticipante).setRespondiendo();
         }else{
-            this.vista.getJugadorFinal().get(posParticipante).setRespondiendo();//cheqeuar si no anda borrar
+            this.vista.getJugadorFinal().get(posParticipante).setRespondiendo();
+            if (posParticipante==0){
+                this.vista.getJugadorFinal().get(posParticipante).setActivo();
+            }
         }
         
         esperandoRespuesta = true;
@@ -294,11 +304,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
             if(participantes.size()>1){
                 huboEmpate = true;
                 turnoJugador=0;
+                setActivosEmpatados();
                 this.vista.getDefTable().setNumRows(0);
                 this.vista.getPanelAproximacion().setVisible(true);
                 this.vista.getPanelPregunta().setVisible(false);
                 this.rondaEmpate(participantes);
-                this.escalon.getEstadoDeRonda().actualizarDatos(this.escalon.getEstadoDeRonda(), participantes, this.escalon.getTema());
+                this.escalon.getEstadoDeRonda().actualizarDatos( participantes, this.escalon.getTema());
                 mostrarPreguntaEmpate();
             }else{
                 huboEmpate= false;
@@ -313,31 +324,34 @@ public class ControladorJuego implements ActionListener, KeyListener {
         for(Participante participante:escalon.getParticipantes()){
             int index = escalon.getParticipantes().indexOf(participante);
             if(!getParticipantesAEliminar().contains(participante)){
-                this.vista.getJugadorNormal().get(index).setResetErrores();
+                this.vista.getJugadorNormal().get(index).setPaso();
             }
         }
     }
 
     //Metodos para la ronda final
-    private void rondaFinal(List<Participante> participantes){
+    private void rondaFinal(){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
+        poneColoresAEscalones();
+        this.vista.getJugadorFinal().get(0).setNombre(this.escalon.getParticipantes().get(0).getNombre());
+        this.vista.getJugadorFinal().get(0).setImagen(this.escalon.getParticipantes().get(0).getImg());
+        this.vista.getJugadorFinal().get(1).setNombre(this.escalon.getParticipantes().get(1).getNombre());
+        this.vista.getJugadorFinal().get(1).setImagen(this.escalon.getParticipantes().get(1).getImg()); 
         this.respuestasJugador = new ArrayList<>(escalon.getParticipantes().size());
         // Inicializamos la lista con un tamaño igual al número de participantes.
         for (int i = 0; i < escalon.getParticipantes().size(); i++) {
-            respuestasJugador.add(null);  // Inicializa las respuestas como nulas
+            respuestasJugador.add(null); 
         }
         mostrarPreguntaActual();
     }
     private void procesarRespuestaFinal(String respuesta, Participante participante) {
         int posParticipante = escalon.getParticipantes().indexOf(participante);
-        respuestasJugador.set(posParticipante, respuesta);  // Asignamos la respuesta del jugador
-        
-            // Avanzar al siguiente turno
+        respuestasJugador.set(posParticipante, respuesta);  // Asigna la respuesta del jugador
+
         System.out.println("Participantes " + this.escalon.getParticipantes());
         System.out.println("Respuestas actuales: " + respuestasJugador);
-        // Verificamos si todos los jugadores han respondido
+        // si todos los jugadores respondieron avanza
         if (!respuestasJugador.contains(null)) {  // Si no hay respuestas nulas
-            // Procesamos las respuestas de todos los jugadores
             for (int i = 0; i < escalon.getParticipantes().size(); i++) {
                 Participante p = escalon.getParticipantes().get(i);
                 String respuestaActual = respuestasJugador.get(i);
@@ -350,18 +364,17 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 } else {
                     this.vista.getJugadorFinal().get(i).setError(p);
                     p.sumaError();
+                    System.out.println("respuesta correcta: "+ preguntaActual.getRespuestaCorrecta());
+                    System.out.println("pregunta: "+ preguntaActual.getPregunta());
                     System.out.println("suma error");
                 }
     
-                // Eliminar la pregunta actual para el participante
+                // Eliminar la pregunta actual  del participante
                 p.getPreguntasParticipante().remove(0);
-                // Mostrar la siguiente pregunta si es necesario
-            
             }
         // Reiniciar la lista de respuestas para la siguiente ronda
             for (int i = 0; i < this.escalon.getParticipantes().size(); i++) {
-                respuestasJugador.set(i, null);  // Limpiamos las respuestas
-                System.out.println("Respuestas actuales despues de nullear: " + respuestasJugador);
+                respuestasJugador.set(i, null); 
             }
             if (turnoJugador >= escalon.getParticipantes().size()) {
                 turnoJugador = 0;
@@ -369,24 +382,18 @@ public class ControladorJuego implements ActionListener, KeyListener {
             if (!this.escalon.getParticipantes().get(turnoJugador).getPreguntasParticipante().isEmpty()) {
                 mostrarPreguntaActual();
             } else {
+                
                 verificarRondaFinalYGanador();
             }
         }
-    turnoJugador++;
-    if (turnoJugador >= escalon.getParticipantes().size()) {
-        turnoJugador = 0;
-    }
-    
+        turnoJugador++;
+        if (turnoJugador >= escalon.getParticipantes().size()) {
+            turnoJugador = 0;
+        }
     }
     private void mostrarPreguntaFinal(Participante participante){
-        //Podemos usar .remove() para sacar la preg y que no se repita
-        
         PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
-        int posParticipante = escalon.getParticipantes().indexOf(participante);
-        indiceActualPar= escalon.getParticipantes().indexOf(participante);
-        PanelJugadorFinal panelParticipante = this.vista.getJugadorFinal().get(posParticipante);
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
-        
         esperandoRespuesta=true;
         this.vista.getLblprePregunta().setText("<html><div style='width: 350px; text-align: center;margin-left: 100px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
@@ -394,7 +401,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
         this.vista.getBtnpreRespuesta4().setText(pregunta.getOpcionD());
         
+    }
+    private void agregaGanador(Participante participanteGg){
+        ParticipantesDAO pGanador = new ParticipantesDAO();
+        if(pGanador.existeParticipante(participanteGg)){
+            pGanador.modificarVecesGanadas(participanteGg);
+        }else{
+            pGanador.insertar(participanteGg);
+            pGanador.modificarVecesGanadas(participanteGg);
         }
+    }
     private void verificarRondaFinalYGanador() {
         List<Participante> participantesFinales = this.escalon.getParticipantes();
         Participante participante1 = participantesFinales.get(0);
@@ -407,30 +423,31 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante1.getNombre());
-                        //aca iria la vista de winner
-                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
-                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
-                        //panelParFinal.setCampeon();
-                        //panelParFinal2.setEliminado();
+                        //agregaganador o modifica veces ganadas:
+                        agregaGanador(participante1);
+                        this.vista.setGanadorImagen(this.escalon.getParticipantes().getFirst().getImg());
                         this.vista.setGanadorNombre(this.escalon.getParticipantes().getFirst().getNombre());
+                        this.vista.getBtnGanadorContinuar().setVisible(true);
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
-                        //deberia saltar una ultima vista con dialog campeon
+                        this.vista.setBackgroundGanador();
+                        
                     } else if (aciertos2 > aciertos1) {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
                         System.out.println("cantidad aciertos juador 1 "+ aciertos2);
                         System.out.println("El ganador es: " + participante2.getNombre());
+                        //agrega ganador o modifica veces ganadas:
+                        agregaGanador(participante2);
+                        this.vista.setGanadorImagen(this.escalon.getParticipantes().getFirst().getImg());
                         this.vista.setGanadorNombre(this.escalon.getParticipantes().get(1).getNombre());
-                        PanelJugadorFinal panelParFinal=this.vista.getJugadorFinal().get(0);
-                        PanelJugadorFinal panelParFinal2=this.vista.getJugadorFinal().get(1);
-                        //panelParFinal2.setCampeon();
-                        //panelParFinal.setEliminado();
+                        this.vista.getBtnGanadorContinuar().setVisible(true);
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
-                        //aca iria la vista de winner
-                        //deberia saltar una ultima vista con dialog campeon y que salte al inicio
+                        this.vista.getPanelColumna().setVisible(false);
+                        this.vista.setBackgroundGanador();
+                        
                     }}
             }  else if (aciertos1==aciertos2){
             for (Participante par: participantesFinales){
@@ -439,7 +456,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             huboEmpate=true;
             escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
-            escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
+            escalon.getEstadoDeRonda().actualizarDatos(participantesFinales, escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
@@ -449,17 +466,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void empateFinal(){
         if (huboEmpate==false){
             this.vista.setGanadorNombre(this.escalon.getParticipantes().getFirst().getNombre());
+            agregaGanador(this.escalon.getParticipantes().getFirst());
+            this.vista.setGanadorImagen(this.escalon.getParticipantes().getFirst().getImg());
+            this.vista.getBtnGanadorContinuar().setVisible(true);
             this.vista.getPanelGanador().setVisible(true);
             this.vista.getPanelPregunta().setVisible(false);
             this.vista.getPanelFinal().setVisible(false);
+            this.vista.getPanelColumna().setVisible(false);
+            this.vista.setBackgroundGanador();
         }
     }
-	private void poneNombres(){
-        for (int i = 0; i < 9; i++) {
-			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
-			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
-		}
-	}
 	
 	//Metodos para filtrar y eliminar participantes
 	private List<Participante> getParticipantesAEliminar() {
@@ -484,8 +500,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 participantesAEliminar.add(participante);
             }
         }
-
-        // If there is only one participant with the maximum errors, return only that participant
         if (participantesAEliminar.size() > 1) {
             List<Participante> maxErroresParticipantes = new ArrayList<>();
             for (Participante participante : participantesAEliminar) {
@@ -504,14 +518,13 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // les envia la pregunta de aproximacion a todos los participantes empatados.
             this.vista.getPanelPregunta().setVisible(false);
         	this.vista.getPanelAproximacion().setVisible(true);
+            
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             huboEmpate = true;
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
-            ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
+            ronda.actualizarDatos(participantesAEliminar, this.escalon.getTema());
             
-            // Aca hay que meter la logica a la ronda de empate, aunque capaz no hace falta
-            // mostrarPreguntaEmpate()
         }else{
             //Si solo hay uno, se elimina
             Participante participante = participantesAEliminar.getFirst();
@@ -524,15 +537,14 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 Ronda estado = this.escalon.getEstadoDeRonda();
                 estado.setRondaNormal();
             escalon.setTema();
-            estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
-            this.rondaDePreguntas(escalon.getParticipantes());
+            estado.actualizarDatos(escalon.getParticipantes(), escalon.getTema());
+            this.rondaDePreguntas();
             }
             this.escalon.eliminaParticipante(participante);
-            
+            Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"Ha sido eliminado: " + participante.getNombre());
+            Notifications.getInstance().setJFrame(vista);
             this.vista.getPanelAproximacion().setVisible(false);
             this.vista.getPanelPregunta().setVisible(true);
-           
-            
         }
     }
 
@@ -581,9 +593,17 @@ public class ControladorJuego implements ActionListener, KeyListener {
                     Double ResParse = Double.valueOf(this.vista.getTxtaproxRespuesta().getText());
                 procesarRespuestaEmpate(ResParse);
                 }catch(NumberFormatException e1){
+                    Notifications.getInstance().show(Notifications.Type.ERROR,Notifications.Location.TOP_CENTER,"Dato invalido, ingresar un numero.");
+                    Notifications.getInstance().setJFrame(vista);
                     System.out.println("Error, ingrese un numero " + e1.getMessage());
                 }
             }
+        });
+
+        this.vista.getBtnGanadorContinuar().addActionListener(e->{
+            this.vista.setbackgroundOriginal();
+            this.vista.dispose();
+        	new ControladorPrincipal();
         });
         
         KeyAdapter keyListener = new KeyAdapter() {
@@ -623,7 +643,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
     private void setColores(){
     //Setea los colores del fondo para indicar de quien es el turno
-    Participante participante = escalon.getParticipantes().get(turnoJugador);
+    Participante participante;
         if (turnoJugador!=0 ){
             participante = escalon.getParticipantes().get(turnoJugador-1);
             int nroParticipante = escalon.getParticipantes().indexOf(participante);
@@ -636,14 +656,20 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 panelParticipante.setActivo(); 
             }}
     private void poneNombresEscalones(){
-        this.vista.getEscalones().getFirst().getLblTema().setText(this.escalon.getTema().getNombre());
+        this.vista.getEscalones().getFirst().getLblTema().setText("<html><div style='margin-bottom:4px'>"+this.escalon.getTema().getNombre()+"</div></html>");
         int indice=0;
         for (int i = 1; i < 7; i++) {
-            this.vista.getEscalones().get(i).getLblTema().setText(this.escalon.getTemas().get(indice).getNombre());
+            this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px'>"+this.escalon.getTemas().get(indice).getNombre()+"</div></html>");
             indice++;
         }
     }
-	@Override
+	private void poneNombres(){
+        for (int i = 0; i < 9; i++) {
+			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
+			this.vista.getJugadorNormal().get(i).setImagen(escalon.getParticipantes().get(i).getImg());
+		}
+	}
+    @Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		

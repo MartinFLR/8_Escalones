@@ -28,6 +28,9 @@ public class VistaRanking extends JFrame{
 	private JButton btnSalir;
 	private JTable table;
 	private DefaultTableModel defTableModel;
+	private JButton btnEliminarRanking;
+	private JButton btnModificarRanking;
+
 	
 	
 	public VistaRanking (ControladorRanking c) {
@@ -44,7 +47,7 @@ public class VistaRanking extends JFrame{
 		JLabel lblRanking = new JLabel("RANKING");
 		lblRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblRanking.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRanking.setBounds(10, 11, 777, 85);
+		lblRanking.setBounds(17, 9, 765, 67);
 		contentPane.add(lblRanking);
 		lblRanking.setIcon(new FlatSVGIcon("star_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 50, 50));
 		
@@ -76,20 +79,32 @@ public class VistaRanking extends JFrame{
 		sc.setViewportView(table);
 		contentPane.add(sc);
 		
+		FlatSVGIcon iconEliminar = new FlatSVGIcon("delete_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20);
+		btnEliminarRanking = new JButton("Eliminar");
+		btnEliminarRanking.setIcon(iconEliminar);
+		btnEliminarRanking.setBounds(682, 38, 100, 40);
+		contentPane.add(btnEliminarRanking);
+		
+		FlatSVGIcon iconEditar= new FlatSVGIcon("edit_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20);
+		btnModificarRanking = new JButton("Editar");
+		btnModificarRanking.setIcon(iconEditar);
+		btnModificarRanking.setBounds(572, 39, 100, 40);
+		contentPane.add(btnModificarRanking);
+		
 	}
 
 	public ControladorRanking getC() {
 		return c;
 	}
+	
 	public void setC(ControladorRanking c) {
 		this.c = c;
 	}
 
-	
 	public DefaultTableModel getDefTableModel() {
 		return defTableModel;
 	}
-	
+
 	public void setDefTableModel(DefaultTableModel defTableModel) {
 		this.defTableModel = defTableModel;
 	}
@@ -105,6 +120,13 @@ public class VistaRanking extends JFrame{
 	public void setTable(JTable table) {
 		this.table = table;
 	}
+
+	public JButton getBtnEliminarRanking() {
+		return btnEliminarRanking;
+	}
 	
+	public JButton getBtnModificarRanking(){
+		return btnModificarRanking;
+	}
 	
 }

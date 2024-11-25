@@ -17,17 +17,21 @@ public class ParticipantesDAO implements DAO<Participante> {
         if (!existeParticipante(participante)) {
             try (Connection conn = Database.getInstance().getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                 
                 pstmt.setString(1, participante.getNombre());
-
-                pstmt.executeUpdate();
-                System.out.println("Participante agregado con éxito.");
+                
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Participante agregado con éxito.");
+                }
             } catch (SQLException e) {
                 System.err.println("Error al agregar participante: " + e.getMessage());
             }
-        }else{
-            System.out.println("El participante ya existe, elige otro nombre");
+        } else {
+            System.out.println("El participante ya existe, elige otro nombre.");
         }
     }
+    
 
     @Override
     public List<Participante> buscarTodos() {
@@ -68,44 +72,36 @@ public class ParticipantesDAO implements DAO<Participante> {
 
     @Override
     public void modificar(int id, Participante nuevoParticipante) {
-
         String sql = "UPDATE participantes SET nombre = ? WHERE id = ?";
-
         if (nuevoParticipante == null || nuevoParticipante.getNombre() == null || nuevoParticipante.getNombre().trim().isEmpty()) {
             System.out.println("El nombre del participante no puede ser vacío.");
             return;
         }
-
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Establecemos los parámetros de la consulta
             pstmt.setString(1, nuevoParticipante.getNombre());
             pstmt.setInt(2, id);
 
-            // Ejecutamos la actualización
             int filasActualizadas = pstmt.executeUpdate();
 
-            // Verificamos si alguna fila fue actualizada
             if (filasActualizadas > 0) {
                 System.out.println("Participante modificado con éxito.");
             } else {
                 System.out.println("No se encontró el participante con ID: " + id);
             }
         } catch (SQLException e) {
-            // Imprimir el error detallado si algo falla
             System.err.println("Error al modificar participante: " + e.getMessage());
         }
     }
 
-    public void modificarVecesGanadas(String nombreParticipante) {
-
+    public void modificarVecesGanadas(Participante participante) {
         String sql = "UPDATE participantes SET veces_ganadas = veces_ganadas + ? WHERE nombre = ? ";
         try (Connection conn = Database.getInstance().getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, 1);
-            pstmt.setString(2, nombreParticipante);
+            pstmt.setString(2, participante.getNombre());
 
             pstmt.executeUpdate();
             System.out.println("Veces ganadas modificada con exito");
@@ -114,18 +110,17 @@ public class ParticipantesDAO implements DAO<Participante> {
         }
     }
 
-    public static List<Participante> Ranking(){
+    public List<Participante> ranking(){
         List<Participante> top10participantes = new ArrayList<>();
-        String sql = "SELECT p.nombre, p.veces_ganadas FROM participantes p GROUP BY p.nombre, p.veces_ganadas ORDER BY p.veces_ganadas DESC LIMIT 10;";
+        String sql = "SELECT * FROM participantes GROUP BY nombre,id, veces_ganadas ORDER BY veces_ganadas DESC LIMIT 20;";
         {
         try (Connection conn = Database.getInstance().getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery()){
 
             while(rs.next()){
-                top10participantes.add(new Participante(rs.getString("nombre"), rs.getInt("veces_ganadas")));
+                top10participantes.add(new Participante(rs.getInt("id"),rs.getString("nombre"), rs.getInt("veces_ganadas")));
             }
-            
         } catch (SQLException e) {
            System.out.println("Error al formar ranking: " + e.getMessage());
         }
@@ -133,8 +128,7 @@ public class ParticipantesDAO implements DAO<Participante> {
     }
     return top10participantes;
     }
-
-        private Boolean existeParticipante(Participante participante) {
+        public Boolean existeParticipante(Participante participante) {
         String query = "SELECT * FROM participantes WHERE nombre = ?";
 
         try (Connection conn = Database.getInstance().getConnection();
