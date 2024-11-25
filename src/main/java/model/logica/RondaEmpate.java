@@ -15,7 +15,7 @@ public class RondaEmpate implements EstadoRonda {
             // Setee la cant errores
             // Setee la cant aciertos
             // Filtrar la cant participantes
-        PreguntaAproximacion preguntaAproximacion = tema.getPregsAproximacion().getFirst();
+        PreguntaAproximacion preguntaAproximacion = tema.getPregsAproximacion().removeFirst();
         for (Participante participante : participantes) {//reparte la pregunta de aproximacion a los participantes dados.
             participante.setPregEmpate(preguntaAproximacion);
         }
