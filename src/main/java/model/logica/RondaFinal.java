@@ -16,12 +16,8 @@ public class RondaFinal implements EstadoRonda {
             // Filtrar la cant participantes
 
             for (Participante participante : participantes) {
-                
-                if (!participante.getPreguntasParticipante().isEmpty()){
-                    for (PreguntaOpcion p: participante.getPreguntasParticipante()){
-                    participante.getPreguntasParticipante().removeFirst();
-    }} }
-    for (int i = 0; i < 9; i++) {
+                participante.getPreguntasParticipante().clear();}
+    for (int i = 0; i < 10; i++) {
         // Sacamos una pregunta una sola vez
         PreguntaOpcion pregunta = tema.sacarPreguntaOp();
 
