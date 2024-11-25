@@ -30,7 +30,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private boolean huboEmpate=false;
     private boolean nuevaRondaFinal=true;
     private List<String> respuestasJugador;
-    private HashMap<Integer, Color> colorEscalon = new HashMap<Integer, Color>();
+    private final HashMap<Integer, Color> colorEscalon = new HashMap<>();
 
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
@@ -221,8 +221,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante peorParticipante = null;
         List<Participante> empatados = new ArrayList<>();
 
-        //Aca deberia ir la logica para manejar los turnos
-
         //recorre la lista de participantes y compara las respuestas de los participantes con la respuesta correcta
         for (model.Participante participante: participantes){	
             Double respuestaParticipante = participante.getRespuestaParticipanteEmpate();
@@ -240,7 +238,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
         }
         
-        participantes.clear(); // vacia la lista.
+        participantes.clear();
 
         if(empatados.size()>1){
             participantes.addAll(empatados);

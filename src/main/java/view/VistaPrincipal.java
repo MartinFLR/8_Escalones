@@ -194,7 +194,7 @@ public class VistaPrincipal extends JFrame {
 		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitutlo.setBounds(20, 16, 1244, 169);
 		ImageIcon img =new ImageIcon("imagenes/8escalones.png");
-        Image scaledImage1 = img.getImage().getScaledInstance(600,250,Image.SCALE_DEFAULT);
+        Image scaledImage1 = img.getImage().getScaledInstance(580,240,Image.SCALE_SMOOTH);
         ImageIcon scaledImg = new ImageIcon(scaledImage1);
         lblTitutlo.setIcon(scaledImg);
 		contentPane.add(lblTitutlo);
