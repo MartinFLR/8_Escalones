@@ -30,6 +30,7 @@ public class VistaRanking extends JFrame{
 	private DefaultTableModel defTableModel;
 	private JButton btnEliminarRanking;
 	private JButton btnModificarRanking;
+
 	
 	
 	public VistaRanking (ControladorRanking c) {
@@ -99,11 +100,11 @@ public class VistaRanking extends JFrame{
 	public void setC(ControladorRanking c) {
 		this.c = c;
 	}
-	
+
 	public DefaultTableModel getDefTableModel() {
 		return defTableModel;
 	}
-	
+
 	public void setDefTableModel(DefaultTableModel defTableModel) {
 		this.defTableModel = defTableModel;
 	}

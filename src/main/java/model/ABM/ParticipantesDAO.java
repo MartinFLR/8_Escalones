@@ -120,14 +120,14 @@ public class ParticipantesDAO implements DAO<Participante> {
 
     public static List<Participante> Ranking(){
         List<Participante> top10participantes = new ArrayList<>();
-        String sql = "SELECT p.nombre, p.veces_ganadas FROM participantes p GROUP BY p.nombre, p.veces_ganadas ORDER BY p.veces_ganadas DESC LIMIT 20;";
+        String sql = "SELECT * FROM participantes GROUP BY nombre,id, veces_ganadas ORDER BY veces_ganadas DESC LIMIT 20;";
         {
         try (Connection conn = Database.getInstance().getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery()){
 
             while(rs.next()){
-                top10participantes.add(new Participante(rs.getString("nombre"), rs.getInt("veces_ganadas")));
+                top10participantes.add(new Participante(rs.getInt("id"),rs.getString("nombre"), rs.getInt("veces_ganadas")));
             }
             
         } catch (SQLException e) {

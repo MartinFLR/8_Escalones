@@ -21,9 +21,8 @@ public class ControladorRanking implements ActionListener{
 		this.vista = new VistaRanking (this);
 		this.vista.setVisible(true);
 		this.participantesDAO = new ParticipantesDAO();
-		inicializarBotones();
-		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
 		this.rellenarTablas();
+		inicializarBotones();
 	}
 
 	private void inicializarBotones(){
@@ -74,6 +73,8 @@ public class ControladorRanking implements ActionListener{
 			dialogoEliminar.add(btnSalir);
 			dialogoEliminar.setVisible(true);
 		});
+
+		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
 	}
 
 
@@ -84,11 +85,20 @@ public class ControladorRanking implements ActionListener{
 	public void rellenarTablas() {
 		List<Participante> participantes = ParticipantesDAO.Ranking();
 		getVista().getDefTableModel().setRowCount(0);
-		
+
+
 		for (Participante participante : participantes) {
 			Object [] row = {participante.getId(), participante.getNombre(), participante.getVecesGanadas()};
 			getVista().getDefTableModel().addRow(row);
 		}
+
+		this.vista.getTable().setDefaultEditor(Object.class, null);
+		this.vista.getTable().getTableHeader().setReorderingAllowed(false);
+		this.vista.getTable().getTableHeader().setResizingAllowed(false);
+		this.vista.getTable().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTable().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTable().getColumnModel().getColumn(0).setPreferredWidth(0);
+		this.vista.getTable().getColumnModel().getColumn(1).setPreferredWidth(580);
 	}
 
 	public VistaRanking getVista() {
