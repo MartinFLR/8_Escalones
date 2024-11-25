@@ -31,7 +31,7 @@ public class VistaModPreguntas extends VistaModPadre {
 			// Asegúrate de que los métodos getId_pregunta() y getPregunta() existan en la
 			// clase Preguntas
 			if(pregunta.getIdTema()==this.numerocategoria){
-				Object[] row = { pregunta.getId_pregunta(), pregunta.getPregunta() };
+				Object[] row = { pregunta.getId_pregunta(), pregunta.getPregunta(), pregunta.getTipo_preg() };
 				tablaNueva.addRow(row);
 			}
 		}

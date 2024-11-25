@@ -189,12 +189,14 @@ public class VistaPrincipal extends JFrame {
 		btnModificar.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnModificar);
 		btnModificar.addActionListener(controlador);
-		
-		JLabel lblTitutlo = new JLabel("8 ESCALONES");
+
+		JLabel lblTitutlo = new JLabel();
 		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
-		lblTitutlo.setForeground(Color.CYAN);
 		lblTitutlo.setBounds(20, 16, 1244, 169);
+		ImageIcon img =new ImageIcon("imagenes/8escalones.png");
+        Image scaledImage1 = img.getImage().getScaledInstance(750,250,Image.SCALE_DEFAULT);
+        ImageIcon scaledImg = new ImageIcon(scaledImage1);
+        lblTitutlo.setIcon(scaledImg);
 		contentPane.add(lblTitutlo);
 		
 		JLabel background = new JLabel();
