@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +16,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import controller.ControladorPrincipal;
-import javax.swing.ImageIcon;
 
 public class VistaPrincipal extends JFrame {
 
@@ -194,7 +194,7 @@ public class VistaPrincipal extends JFrame {
 		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitutlo.setBounds(20, 16, 1244, 169);
 		ImageIcon img =new ImageIcon("imagenes/8escalones.png");
-        Image scaledImage1 = img.getImage().getScaledInstance(750,250,Image.SCALE_DEFAULT);
+        Image scaledImage1 = img.getImage().getScaledInstance(600,250,Image.SCALE_DEFAULT);
         ImageIcon scaledImg = new ImageIcon(scaledImage1);
         lblTitutlo.setIcon(scaledImg);
 		contentPane.add(lblTitutlo);
