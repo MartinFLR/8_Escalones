@@ -61,7 +61,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
             PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
             int posParticipante = escalon.getParticipantes().indexOf(participante);
             PanelJugadorNormal panelParticipante = this.vista.getJugadorNormal().get(posParticipante);
-            
+            System.out.println("Pregunta ID: "+pregunta.getId_pregunta());
+            System.out.println("Pregunta: "+ pregunta.getPregunta());
             System.out.println("Respuesta correcta: " + pregunta.getRespuestaCorrecta());
             panelParticipante.setRespondiendo();
             
