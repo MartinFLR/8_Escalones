@@ -418,7 +418,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         	this.vista.getPanelAproximacion().setVisible(true);
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             huboEmpate = true;
-
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
             ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
@@ -550,11 +549,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getEscalones().getFirst().getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTema().getNombre() + "</div></html>");
         for(int i = 0; i < 7; i++){
             System.out.println("tema "+i+" "+this.escalon.getTemas().get(i).getNombre());
-            if(i==0){
-            }else{
-                this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTemas().get(i-1).getNombre() + "</div></html>");
-            }
+            this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTemas().get(i-1).getNombre() + "</div></html>");
         }
+        this.vista.getEscalones().getLast().setcolorFinal();
     }
 	@Override
 	public void keyTyped(KeyEvent e) {
