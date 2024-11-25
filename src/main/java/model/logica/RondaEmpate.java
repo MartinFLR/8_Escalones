@@ -10,7 +10,7 @@ import model.Tema;
 public class RondaEmpate implements EstadoRonda {
 
     @Override
-    public void actualizarDatos(Ronda ronda, List<Participante> participantes, Tema tema) {
+    public void actualizarDatos(List<Participante> participantes, Tema tema) {
         //Actualizar datos
             // Setee la cant errores
             // Setee la cant aciertos
