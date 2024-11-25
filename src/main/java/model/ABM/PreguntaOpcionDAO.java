@@ -177,7 +177,7 @@ public class PreguntaOpcionDAO implements DAOPreguntas<PreguntaOpcion> {
         //aca basicamente digo que no importa si tiene acento
         String sql = "SELECT id_pregunta, pregunta, id_tema FROM preguntas "+
                 "WHERE TRANSLATE(LOWER(pregunta), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') "+"" +
-                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ?";
+                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ? AND id_tipopregunta = 1";
 
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
