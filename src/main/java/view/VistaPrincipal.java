@@ -126,7 +126,7 @@ public class VistaPrincipal extends JFrame {
 		
 		//---BOTONES PANTALLA PRINCIPAL
 		btnJugar = new JButton("JUGAR");
-		btnJugar.setBounds(507, 196, 250, 60);
+		btnJugar.setBounds(507, 210, 250, 60);
 		btnJugar.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnJugar);
 		btnJugar.addActionListener(controlador);
@@ -134,7 +134,7 @@ public class VistaPrincipal extends JFrame {
 		
 
 		btnOpciones = new JButton("OPCIONES");
-		btnOpciones.setBounds(507, 267, 250, 60);	
+		btnOpciones.setBounds(507, 281, 250, 60);	
 		btnOpciones.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnOpciones);
 		btnOpciones.addActionListener(controlador);
@@ -142,7 +142,7 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		btnRanking = new JButton("RANKING");		
-		btnRanking.setBounds(507, 338, 120, 50);
+		btnRanking.setBounds(507, 352, 120, 50);
 		btnRanking.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnRanking);
 		btnRanking.addActionListener(controlador);
@@ -150,7 +150,7 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		btnAyuda = new JButton("AYUDA");
-		btnAyuda.setBounds(637, 338, 120, 50);
+		btnAyuda.setBounds(637, 352, 120, 50);
 		btnAyuda.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(btnAyuda);
 		btnAyuda.addActionListener(controlador);
@@ -158,7 +158,7 @@ public class VistaPrincipal extends JFrame {
 		
 		
 		BtnSalir = new JButton("SALIR");
-		BtnSalir.setBounds(507, 399, 250, 60);
+		BtnSalir.setBounds(507, 413, 250, 60);
 		BtnSalir.setCursor(new Cursor(HAND_CURSOR));
 		contentPane.add(BtnSalir);
 		BtnSalir.addActionListener(controlador);
@@ -192,7 +192,7 @@ public class VistaPrincipal extends JFrame {
 		
 		JLabel lblTitutlo = new JLabel("8 ESCALONES");
 		lblTitutlo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 80));
+		lblTitutlo.setFont(new Font("Comic Sans MS", Font.BOLD, 70));
 		lblTitutlo.setForeground(Color.CYAN);
 		lblTitutlo.setBounds(20, 16, 1244, 169);
 		contentPane.add(lblTitutlo);
@@ -201,7 +201,7 @@ public class VistaPrincipal extends JFrame {
 		ImageIcon gif = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
 		background.setBounds(0,0,1280, 720);
         Image scaledImage = gif.getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT);
-        ImageIcon  scaledGif= new ImageIcon(scaledImage);
+        ImageIcon scaledGif = new ImageIcon(scaledImage);
         background.setIcon(scaledGif);
 		contentPane.add(background);
 		

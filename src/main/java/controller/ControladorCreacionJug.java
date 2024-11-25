@@ -1,7 +1,10 @@
 package controller;
 
 
+import java.awt.Color;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -15,10 +18,12 @@ import model.PreguntaOpcion;
 import model.Tema;
 import model.logica.Escalon;
 import view.VistaCreacionJug;
+
 public class ControladorCreacionJug {
 
 	private final VistaCreacionJug vista;
 	private final Escalon escalon;
+	private HashMap<Integer, Color> colorEscalon = new HashMap<Integer, Color>();
 	
 	public ControladorCreacionJug () {
 		this.vista = new VistaCreacionJug(this);
@@ -36,11 +41,21 @@ public class ControladorCreacionJug {
 		this.agregarPreguntasATemas(listaTemas, listaPreguntasOp, listaPreguntaAproximacion);
 		this.vista.setVisible(true);
 		this.escalon = new Escalon();
-		Collections.shuffle(listaTemas);
+		Collections.shuffle((listaTemas));
 		this.escalon.setTemas(listaTemas);
 		System.out.println("temas: " + escalon.getTemas().size());
 		this.escalon.setTema();
 		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
+		
+		colorEscalon.put(0, new Color(138, 43, 226));
+		colorEscalon.put(1, new Color(0, 150, 75));
+		colorEscalon.put(2, new Color(30, 144,255));
+		colorEscalon.put(3, new Color(30, 144, 255));
+		colorEscalon.put(4, new Color(255, 105, 180));
+		colorEscalon.put(5, new Color(255, 140, 0));
+		colorEscalon.put(6, new Color(255, 69, 0));
+		colorEscalon.put(7, new Color(255, 215, 0));
+
 	}
 
 	private void agregarPreguntasATemas(List<Tema> listaTemas, List<PreguntaOpcion> listaPreguntasOp, List<PreguntaAproximacion> listaPreguntaAproximacion){
@@ -57,15 +72,21 @@ public class ControladorCreacionJug {
 			}
 		}
 	}
-	private void creaParticipantes(){
-
+	private void creaParticipantes() {
 		for (int i = 0; i < 9; i++) {
-			Participante participante = new Participante(this.vista.getTxtJugador().get(i).getText());
+			String nombreJugador = this.vista.getTxtJugador().get(i).getText();
+			// Si el texto es nulo o está vacío, asignar nombre predeterminado
+			if (nombreJugador == null || nombreJugador.trim().isEmpty()) {
+				nombreJugador = "jugador " + (i + 1);
+			}
+	
+			Participante participante = new Participante(nombreJugador);
 			participante.setImg((ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
 			escalon.agregaParticipante(participante);
-			participante.setNombre("jugador " + i);
 		}
+	
 		escalon.repartirPreguntas();
 		new ControladorJuego(this.escalon);
 	}
+
 }
