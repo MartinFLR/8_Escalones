@@ -13,8 +13,8 @@ public class Ronda {
         //Por defecto setea el estado en RondaNormal
         this.estadoRonda = new RondaNormal();
     }
-    public void actualizarDatos(Ronda ronda,List<Participante> participantes,Tema tema){
-        this.estadoRonda.actualizarDatos(this, participantes, tema);
+    public void actualizarDatos(List<Participante> participantes,Tema tema){
+        this.estadoRonda.actualizarDatos(participantes, tema);
     }
     public void setRondaNormal(){
         System.out.println("Estado: Ronda normal");

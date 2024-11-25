@@ -125,7 +125,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             turnoJugador = 0;
             indiceEmpate = escalon.getParticipantes().indexOf(getParticipantesAEliminar().getFirst());
             escalon.getEstadoDeRonda().setRondaDeEmpate(getParticipantesAEliminar());
-            escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(), getParticipantesAEliminar(), escalon.getTema());
+            escalon.getEstadoDeRonda().actualizarDatos(getParticipantesAEliminar(), escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
@@ -206,7 +206,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             par.setCantAciertos(0);
             par.setCantErrores(0);
         }
-        ronda.actualizarDatos(ronda, this.escalon.getParticipantes(), this.escalon.getTema());
+        ronda.actualizarDatos(this.escalon.getParticipantes(), this.escalon.getTema());
         
         this.rondaFinal();
     }
@@ -256,7 +256,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             huboEmpate = true;
             Ronda ronda = this.escalon.getEstadoDeRonda();
-            ronda.actualizarDatos(ronda, participantes, this.escalon.getTema());
+            ronda.actualizarDatos(participantes, this.escalon.getTema());
         } else if (peorParticipante != null) {
             peorParticipante.sumaError();
             participantes.add(peorParticipante);
@@ -309,7 +309,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 this.vista.getPanelAproximacion().setVisible(true);
                 this.vista.getPanelPregunta().setVisible(false);
                 this.rondaEmpate(participantes);
-                this.escalon.getEstadoDeRonda().actualizarDatos(this.escalon.getEstadoDeRonda(), participantes, this.escalon.getTema());
+                this.escalon.getEstadoDeRonda().actualizarDatos( participantes, this.escalon.getTema());
                 mostrarPreguntaEmpate();
             }else{
                 huboEmpate= false;
@@ -333,6 +333,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private void rondaFinal(){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
         poneColoresAEscalones();
+        System.out.println("Jugador 0: "+this.escalon.getParticipantes().get(0).getNombre());
+        System.out.println("Jugador 1: "+this.escalon.getParticipantes().get(1).getNombre());
+        this.vista.getJugadorFinal().get(0).setNombre(this.escalon.getParticipantes().get(0).getNombre());
         this.respuestasJugador = new ArrayList<>(escalon.getParticipantes().size());
         // Inicializamos la lista con un tamaño igual al número de participantes.
         for (int i = 0; i < escalon.getParticipantes().size(); i++) {
@@ -404,15 +407,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
         
         }
 
-        private void agregaGanador(Participante participanteGg){
-            ParticipantesDAO pGanador = new ParticipantesDAO();
-            if(pGanador.existeParticipante(participanteGg)){
-                pGanador.modificarVecesGanadas(participanteGg);
-            }else{
-                pGanador.insertar(participanteGg);
-                pGanador.modificarVecesGanadas(participanteGg);
-            }
+    private void agregaGanador(Participante participanteGg){
+        ParticipantesDAO pGanador = new ParticipantesDAO();
+        if(pGanador.existeParticipante(participanteGg)){
+            pGanador.modificarVecesGanadas(participanteGg);
+        }else{
+            pGanador.insertar(participanteGg);
+            pGanador.modificarVecesGanadas(participanteGg);
         }
+    }
     private void verificarRondaFinalYGanador() {
         List<Participante> participantesFinales = this.escalon.getParticipantes();
         Participante participante1 = participantesFinales.get(0);
@@ -455,7 +458,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             huboEmpate=true;
             escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
-            escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
+            escalon.getEstadoDeRonda().actualizarDatos(participantesFinales, escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
             setActivosEmpatados();
             mostrarPreguntaEmpate();
@@ -526,7 +529,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             huboEmpate = true;
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
-            ronda.actualizarDatos(ronda, participantesAEliminar, this.escalon.getTema());
+            ronda.actualizarDatos(participantesAEliminar, this.escalon.getTema());
             
         }else{
             //Si solo hay uno, se elimina
@@ -540,7 +543,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 Ronda estado = this.escalon.getEstadoDeRonda();
                 estado.setRondaNormal();
             escalon.setTema();
-            estado.actualizarDatos(estado, escalon.getParticipantes(), escalon.getTema());
+            estado.actualizarDatos(escalon.getParticipantes(), escalon.getTema());
             this.rondaDePreguntas();
             }
             this.escalon.eliminaParticipante(participante);
@@ -548,8 +551,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
             Notifications.getInstance().setJFrame(vista);
             this.vista.getPanelAproximacion().setVisible(false);
             this.vista.getPanelPregunta().setVisible(true);
-            
-            
         }
     }
 
