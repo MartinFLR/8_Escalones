@@ -163,7 +163,7 @@ public class PreguntaAproximacionDAO implements DAOPreguntas<PreguntaAproximacio
         List<PreguntaAproximacion> palabras = new ArrayList<>();
         String sql = "SELECT id_pregunta, pregunta, id_tema FROM preguntas "+
                 "WHERE TRANSLATE(LOWER(pregunta), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') "+"" +
-                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ?";
+                "LIKE TRANSLATE(LOWER(?), 'áéíóúÁÉÍÓÚñÑ', 'aeiouAEIOUnN') AND id_tema = ? AND id_tipopregunta = 2";
         try (Connection conn = Database.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
