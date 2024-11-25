@@ -636,10 +636,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 panelParticipante.setActivo(); 
             }}
     private void poneNombresEscalones(){
-        this.vista.getEscalones().getFirst().getLblTema().setText(this.escalon.getTema().getNombre());
+        this.vista.getEscalones().getFirst().getLblTema().setText("<html><div style='margin-bottom:4px'>"+this.escalon.getTema().getNombre()+"</div></html>");
         int indice=0;
         for (int i = 1; i < 7; i++) {
-            this.vista.getEscalones().get(i).getLblTema().setText(this.escalon.getTemas().get(indice).getNombre());
+            this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px'>"+this.escalon.getTemas().get(indice).getNombre()+"</div></html>");
             indice++;
         }
     }
