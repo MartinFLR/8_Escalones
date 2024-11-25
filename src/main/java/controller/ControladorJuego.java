@@ -574,7 +574,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getEscalones().getFirst().getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTema().getNombre() + "</div></html>");
         for(int i = 0; i < 7; i++){
             System.out.println("tema "+i+" "+this.escalon.getTemas().get(i).getNombre());
-            this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTemas().get(i-1).getNombre() + "</div></html>");
+            this.vista.getEscalones().get(i).getLblTema().setText("<html><div style='margin-bottom:4px;'>" + escalon.getTemas().get(i).getNombre() + "</div></html>");
         }
         this.vista.getEscalones().getLast().setcolorFinal();
     }
