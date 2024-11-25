@@ -433,6 +433,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
+                        this.vista.setBackgroundGanador();
                         
                     } else if (aciertos2 > aciertos1) {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
@@ -446,6 +447,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
+                        this.vista.getPanelColumna().setVisible(false);
+                        this.vista.setBackgroundGanador();
                         
                     }}
             }  else if (aciertos1==aciertos2){
@@ -471,6 +474,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.vista.getPanelGanador().setVisible(true);
             this.vista.getPanelPregunta().setVisible(false);
             this.vista.getPanelFinal().setVisible(false);
+            this.vista.getPanelColumna().setVisible(false);
+            this.vista.setBackgroundGanador();
         }
     }
 	private void poneNombres(){
@@ -606,7 +611,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
         });
 
         this.vista.getBtnGanadorContinuar().addActionListener(e->{
-            new ControladorPrincipal();
+            this.vista.setbackgroundOriginal();
+            this.vista.dispose();
+        	new ControladorPrincipal();
         });
         
         KeyAdapter keyListener = new KeyAdapter() {

@@ -68,7 +68,7 @@ public class VistaJuego extends JFrame {
 	private JLabel lblGanadorImagen;
 	private JScrollPane sc;
 	
-	private ImageIcon backgroundGanador;
+	private JLabel background;
 	
 	
 	public VistaJuego(ControladorJuego c) {
@@ -85,11 +85,9 @@ public class VistaJuego extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 
-		ImageIcon bg = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
-        Image scaledBackground = bg.getImage().getScaledInstance(450,450,Image.SCALE_DEFAULT);
-        backgroundGanador = new ImageIcon(scaledBackground);
-
-		//
+		
+        
+        //
 		// PANEL GANADOR
 		//
 		
@@ -113,13 +111,6 @@ public class VistaJuego extends JFrame {
 		btnGanadorContinuar.setBounds(168, 399, 120, 40);
 		btnGanadorContinuar.setCursor(new Cursor(HAND_CURSOR));
 		panelGanador.add(btnGanadorContinuar);
-		
-		ImageIcon gif = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
-        Image scaledImage = gif.getImage().getScaledInstance(450,450,Image.SCALE_DEFAULT);
-        ImageIcon scaledGif = new ImageIcon(scaledImage);
-		JLabel background = new JLabel(scaledGif);
-		background.setBounds(0, 0, 450, 450);
-		panelGanador.add(background);
 		
 		panelGanador.setVisible(false);
 		
@@ -181,6 +172,7 @@ public class VistaJuego extends JFrame {
 		
 		for (int i = 0; i < 2; i++) {
 			panelFinal.add(this.jugadorFinal.get(i));
+			this.jugadorFinal.get(i).setNombre("aaaaa");
 		}
 		
 		panelFinal.setVisible(false);
@@ -286,14 +278,27 @@ public class VistaJuego extends JFrame {
 		lblprePregunta.setBounds(0,0, 680, 190);
 		lblprePregunta.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblprePregunta.setForeground(new Color(37, 36, 34));
-		panel.add(lblprePregunta);		
+		panel.add(lblprePregunta);	
+		
+		
+		
+		ImageIcon bg = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
+        Image scaledBackground = bg.getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT);
+        ImageIcon backgroundGanador = new ImageIcon(scaledBackground);
+        background = new JLabel(backgroundGanador);
+        background.setBounds(0, 0, 1280, 720);
+        contentPane.add(background);
+        
+        background.setVisible(false);
 	}
 	
 	//GET DE LOS ESCALONES
 	public void setBackgroundGanador() {
-		JLabel lblBackground = new JLabel(backgroundGanador);
-		lblBackground.setBounds(0, 0, 1280, 720);
-		contentPane.add(lblBackground);
+		background.setVisible(true);
+	}
+	
+	public void setbackgroundOriginal() {
+		background.setVisible(false);
 	}
 	
 	public JPanel getPanelColumna() {
