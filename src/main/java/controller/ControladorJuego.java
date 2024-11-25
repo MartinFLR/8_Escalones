@@ -27,6 +27,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private int  indiceActualPar=0;
     private boolean huboEmpate=false;
     private boolean nuevaRondaFinal=true;
+    private List<String> respuestasJugador;
+
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
 		this.vista = new VistaJuego(this);
@@ -286,9 +288,14 @@ public class ControladorJuego implements ActionListener, KeyListener {
     //Metodos para la ronda final
     private void rondaFinal(List<Participante> participantes){
 		//La base de datos deberá tener un tema llamado Final que junte todas las preguntas, para hacer preguntas de todos los temas.
+        this.respuestasJugador = new ArrayList<>(escalon.getParticipantes().size());
+        // Inicializamos la lista con un tamaño igual al número de participantes.
+        for (int i = 0; i < escalon.getParticipantes().size(); i++) {
+            respuestasJugador.add(null);  // Inicializa las respuestas como nulas
+        }
         mostrarPreguntaActual();
     }
-    private void procesarRespuestaFinal(String respuesta,Participante participante){
+    /*private void procesarRespuestaFinal(String respuesta,Participante participante){
         
         int posParticipante = escalon.getParticipantes().indexOf(participante);   
         participante.setRespuestaParticipante(respuesta);//no se actualiza la respuesta y toma la del anterior. ej: jug1 responde 25, se pone que este responde 25 tmb.
@@ -324,6 +331,55 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }else { // Se ha dado una vuelta completa, todos respondieron
                     verificarRondaFinalYGanador();
                 }
+        }*/
+        
+        private void procesarRespuestaFinal(String respuesta, Participante participante) {
+            int posParticipante = escalon.getParticipantes().indexOf(participante);
+            respuestasJugador.set(posParticipante, respuesta);  // Asignamos la respuesta del jugador
+            
+             // Avanzar al siguiente turno
+            System.out.println("Participantes " + this.escalon.getParticipantes());
+            System.out.println("Respuestas actuales: " + respuestasJugador);
+            // Verificamos si todos los jugadores han respondido
+            if (!respuestasJugador.contains(null)) {  // Si no hay respuestas nulas
+                // Procesamos las respuestas de todos los jugadores
+                for (int i = 0; i < escalon.getParticipantes().size(); i++) {
+                    Participante p = escalon.getParticipantes().get(i);
+                    String respuestaActual = respuestasJugador.get(i);
+                    PreguntaOpcion preguntaActual = p.getPreguntasParticipante().getFirst();
+                    
+                    if (respuestaActual.equals(preguntaActual.getRespuestaCorrecta())) {
+                        this.vista.getJugadorFinal().get(i).setAcierto(p);
+                        p.sumaAcierto();
+                        System.out.println("suma acierto");
+                    } else {
+                        this.vista.getJugadorFinal().get(i).setError(p);
+                        p.sumaError();
+                        System.out.println("suma error");
+                    }
+        
+                    // Eliminar la pregunta actual para el participante
+                    p.getPreguntasParticipante().remove(0);
+                    // Mostrar la siguiente pregunta si es necesario
+                
+                }
+            // Reiniciar la lista de respuestas para la siguiente ronda
+                for (int i = 0; i < this.escalon.getParticipantes().size(); i++) {
+                    respuestasJugador.set(i, null);  // Limpiamos las respuestas
+                    System.out.println("Respuestas actuales despues de nullear: " + respuestasJugador);
+                }
+        
+                if (!this.escalon.getParticipantes().get(turnoJugador).getPreguntasParticipante().isEmpty()) {
+                    mostrarPreguntaActual();
+                } else {
+                    verificarRondaFinalYGanador();
+                }
+            }
+        turnoJugador++;
+        if (turnoJugador >= escalon.getParticipantes().size()) {
+            turnoJugador = 0;
+        }
+        
         }
         
     
@@ -381,7 +437,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
                           //deberia saltar una ultima vista con dialog campeon y que salte al inicio
                     }}
             }  else if (aciertos1==aciertos2){
-            
+            for (Participante par: participantesFinales){
+                par.setCantErrores(0);
+                par.setCantAciertos(0);
+            }
             huboEmpate=true;
             escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
             escalon.getEstadoDeRonda().actualizarDatos(escalon.getEstadoDeRonda(),participantesFinales, escalon.getTema());
@@ -390,6 +449,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             mostrarPreguntaEmpate();
             if (this.escalon.getParticipantes().size()<2 & huboEmpate==false){
                 System.out.println("hay uno solo. el ganador");
+                
                 this.vista.getPanelGanador().setVisible(true);
                 this.vista.getPanelPregunta().setVisible(false);
                 this.vista.getPanelFinal().setVisible(false);

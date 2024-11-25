@@ -348,6 +348,6 @@ public class VistaJuego extends JFrame {
 	public void setBtnaproxEnviar(JButton btnaproxEnviar) {this.btnaproxEnviar = btnaproxEnviar;}
 	public JFormattedTextField getTxtaproxRespuesta() {return txtaproxRespuesta;}
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
-
+	//public void setTxtPanelGanador (JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 	public JPanel getPanelFinal() {return panelFinal;}
 }
