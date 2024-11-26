@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class ReproductorPrincipal {
     private Clip clip;
+    private static ReproductorPrincipal instancia;
     private File[] rutas = new File[15];
     private FloatControl volumeControl;
     
@@ -50,6 +51,14 @@ public class ReproductorPrincipal {
     
     public void setVolume(float value) {
     	volumeControl.setValue(value);
+    }
+    
+    //singleton 
+    public static ReproductorPrincipal getInstance() {
+        if (instancia == null) {
+            instancia = new ReproductorPrincipal();
+        }
+        return instancia;
     }
     
     

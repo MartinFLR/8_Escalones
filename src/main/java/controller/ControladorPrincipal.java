@@ -22,7 +22,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnJugar().addActionListener(e -> {
 			new ControladorCreacionJug();
 			this.vista.setVisible(false);});
-		vista.getBtnOpciones().addActionListener(e -> {new ControladorOpciones(rp);});
+		vista.getBtnOpciones().addActionListener(e -> {new ControladorOpciones();});
 		vista.getBtnRanking().addActionListener(e -> {new ControladorRanking();});
 		vista.getBtnSalir().addActionListener(e -> {System.exit(0);});
 		
@@ -34,7 +34,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
 		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
 		verificarEstadoSesion();
-		rp = new ReproductorPrincipal();
+		rp = ReproductorPrincipal.getInstance();
 		reproducirMusica(0);
 	}
 
