@@ -337,7 +337,7 @@ public class VistaJuego extends JFrame {
 	
 	// GET PANEL DEL GANADOR
 	public void setGanadorNombre(String nombre) {
-		lblGanadorTexto.setText("¡Felicidades, has ganado "+nombre+"!");
+		lblGanadorTexto.setText("<html><center>¡Felicidades, has ganado<br><span style='font-weight:900;'>" + nombre + "!</span></center></html>");
 	}
 	public void setGanadorImagen(ImageIcon img) {
 		lblGanadorImagen.setIcon(img);

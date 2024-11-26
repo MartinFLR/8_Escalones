@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Participante;
 import model.Tema;
+import model.ABM.ManagerSession;
 import model.ABM.ParticipantesDAO;
 import raven.toast.Notifications;
 import view.VistaRanking;
@@ -22,6 +23,10 @@ public class ControladorRanking implements ActionListener{
 		this.vista = new VistaRanking (this);
 		this.vista.setVisible(true);
 		this.participantesDAO = new ParticipantesDAO();
+		if (!ManagerSession.estaLogueado()) {
+            this.vista.getBtnEliminarRanking().setVisible(false);
+            this.vista.getBtnModificarRanking().setVisible(false);
+        }
 		this.rellenarTablas();
 		inicializarBotones();
 	}
