@@ -158,6 +158,8 @@ public class VistaJuego extends JFrame {
 			panelJugadores.add(this.jugadorNormal.get(i));
 		}
 		
+		panelJugadores.setVisible(true);
+				
 		//
 		// PANEL JUGADORES (FINAL)
 		//
@@ -172,7 +174,6 @@ public class VistaJuego extends JFrame {
 		
 		for (int i = 0; i < 2; i++) {
 			panelFinal.add(this.jugadorFinal.get(i));
-			this.jugadorFinal.get(i).setNombre("aaaaa");
 		}
 		
 		panelFinal.setVisible(false);
@@ -282,7 +283,7 @@ public class VistaJuego extends JFrame {
 		
 		
 		
-		ImageIcon bg = new ImageIcon("imagenes\\ea89b4d0287fce38a1ee520b52ade8fd.gif");
+		ImageIcon bg = new ImageIcon("imagenes\\07-43-00-535_512.gif");
         Image scaledBackground = bg.getImage().getScaledInstance(1280,720,Image.SCALE_DEFAULT);
         ImageIcon backgroundGanador = new ImageIcon(scaledBackground);
         background = new JLabel(backgroundGanador);
@@ -294,7 +295,9 @@ public class VistaJuego extends JFrame {
 	
 	//GET DE LOS ESCALONES
 	public void setBackgroundGanador() {
+		contentPane.setBackground(Color.black);
 		background.setVisible(true);
+		
 	}
 	
 	public void setbackgroundOriginal() {
@@ -331,7 +334,7 @@ public class VistaJuego extends JFrame {
 	
 	// GET PANEL DEL GANADOR
 	public void setGanadorNombre(String nombre) {
-		lblGanadorTexto.setText("¡Felicidades, has ganado "+nombre+"!");
+		lblGanadorTexto.setText("<html><center>¡Felicidades, has ganado<br><span style='font-weight:900;'>" + nombre + "!</span></center></html>");
 	}
 	public void setGanadorImagen(ImageIcon img) {
 		lblGanadorImagen.setIcon(img);

@@ -113,7 +113,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         procesarPregunta(participante, posParticipante, respuesta);
 
         turnoJugador++;
-        
 
         // Actualiza la flag de huboEmpate para que no continue el flujo del juego
         if(turnoJugador == escalon.getParticipantes().size()
@@ -346,6 +345,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
     private void procesarRespuestaFinal(String respuesta, Participante participante) {
         int posParticipante = escalon.getParticipantes().indexOf(participante);
+        // Para mostrar de quien es el turno, el otro caso se setea en mostrarPreguntaFinal
+        if(turnoJugador == 0){
+            this.vista.getJugadorFinal().get(1).setRespondiendo();
+            this.vista.getJugadorFinal().get(0).setActivo();
+        }
+        this.vista.getJugadorFinal().get(posParticipante).setActivo();
         respuestasJugador.set(posParticipante, respuesta);  // Asigna la respuesta del jugador
 
         System.out.println("Participantes " + this.escalon.getParticipantes());
@@ -393,6 +398,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
     }
     private void mostrarPreguntaFinal(Participante participante){
         PreguntaOpcion pregunta = participante.getPreguntasParticipante().getFirst();
+        
+        this.vista.getJugadorFinal().get(0).setRespondiendo();
+        this.vista.getJugadorFinal().get(1).setActivo();
+        
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         esperandoRespuesta=true;
         this.vista.getLblprePregunta().setText("<html><div style='width: 350px; text-align: center;margin-left: 100px;'>" + pregunta.getPregunta() + "</div></html>");
@@ -431,6 +440,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
+                        this.vista.getPanelColumna().setVisible(false);
                         this.vista.setBackgroundGanador();
                         
                     } else if (aciertos2 > aciertos1) {
