@@ -267,15 +267,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         PreguntaAproximacion pregunta = participante.getPregEmpate();
         this.vista.getPanelPregunta().setVisible(false);
-        this.vista.getlblaproxPregunta().setText("<html><div style='width:450px; text-align:center;margin-left: 5px;margin-top:40px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getlblaproxPregunta().setText("<html><div style='width:450px; text-align:center;margin-left: 85px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getTxtaproxRespuesta().requestFocusInWindow();
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         if (this.escalon.getEscalon()<7){
             this.vista.getJugadorNormal().get(posParticipante).setRespondiendo();
         }else{
+            this.vista.getJugadorFinal().get(posParticipante).setRespondiendo();
             if (posParticipante==0){
-                this.vista.getJugadorFinal().get(0).setRespondiendo();
-                this.vista.getJugadorFinal().get(1).setActivo();
+                this.vista.getJugadorFinal().get(posParticipante).setActivo();
             }
         }
         
@@ -468,9 +468,10 @@ public class ControladorJuego implements ActionListener, KeyListener {
             escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
             escalon.getEstadoDeRonda().actualizarDatos(participantesFinales, escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
-            this.vista.getJugadorFinal().get(0).setRespondiendo();
-            this.vista.getJugadorFinal().get(1).setActivo();
+            setActivosEmpatados();
             mostrarPreguntaEmpate();
+            
+            
             }}
     private void empateFinal(){
         if (huboEmpate==false){
@@ -524,13 +525,16 @@ public class ControladorJuego implements ActionListener, KeyListener {
         List<Participante> participantesAEliminar = getParticipantesAEliminar();
         //Si hay mas de un participante con la misma cantidad de errores, setea la ronda de empate
         if (participantesAEliminar.size()>1){
+            // les envia la pregunta de aproximacion a todos los participantes empatados.
             this.vista.getPanelPregunta().setVisible(false);
         	this.vista.getPanelAproximacion().setVisible(true);
+            
 			Ronda ronda = this.escalon.getEstadoDeRonda();
             huboEmpate = true;
             //Envia la lista de participantes a eliminar y sigue la la logica de la ronda de empate
             ronda.setRondaDeEmpate(participantesAEliminar);
             ronda.actualizarDatos(participantesAEliminar, this.escalon.getTema());
+            
         }else{
             //Si solo hay uno, se elimina
             Participante participante = participantesAEliminar.getFirst();
@@ -597,9 +601,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             if(esperandoRespuesta && huboEmpate){
                 try{
                     Double ResParse = Double.valueOf(this.vista.getTxtaproxRespuesta().getText());
-                    this.vista.getJugadorFinal().get(0).setActivo();
-                    this.vista.getJugadorFinal().get(1).setRespondiendo();
-                    procesarRespuestaEmpate(ResParse);
+                procesarRespuestaEmpate(ResParse);
                 }catch(NumberFormatException e1){
                     Notifications.getInstance().show(Notifications.Type.ERROR,Notifications.Location.TOP_CENTER,"Dato invalido, ingresar un numero.");
                     Notifications.getInstance().setJFrame(vista);

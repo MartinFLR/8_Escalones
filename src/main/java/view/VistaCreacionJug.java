@@ -27,6 +27,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -56,13 +57,33 @@ public class VistaCreacionJug extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(300, 200, 1280, 720);
-		contentPane = new JPanel();
+		contentPane = new JPanel() {
+			@Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            // Cargar la imagen
+	            ImageIcon imageIcon = new ImageIcon("imagenes/image.png");
+	            Image image = imageIcon.getImage();
+	            // Dibujar la imagen
+	            g.drawImage(image, 0, 0, getWidth(), getHeight(), this); // Escalar a tamaño del panel
+	        	}
+			};
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
 		GridLayout gridlayout = new GridLayout(3,3,20,20);
-		panelCreacion = new JPanel();
+		panelCreacion = new JPanel() {
+			@Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            // Cargar la imagen
+	            ImageIcon imageIcon = new ImageIcon("imagenes/image.png");
+	            Image image = imageIcon.getImage();
+	            // Dibujar la imagen
+	            g.drawImage(image, 0, 0, getWidth(), getHeight(), this); // Escalar a tamaño del panel
+	        	}
+			};
 		panelCreacion.setBounds(10, 11, 1244, 595);
 		panelCreacion.setLayout(gridlayout);
 		contentPane.add(panelCreacion);
@@ -82,10 +103,11 @@ public class VistaCreacionJug extends JFrame{
 		this.imagenes.put(new ImageIcon("imagenes/baileNormal.png"), escalado("imagenes\\baileNormal.gif"));
 		this.imagenes.put(new ImageIcon("imagenes/baile1.png"), escalado("imagenes\\baile1.gif"));
 		this.imagenes.put(new ImageIcon("imagenes/baile2.png"), escalado("imagenes\\baile2.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/baile3.png"), escalado("imagenes\\baile3.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/baile4.png"), escalado("imagenes\\baile4.gif"));
 		
 		for (int i = 0; i < 9; i++) {
 			this.paneles.add(new JPanel(new GridBagLayout()));
-			this.paneles.get(i).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
 			GridBagConstraints gbc = new GridBagConstraints();
 			panelCreacion.add(this.paneles.get(i));
 			

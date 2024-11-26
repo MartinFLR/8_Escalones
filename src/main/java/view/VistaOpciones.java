@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControladorOpciones;
+import view.componentes.FuentePersonalizada;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,9 +46,9 @@ public class VistaOpciones extends JFrame {
 		
 		sliderMusica = new JSlider();
 		sliderMusica.setBounds(41, 147, 218, 51);
-	    sliderMusica.setMinimum(-50);        // Configurar mínimo
-	    sliderMusica.setMaximum(6);          // Configurar máximo
-	    sliderMusica.setValue(0);            // Configurar valor inicial
+	    sliderMusica.setMinimum(-50);        
+	    sliderMusica.setMaximum(6);          
+	    sliderMusica.setValue(0);            
 	    sliderMusica.setMajorTickSpacing(10);
 		contentPane.add(sliderMusica);
 		
@@ -65,16 +66,18 @@ public class VistaOpciones extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Opciones");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 35));
+		lblNewLabel.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		lblNewLabel.setBounds(10, 24, 280, 51);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Musica");
-		lblNewLabel_1.setBounds(41, 122, 46, 14);
+		lblNewLabel_1.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 14f));
+		lblNewLabel_1.setBounds(41, 116, 46, 20);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Sonido");
-		lblNewLabel_2.setBounds(41, 200, 46, 14);
+		lblNewLabel_2.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 14f));
+		lblNewLabel_2.setBounds(41, 194, 46, 20);
 		contentPane.add(lblNewLabel_2);
 	
 	}

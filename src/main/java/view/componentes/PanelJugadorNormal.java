@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 import model.Participante;
 public class PanelJugadorNormal extends PanelJugadorPadre {
 
+	private static final long serialVersionUID = 1L;
 	protected JPanel panelerror1;
 	protected JPanel panelerror2;
 	protected boolean activo = true;

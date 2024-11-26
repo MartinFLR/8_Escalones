@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.ControladorLogin;
+import view.componentes.FuentePersonalizada;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -86,7 +88,7 @@ public class VistaLogin extends JFrame{
 		panelCambio.add(btnCambioSalir);
 		
 		JLabel lblCambioContrasenia = new JLabel("Cambio contraseña");
-		lblCambioContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblCambioContrasenia.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		lblCambioContrasenia.setBounds(65, 11, 320, 68);
 		panelCambio.add(lblCambioContrasenia);
 		
@@ -106,7 +108,7 @@ public class VistaLogin extends JFrame{
 		
 		// -- LOGIN 
 		JLabel lblLogin = new JLabel("LOG IN ");
-		lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblLogin.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		lblLogin.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLogin.setBounds(65, 11, 375, 107);
 		contentPane.add(lblLogin);

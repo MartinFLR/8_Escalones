@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -151,7 +152,15 @@ public class VistaJuego extends JFrame {
 		// PANEL JUGADORES
 		//
 		
-		panelJugadores = new JPanel();
+		panelJugadores = new JPanel() {
+		    @Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            ImageIcon imageIcon = new ImageIcon("imagenes/image.png");
+	            Image image = imageIcon.getImage();
+	            g.drawImage(image, 0, 0, getWidth(), getHeight(), this); 
+	        	}
+			};
 		panelJugadores.setBackground(Color.BLACK);
 		panelJugadores.setSize(new Dimension(5, 5));
 		panelJugadores.setBounds(85, 508, 1181, 175);
@@ -173,7 +182,15 @@ public class VistaJuego extends JFrame {
 		// PANEL JUGADORES (FINAL)
 		//
 		
-		panelFinal = new JPanel();		
+		panelFinal = new JPanel() {
+			@Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            ImageIcon imageIcon = new ImageIcon("imagenes/image.png");
+	            Image image = imageIcon.getImage();
+	            g.drawImage(image, 0, 0, getWidth(), getHeight(), this); 
+	        	}
+			};
 		panelFinal.setBounds(85, 508, 1181, 175);
 		contentPane.add(panelFinal);
 		GridLayout gridLayoutFinal = new GridLayout (2, 1);
@@ -192,13 +209,21 @@ public class VistaJuego extends JFrame {
 		// PANEL APROXIMACION
 		//
 		
-		panelAproximacion = new JPanel();
-		panelAproximacion.setBounds(95, 11, 1159, 486);
+		panelAproximacion = new JPanel() {
+			@Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            ImageIcon imageIcon = new ImageIcon("imagenes/image.png");
+	            Image image = imageIcon.getImage();
+	            g.drawImage(image, 0, 0, getWidth(), getHeight(), this); 
+	        	}
+			};
+		panelAproximacion.setBounds(85, 0, 1181, 508);
 		contentPane.add(panelAproximacion);
 		panelAproximacion.setLayout(null);
 		
 		btnaproxEnviar = new JButton("CONFIRMAR");
-		btnaproxEnviar.setBounds(282, 306, 170, 65);
+		btnaproxEnviar.setBounds(283, 325, 170, 65);
 		panelAproximacion.add(btnaproxEnviar);
 		btnaproxEnviar.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 15f));
 		btnaproxEnviar.setBackground(new Color(222, 226, 230));
@@ -211,7 +236,7 @@ public class VistaJuego extends JFrame {
         formateador.setMinimum(0);
         formateador.setMaximum(10000000); 
 		txtaproxRespuesta = new JFormattedTextField();
-		txtaproxRespuesta.setBounds(282, 230, 170, 65);
+		txtaproxRespuesta.setBounds(283, 249, 170, 65);
 		panelAproximacion.add(txtaproxRespuesta);
 		txtaproxRespuesta.setBackground(new Color(222, 226, 230));
 		txtaproxRespuesta.setForeground(new Color(37, 36, 34));
@@ -229,13 +254,13 @@ public class VistaJuego extends JFrame {
 	    table.getTableHeader().setReorderingAllowed(false);
 	    table.getTableHeader().setResizingAllowed(false);
 		sc = new JScrollPane();
-		sc.setBounds(500, 220, 418, 160);
+		sc.setBounds(501, 239, 418, 160);
 		sc.setViewportView(table);
 		panelAproximacion.add(sc);
 		
 		JPanel panelPregunta = new JPanel();
 		panelPregunta.setBackground(new Color(222, 226, 230));
-		panelPregunta.setBounds(239, 11, 680, 190);
+		panelPregunta.setBounds(240, 30, 680, 190);
 		panelAproximacion.add(panelPregunta);
 		
 		lblaproxPregunta = new JLabel();
@@ -251,38 +276,46 @@ public class VistaJuego extends JFrame {
 		//
 
 		
-		panelPregunta_1 = new JPanel();
-		panelPregunta_1.setBounds(95, 11, 1159, 486);
+		panelPregunta_1 = new JPanel() {
+			@Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            ImageIcon imageIcon = new ImageIcon("imagenes/image.png");
+	            Image image = imageIcon.getImage();
+	            g.drawImage(image, 0, 0, getWidth(), getHeight(), this); 
+	        	}
+			};
+		panelPregunta_1.setBounds(85, 0, 1181, 508);
 		contentPane.add(panelPregunta_1);
 	
 		panelPregunta_1.setLayout(null);
 
-		btnpreRespuesta1.setBounds(260, 228, 280, 100);
+		btnpreRespuesta1.setBounds(261, 247, 280, 100);
 		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
 		btnpreRespuesta1.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta1);
 		
-		btnpreRespuesta2.setBounds(620, 228, 280, 100);
+		btnpreRespuesta2.setBounds(621, 247, 280, 100);
 		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
 		btnpreRespuesta2.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta2);
 		
-		btnpreRespuesta3.setBounds(260, 339, 280, 100);
+		btnpreRespuesta3.setBounds(261, 358, 280, 100);
 		btnpreRespuesta3.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta3.setCursor(new Cursor(HAND_CURSOR));
 		btnpreRespuesta3.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta3);
 
-		btnpreRespuesta4.setBounds(620, 339, 280, 100);
+		btnpreRespuesta4.setBounds(621, 358, 280, 100);
 		btnpreRespuesta4.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta4.setCursor(new Cursor(HAND_CURSOR));
 		btnpreRespuesta4.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta4);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(239, 11, 680, 190);
+		panel.setBounds(240, 30, 680, 190);
 		panel.setBackground(new Color(222, 226, 230));
 		panel.setLayout(null);
 		panelPregunta_1.add(panel);		
