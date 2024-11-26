@@ -80,6 +80,12 @@ public class VistaCreacionJug extends JFrame{
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
 		
+		ImageIcon gif = new ImageIcon("imagenes\\pinguim-penguin.gif");
+        Image scaledImage = gif.getImage().getScaledInstance(64,64,Image.SCALE_DEFAULT);
+        ImageIcon scaledGif = new ImageIcon(scaledImage);
+        
+        this.imagenes.add(scaledGif); 
+		
 
 		for (int i = 0; i < 9; i++) {
 			this.paneles.add(new JPanel(new GridBagLayout()));

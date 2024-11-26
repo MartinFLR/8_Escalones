@@ -26,29 +26,36 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 		setBackground(colorOriginal);		
 		
 		panelErrores = new JPanel();
+		panelErrores.setLayout(new GridLayout(1, 10, 10, 5));
+		panelErrores.setBorder(new EmptyBorder(10, 30, 10,30));
 		add(panelErrores);
 		panelErrores.setBackground(colorOriginal);
 		for (int i = 0; i < 10; i++) {
 			this.errores.add(new JPanel());
 			this.errores.get(i).setBackground(colorOriginal);
 			this.errores.get(i).setBorder(new LineBorder(Color.black, 1));
-			this.errores.get(i).setPreferredSize(new Dimension(50,50));
+			this.errores.get(i).setPreferredSize(new Dimension(50, 50));
 			panelErrores.add(this.errores.get(i));
 		}
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		gbc.gridx=0;
 		gbc.gridy=0;
-		gbc.insets= new Insets(0,5,5,5);
+		gbc.insets= new Insets(5,15,5,5);
 		add(lblimagenJugador, gbc);
 		
 		gbc.gridx=0;
 		gbc.gridy=1;
-		gbc.insets= new Insets(0,5,5,5);
+		gbc.insets= new Insets(0,15,15,5);
 		add(lblnombreJugador, gbc);
 
 		gbc.gridx=1;
 		gbc.gridy=0;
+		gbc.gridwidth=2;
+		gbc.gridheight=10;
+		gbc.weighty=1;
+		gbc.weightx=0.5;
+		gbc.fill = GridBagConstraints.BOTH;
 		add(panelErrores, gbc);
 		
 		lblimagenJugador.setForeground(Color.black);
