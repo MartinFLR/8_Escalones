@@ -7,12 +7,14 @@ import javax.swing.JOptionPane;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
+import model.ReproductorPrincipal;
 import model.ABM.ManagerSession;
 import raven.toast.Notifications;
 import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
 	private VistaPrincipal vista;
+	private ReproductorPrincipal rp;
 	
 	public ControladorPrincipal() {
 		this.vista = new VistaPrincipal(this);
@@ -20,7 +22,7 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnJugar().addActionListener(e -> {
 			new ControladorCreacionJug();
 			this.vista.setVisible(false);});
-		vista.getBtnOpciones().addActionListener(e -> {new ControladorOpciones();});
+		vista.getBtnOpciones().addActionListener(e -> {new ControladorOpciones(rp);});
 		vista.getBtnRanking().addActionListener(e -> {new ControladorRanking();});
 		vista.getBtnSalir().addActionListener(e -> {System.exit(0);});
 		
@@ -32,6 +34,8 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
 		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
 		verificarEstadoSesion();
+		rp = new ReproductorPrincipal();
+		reproducirMusica(0);
 	}
 
 	public VistaPrincipal getVista() {
@@ -54,6 +58,25 @@ public class ControladorPrincipal implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void reproducirMusica(int i) { //para la musica
+		rp.setFile(i);
+		rp.reproducir();
+		rp.loop();
+	}	
+	
+	public void pausarMusica() {
+		rp.pausar();
+	}
+	
+	public void reproducirBotones(int i) { //botones 
+		rp.setFile(i);
+		rp.reproducir();
+	}
+
+	public ReproductorPrincipal getRp() {
+		return rp;
 	}
 
 

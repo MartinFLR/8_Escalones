@@ -291,6 +291,9 @@ public class VistaJuego extends JFrame {
         contentPane.add(background);
         
         background.setVisible(false);
+        
+		addKeyListener(c);
+		setFocusable(true);
 	}
 	
 	//GET DE LOS ESCALONES

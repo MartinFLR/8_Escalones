@@ -28,8 +28,8 @@ public class VistaOpciones extends JFrame {
 	private JPanel contentPane;
 	private ControladorOpciones c;
 	private JButton btnSalir;
-	private JSlider sliderMusica;
 	private JSlider sliderSonido;
+	private JSlider sliderMusica;
 	
 	
 	public VistaOpciones(ControladorOpciones c) {
@@ -43,13 +43,17 @@ public class VistaOpciones extends JFrame {
 		setUndecorated(true);
 		setResizable(false);
 		
-		sliderSonido = new JSlider();
-		sliderSonido.setBounds(41, 147, 218, 30);
-		contentPane.add(sliderSonido);
-		
 		sliderMusica = new JSlider();
-		sliderMusica.setBounds(41, 225, 218, 30);
+		sliderMusica.setBounds(41, 147, 218, 51);
+	    sliderMusica.setMinimum(-50);        // Configurar mínimo
+	    sliderMusica.setMaximum(6);          // Configurar máximo
+	    sliderMusica.setValue(0);            // Configurar valor inicial
+	    sliderMusica.setMajorTickSpacing(10);
 		contentPane.add(sliderMusica);
+		
+		sliderSonido = new JSlider();
+		sliderSonido.setBounds(41, 225, 218, 51);
+		contentPane.add(sliderSonido);
 		
 		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalir.setBounds(190, 349, 100, 40);
@@ -86,5 +90,15 @@ public class VistaOpciones extends JFrame {
 
 	public JButton getBtnSalir() {
 		return btnSalir;
+	}
+
+
+	public JSlider getSliderSonido() {
+		return sliderSonido;
+	}
+
+
+	public JSlider getSliderMusica() {
+		return sliderMusica;
 	}
 }
