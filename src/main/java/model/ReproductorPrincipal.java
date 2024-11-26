@@ -61,6 +61,12 @@ public class ReproductorPrincipal {
         return instancia;
     }
     
+    public void reproducirmusica(int i) {
+    	setFile(i);
+    	clip.setFramePosition(0);
+    	clip.start();
+    	clip.loop(clip.LOOP_CONTINUOUSLY);
+    }
     
     
     

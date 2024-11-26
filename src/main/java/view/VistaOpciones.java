@@ -45,9 +45,9 @@ public class VistaOpciones extends JFrame {
 		
 		sliderMusica = new JSlider();
 		sliderMusica.setBounds(41, 147, 218, 51);
-	    sliderMusica.setMinimum(-50);        // Configurar mínimo
-	    sliderMusica.setMaximum(6);          // Configurar máximo
-	    sliderMusica.setValue(0);            // Configurar valor inicial
+	    sliderMusica.setMinimum(-50);       
+	    sliderMusica.setMaximum(6);          
+	    sliderMusica.setValue(0);            
 	    sliderMusica.setMajorTickSpacing(10);
 		contentPane.add(sliderMusica);
 		

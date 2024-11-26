@@ -14,6 +14,7 @@ import model.ABM.ParticipantesDAO;
 import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
+import model.ReproductorPrincipal;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import raven.toast.Notifications;
@@ -33,6 +34,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private boolean nuevaRondaFinal=true;
     private List<String> respuestasJugador;
     private final HashMap<Integer, Color> colorEscalon = new HashMap<>();
+    private ReproductorPrincipal rp;
 
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
@@ -51,6 +53,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Cant aciertos
             // Filtrar participantes
 		    // Subir escalon
+        rp = ReproductorPrincipal.getInstance();
 	}
 
     private void poneColoresAEscalones(){
@@ -442,6 +445,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelFinal().setVisible(false);
                         this.vista.getPanelColumna().setVisible(false);
                         this.vista.setBackgroundGanador();
+                        rp.pausar();
+                        rp.reproducirmusica(1);
                         
                     } else if (aciertos2 > aciertos1) {
                         System.out.println("cantidad aciertos juador 0 "+ aciertos1);
@@ -457,6 +462,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelFinal().setVisible(false);
                         this.vista.getPanelColumna().setVisible(false);
                         this.vista.setBackgroundGanador();
+                        rp.pausar();
+                        rp.reproducirmusica(1);
                         
                     }}
             }  else if (aciertos1==aciertos2){
@@ -483,6 +490,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
             this.vista.getPanelFinal().setVisible(false);
             this.vista.getPanelColumna().setVisible(false);
             this.vista.setBackgroundGanador();
+            rp.pausar();
+            rp.reproducirmusica(1);
         }
     }
 	
@@ -611,6 +620,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getBtnGanadorContinuar().addActionListener(e->{
             this.vista.setbackgroundOriginal();
             this.vista.dispose();
+            rp.pausar();
+            rp.reproducirmusica(0);
         	new ControladorPrincipal();
         });
         
