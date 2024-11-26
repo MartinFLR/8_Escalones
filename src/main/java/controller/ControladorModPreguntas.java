@@ -159,9 +159,9 @@ public class ControladorModPreguntas {
         if (aproximacion < 18 && opcion < 2 ) { //si no cumple
 			Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Tiene que tener 18 de Opcion y 2 de Aproximacion");
 			Notifications.getInstance().setJFrame(vista);
-			this.vista.setVisible(false);
-			new ControladorModCategoria();
 		}
+		this.vista.setVisible(false);
+		new ControladorModCategoria();
     }
 
 
