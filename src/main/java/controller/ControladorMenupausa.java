@@ -6,6 +6,8 @@ import view.VistaMenupausa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.ReproductorPrincipal;
+
 
 public class ControladorMenupausa implements ActionListener {
 

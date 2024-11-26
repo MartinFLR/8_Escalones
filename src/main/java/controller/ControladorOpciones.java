@@ -13,9 +13,9 @@ public class ControladorOpciones implements ActionListener{
 	private VistaOpciones vista;
 	private ReproductorPrincipal r;
 	
-	public ControladorOpciones(ReproductorPrincipal r) {
+	public ControladorOpciones() {
 		this.vista = new VistaOpciones(this);
-		this.r = r;
+		this.r = ReproductorPrincipal.getInstance();
 		this.vista.setVisible(true);
 		this.vista.getBtnSalir().addActionListener(e -> {this.vista.dispose();});
 		this.volumen();

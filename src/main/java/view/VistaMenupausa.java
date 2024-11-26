@@ -29,17 +29,17 @@ public class VistaMenupausa extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnReanudar = new JButton("New button");
+		btnReanudar = new JButton("Reanudar");
 		btnReanudar.addActionListener(c);
 		btnReanudar.setBounds(40, 50, 100, 40);
 		contentPane.add(btnReanudar);
 		
-		btnOpciones = new JButton("New button");
+		btnOpciones = new JButton("Opciones");
 		btnOpciones.addActionListener(c);
 		btnOpciones.setBounds(40, 102, 100, 40);
 		contentPane.add(btnOpciones);
 		
-		btnSalirmenu = new JButton("New button");
+		btnSalirmenu = new JButton("Salir");
 		btnSalirmenu.addActionListener(c);
 		btnSalirmenu.setBounds(40, 153, 100, 40);
 		contentPane.add(btnSalirmenu);
