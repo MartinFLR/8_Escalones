@@ -121,6 +121,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         && participante.getPreguntasParticipante().isEmpty()){
             Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"Ronda de Aproximación");
             Notifications.getInstance().setJFrame(vista);
+            this.vista.getJugadorNormal().getLast().setActivo();
             huboEmpate = true;
             turnoJugador = 0;
             indiceEmpate = escalon.getParticipantes().indexOf(getParticipantesAEliminar().getFirst());
@@ -269,7 +270,6 @@ public class ControladorJuego implements ActionListener, KeyListener {
         this.vista.getPanelPregunta().setVisible(false);
         this.vista.getlblaproxPregunta().setText("<html><div style='width: 300px;margin-top:47px;text-align:center'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getTxtaproxRespuesta().requestFocusInWindow();
-        setColores();
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         if (this.escalon.getEscalon()<7){
             this.vista.getJugadorNormal().get(posParticipante).setRespondiendo();
