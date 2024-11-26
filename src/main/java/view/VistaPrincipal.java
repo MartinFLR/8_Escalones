@@ -3,7 +3,11 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +20,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import controller.ControladorPrincipal;
+import view.componentes.FuentePersonalizada;
 
 public class VistaPrincipal extends JFrame {
 
@@ -36,7 +41,6 @@ public class VistaPrincipal extends JFrame {
 	private JPanel panelCreditos;
 	private JButton btnSalirAyuda;
 	private JButton btnSalirCreditos;
-
 
 	public VistaPrincipal(ControladorPrincipal controlador) {
 		this.setControlador(controlador);
@@ -75,12 +79,12 @@ public class VistaPrincipal extends JFrame {
 		lblAyuda.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAyuda.setVerticalAlignment(SwingConstants.TOP);
 		lblAyuda.setBounds(10, 96, 780, 392);
-		lblAyuda.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAyuda.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelAyuda.add(lblAyuda);
 		
 		JLabel lblTitulo = new JLabel("AYUDA");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblTitulo.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		lblTitulo.setBounds(10, 11, 780, 74);
 		panelAyuda.add(lblTitulo); 
 
@@ -101,23 +105,23 @@ public class VistaPrincipal extends JFrame {
 		JLabel lblLogica = new JLabel("<html><span style='font-size: 22px;'>LOGICA</span><br><span>Botha, Ana<br>Montiel, Nicolas<br>Rojas, Axel</span></html>");
 		lblLogica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogica.setVerticalAlignment(SwingConstants.TOP);
-		lblLogica.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblLogica.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		lblLogica.setBounds(280, 151, 250, 388);
 		panelCreditos.add(lblLogica);
 		JLabel lblABM = new JLabel("<html><span style='font-size: 22px;'>ABM</span><br><span>Bustamante, Nicolas<br>Flores, Martin<br>Titos, Felix Aldo</span></html>");
 		lblABM.setHorizontalAlignment(SwingConstants.CENTER);
 		lblABM.setVerticalAlignment(SwingConstants.TOP);
-		lblABM.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblABM.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		lblABM.setBounds(31, 151, 250, 388);
 		panelCreditos.add(lblABM);
 		JLabel lblIGU = new JLabel("<html><span style='font-size: 22px;'>IGU</span><br><span>Arbita, Rodrigo<br>Lopez, Gabriel<br>Toconas, Walter</span></html>");
 		lblIGU.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIGU.setVerticalAlignment(SwingConstants.TOP);
-		lblIGU.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblIGU.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		lblIGU.setBounds(540, 149, 250, 339);
 		panelCreditos.add(lblIGU);
 		JLabel lblCreditos = new JLabel("CREDITOS");
-		lblCreditos.setFont(new Font("Tahoma", Font.BOLD, 35));
+		lblCreditos.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		lblCreditos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCreditos.setBounds(10, 11, 780, 72);
 		panelCreditos.add(lblCreditos);
