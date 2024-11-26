@@ -26,6 +26,7 @@ public abstract class PanelJugadorPadre extends JPanel{
 		lblnombreJugador = new JLabel();
 		lblnombreJugador.setHorizontalAlignment(SwingConstants.CENTER);
 		lblnombreJugador.setForeground(new Color(37, 36, 34));
+		lblnombreJugador.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 14f));
 	}
 
 

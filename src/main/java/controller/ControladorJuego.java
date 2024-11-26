@@ -267,7 +267,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         PreguntaAproximacion pregunta = participante.getPregEmpate();
         this.vista.getPanelPregunta().setVisible(false);
-        this.vista.getlblaproxPregunta().setText("<html><div style='width: 300px;margin-top:47px;text-align:center'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getlblaproxPregunta().setText("<html><div style='width:450px; text-align:center;margin-left: 85px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getTxtaproxRespuesta().requestFocusInWindow();
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         if (this.escalon.getEscalon()<7){
@@ -404,7 +404,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         
         System.out.println("Respuesta correcta: "+pregunta.getRespuestaCorrecta());
         esperandoRespuesta=true;
-        this.vista.getLblprePregunta().setText("<html><div style='width: 350px; text-align: center;margin-left: 100px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getLblprePregunta().setText("<html><div style='width: 450px; text-align: center;margin-left: 85px;'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getBtnpreRespuesta1().setText(pregunta.getOpcionA());
         this.vista.getBtnpreRespuesta2().setText(pregunta.getOpcionB());
         this.vista.getBtnpreRespuesta3().setText(pregunta.getOpcionC());
