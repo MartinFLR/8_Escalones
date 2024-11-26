@@ -440,6 +440,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                         this.vista.getPanelGanador().setVisible(true);
                         this.vista.getPanelPregunta().setVisible(false);
                         this.vista.getPanelFinal().setVisible(false);
+                        this.vista.getPanelColumna().setVisible(false);
                         this.vista.setBackgroundGanador();
                         
                     } else if (aciertos2 > aciertos1) {

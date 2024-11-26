@@ -2,17 +2,15 @@ package controller;
 
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import model.*;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
-import model.Participante;
-import model.PreguntaAproximacion;
-import model.PreguntaOpcion;
-import model.Tema;
 import model.logica.Escalon;
 import view.VistaCreacionJug;
 
@@ -33,10 +31,12 @@ public class ControladorCreacionJug {
 		TemasDAO abmTemas = new TemasDAO();
 		List<Tema> listaTemas = abmTemas.buscarTodos();
 
-		
+
 		//Agrega las preguntas a los temas por id
 		//Hay que usar esto cuando tengamos como minimo 18preg por tema 
 		this.agregarPreguntasATemas(listaTemas, listaPreguntasOp, listaPreguntaAproximacion);
+		listaTemas.removeIf(tema -> !esValidoTema(tema));
+
 		this.vista.setVisible(true);
 		this.escalon = new Escalon();
 		Collections.shuffle((listaTemas));
@@ -49,6 +49,22 @@ public class ControladorCreacionJug {
 		this.escalon.setTema();
 		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
 	}
+	
+	private Boolean esValidoTema(Tema temas){
+		int contOpcion = 0;
+		int contAprox = 0;
+		int total;
+		for (PreguntaOpcion preguntaOpcion: temas.getPreguntasOp()) {
+			contOpcion++;
+		}
+		for (PreguntaAproximacion preguntaAprox: temas.getPregsAproximacion()) {
+			contAprox++;
+		}
+		total = contAprox + contOpcion;
+
+        return total >= 18;
+
+    }
 
 	private void agregarPreguntasATemas(List<Tema> listaTemas, List<PreguntaOpcion> listaPreguntasOp, List<PreguntaAproximacion> listaPreguntaAproximacion){
 		for(Tema t : listaTemas){
@@ -73,7 +89,7 @@ public class ControladorCreacionJug {
 			}
 	
 			Participante participante = new Participante(nombreJugador);
-			participante.setImg((ImageIcon) this.vista.getComboboxImg().get(i).getSelectedItem());
+			participante.setImg((ImageIcon) this.vista.getImagenes().get(this.vista.getComboboxImg().get(i).getSelectedItem()) );
 			escalon.agregaParticipante(participante);
 		}
 	
