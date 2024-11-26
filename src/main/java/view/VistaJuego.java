@@ -29,6 +29,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import controller.ControladorJuego;
 import view.componentes.BotonPregunta;
+import view.componentes.FuentePersonalizada;
 import view.componentes.PanelEscalon;
 import view.componentes.PanelJugadorFinal;
 import view.componentes.PanelJugadorNormal;
@@ -92,23 +93,31 @@ public class VistaJuego extends JFrame {
 		//
 		
 		panelGanador = new JPanel();
-		panelGanador.setBounds(407, 115, 450, 450);
+		panelGanador.setBounds(407, 140, 450, 400);
 		contentPane.add(panelGanador);
 		panelGanador.setLayout(null);
 		
 		lblGanadorImagen = new JLabel("");
 		lblGanadorImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGanadorImagen.setVerticalAlignment(SwingConstants.CENTER);
 		lblGanadorImagen.setBounds(150, 11, 150, 150);
 		panelGanador.add(lblGanadorImagen);
 		
-		lblGanadorTexto = new JLabel("New label");
-		lblGanadorTexto.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		JLabel lblTexto = new JLabel("!Felicidades, has ganado los 8 ESCALONES!");
+		lblTexto.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
+		lblTexto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTexto.setBounds(10, 189, 430, 50);
+		panelGanador.add(lblTexto);
+		
+		lblGanadorTexto = new JLabel("");
 		lblGanadorTexto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGanadorTexto.setBounds(10, 193, 430, 159);
+		lblGanadorTexto.setVerticalAlignment(SwingConstants.TOP);
+		lblGanadorTexto.setFont(new FuentePersonalizada().getFuente("fonts/YatraOne-Regular.ttf", 40f));
+		lblGanadorTexto.setBounds(10, 250, 430, 90);
 		panelGanador.add(lblGanadorTexto);
 		
 		btnGanadorContinuar = new JButton("SALIR");
-		btnGanadorContinuar.setBounds(168, 399, 120, 40);
+		btnGanadorContinuar.setBounds(165, 349, 120, 40);
 		btnGanadorContinuar.setCursor(new Cursor(HAND_CURSOR));
 		panelGanador.add(btnGanadorContinuar);
 		
@@ -191,6 +200,7 @@ public class VistaJuego extends JFrame {
 		btnaproxEnviar = new JButton("CONFIRMAR");
 		btnaproxEnviar.setBounds(282, 306, 170, 65);
 		panelAproximacion.add(btnaproxEnviar);
+		btnaproxEnviar.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 15f));
 		btnaproxEnviar.setBackground(new Color(222, 226, 230));
 		btnaproxEnviar.setForeground(new Color(37, 36, 34));
 		
@@ -205,7 +215,8 @@ public class VistaJuego extends JFrame {
 		panelAproximacion.add(txtaproxRespuesta);
 		txtaproxRespuesta.setBackground(new Color(222, 226, 230));
 		txtaproxRespuesta.setForeground(new Color(37, 36, 34));
-		txtaproxRespuesta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, formateador);
+		txtaproxRespuesta.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Respuesta numerica");
+		txtaproxRespuesta.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica.ttf", 15f));
 
 		String[] column = {"Jugador", "Respuesta"};
 		defTable = new DefaultTableModel(null,column);
@@ -213,7 +224,8 @@ public class VistaJuego extends JFrame {
 		table.setBounds(214, 188, 347, 118);
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		table.getColumnModel().getColumn(1).setPreferredWidth(50);
-	    table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    table.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica.ttf", 20f));
+	    table.setRowHeight(28);
 	    table.getTableHeader().setReorderingAllowed(false);
 	    table.getTableHeader().setResizingAllowed(false);
 		sc = new JScrollPane();
@@ -227,10 +239,9 @@ public class VistaJuego extends JFrame {
 		panelAproximacion.add(panelPregunta);
 		
 		lblaproxPregunta = new JLabel();
-		lblaproxPregunta.setVerticalAlignment(SwingConstants.CENTER);
-		lblaproxPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblaproxPregunta.setBounds(0,0, 680, 190);
 		lblaproxPregunta.setForeground(new Color(37, 36, 34));
-		lblaproxPregunta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblaproxPregunta.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		panelPregunta.add(lblaproxPregunta);
 
 		panelAproximacion.setVisible(false);
@@ -249,25 +260,25 @@ public class VistaJuego extends JFrame {
 		btnpreRespuesta1.setBounds(260, 228, 280, 100);
 		btnpreRespuesta1.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta1.setCursor(new Cursor(HAND_CURSOR));
-		btnpreRespuesta1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnpreRespuesta1.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta1);
 		
 		btnpreRespuesta2.setBounds(620, 228, 280, 100);
 		btnpreRespuesta2.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta2.setCursor(new Cursor(HAND_CURSOR));
-		btnpreRespuesta2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnpreRespuesta2.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta2);
 		
 		btnpreRespuesta3.setBounds(260, 339, 280, 100);
 		btnpreRespuesta3.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta3.setCursor(new Cursor(HAND_CURSOR));
-		btnpreRespuesta3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnpreRespuesta3.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta3);
 
 		btnpreRespuesta4.setBounds(620, 339, 280, 100);
 		btnpreRespuesta4.setForeground(new Color(37, 36, 34));
 		btnpreRespuesta4.setCursor(new Cursor(HAND_CURSOR));
-		btnpreRespuesta4.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnpreRespuesta4.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 		panelPregunta_1.add(btnpreRespuesta4);
 		
 		JPanel panel = new JPanel();
@@ -277,7 +288,7 @@ public class VistaJuego extends JFrame {
 		panelPregunta_1.add(panel);		
 		lblprePregunta = new JLabel();
 		lblprePregunta.setBounds(0,0, 680, 190);
-		lblprePregunta.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblprePregunta.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		lblprePregunta.setForeground(new Color(37, 36, 34));
 		panel.add(lblprePregunta);	
 		
@@ -337,10 +348,12 @@ public class VistaJuego extends JFrame {
 	
 	// GET PANEL DEL GANADOR
 	public void setGanadorNombre(String nombre) {
-		lblGanadorTexto.setText("<html><center>¡Felicidades, has ganado<br><span style='font-weight:900;'>" + nombre + "!</span></center></html>");
+		lblGanadorTexto.setText(nombre);
 	}
 	public void setGanadorImagen(ImageIcon img) {
-		lblGanadorImagen.setIcon(img);
+        Image scaledGif = img.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT);
+        ImageIcon Gif = new ImageIcon(scaledGif);
+		lblGanadorImagen.setIcon(Gif);
 	}
 	
 	public JPanel getPanelGanador() {return panelGanador;}
@@ -372,5 +385,4 @@ public class VistaJuego extends JFrame {
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 	
 	public JPanel getPanelFinal() {return panelFinal;}
-	
 	}

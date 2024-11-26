@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControladorCreacionJug;
+import view.componentes.FuentePersonalizada;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,20 +69,20 @@ public class VistaCreacionJug extends JFrame{
 		
 		// LOGICA DE IMAGENES
         
-		this.imagenes.put(new ImageIcon("imagenes/playericon/playerBlack.png"), getGif("imagenes\\pinguim-penguin.gif"));
-		this.imagenes.put(new ImageIcon("imagenes/playericon/playerBlue.png"), getGif("imagenes\\angry-mad.gif"));
-		this.imagenes.put(new ImageIcon("imagenes/playericon/playerCyan.png"), getGif("imagenes\\baile-club.gif"));
-		this.imagenes.put(new ImageIcon("imagenes/playericon/playerRed.png"), getGif("imagenes\\club-penguin-penguin.gif"));
-		/* this.imagenes.add(new ImageIcon("imagenes/playericon/playerGreen.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerOrange.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerPink.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerPurple.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
-
-        this.imagenes.add(scaledGif); */
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerBlack.png"), new ImageIcon("imagenes/playericon/playerBlack.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerBlue.png"), new ImageIcon("imagenes/playericon/playerBlue.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerCyan.png"), new ImageIcon("imagenes/playericon/playerCyan.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerGreen.png"), new ImageIcon("imagenes/playericon/playerGreen.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerOrange.png"), new ImageIcon("imagenes/playericon/playerOrange.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerPink.png"), new ImageIcon("imagenes/playericon/playerPink.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerPurple.png"), new ImageIcon("imagenes/playericon/playerPurple.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerRed.png"), new ImageIcon("imagenes/playericon/playerRed.png"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerYellow.png"), new ImageIcon("imagenes/playericon/playerYellow.png"));
 		
-
+		this.imagenes.put(new ImageIcon("imagenes/baileNormal.png"), escalado("imagenes\\baileNormal.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/baile1.png"), escalado("imagenes\\baile1.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/baile2.png"), escalado("imagenes\\baile2.gif"));
+		
 		for (int i = 0; i < 9; i++) {
 			this.paneles.add(new JPanel(new GridBagLayout()));
 			this.paneles.get(i).setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
@@ -104,7 +105,7 @@ public class VistaCreacionJug extends JFrame{
 			
 			this.info.add(new Label("Jugador "+(i+1)));
 			this.info.get(i).setAlignment(SwingConstants.CENTER);
-			this.info.get(i).setFont(new Font("Tahoma", Font.BOLD, 20));	       
+			this.info.get(i).setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 	        gbc.gridx = 1;  
 	        gbc.gridy = 0; 
 	        gbc.gridwidth = 1; 
@@ -116,6 +117,7 @@ public class VistaCreacionJug extends JFrame{
 			
 			this.txtJugador.add(new JTextField());
 	        this.txtJugador.get(i).setPreferredSize(new Dimension(200, 50)); 
+	        this.txtJugador.get(i).setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 20f));
 	        gbc.gridx = 1;
 	        gbc.gridy = 1;
 	        gbc.gridwidth = 1; 
@@ -139,7 +141,7 @@ public class VistaCreacionJug extends JFrame{
 		
 	}
 
-	private ImageIcon getGif(String ruta) {
+	private ImageIcon escalado(String ruta) {
 		ImageIcon gif = new ImageIcon(ruta);
         Image scaledImage = gif.getImage().getScaledInstance(64,64,Image.SCALE_DEFAULT);
         ImageIcon scaledGif = new ImageIcon(scaledImage);

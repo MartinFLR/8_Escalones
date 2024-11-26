@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControladorRanking;
+import view.componentes.FuentePersonalizada;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,11 +46,10 @@ public class VistaRanking extends JFrame{
 		setUndecorated(true);
 		
 		JLabel lblRanking = new JLabel("RANKING");
-		lblRanking.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblRanking.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica.ttf", 30f));
 		lblRanking.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRanking.setBounds(17, 9, 765, 67);
 		contentPane.add(lblRanking);
-		lblRanking.setIcon(new FlatSVGIcon("star_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 50, 50));
 		
 		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));
 		btnSalir.setBounds(690, 499, 100, 40);
@@ -69,7 +69,8 @@ public class VistaRanking extends JFrame{
 		table.getColumnModel().getColumn(1).setPreferredWidth(400);
 	    table.getTableHeader().setReorderingAllowed(false);
 	    table.getTableHeader().setResizingAllowed(false);
-	    table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    table.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica.ttf", 22f));
+	    table.setRowHeight(30);
 		table.setBounds(26, 53, 499, 255);
 		
 		JScrollPane sc = new JScrollPane();
