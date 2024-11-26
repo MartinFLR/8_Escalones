@@ -14,7 +14,6 @@ import view.VistaPrincipal;
 
 public class ControladorPrincipal implements ActionListener{
 	private VistaPrincipal vista;
-	private ReproductorPrincipal rp;
 	
 	public ControladorPrincipal() {
 		this.vista = new VistaPrincipal(this);
@@ -44,8 +43,6 @@ public class ControladorPrincipal implements ActionListener{
 			btnHabilitar(true);});
 		
 		verificarEstadoSesion();
-		rp = ReproductorPrincipal.getInstance();
-		reproducirMusica(0);
 	}
 
 	private void btnHabilitar(Boolean booleano) {
@@ -78,25 +75,6 @@ public class ControladorPrincipal implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public void reproducirMusica(int i) { //para la musica
-		rp.setFile(i);
-		rp.reproducir();
-		rp.loop();
-	}	
-	
-	public void pausarMusica() {
-		rp.pausar();
-	}
-	
-	public void reproducirBotones(int i) { //botones 
-		rp.setFile(i);
-		rp.reproducir();
-	}
-
-	public ReproductorPrincipal getRp() {
-		return rp;
 	}
 
 
