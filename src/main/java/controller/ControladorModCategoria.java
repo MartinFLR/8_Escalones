@@ -222,9 +222,8 @@ public class ControladorModCategoria {
             } 
         } 
         
-        if (cumplen) {
+        if (!cumplen) {
 			vista.setVisible(false);
-		} else {
 			Notifications.getInstance().show(Notifications.Type.INFO, Notifications.Location.TOP_CENTER, "Todas la categoria deben tener 20 preguntas");
 			Notifications.getInstance().setJFrame(vista);
 		}
