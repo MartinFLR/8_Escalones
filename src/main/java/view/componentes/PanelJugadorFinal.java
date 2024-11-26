@@ -41,12 +41,12 @@ public class PanelJugadorFinal extends PanelJugadorPadre{
 		
 		gbc.gridx=0;
 		gbc.gridy=0;
-		gbc.insets= new Insets(5,15,5,5);
+		gbc.insets= new Insets(5,25,5,5);
 		add(lblimagenJugador, gbc);
 		
 		gbc.gridx=0;
 		gbc.gridy=1;
-		gbc.insets= new Insets(0,15,15,5);
+		gbc.insets= new Insets(0,25,15,5);
 		add(lblnombreJugador, gbc);
 
 		gbc.gridx=1;

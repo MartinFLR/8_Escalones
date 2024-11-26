@@ -46,8 +46,9 @@ public class VistaCreacionJug extends JFrame{
 	private ArrayList<JComboBox> comboboxImg = new ArrayList<JComboBox>();
 	private ArrayList <Label> info = new ArrayList<Label>();
 	
-	private Vector<ImageIcon> imagenes = new Vector<ImageIcon>();
+	private HashMap<ImageIcon, ImageIcon> imagenes = new HashMap<ImageIcon, ImageIcon>();
 	private ArrayList<JPanel> paneles = new ArrayList<>();
+
 	
 	public VistaCreacionJug (ControladorCreacionJug c) {
 		this.setC(c);
@@ -65,26 +66,20 @@ public class VistaCreacionJug extends JFrame{
 		panelCreacion.setLayout(gridlayout);
 		contentPane.add(panelCreacion);
 		
-
-		
 		// LOGICA DE IMAGENES
-		
-		
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlack.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerBlue.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerCyan.png"));
-		this.imagenes.add(new ImageIcon("imagenes/playericon/playerGreen.png"));
+        
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerBlack.png"), getGif("imagenes\\pinguim-penguin.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerBlue.png"), getGif("imagenes\\angry-mad.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerCyan.png"), getGif("imagenes\\baile-club.gif"));
+		this.imagenes.put(new ImageIcon("imagenes/playericon/playerRed.png"), getGif("imagenes\\club-penguin-penguin.gif"));
+		/* this.imagenes.add(new ImageIcon("imagenes/playericon/playerGreen.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerOrange.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerPink.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerPurple.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerRed.png"));
 		this.imagenes.add(new ImageIcon("imagenes/playericon/playerYellow.png")); 
-		
-		ImageIcon gif = new ImageIcon("imagenes\\pinguim-penguin.gif");
-        Image scaledImage = gif.getImage().getScaledInstance(64,64,Image.SCALE_DEFAULT);
-        ImageIcon scaledGif = new ImageIcon(scaledImage);
-        
-        this.imagenes.add(scaledGif); 
+
+        this.imagenes.add(scaledGif); */
 		
 
 		for (int i = 0; i < 9; i++) {
@@ -93,7 +88,7 @@ public class VistaCreacionJug extends JFrame{
 			GridBagConstraints gbc = new GridBagConstraints();
 			panelCreacion.add(this.paneles.get(i));
 			
-			this.comboboxImg.add(new JComboBox<>(imagenes));
+			this.comboboxImg.add(new JComboBox<>(imagenes.keySet().toArray(new ImageIcon[0])));
 			this.comboboxImg.get(i).setPreferredSize(new Dimension(110, 90));
 			this.comboboxImg.get(i).setMaximumRowCount(5);		
 			this.comboboxImg.get(i).setCursor(new Cursor(HAND_CURSOR));
@@ -144,6 +139,13 @@ public class VistaCreacionJug extends JFrame{
 		
 	}
 
+	private ImageIcon getGif(String ruta) {
+		ImageIcon gif = new ImageIcon(ruta);
+        Image scaledImage = gif.getImage().getScaledInstance(64,64,Image.SCALE_DEFAULT);
+        ImageIcon scaledGif = new ImageIcon(scaledImage);
+        return scaledGif;
+	}
+	
 	public ControladorCreacionJug getC() {
 		return c;
 	}
@@ -166,4 +168,10 @@ public class VistaCreacionJug extends JFrame{
 	public JButton getBtnJugar() {
 		return btnJugar;
 	}
+
+	public HashMap<ImageIcon, ImageIcon> getImagenes() {
+		return imagenes;
+	}
+	
+	
 }
