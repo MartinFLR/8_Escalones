@@ -24,8 +24,8 @@ public class ControladorRanking implements ActionListener{
 		this.vista.setVisible(true);
 		this.participantesDAO = new ParticipantesDAO();
 		if (!ManagerSession.estaLogueado()) {
-            this.vista.getBtnEliminarRanking().setEnabled(false);
-            this.vista.getBtnModificarRanking().setEnabled(false);
+            this.vista.getBtnEliminarRanking().setVisible(false);
+            this.vista.getBtnModificarRanking().setVisible(false);
         }
 		this.rellenarTablas();
 		inicializarBotones();
