@@ -1,4 +1,10 @@
-# Los 8 escalones
+# Trabajo Final POO
+
+<p align="center">
+<img src="./imagenes/8escalones.png" width="500px">
+</p>
+
+## Consigna
 
 - Participan 9 jugadores que deberán ir avanzando por 8 escalones en los cuales se irá eliminando a uno por cada subida, llegando al último escalón una final de dos jugadores.
 - Cada escalón tiene una temática que será elegida al azar antes de comenzar el juego y los jugadores se irán enterando si avanzan a ese escalón.
@@ -8,20 +14,40 @@
 
 ## Pautas a evaluar
 
-- [x] Utilizar el paradigma orientado a objetos (Uso de los conceptos vistos en la materia).
-- [x] Hacer uso de al menos 3 patrones de diseño. (En este caso, Singleton, State y MVC).
-- [x] Tener una IGU (Interfaz gráfica) acorde al problema a solucionar.
+- Utilizar el paradigma orientado a objetos (Uso de los conceptos vistos en la materia).
+- Hacer uso de al menos 3 patrones de diseño. (En este caso, Singleton, DAO, State y MVC).
+- Tener una IGU (Interfaz gráfica) acorde al problema a solucionar.
 
 ## Partes importantes del sistema:
 
-- Gestión de la BD para poder contar con la información necesaria de los jugadores, temas y preguntas.
-- ABM de participantes.
-- ABM de preguntas.
-- ABM de Temas.
-- IGU.
+- [x] Gestión de la BD para poder contar con la información necesaria de los jugadores, temas y preguntas.
+- [x] ABM de participantes.
+- [x] ABM de preguntas.
+- [x] ABM de Temas.
+- [x] IGU.
 
 ## Grupos
 
 - **Lógica**: Botha Ana, Montiel Nicolas, Rojas Axel
 - **ABM**: Bustamante Nicolas, Flores Martin, Titos Felix Aldo
-- **IGU**: Arbita Rodrigo, Lopez Gabriel, Toconas Walter
+- **IGU**: Arbita Rodrigo, Lopez Gabriel
+
+## Screenshots
+
+<p align="center">
+    <img src ="./imagenes/screenshots/VistaPrincipal.png" width="450">
+  <img src="./imagenes/screenshots/VistaJuego.png" width="450" />
+  <br> 
+  <img src="./imagenes/screenshots/PanelAproximacion.png" width="450" />
+  <img src="./imagenes/screenshots/PanelFinal.png" width="450" />
+</p>
+
+### ABM
+
+<p align="center">
+    <img src ="./imagenes/screenshots/VistaLogin.png" width="450">
+  <img src="./imagenes/screenshots/VistaBusqueda.png" width="450" />
+  <br> 
+  <img src="./imagenes/screenshots/VistaTemas.png" width="450" />
+  <img src="./imagenes/screenshots/VistaRanking.png" width="450" />
+</p>

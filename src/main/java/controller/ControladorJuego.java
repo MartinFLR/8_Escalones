@@ -276,7 +276,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         PreguntaAproximacion pregunta = participante.getPregEmpate();
         this.vista.getPanelPregunta().setVisible(false);
-        this.vista.getlblaproxPregunta().setText("<html><div style='width:450px; text-align:center;margin-left: 85px;'>" + pregunta.getPregunta() + "</div></html>");
+        this.vista.getlblaproxPregunta().setText("<html><div style='width:450px; text-align:center;margin-top:45px'>" + pregunta.getPregunta() + "</div></html>");
         this.vista.getTxtaproxRespuesta().requestFocusInWindow();
         int posParticipante = escalon.getParticipantes().indexOf(participante);
         if (this.escalon.getEscalon()<7){
