@@ -35,19 +35,19 @@
 ## Screenshots
 
 <p align="center">
-    <img src ="./imagenes/screenshots/VistaPrincipal.png" width="450">
-  <img src="./imagenes/screenshots/VistaJuego.png" width="450" />
+    <img src ="./imagenes/screenshots/VistaPrincipal.png" width="300">
+  <img src="./imagenes/screenshots/VistaJuego.png" width="300" />
   <br> 
-  <img src="./imagenes/screenshots/PanelAproximacion.png" width="450" />
-  <img src="./imagenes/screenshots/PanelFinal.png" width="450" />
+  <img src="./imagenes/screenshots/PanelAproximacion.png" width="300" />
+  <img src="./imagenes/screenshots/PanelFinal.png" width="300" />
 </p>
 
 ### ABM
 
 <p align="center">
-    <img src ="./imagenes/screenshots/VistaLogin.png" width="450">
-  <img src="./imagenes/screenshots/VistaBusqueda.png" width="450" />
+    <img src ="./imagenes/screenshots/VistaLogin.png" width="300">
+  <img src="./imagenes/screenshots/VistaBusqueda.png" width="300" />
   <br> 
-  <img src="./imagenes/screenshots/VistaTemas.png" width="450" />
-  <img src="./imagenes/screenshots/VistaRanking.png" width="450" />
+  <img src="./imagenes/screenshots/VistaTemas.png" width="300" />
+  <img src="./imagenes/screenshots/VistaRanking.png" width="300" />
 </p>
