@@ -28,13 +28,33 @@ public class ControladorPrincipal implements ActionListener{
 		vista.getBtnLogin().addActionListener(e -> {new ControladorLogin(this);});
 		vista.getBtnModificar().addActionListener(e -> {new ControladorModCategoria();});
 		
-		vista.getBtnAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(true);});
-		vista.getBtnSalirAyuda().addActionListener(e -> {vista.getPanelAyuda().setVisible(false);});
-		vista.getBtnCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(true);});
-		vista.getBtnSalirCreditos().addActionListener(e -> {vista.getPanelCreditos().setVisible(false);});
+		vista.getBtnAyuda().addActionListener(e -> {
+			vista.getPanelAyuda().setVisible(true);
+			btnHabilitar(false);});
+		vista.getBtnSalirAyuda().addActionListener(e -> {
+			vista.getPanelAyuda().setVisible(false);
+			btnHabilitar(true);});
+		
+		vista.getBtnCreditos().addActionListener(e -> {
+			vista.getPanelCreditos().setVisible(true);
+			btnHabilitar(false);});
+		vista.getBtnSalirCreditos().addActionListener(e -> {
+			vista.getPanelCreditos().setVisible(false);
+			btnHabilitar(true);});
+		
 		verificarEstadoSesion();
 	}
 
+	private void btnHabilitar(Boolean booleano) {
+		vista.getBtnJugar().setEnabled(booleano);
+		vista.getBtnOpciones().setEnabled(booleano);
+		vista.getBtnRanking().setEnabled(booleano);
+		vista.getBtnAyuda().setEnabled(booleano);
+		vista.getBtnSalir().setEnabled(booleano);
+		vista.getBtnCreditos().setEnabled(booleano);
+		vista.getBtnModificar().setEnabled(booleano);
+	}
+	
 	public VistaPrincipal getVista() {
 		return vista;
 	}

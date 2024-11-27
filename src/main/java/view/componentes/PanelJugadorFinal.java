@@ -19,6 +19,7 @@ import model.Participante;
 
 public class PanelJugadorFinal extends PanelJugadorPadre{
 
+	private static final long serialVersionUID = 1L;
 	protected ArrayList<JPanel> errores = new ArrayList<JPanel>();
 
 	public PanelJugadorFinal () {
