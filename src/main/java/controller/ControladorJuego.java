@@ -321,6 +321,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 mostrarPreguntaEmpate();
             }else{
                 huboEmpate= false;
+                Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"La respuesta correcta era: " + participantes.get(0).getPregEmpate().getRespuestaCorrecta());
+                Notifications.getInstance().setJFrame(vista);
                 manejarFinDeRonda();
             }
         } else {
