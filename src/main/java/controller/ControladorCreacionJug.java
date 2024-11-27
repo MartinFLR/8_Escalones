@@ -1,8 +1,6 @@
 package controller;
 
-
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -95,6 +93,7 @@ public class ControladorCreacionJug {
 	
 		escalon.repartirPreguntas();
 		new ControladorJuego(this.escalon);
+		vista.dispose();
 	}
 
 }

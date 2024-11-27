@@ -321,6 +321,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 mostrarPreguntaEmpate();
             }else{
                 huboEmpate= false;
+                Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"La respuesta correcta era: " + participantes.get(0).getPregEmpate().getRespuestaCorrecta());
+                Notifications.getInstance().setJFrame(vista);
                 manejarFinDeRonda();
             }
         } else {
@@ -584,8 +586,14 @@ public class ControladorJuego implements ActionListener, KeyListener {
         }
     }
 
+	
+    
     //Procesar preguntas y respuestas
     private void inicializarActionListeners(){
+    	
+    	this.vista.getBtnprePausa().addActionListener(e -> {new ControladorMenupausa(this);});
+    	this.vista.getBtnaproxPausa().addActionListener(e -> {new ControladorMenupausa(this);});
+    	
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
             if (esperandoRespuesta ) {
                 if (this.escalon.getEscalon()==7 ){
@@ -635,7 +643,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 }
             }
         });
-
+        
         this.vista.getBtnGanadorContinuar().addActionListener(e->{
             this.vista.setbackgroundOriginal();
             this.vista.dispose();
@@ -669,10 +677,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
                     }
                 }
                 case KeyEvent.VK_ENTER -> vista.getBtnaproxEnviar().doClick();
+               
             }
         }
     };
 
+    
         this.vista.getBtnpreRespuesta1().addKeyListener(keyListener);
         this.vista.getBtnpreRespuesta2().addKeyListener(keyListener);
         this.vista.getBtnpreRespuesta3().addKeyListener(keyListener);
@@ -701,6 +711,14 @@ public class ControladorJuego implements ActionListener, KeyListener {
             indice++;
         }
     }
+    
+    @Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
+			new ControladorMenupausa(this);
+		}
+	}
+    
 	private void poneNombres(){
         for (int i = 0; i < 9; i++) {
 			this.vista.getJugadorNormal().get(i).setNombre(escalon.getParticipantes().get(i).getNombre());
@@ -712,12 +730,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
-			new ControladorMenupausa();
-		}
-	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -728,4 +741,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public VistaJuego getVista() {
+		return vista;
+	}
+	
 }
