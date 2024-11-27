@@ -54,6 +54,10 @@ public class VistaOpciones extends JFrame {
 		
 		sliderSonido = new JSlider();
 		sliderSonido.setBounds(41, 225, 218, 51);
+	    sliderSonido.setMinimum(-50);        
+	    sliderSonido.setMaximum(6);          
+	    sliderSonido.setValue(0);            
+	    sliderSonido.setMajorTickSpacing(10);
 		contentPane.add(sliderSonido);
 		
 		btnSalir = new JButton("Volver", new FlatSVGIcon("arrow_back_ios_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg", 20, 20));

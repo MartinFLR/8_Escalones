@@ -56,8 +56,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Cant aciertos
             // Filtrar participantes
 		    // Subir escalon
-        rp = ReproductorPrincipal.getInstance();
-        sonido = new Sonido();
+        this.rp = ReproductorPrincipal.getInstance();
+        this.sonido = Sonido.getInstance();
 	}
 
     private void poneColoresAEscalones(){
@@ -153,11 +153,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
             PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst();
             if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
                 this.vista.getJugadorNormal().get(posParticipante).setAcierto(participante);
-                sonido.reproducirmusica(0);
+                sonido.reproducirmusica(0,sonido.getNumero());
                 participante.sumaAcierto();
             } else {
                 this.vista.getJugadorNormal().get(posParticipante).setError(participante);
-                sonido.reproducirmusica(1);
+                sonido.reproducirmusica(1,sonido.getNumero());
                 participante.sumaError();
             }
             participante.getPreguntasParticipante().remove(0);
