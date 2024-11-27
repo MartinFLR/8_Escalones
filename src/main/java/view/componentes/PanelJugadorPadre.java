@@ -11,6 +11,7 @@ import model.Participante;
 
 public abstract class PanelJugadorPadre extends JPanel{
 
+	private static final long serialVersionUID = 1L;
 	protected ImageIcon imgJugador;
 	protected String nombreJugador;
 
