@@ -2,8 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import model.ABM.PreguntaOpcionDAO;
-
 @SuppressWarnings("FieldMayBeFinal")
 public class PreguntaOpcion extends Preguntas {
 
@@ -112,7 +110,7 @@ public class PreguntaOpcion extends Preguntas {
     public void setOpcionD(String opcion) {
         this.opcion_d = opcion;
     }
-
+    @Override
     public String getRespuestaCorrecta(){
         return this.respuesta_correcta;
     }

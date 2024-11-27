@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class Participante {
     private int id_participante;
-    private String nombre_participante;//fijarse que no pueda tener el mismo nombre que otro participante
+    private String nombre_participante;
     private final List<PreguntaOpcion> preguntas = new ArrayList<>();
     private String respuestaParticipante;
     private PreguntaAproximacion pregEmpate;
@@ -18,8 +18,6 @@ public class Participante {
     private int vecesGanadas;
     private ImageIcon img;
 
-//holaaa soy martin, usen el setImg para setear la imagen, asi no tenemos como 10 constructores :P
-
     //Constructores
     public Participante(int id, String nombre) {
         this.id_participante = id;
@@ -27,7 +25,7 @@ public class Participante {
     }
 
     // Constructor sin id para agregar participantes
-    public Participante(String nombre) { //agregué imageIcon, entonces tuve que comentar los constructores en testJuego para que ande.
+    public Participante(String nombre) { 
         this.nombre_participante = nombre;
     }
 

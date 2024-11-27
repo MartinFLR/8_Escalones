@@ -3,7 +3,6 @@ package model;
 public class PreguntaAproximacion extends Preguntas{
     
     private String respuesta_correcta;
-    private Respuesta respuesta;
 
     //Constructores
     public PreguntaAproximacion(String pregunta, int id_tema){
@@ -29,6 +28,7 @@ public class PreguntaAproximacion extends Preguntas{
     }
 
     //Getters y Setters
+    @Override
     public String getRespuestaCorrecta(){
         return this.respuesta_correcta;
     }
