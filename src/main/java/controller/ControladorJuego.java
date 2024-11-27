@@ -15,6 +15,7 @@ import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.ReproductorPrincipal;
+import model.Sonido;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import raven.toast.Notifications;
@@ -35,6 +36,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private List<String> respuestasJugador;
     private final HashMap<Integer, Color> colorEscalon = new HashMap<>();
     private ReproductorPrincipal rp;
+    private Sonido sonido;
 
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
@@ -54,6 +56,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Filtrar participantes
 		    // Subir escalon
         rp = ReproductorPrincipal.getInstance();
+        sonido = new Sonido();
 	}
 
     private void poneColoresAEscalones(){
@@ -149,9 +152,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
             PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst();
             if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
                 this.vista.getJugadorNormal().get(posParticipante).setAcierto(participante);
+                sonido.reproducirmusica(0);
                 participante.sumaAcierto();
             } else {
                 this.vista.getJugadorNormal().get(posParticipante).setError(participante);
+                sonido.reproducirmusica(1);
                 participante.sumaError();
             }
             participante.getPreguntasParticipante().remove(0);
