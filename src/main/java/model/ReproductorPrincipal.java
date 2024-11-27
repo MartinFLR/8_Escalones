@@ -17,10 +17,9 @@ public class ReproductorPrincipal {
     private File[] rutas = new File[15];
     private FloatControl volumeControl;
     
-    public ReproductorPrincipal() {
+    private ReproductorPrincipal() {
     	rutas[0] = new File("musica/musicaPrincipal.wav");
         rutas[1] = new File("musica/musicaFinal.wav");
-        rutas[2] = new File("musica/muerte.wav");
     }
     
     public void setFile(int i) {

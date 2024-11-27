@@ -207,6 +207,15 @@ public class VistaCreacionPreguntas extends JFrame{
 	public JTextField getTextPreguntaAproximacion() {
 		return textPreguntaAproximacion;
 	}
+	public JPanel getPanelOpcion() {
+		return panelOpcion;
+	}
+	public JPanel getPanelAproximacion() {
+		return panelAproximacion;
+	}
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
 
 
 }

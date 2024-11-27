@@ -132,8 +132,10 @@ public class ControladorCreacionPreguntas{
     
     public void mostrarCampos() {    	
     	if ( getC().getTipoPregunta() == "Aproximacion") {
+            getVista().getTabbedPane().setSelectedComponent(getVista().getPanelAproximacion()); 
     		getVista().getTextPreguntaAproximacion().setText(getC().getPregunta());
 		} else if (getC().getTipoPregunta() == "Opcion multiple") {
+			 getVista().getTabbedPane().setSelectedComponent(getVista().getPanelOpcion()); 
 			getVista().getTextPreguntaOpcion().setText(getC().getPregunta());
 		}
     }
