@@ -8,6 +8,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 //?
 
 import model.ReproductorPrincipal;
+import model.Sonido;
 
 public class Main {
 	public static void main(String[] args) {
