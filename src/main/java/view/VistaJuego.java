@@ -72,6 +72,9 @@ public class VistaJuego extends JFrame {
 	
 	private JLabel background;
 	
+	private JButton btnprePausa;
+	private JButton btnaproxPausa;
+	
 	
 	public VistaJuego(ControladorJuego c) {
 		this.setC(c);
@@ -198,6 +201,8 @@ public class VistaJuego extends JFrame {
 		gridLayoutFinal.setVgap(10); 
 		panelFinal.setLayout(gridLayoutFinal);
 		
+		
+		
 		for (int i = 0; i < 2; i++) {
 			panelFinal.add(this.jugadorFinal.get(i));
 		}
@@ -268,8 +273,14 @@ public class VistaJuego extends JFrame {
 		lblaproxPregunta.setForeground(new Color(37, 36, 34));
 		lblaproxPregunta.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		panelPregunta.add(lblaproxPregunta);
+		
+		btnaproxPausa = new JButton();
+		btnaproxPausa.setBounds(1111, 11, 60, 60);
+		panelAproximacion.add(btnaproxPausa);
+		btnaproxPausa.setIcon(new FlatSVGIcon("pause_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg"));
 
 		panelAproximacion.setVisible(false);
+		
 		
 		//
 		// PANEL PREGUNTA
@@ -324,6 +335,11 @@ public class VistaJuego extends JFrame {
 		lblprePregunta.setFont(new FuentePersonalizada().getFuente("fonts/Helvetica Bold Condensed.otf", 30f));
 		lblprePregunta.setForeground(new Color(37, 36, 34));
 		panel.add(lblprePregunta);	
+		
+		btnprePausa = new JButton();
+		btnprePausa.setBounds(1111, 11, 60, 60);
+		btnprePausa.setIcon(new FlatSVGIcon("pause_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg"));
+		panelPregunta_1.add(btnprePausa);
 		
 		
 		
@@ -418,4 +434,9 @@ public class VistaJuego extends JFrame {
 	public void setTxtaproxRespuesta(JFormattedTextField txtaproxRespuesta) {this.txtaproxRespuesta = txtaproxRespuesta;}
 	
 	public JPanel getPanelFinal() {return panelFinal;}
+
+	public JButton getBtnprePausa() {return btnprePausa;}
+	public JButton getBtnaproxPausa() {return btnaproxPausa;}
+	
+	
 	}
