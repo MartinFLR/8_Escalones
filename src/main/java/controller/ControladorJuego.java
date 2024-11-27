@@ -591,8 +591,12 @@ public class ControladorJuego implements ActionListener, KeyListener {
     //Procesar preguntas y respuestas
     private void inicializarActionListeners(){
     	
-    	this.vista.getBtnprePausa().addActionListener(e -> {new ControladorMenupausa(this);});
-    	this.vista.getBtnaproxPausa().addActionListener(e -> {new ControladorMenupausa(this);});
+    	this.vista.getBtnprePausa().addActionListener(e -> {
+    		esperandoRespuesta=false;
+    		new ControladorMenupausa(this);});
+    	this.vista.getBtnaproxPausa().addActionListener(e -> {
+    		esperandoRespuesta=false;
+    		new ControladorMenupausa(this);});
     	
         this.vista.getBtnpreRespuesta1().addActionListener(e -> {
             if (esperandoRespuesta ) {
@@ -745,5 +749,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
 	public VistaJuego getVista() {
 		return vista;
 	}
+
+	public void setEsperandoRespuesta(boolean esperandoRespuesta) {
+		this.esperandoRespuesta = esperandoRespuesta;
+	}
+	
+	
 	
 }
