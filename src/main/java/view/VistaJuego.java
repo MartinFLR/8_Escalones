@@ -277,7 +277,7 @@ public class VistaJuego extends JFrame {
 		btnaproxPausa = new JButton();
 		btnaproxPausa.setBounds(1111, 11, 60, 60);
 		panelAproximacion.add(btnaproxPausa);
-		btnaproxPausa.setIcon(new FlatSVGIcon("pause_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg"));
+		btnaproxPausa.setIcon(new FlatSVGIcon("menu_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg"));
 
 		panelAproximacion.setVisible(false);
 		
@@ -338,7 +338,7 @@ public class VistaJuego extends JFrame {
 		
 		btnprePausa = new JButton();
 		btnprePausa.setBounds(1111, 11, 60, 60);
-		btnprePausa.setIcon(new FlatSVGIcon("pause_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg"));
+		btnprePausa.setIcon(new FlatSVGIcon("menu_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg"));
 		panelPregunta_1.add(btnprePausa);
 		
 		
