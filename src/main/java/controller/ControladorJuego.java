@@ -276,15 +276,20 @@ public class ControladorJuego implements ActionListener, KeyListener {
         if (this.escalon.getEscalon()<7){
             this.vista.getJugadorNormal().get(posParticipante).setRespondiendo();
         }else{
-            this.vista.getJugadorFinal().get(posParticipante).setRespondiendo();
             if (posParticipante==0){
-                this.vista.getJugadorFinal().get(posParticipante).setActivo();
+                this.vista.getJugadorFinal().get(0).setRespondiendo();
+                this.vista.getJugadorFinal().get(1).setActivo();
             }
         }
         
         esperandoRespuesta = true;
     }
     private void procesarRespuestaEmpate(Double respuesta){
+        if(this.escalon.getEscalon()==7){
+            this.vista.getJugadorFinal().get(0).setActivo();
+            this.vista.getJugadorFinal().get(1).setRespondiendo();
+
+        }
         Participante participante = getParticipantesAEliminar().get(turnoJugador);
         indiceEmpate = escalon.getParticipantes().indexOf(participante);
         participante.setRespuestaParticipanteEmpate(respuesta);
@@ -388,9 +393,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 if (escalon.getParticipantes().get(0).getCantAciertos() > escalon.getParticipantes().get(1).getCantAciertos() + (preguntasRestantes/2) ||
                 escalon.getParticipantes().get(1).getCantAciertos() > escalon.getParticipantes().get(0).getCantAciertos() + (preguntasRestantes/2)) { 
                     verificarRondaFinalYGanador();
-                } else {
-                    mostrarPreguntaActual();
-                }
+                } 
             }
             if (!this.escalon.getParticipantes().get(turnoJugador).getPreguntasParticipante().isEmpty()) {
                 mostrarPreguntaActual();
@@ -480,10 +483,9 @@ public class ControladorJuego implements ActionListener, KeyListener {
             escalon.getEstadoDeRonda().setRondaDeEmpate(participantesFinales);
             escalon.getEstadoDeRonda().actualizarDatos(participantesFinales, escalon.getTema());
             this.vista.getPanelAproximacion().setVisible(true);
-            setActivosEmpatados();
+            this.vista.getJugadorFinal().get(0).setRespondiendo();
+            this.vista.getJugadorFinal().get(1).setActivo();
             mostrarPreguntaEmpate();
-            
-            
             }}
     private void empateFinal(){
         if (huboEmpate==false){

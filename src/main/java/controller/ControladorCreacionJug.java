@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import model.*;
 import model.ABM.PreguntaAproximacionDAO;
 import model.ABM.PreguntaOpcionDAO;
 import model.ABM.TemasDAO;
+import model.Participante;
+import model.PreguntaAproximacion;
+import model.PreguntaOpcion;
+import model.Tema;
 import model.logica.Escalon;
 import view.VistaCreacionJug;
 
@@ -39,11 +42,6 @@ public class ControladorCreacionJug {
 		this.escalon = new Escalon();
 		Collections.shuffle((listaTemas));
 		this.escalon.setTemas(listaTemas);
-		int indice = 0;
-		for(Tema t : listaTemas){
-			System.out.println(t.getNombre()+ indice);
-			indice++;
-		}
 		this.escalon.setTema();
 		vista.getBtnJugar().addActionListener(e -> creaParticipantes());
 	}
