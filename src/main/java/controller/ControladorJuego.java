@@ -15,6 +15,7 @@ import model.Participante;
 import model.PreguntaAproximacion;
 import model.PreguntaOpcion;
 import model.ReproductorPrincipal;
+import model.Sonido;
 import model.logica.Escalon;
 import model.logica.Ronda;
 import raven.toast.Notifications;
@@ -35,6 +36,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
     private List<String> respuestasJugador;
     private final HashMap<Integer, Color> colorEscalon = new HashMap<>();
     private ReproductorPrincipal rp;
+    private Sonido sonido;
+    private int preguntasRestantes = 20; //20 ya que son las 10 mismas preguntas para cada uno
 
 	public ControladorJuego(Escalon escalon) {
 		this.escalon = escalon;
@@ -54,6 +57,7 @@ public class ControladorJuego implements ActionListener, KeyListener {
             // Filtrar participantes
 		    // Subir escalon
         rp = ReproductorPrincipal.getInstance();
+        sonido = new Sonido();
 	}
 
     private void poneColoresAEscalones(){
@@ -149,9 +153,11 @@ public class ControladorJuego implements ActionListener, KeyListener {
             PreguntaOpcion preguntaActual = participante.getPreguntasParticipante().getFirst();
             if (respuesta.equals(preguntaActual.getRespuestaCorrecta())) {
                 this.vista.getJugadorNormal().get(posParticipante).setAcierto(participante);
+                sonido.reproducirmusica(0);
                 participante.sumaAcierto();
             } else {
                 this.vista.getJugadorNormal().get(posParticipante).setError(participante);
+                sonido.reproducirmusica(1);
                 participante.sumaError();
             }
             participante.getPreguntasParticipante().remove(0);
@@ -315,6 +321,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
                 mostrarPreguntaEmpate();
             }else{
                 huboEmpate= false;
+                Notifications.getInstance().show(Notifications.Type.INFO,Notifications.Location.TOP_CENTER,"La respuesta correcta era: " + participantes.get(0).getPregEmpate().getRespuestaCorrecta());
+                Notifications.getInstance().setJFrame(vista);
                 manejarFinDeRonda();
             }
         } else {
@@ -379,6 +387,8 @@ public class ControladorJuego implements ActionListener, KeyListener {
     
                 // Eliminar la pregunta actual  del participante
                 p.getPreguntasParticipante().remove(0);
+                preguntasRestantes--;
+                System.out.println("preguntas restantes: " + preguntasRestantes);
             }
         // Reiniciar la lista de respuestas para la siguiente ronda
             for (int i = 0; i < this.escalon.getParticipantes().size(); i++) {
@@ -386,6 +396,15 @@ public class ControladorJuego implements ActionListener, KeyListener {
             }
             if (turnoJugador >= escalon.getParticipantes().size()) {
                 turnoJugador = 0;
+            }
+
+            if (preguntasRestantes % 2 == 0) { // Verifica cuando sea par ya que me asegura que respondieron los 2
+                if (escalon.getParticipantes().get(0).getCantAciertos() > escalon.getParticipantes().get(1).getCantAciertos() + (preguntasRestantes/2) ||
+                escalon.getParticipantes().get(1).getCantAciertos() > escalon.getParticipantes().get(0).getCantAciertos() + (preguntasRestantes/2)) { 
+                    verificarRondaFinalYGanador();
+                } else {
+                    mostrarPreguntaActual();
+                }
             }
             if (!this.escalon.getParticipantes().get(turnoJugador).getPreguntasParticipante().isEmpty()) {
                 mostrarPreguntaActual();
